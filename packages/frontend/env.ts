@@ -11,14 +11,9 @@ const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_LOCATION: z.string().url(),
-    NEXT_PUBLIC_INSTAGRAM_APP_ID: z.string(),
-    NEXT_PUBLIC_INSTAGRAM_REDIRECT_PATH: z.string(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_LOCATION: process.env.NEXT_PUBLIC_LOCATION,
-    NEXT_PUBLIC_INSTAGRAM_APP_ID: process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID,
-    NEXT_PUBLIC_INSTAGRAM_REDIRECT_PATH:
-      process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_PATH,
   },
 })
 

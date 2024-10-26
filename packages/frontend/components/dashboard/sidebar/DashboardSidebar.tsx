@@ -7,8 +7,8 @@ import {
 import { dashboardSidebarItems } from './data/dashboardSidebarItems'
 import DashboardSidebarMenuItem from './DashboardSidebarMenuItem'
 import DashboardSidebarFooter from './footer/DashboardSidebarFooter'
-import DashboardSidebarConnect from './DashboardSidebarConnect'
 import DashboardSidebarHeader from './header/DashboardSidebarHeader'
+import DashboardSidebarSettings from './DashboardSidebarSettings'
 
 export default function DashboardSidebar() {
   return (
@@ -20,7 +20,7 @@ export default function DashboardSidebar() {
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
         </SidebarMenu>
-        <DashboardSidebarConnect />
+        <DashboardSidebarSettings />
       </SidebarContent>
       <DashboardSidebarFooter />
       <SidebarRail />

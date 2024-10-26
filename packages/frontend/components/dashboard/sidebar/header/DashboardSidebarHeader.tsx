@@ -5,7 +5,7 @@ import DashboardSidebarHeaderThemeToggle from './DashboardSidebarHeaderThemeTogg
 export default function DashboardSidebarHeader() {
   return (
     <SidebarHeader className="h-10 border-b w-full font-black flex flex-row items-center justify-between">
-      <Link href="/">Post Pad</Link>
+      <Link href="/">Remio</Link>
       <DashboardSidebarHeaderThemeToggle />
     </SidebarHeader>
   )

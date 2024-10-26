@@ -10,29 +10,21 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
-import { ChevronRight, LinkIcon } from 'lucide-react'
+import { ChevronRight, Settings } from 'lucide-react'
 import { getIconWithClassName } from './functions/getIconWithClassName'
 
 const item = {
-  title: 'Connect',
-  icon: <LinkIcon />,
+  title: 'Settings',
+  icon: <Settings />,
   isActive: false,
   items: [
     {
-      title: 'Instagram',
-      url: '/dashboard/connect/instagram',
-    },
-    {
-      title: 'TikTok',
-      url: '/dashboard/connect/tiktok',
-    },
-    {
-      title: 'Twitter',
-      url: '/dashboard/connect/twitter',
+      title: 'Account',
+      url: '/dashboard/settings/account',
     },
   ],
 }
-export default function DashboardSidebarConnect() {
+export default function DashboardSidebarSettings() {
   const iconWithClassName = getIconWithClassName(item.icon, 'min-w-4 min-h-4')
   return (
     <Collapsible

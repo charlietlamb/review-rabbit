@@ -61,6 +61,17 @@ body {
     --theme-800: #27272a;
     --theme-900: #18181b;
     --theme-950: #09090b;
+    --accent-50: #f0fdf4;
+    --accent-100: #dcfce7;
+    --accent-200: #bbf7d0;
+    --accent-300: #86efac;
+    --accent-400: #4ade80;
+    --accent-500: #22c55e;
+    --accent-600: #16a34a;
+    --accent-700: #166534;
+    --accent-800: #16532e;
+    --accent-900: #154628;
+    --accent-950: #052e16;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -109,6 +120,17 @@ body {
     --theme-800: #e4e4e7;
     --theme-900: #f4f4f5;
     --theme-950: #fafafa;
+    --accent-50: #052e16;
+    --accent-100: #154628;
+    --accent-200: #16532e;
+    --accent-300: #166534;
+    --accent-400: #16a34a;
+    --accent-500: #22c55e;
+    --accent-600: #4ade80;
+    --accent-700: #86efac;
+    --accent-800: #bbf7d0;
+    --accent-900: #dcfce7;
+    --accent-950: #f0fdf4;
   }
 }
 

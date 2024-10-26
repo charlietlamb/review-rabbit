@@ -8,7 +8,8 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/backend/*": ["../backend/*"]
     },
 
     "noEmit": true,

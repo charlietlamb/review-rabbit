@@ -1,12 +1,7 @@
+import getUserFromId from '@/actions/auth/user/getUserFromId'
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
 
-export default async function useAuth(invert = false) {
+export default async function useAuth(): Promise<User | null> {
   const session = await auth()
-  if (!session && !invert) {
-    return redirect('/login')
-  } else if (session && invert) {
-    return redirect('/dashboard')
-  }
-  return session
+  return await getUserFromId(session?.user.id!)
 }

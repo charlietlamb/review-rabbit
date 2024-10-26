@@ -1,5 +1,12 @@
 'use client'
 
+import {
+  Dialog,
+  DialogHeader,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { UploadDropzone } from '@/lib/uploadthing'
 
 export default function UploadFile() {

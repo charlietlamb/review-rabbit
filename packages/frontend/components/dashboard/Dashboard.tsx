@@ -1,4 +1,3 @@
-import DashboardHeader from './header/DashboardHeader'
 import Upload from './upload/Upload'
 
 export default function Dashboard() {

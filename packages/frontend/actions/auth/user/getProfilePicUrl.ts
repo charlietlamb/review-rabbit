@@ -6,7 +6,7 @@ export async function getProfilePicUrl(userId: string) {
   })
   const data = await response.json()
   if ('error' in data) {
-    throw new Error(data.error)
+    return null
   }
   return data.presignedUrl
 }

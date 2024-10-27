@@ -1,6 +1,5 @@
 'use client'
 
-import { userAtom } from '@/atoms/user/userAtom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -12,22 +11,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { getProfilePicUrl } from '@/lib/getProfilePicUrl'
-import { useAtomValue } from 'jotai'
+import useUser from '@/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export default function DashboardSidebarFooter() {
-  const user = useAtomValue(userAtom)
-  const [image, setImage] = useState<string | undefined>(undefined)
-  useEffect(() => {
-    async function fetchImage() {
-      if (!user?.id) return
-      const presignedUrl = await getProfilePicUrl(user.id)
-      setImage(presignedUrl)
-    }
-    fetchImage()
-  }, [user])
+  const user = useUser()
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -40,7 +28,7 @@ export default function DashboardSidebarFooter() {
               >
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={image}
+                    src={user.profilePicUrl ?? undefined}
                     alt={user?.name ?? ''}
                     className="object-cover mx-auto my-auto"
                   />

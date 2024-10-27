@@ -14,9 +14,8 @@ import { Mail } from 'lucide-react'
 import ImageUpload from '@/components/form/ImageUpload'
 import { Button } from '@/components/ui/button'
 import { uploadProfilePicture } from '@/actions/s3/upload/uploadProfilePicture'
-import { getProfilePicUrl } from '@/lib/getProfilePicUrl'
-import { useEffect, useState } from 'react'
 import { updateUser } from '@/actions/auth/user/updateUser'
+import useUser from '@/hooks/use-user'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -33,8 +32,7 @@ const userFormSchema = z.object({
 type UserFormSchema = z.infer<typeof userFormSchema>
 
 export default function DashboadSettingsAccountForm() {
-  const user = useAtomValue(userAtom)
-  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined)
+  const user = useUser()
   const form = useForm({
     defaultValues: {
       name: user?.name,
@@ -63,14 +61,6 @@ export default function DashboadSettingsAccountForm() {
     },
   })
 
-  useEffect(() => {
-    async function fetchImage() {
-      if (!user?.id) return
-      const url = await getProfilePicUrl(user.id)
-      setPreviewUrl(url)
-    }
-    fetchImage()
-  }, [user?.id])
   return (
     <form
       onSubmit={(e) => {
@@ -168,7 +158,10 @@ export default function DashboadSettingsAccountForm() {
               >
                 Profile picture
               </Label>
-              <ImageUpload previewUrl={previewUrl ?? undefined} field={field} />
+              <ImageUpload
+                previewUrl={user.profilePicUrl ?? undefined}
+                field={field}
+              />
               <FieldInfo field={field} />
             </div>
           )}

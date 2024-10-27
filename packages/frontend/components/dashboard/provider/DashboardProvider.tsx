@@ -10,19 +10,18 @@ export default function DashboardProvider({
   user,
   children,
 }: {
-  user: User | null
+  user: UserWithProfilePic
   children: React.ReactNode
 }) {
   const router = useRouter()
   const setError = useSetAtom(dashboardSettingsAccountError)
   const setUser = useSetAtom(userAtom)
+  setUser(user)
   useEffect(() => {
-    if (user?.name == undefined || user?.image == undefined) {
-      router.push('/dashboard/settings/account')
+    setUser(user)
+    if (user?.name == undefined || user?.profilePicUrl == null) {
       setError('Please fill in all required fields')
-    }
-    if (user) {
-      setUser(user)
+      return router.push('/dashboard/settings/account')
     }
   }, [user])
   return <>{children}</>

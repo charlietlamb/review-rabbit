@@ -53,6 +53,9 @@ export const uploadProfileImage: AppRouteHandler<
     .set({ imageUploaded: true })
     .where(eq(users.id, userId))
 
+  // Remove current presigned URL
+  await db.delete(presignedUrls).where(eq(presignedUrls.userId, userId))
+
   // Return success
   return c.json(
     { status: response.$metadata.httpStatusCode, message: 'File uploaded' },

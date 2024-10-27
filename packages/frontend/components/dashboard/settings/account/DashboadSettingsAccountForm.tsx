@@ -65,8 +65,8 @@ export default function DashboadSettingsAccountForm() {
 
   useEffect(() => {
     async function fetchImage() {
-      const url = await getProfilePicUrl(user?.id ?? '')
-      console.log(url)
+      if (!user?.id) return
+      const url = await getProfilePicUrl(user.id)
       setPreviewUrl(url)
     }
     fetchImage()

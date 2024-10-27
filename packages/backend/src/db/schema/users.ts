@@ -1,5 +1,6 @@
-import { timestamp, pgTable, text, uuid } from 'drizzle-orm/pg-core'
-import { createSelectSchema } from 'drizzle-zod'
+import { timestamp, pgTable, text, uuid, boolean } from 'drizzle-orm/pg-core'
+import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
+import { timestamps } from './columns.helpers'
 
 export const users = pgTable('user', {
   id: uuid('id')
@@ -9,7 +10,9 @@ export const users = pgTable('user', {
   name: text('name'),
   email: text('email').unique(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
-  image: text('image'),
+  imageUploaded: boolean('imageUploaded').default(false),
+  ...timestamps,
 })
 
 export const selectUserSchema = createSelectSchema(users)
+export const insertUserSchema = createInsertSchema(users)

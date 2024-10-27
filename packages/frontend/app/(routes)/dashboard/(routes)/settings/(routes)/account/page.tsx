@@ -1,4 +1,4 @@
-import DashboardSettingsAccount from '@/components/dashboard/settings/DashboardSettingsAccount'
+import DashboardSettingsAccount from '@/components/dashboard/settings/account/DashboardSettingsAccount'
 
 export default function page() {
   return <DashboardSettingsAccount />

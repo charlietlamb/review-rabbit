@@ -3,10 +3,11 @@
   "module": "index.ts",
   "scripts": {
     "dev": "cd packages/frontend && bun dev",
+    "api": "cd packages/backend && bun dev",
     "gen": "cd packages/backend && bunx drizzle-kit generate",
     "migrate": "cd packages/backend && bunx drizzle-kit migrate",
     "studio": "cd packages/backend && bunx drizzle-kit studio",
-    "typeup": "cd packages/backend && tsc --build ."
+    "up": "docker compose up -d"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -17,5 +18,10 @@
   "type": "module",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.679.0",
+    "@tanstack/react-form": "^0.34.1",
+    "@tanstack/zod-form-adapter": "^0.34.1"
+  }
 }

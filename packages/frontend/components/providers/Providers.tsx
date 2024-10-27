@@ -1,27 +1,34 @@
+'use client'
+
 import DialogProvider from '../dashboard/provider/DialogProvider'
 import TanstackQueryProvider from './TanstackQueryProvider'
+import { useEffect, useState } from 'react'
 import ThemeProvider from './ThemeProvider'
-import UserProvider from './UserProvider'
 
 export default function Providers({
-  user,
   className,
   children,
 }: {
-  user: User | null
   className?: string
   children: React.ReactNode
 }) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
   return (
-    <TanstackQueryProvider>
-      <UserProvider user={user}>
-        <body className={className}>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            <DialogProvider />
-            {children}
-          </ThemeProvider>
-        </body>
-      </UserProvider>
-    </TanstackQueryProvider>
+    <body className={className}>
+      <ThemeProvider attribute="class" defaultTheme="light">
+        <TanstackQueryProvider>
+          <DialogProvider />
+          {children}
+        </TanstackQueryProvider>
+      </ThemeProvider>
+    </body>
   )
 }

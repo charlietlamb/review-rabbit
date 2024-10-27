@@ -5,7 +5,7 @@ import Resend from 'next-auth/providers/resend'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
-  providers: [Resend({ from: 'noreply@remio.dev' })],
+  providers: [Resend({ from: 'noreply@postpad.dev' })],
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 30,

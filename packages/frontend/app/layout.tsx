@@ -27,11 +27,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const user = await useAuth()
   return (
     <html lang="en">
       <Providers
-        user={user}
         className={`${geistSans.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative`}
       >
         {children}

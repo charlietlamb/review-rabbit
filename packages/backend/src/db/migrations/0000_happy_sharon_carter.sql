@@ -26,15 +26,6 @@ CREATE TABLE IF NOT EXISTS "authenticator" (
 	CONSTRAINT "authenticator_credentialID_unique" UNIQUE("credentialID")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "connects" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"userId" uuid NOT NULL,
-	"platform" text NOT NULL,
-	"updated_at" timestamp,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"deleted_at" timestamp
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"sessionToken" text PRIMARY KEY NOT NULL,
 	"userId" uuid NOT NULL,
@@ -46,7 +37,6 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"name" text,
 	"email" text,
 	"emailVerified" timestamp,
-	"image" text,
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
@@ -55,6 +45,28 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	"token" text NOT NULL,
 	"expires" timestamp NOT NULL,
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "media" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"url" text NOT NULL,
+	"title" text,
+	"description" text,
+	"type" text NOT NULL,
+	"size" integer NOT NULL,
+	"updated_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"deleted_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "presignedUrl" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"userId" uuid NOT NULL,
+	"expires" timestamp NOT NULL,
+	"url" text NOT NULL,
+	"updated_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"deleted_at" timestamp
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -70,13 +82,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "connects" ADD CONSTRAINT "connects_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "presignedUrl" ADD CONSTRAINT "presignedUrl_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

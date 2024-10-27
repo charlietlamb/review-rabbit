@@ -1,3 +1,6 @@
+'use client'
+
+import { userAtom } from '@/atoms/user/userAtom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -9,17 +12,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { getProfilePicUrl } from '@/lib/getProfilePicUrl'
+import { useAtomValue } from 'jotai'
 import { ChevronsUpDown } from 'lucide-react'
-
-export const data = {
-  user: {
-    avatar: '',
-    name: '',
-    email: '',
-  },
-}
+import { useEffect, useState } from 'react'
 
 export default function DashboardSidebarFooter() {
+  const user = useAtomValue(userAtom)
+  const [image, setImage] = useState<string | undefined>(undefined)
+  useEffect(() => {
+    async function fetchImage() {
+      const presignedUrl = await getProfilePicUrl(user?.id ?? '')
+      setImage(presignedUrl)
+    }
+    fetchImage()
+  }, [])
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -31,14 +38,15 @@ export default function DashboardSidebarFooter() {
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={data.user.avatar} alt={data.user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage src={image} alt={user?.name ?? ''} />
+                  <AvatarFallback className="rounded-lg">
+                    {user?.name?.[0] ?? 'CN'}
+                    {user?.name?.split(' ')[1]?.[0] ?? ''}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">
-                    {data.user.name}
-                  </span>
-                  <span className="truncate text-xs">{data.user.email}</span>
+                  <span className="truncate font-semibold">{user?.name}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto size-4" />
               </SidebarMenuButton>

@@ -1,9 +1,10 @@
 import Auth from '@/components/auth/Auth'
 import Nav from '@/components/nav/Nav'
 import useAuth from '@/hooks/use-auth'
+import useIsNotUser from '@/hooks/use-is-not-user'
 
 export default async function page() {
-  const session = await useAuth(true)
+  useIsNotUser(await useAuth())
   return (
     <>
       <Nav />

@@ -9,15 +9,15 @@ export default {
     maxAge: 60 * 60 * 24 * 30,
   },
   callbacks: {
+    session({ session, token }) {
+      session.user.id = token.id as string
+      return session
+    },
     jwt({ token, user }) {
       if (user) {
         token.id = user.id
       }
       return token
-    },
-    session({ session, token }) {
-      session.user.id = token.id as string
-      return session
     },
   },
 } satisfies NextAuthConfig

@@ -47,7 +47,7 @@ export const uploadProfileImage = createRoute({
 export type UploadProfileImageRoute = typeof uploadProfileImage
 
 export const getPresignedUrl = createRoute({
-  path: '/s3/get-presigned-url/:userId',
+  path: '/s3/get/profile-image/:userId',
   method: 'get',
   summary: 'Get a presigned URL for a profile image',
   tags,

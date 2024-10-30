@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1730036153251,
-      "tag": "0000_happy_sharon_carter",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1730036172840,
-      "tag": "0001_complete_energizer",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1730036875773,
-      "tag": "0002_misty_layla_miller",
+      "when": 1730145387664,
+      "tag": "0000_perfect_karnak",
       "breakpoints": true
     }
   ]

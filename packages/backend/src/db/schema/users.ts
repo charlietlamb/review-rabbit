@@ -1,18 +1,18 @@
-import { timestamp, pgTable, text, uuid, boolean } from 'drizzle-orm/pg-core'
+import { timestamp, pgTable, text, boolean, uuid } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
-import { timestamps } from './columns.helpers'
 
-export const users = pgTable('user', {
-  id: uuid('id')
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID())
-    .notNull(),
-  name: text('name'),
-  email: text('email').unique(),
-  emailVerified: timestamp('emailVerified', { mode: 'date' }),
-  imageUploaded: boolean('imageUploaded').default(false),
-  ...timestamps,
+export const users = pgTable('users', {
+  id: uuid('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  emailVerified: boolean('emailVerified').notNull(),
+  image: text('image'),
+  imageUploaded: boolean('imageUploaded').default(false).notNull(),
+  imageExpiresAt: timestamp('imageExpiresAt'),
+  createdAt: timestamp('createdAt').notNull(),
+  updatedAt: timestamp('updatedAt').notNull(),
 })
 
 export const selectUserSchema = createSelectSchema(users)
 export const insertUserSchema = createInsertSchema(users)
+export type User = typeof users.$inferSelect

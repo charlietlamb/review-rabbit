@@ -1,8 +1,8 @@
-import { selectUserSchema, insertUserSchema } from '@/db/schema/users'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
 import { updateUserSchema } from './schema'
+import { selectUserSchema } from '@/src/db/schema/users'
 
 const tags = ['Users']
 

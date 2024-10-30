@@ -1,27 +1,16 @@
-import { pgTable, text, integer, primaryKey, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 import { users } from './users'
-import type { AdapterAccount } from 'next-auth/adapters'
 
-export const accounts = pgTable(
-  'account',
-  {
-    userId: uuid('userId')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    type: text('type').$type<AdapterAccount>().notNull(),
-    provider: text('provider').notNull(),
-    providerAccountId: text('providerAccountId').notNull(),
-    refresh_token: text('refresh_token'),
-    access_token: text('access_token'),
-    expires_at: integer('expires_at'),
-    token_type: text('token_type'),
-    scope: text('scope'),
-    id_token: text('id_token'),
-    session_state: text('session_state'),
-  },
-  (account) => ({
-    compoundKey: primaryKey({
-      columns: [account.provider, account.providerAccountId],
-    }),
-  })
-)
+export const accounts = pgTable('accounts', {
+  id: uuid('id').primaryKey(),
+  accountId: uuid('accountId').notNull(),
+  providerId: text('providerId').notNull(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id),
+  accessToken: text('accessToken'),
+  refreshToken: text('refreshToken'),
+  idToken: text('idToken'),
+  expiresAt: timestamp('expiresAt'),
+  password: text('password'),
+})

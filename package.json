@@ -22,6 +22,8 @@
   "dependencies": {
     "@aws-sdk/s3-request-presigner": "^3.679.0",
     "@tanstack/react-form": "^0.34.1",
-    "@tanstack/zod-form-adapter": "^0.34.1"
+    "@tanstack/zod-form-adapter": "^0.34.1",
+    "better-auth": "^0.6.1",
+    "jose": "^5.9.6"
   }
 }

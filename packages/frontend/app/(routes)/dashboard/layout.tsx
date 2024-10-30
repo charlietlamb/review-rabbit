@@ -1,4 +1,3 @@
-import getUserDetails from '@/actions/auth/user/getUserDetails'
 import DashboardHeader from '@/components/dashboard/header/DashboardHeader'
 import DashboardProvider from '@/components/dashboard/provider/DashboardProvider'
 import DashboardSidebar from '@/components/dashboard/sidebar/DashboardSidebar'
@@ -11,13 +10,10 @@ export default async function layout({
 }: {
   children: React.ReactNode
 }) {
-  const auth = await useAuth()
-  useIsUser(auth)
-  if (!auth) return null
-  const user = await getUserDetails(auth.id)
-  if (!user) return null
+  const user = await useAuth()
+  useIsUser(user)
   return (
-    <DashboardProvider user={user}>
+    <DashboardProvider user={user as User}>
       <SidebarProvider className="flex w-full flex-grow">
         <DashboardSidebar />
         <div className="w-full">

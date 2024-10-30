@@ -1,10 +1,10 @@
 import { GetUserRoute, UpdateUserRoute } from './user.routes'
-import { AppRouteHandler } from '@/lib/types'
-import { db } from '@/db/postgres'
+import { AppRouteHandler } from '@/src/lib/types'
+import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
-import { users } from '@/db/schema'
+import { users } from '@/src/db/schema/users'
 import { updateUserSchema } from './schema'
-import { HttpStatusCodes } from '@/http'
+import { HttpStatusCodes } from '@/src/http'
 
 export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   const userId = c.req.param('userId')

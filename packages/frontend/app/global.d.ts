@@ -7,7 +7,4 @@ declare global {
   type User = z.infer<typeof selectUserSchema>
   type UpdateUserSchema = typeof updateUserSchema
   type UpdateUser = z.infer<typeof updateUserSchema>
-  type UserWithProfilePic = User & {
-    profilePicUrl: string | null
-  }
 }

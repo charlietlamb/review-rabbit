@@ -28,7 +28,7 @@ export default function DashboardSidebarFooter() {
               >
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={user.profilePicUrl ?? undefined}
+                    src={user.image ?? undefined}
                     alt={user?.name ?? ''}
                     className="object-cover mx-auto my-auto"
                   />

@@ -1,13 +1,11 @@
 import { createRoute, z } from '@hono/zod-openapi'
-import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
-import { zfd } from 'zod-form-data'
-import { uploadProfileImageResponseSchema } from './schema'
-import { HttpStatusCodes } from '@/http'
+import { jsonContent } from 'stoker/openapi/helpers'
+import { HttpStatusCodes } from '@/src/http'
 
 const tags = ['S3']
 
 export const uploadProfileImage = createRoute({
-  path: '/s3/upload/profile-image/:userId',
+  path: '/auth/s3/upload/profile-image',
   method: 'post',
   summary: 'Upload a profile image to S3',
   tags,
@@ -15,31 +13,36 @@ export const uploadProfileImage = createRoute({
     body: {
       description: 'File to upload',
       content: {
-        'multipart/form-data': {
-          schema: z.object({
-            file: z.instanceof(File),
-          }),
+        'application/json': {
+          schema: z.object({ session: z.string(), file: z.string() }),
         },
       },
-      required: true,
     },
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      uploadProfileImageResponseSchema,
-      'File uploaded.'
-    ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
       z.object({
-        error: z.string(),
+        presignedUrl: z.string(),
       }),
-      'User ID is required'
+      'Presigned URL returned.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
       'Failed to upload file'
+    ),
+    [HttpStatusCodes.NO_CONTENT]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User image not uploaded'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User not found'
     ),
   },
 })
@@ -69,12 +72,6 @@ export const getPresignedUrl = createRoute({
         error: z.string(),
       }),
       'User not found'
-    ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'User ID is required'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({

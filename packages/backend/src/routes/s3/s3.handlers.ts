@@ -1,28 +1,21 @@
-import {
-  PutObjectCommand,
-  GetObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3'
-import { AppRouteHandler } from '@/lib/types'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { AppRouteHandler } from '@/src/lib/types'
 import { GetPresignedUrlRoute, UploadProfileImageRoute } from './s3.routes'
-import env from '@/env'
-import { HttpStatusCodes } from '@/http'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { z } from 'zod'
-import { db } from '@/db/postgres'
+import env from '@/src/env'
+import { HttpStatusCodes } from '@/src/http'
+import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
-import { presignedUrls, users } from '@/db/schema'
+import { users } from '@/src/db/schema'
+import { generatePresignedUrl } from './s3.logic'
+import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
 
 export const uploadProfileImage: AppRouteHandler<
   UploadProfileImageRoute
 > = async (c) => {
+  const user = c.get('user')
   // Parse body
-  const body = await c.req.parseBody()
-  const file = body.file as File
-  const fileArrayBuffer = await file.arrayBuffer()
-
-  // Get user ID
-  const userId = c.req.param('userId')
+  const body = await c.req.json()
+  const fileArrayBuffer = Buffer.from(body.file, 'base64')
 
   // Upload file to S3
   const client = new S3Client({
@@ -32,13 +25,14 @@ export const uploadProfileImage: AppRouteHandler<
       secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
     },
   })
+
   const command = new PutObjectCommand({
     Bucket: env.AWS_S3_BUCKET_NAME,
-    Key: `users/pp/${userId}/pp.jpg`,
-    // Key: env.AWS_SECRET_ACCESS_KEY,
-    Body: Buffer.from(fileArrayBuffer),
+    Key: `users/pp/${user.id}/pp.jpg`,
+    Body: fileArrayBuffer,
     ACL: 'public-read',
   })
+
   const response = await client.send(command)
   if (response.$metadata.httpStatusCode !== 200) {
     return c.json(
@@ -47,20 +41,41 @@ export const uploadProfileImage: AppRouteHandler<
     )
   }
 
-  // Update user imageUploaded to true
+  // update user imageUploaded to true and imageExpiresAt to null
   await db
     .update(users)
-    .set({ imageUploaded: true })
-    .where(eq(users.id, userId))
+    .set({
+      imageUploaded: true,
+      imageExpiresAt: null,
+    })
+    .where(eq(users.id, user.id))
 
-  // Remove current presigned URL
-  await db.delete(presignedUrls).where(eq(presignedUrls.userId, userId))
+  // Generate presigned URL
+  const presignedUrlResponse = await generatePresignedUrl(user, c)
 
-  // Return success
-  return c.json(
-    { status: response.$metadata.httpStatusCode, message: 'File uploaded' },
-    HttpStatusCodes.OK
-  )
+  // Return presigned URL or error
+  switch (presignedUrlResponse.status) {
+    case HttpStatusCodes.NO_CONTENT:
+      return c.json(
+        presignedUrlResponse.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NO_CONTENT
+      )
+    case HttpStatusCodes.NOT_FOUND:
+      return c.json(
+        presignedUrlResponse.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NOT_FOUND
+      )
+    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
+      return c.json(
+        presignedUrlResponse.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.INTERNAL_SERVER_ERROR
+      )
+    default:
+      return c.json(
+        presignedUrlResponse.content as PresignedUrlResponseOk['content'],
+        HttpStatusCodes.OK
+      )
+  }
 }
 
 export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
@@ -68,71 +83,32 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
 ) => {
   // Verify user ID
   const userId = c.req.param('userId')
-  const uuidSchema = z.string().uuid()
-  const parsedUserId = uuidSchema.parse(userId)
-  if (!parsedUserId) {
-    return c.json({ error: 'Invalid user ID' }, HttpStatusCodes.BAD_REQUEST)
-  }
-
-  // Get current presigned URL
-  const currentPresignedUrl = await db.query.presignedUrls.findFirst({
-    where: eq(presignedUrls.userId, parsedUserId),
-  })
-  if (currentPresignedUrl && currentPresignedUrl.expires > new Date()) {
-    return c.json({ presignedUrl: currentPresignedUrl.url }, HttpStatusCodes.OK)
-  }
 
   // Get current user
   const currentUser = await db.query.users.findFirst({
-    where: eq(users.id, parsedUserId),
+    where: eq(users.id, userId),
   })
-
-  if (!currentUser) {
-    return c.json({ error: 'User not found' }, HttpStatusCodes.NOT_FOUND)
+  const response = await generatePresignedUrl(currentUser, c)
+  switch (response.status) {
+    case HttpStatusCodes.NO_CONTENT:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NO_CONTENT
+      )
+    case HttpStatusCodes.NOT_FOUND:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NOT_FOUND
+      )
+    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.INTERNAL_SERVER_ERROR
+      )
+    default:
+      return c.json(
+        response.content as PresignedUrlResponseOk['content'],
+        HttpStatusCodes.OK
+      )
   }
-
-  if (!currentUser.imageUploaded) {
-    return c.json(
-      { error: 'User image not uploaded' },
-      HttpStatusCodes.NO_CONTENT
-    )
-  }
-
-  // Generate new presigned URL
-  const client = new S3Client({
-    region: env.AWS_REGION,
-    credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-    },
-  })
-
-  const command = new GetObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
-    Key: `users/pp/${userId}/pp.jpg`,
-  })
-
-  const presignedUrl = await getSignedUrl(client, command, {
-    expiresIn: 60 * 60 * 24,
-  })
-
-  if (!presignedUrl) {
-    return c.json(
-      { error: 'Failed to get presigned URL' },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-
-  // Save new presigned URL
-  await db
-    .update(presignedUrls)
-    .set({
-      userId: parsedUserId,
-      url: presignedUrl,
-      expires: new Date(Date.now() + 60 * 60 * 24),
-      updated_at: new Date(),
-    })
-    .where(eq(presignedUrls.userId, parsedUserId))
-
-  return c.json({ presignedUrl }, HttpStatusCodes.OK)
 }

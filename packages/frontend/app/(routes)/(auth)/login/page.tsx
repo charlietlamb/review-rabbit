@@ -9,7 +9,7 @@ export default async function page() {
     <>
       <Nav />
       <div className="p-8">
-        <Auth />
+        <Auth login={true} />
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import { createRouter } from '@/lib/create-app'
+import { createRouter } from '@/src/lib/create-app'
 import * as handlers from './s3.handlers'
 import * as routes from './s3.routes'
 

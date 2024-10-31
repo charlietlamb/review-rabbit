@@ -1,8 +1,8 @@
-import { selectUserSchema, insertUserSchema } from '@/db/schema/users'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
-import { updateUserSchema } from './schema'
+import { updateUserSchema } from './user.schema'
+import { selectUserSchema } from '@/src/db/schema/users'
 
 const tags = ['Users']
 
@@ -31,12 +31,19 @@ export const get = createRoute({
 export type GetUserRoute = typeof get
 
 export const update = createRoute({
-  path: '/user/update',
+  path: '/auth/user/update',
   method: 'put',
   summary: 'Update a user by their ID',
   tags,
   request: {
-    body: jsonContentRequired(updateUserSchema, 'User update information.'),
+    body: {
+      description: 'User update information',
+      content: {
+        'application/json': {
+          schema: updateUserSchema,
+        },
+      },
+    },
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(

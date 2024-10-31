@@ -1,10 +1,10 @@
 import { GetUserRoute, UpdateUserRoute } from './user.routes'
-import { AppRouteHandler } from '@/lib/types'
-import { db } from '@/db/postgres'
+import { AppRouteHandler } from '@/src/lib/types'
+import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
-import { users } from '@/db/schema'
-import { updateUserSchema } from './schema'
-import { HttpStatusCodes } from '@/http'
+import { users } from '@/src/db/schema/users'
+import { updateUserSchema } from './user.schema'
+import { HttpStatusCodes } from '@/src/http'
 
 export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   const userId = c.req.param('userId')
@@ -23,6 +23,7 @@ export const get: AppRouteHandler<GetUserRoute> = async (c) => {
 }
 
 export const update: AppRouteHandler<UpdateUserRoute> = async (c) => {
+  const authUser = await c.get('user')
   const body = await c.req.json()
   const data = updateUserSchema.parse(body)
   if (!data) {
@@ -31,8 +32,8 @@ export const update: AppRouteHandler<UpdateUserRoute> = async (c) => {
 
   const [user] = await db
     .update(users)
-    .set(data)
-    .where(eq(users.id, data.id))
+    .set(data.form)
+    .where(eq(users.id, authUser.id))
     .returning()
 
   if (!user) {

@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { notFound, onError, serveEmojiFavicon } from 'stoker/middlewares'
-import { pinoLogger } from '@/middleware/pino-logger'
+import { pinoLogger } from '@/src/middleware/pino-logger'
 import { AppBindings } from './types'
 import defaultHook from 'stoker/openapi/default-hook'
 

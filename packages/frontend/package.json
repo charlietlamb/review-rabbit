@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "^1.7.1",
     "@aws-sdk/client-s3": "^3.679.0",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.1",
@@ -54,7 +53,6 @@
     "lucide": "^0.453.0",
     "lucide-react": "^0.453.0",
     "next": "15.0.1",
-    "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.3.0",
     "node-postgres": "^0.6.2",
     "oidc-token-hash": "5.0.1",

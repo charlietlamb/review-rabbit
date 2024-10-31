@@ -5,12 +5,10 @@ import { zodValidator } from '@tanstack/zod-form-adapter'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
 import FieldInfo from '@/components/form/FieldInfo'
-import { useAtomValue } from 'jotai'
-import { userAtom } from '@/atoms/user/userAtom'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { Mail } from 'lucide-react'
+import { Mail, User } from 'lucide-react'
 import ImageUpload from '@/components/form/ImageUpload'
 import { Button } from '@/components/ui/button'
 import { uploadProfilePicture } from '@/actions/s3/upload/uploadProfilePicture'
@@ -81,18 +79,33 @@ export default function DashboadSettingsAccountForm() {
               >
                 Name
               </Label>
-              <Input
-                id={field.name}
-                name={field.name}
-                value={field.state.value ?? ''}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                className={cn(
-                  '',
-                  field.state.meta.errors.some((error) => error) &&
-                    'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
-                )}
-              />{' '}
+              <div className="relative">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value ?? ''}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="Name"
+                  type="text"
+                  className={cn(
+                    '',
+                    field.state.meta.errors.some((error) => error) &&
+                      'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+                  )}
+                />
+                <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
+                  <User
+                    size={16}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                    className={cn(
+                      field.state.meta.errors.some((error) => error) &&
+                        'text-destructive/80'
+                    )}
+                  />
+                </div>
+              </div>
               <FieldInfo field={field} />
             </div>
           )}
@@ -158,10 +171,7 @@ export default function DashboadSettingsAccountForm() {
               >
                 Profile picture
               </Label>
-              <ImageUpload
-                previewUrl={user.profilePicUrl ?? undefined}
-                field={field}
-              />
+              <ImageUpload previewUrl={user.image ?? undefined} field={field} />
               <FieldInfo field={field} />
             </div>
           )}

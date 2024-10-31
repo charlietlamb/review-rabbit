@@ -1,4 +1,4 @@
-import env from '@/env'
+import env from '@/src/env'
 import { logger } from 'hono-pino'
 import pino from 'pino'
 import pretty from 'pino-pretty'

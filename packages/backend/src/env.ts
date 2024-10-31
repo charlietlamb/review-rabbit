@@ -17,6 +17,9 @@ const EnvSchema = z.object({
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),
   AWS_REGION: z.string(),
+  BETTER_AUTH_URL: z.string().url(),
+  BETTER_AUTH_BASE_PATH: z.string(),
+  BETTER_AUTH_SECRET: z.string(),
 })
 
 export type Env = z.infer<typeof EnvSchema>

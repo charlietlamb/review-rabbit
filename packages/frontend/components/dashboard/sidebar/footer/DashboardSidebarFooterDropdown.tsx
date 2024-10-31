@@ -1,11 +1,15 @@
+import { logout } from '@/actions/auth/auth/logout'
+import { authClient } from '@/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
 import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function DashboardSidebarFooterDropdown() {
+  const router = useRouter()
   return (
     <>
       <DropdownMenuGroup>
@@ -16,7 +20,9 @@ export default function DashboardSidebarFooterDropdown() {
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push('/dashboard/settings/account')}
+        >
           <BadgeCheck />
           Account
         </DropdownMenuItem>
@@ -30,7 +36,7 @@ export default function DashboardSidebarFooterDropdown() {
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem onClick={logout}>
         <LogOut />
         Log out
       </DropdownMenuItem>

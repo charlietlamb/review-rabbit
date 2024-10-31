@@ -1,9 +1,5 @@
-import {
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenuContent } from '@/components/ui/dropdown-menu'
 import React from 'react'
-import DashboardSidebarFooterLabel from './DashboardSidebarFooterLabel'
 import DashboardSidebarFooterDropdown from './DashboardSidebarFooterDropdown'
 
 export default function DashboardSidebarFooterMenu() {
@@ -14,8 +10,6 @@ export default function DashboardSidebarFooterMenu() {
       align="end"
       sideOffset={4}
     >
-      <DashboardSidebarFooterLabel />
-      <DropdownMenuSeparator />
       <DashboardSidebarFooterDropdown />
     </DropdownMenuContent>
   )

@@ -1,24 +1,23 @@
-'use server'
-
-import { HttpStatusCodes } from '@/backend/src/http'
 import client from '@/client'
-import { cookies } from 'next/headers'
 
 export async function uploadProfilePicture(form: {
-  userId: string
   file: File
+  jwt: string
 }): Promise<number> {
-  const cookieStore = await cookies()
-  const encryptedSession = cookieStore.get('remio.session')?.value
-  if (!encryptedSession) return HttpStatusCodes.UNAUTHORIZED
-  const response = await client.auth.s3.upload['profile-image'][
-    ':userId'
-  ].$post({
-    param: { userId: form.userId },
-    form: {
-      file: form.file,
-    },
-    json: { session: encryptedSession },
+  const fileAsString = encodeArrayBufferToJson(await form.file.arrayBuffer())
+  const response = await client.auth.s3.upload['profile-image'].$post({
+    json: { session: form.jwt, file: fileAsString },
   })
   return response.status
+}
+
+function encodeArrayBufferToJson(arrayBuffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(arrayBuffer)
+  let binaryString = ''
+
+  bytes.forEach((byte) => {
+    binaryString += String.fromCharCode(byte)
+  })
+
+  return btoa(binaryString)
 }

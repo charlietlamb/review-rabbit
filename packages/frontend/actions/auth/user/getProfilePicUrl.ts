@@ -5,7 +5,6 @@ export async function getProfilePicUrl(userId: string): Promise<string | null> {
     param: { userId },
   })
   const data = await response.json()
-  console.log(data)
   if ('error' in data) {
     return null
   }

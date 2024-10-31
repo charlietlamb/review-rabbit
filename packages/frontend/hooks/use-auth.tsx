@@ -30,11 +30,6 @@ export default async function useAuth(): Promise<User | null> {
   } else {
     const profilePicUrl = await getProfilePicUrl(userWithDates.id)
     userWithDates.image = profilePicUrl
-    /* */
-    /*
-    /* Store session in jotai and then make image upload request from the client
-    /*
-    /** */
     return userWithDates as User
   }
 }

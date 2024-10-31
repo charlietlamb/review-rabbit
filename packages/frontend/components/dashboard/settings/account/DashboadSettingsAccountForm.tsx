@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { uploadProfilePicture } from '@/actions/s3/upload/uploadProfilePicture'
 import { updateUser } from '@/actions/auth/user/updateUser'
 import useUser from '@/hooks/use-user'
+import useJwtClient from '@/hooks/use-jwt-client'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -31,6 +32,7 @@ type UserFormSchema = z.infer<typeof userFormSchema>
 
 export default function DashboadSettingsAccountForm() {
   const user = useUser()
+  const jwt = useJwtClient()
   const form = useForm({
     defaultValues: {
       name: user?.name,
@@ -41,16 +43,19 @@ export default function DashboadSettingsAccountForm() {
       const file = values.formApi.getFieldValue('image')
       if (file) {
         const res = await uploadProfilePicture({
-          userId: user?.id ?? '',
           file,
+          jwt,
         })
       }
       if (user) {
-        await updateUser({
-          id: user.id,
-          name: values.formApi.getFieldValue('name'),
-          email: values.formApi.getFieldValue('email'),
-        })
+        await updateUser(
+          {
+            id: user.id,
+            name: values.formApi.getFieldValue('name'),
+            email: values.formApi.getFieldValue('email'),
+          },
+          jwt
+        )
       }
     },
     validatorAdapter: zodValidator(),

@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/sidebar'
 import useUser from '@/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
+import DashboardSidebarFooterMenu from './DashboardSidebarFooterMenu'
 
 export default function DashboardSidebarFooter() {
   const user = useUser()
@@ -44,6 +45,7 @@ export default function DashboardSidebarFooter() {
                 <ChevronsUpDown className="ml-auto size-4" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
+            <DashboardSidebarFooterMenu />
           </DropdownMenu>
         </SidebarMenuItem>
       </SidebarMenu>

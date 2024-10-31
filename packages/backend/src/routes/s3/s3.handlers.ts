@@ -12,13 +12,10 @@ import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
 export const uploadProfileImage: AppRouteHandler<
   UploadProfileImageRoute
 > = async (c) => {
+  const user = c.get('user')
   // Parse body
-  const body = await c.req.parseBody()
-  const file = body.file as File
-  const fileArrayBuffer = await file.arrayBuffer()
-
-  // Get user ID
-  const userId = c.req.param('userId')
+  const body = await c.req.json()
+  const fileArrayBuffer = Buffer.from(body.file, 'base64')
 
   // Upload file to S3
   const client = new S3Client({
@@ -31,8 +28,8 @@ export const uploadProfileImage: AppRouteHandler<
 
   const command = new PutObjectCommand({
     Bucket: env.AWS_S3_BUCKET_NAME,
-    Key: `users/pp/${userId}/pp.jpg`,
-    Body: Buffer.from(fileArrayBuffer),
+    Key: `users/pp/${user.id}/pp.jpg`,
+    Body: fileArrayBuffer,
     ACL: 'public-read',
   })
 
@@ -51,10 +48,9 @@ export const uploadProfileImage: AppRouteHandler<
       imageUploaded: true,
       imageExpiresAt: null,
     })
-    .where(eq(users.id, userId))
+    .where(eq(users.id, user.id))
 
   // Generate presigned URL
-  const user = c.get('user')
   const presignedUrlResponse = await generatePresignedUrl(user, c)
 
   // Return presigned URL or error

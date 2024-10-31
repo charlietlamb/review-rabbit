@@ -5,7 +5,7 @@ import { HttpStatusCodes } from '@/src/http'
 const tags = ['S3']
 
 export const uploadProfileImage = createRoute({
-  path: '/auth/s3/upload/profile-image/:userId',
+  path: '/auth/s3/upload/profile-image',
   method: 'post',
   summary: 'Upload a profile image to S3',
   tags,
@@ -13,16 +13,10 @@ export const uploadProfileImage = createRoute({
     body: {
       description: 'File to upload',
       content: {
-        'multipart/form-data': {
-          schema: z.object({
-            file: z.instanceof(File),
-          }),
-        },
         'application/json': {
-          schema: z.object({ session: z.string() }),
+          schema: z.object({ session: z.string(), file: z.string() }),
         },
       },
-      required: true,
     },
   },
   responses: {

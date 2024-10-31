@@ -35,7 +35,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
       password: '',
     } as FormData,
     onSubmit: async ({ value }) => {
-      console.log('submitting')
       const { name, email, password } = value
       setIsLoading(true)
       const { data, error } = await signup(name, email, password)

@@ -15,6 +15,7 @@ import { uploadProfilePicture } from '@/actions/s3/upload/uploadProfilePicture'
 import { updateUser } from '@/actions/auth/user/updateUser'
 import useUser from '@/hooks/use-user'
 import useJwtClient from '@/hooks/use-jwt-client'
+import { useRouter } from 'next/navigation'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -33,6 +34,7 @@ type UserFormSchema = z.infer<typeof userFormSchema>
 export default function DashboadSettingsAccountForm() {
   const user = useUser()
   const jwt = useJwtClient()
+  const router = useRouter()
   const form = useForm({
     defaultValues: {
       name: user?.name,
@@ -56,6 +58,7 @@ export default function DashboadSettingsAccountForm() {
           },
           jwt
         )
+        router.refresh()
       }
     },
     validatorAdapter: zodValidator(),

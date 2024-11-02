@@ -10,6 +10,7 @@ export async function login(email: string, password: string) {
     password,
   })
   if (!data) return { data, error }
+
   const encryptedSession = await encrypt(data.session)
   const cookieStore = await cookies()
   cookieStore.set('remio.session', encryptedSession, {

@@ -1,4 +1,4 @@
-import { MobileNavbar } from '@/components/index/mobile-navbar'
+import { MobileNavbar } from '@/components/site/index/mobile-navbar'
 import { NavLinks } from './nav-links'
 import { ActionButton } from '../action-button'
 

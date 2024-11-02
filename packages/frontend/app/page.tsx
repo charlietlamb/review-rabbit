@@ -1,10 +1,10 @@
-import { Header } from '@/components/header/header'
-import Index from '@/components/index/Index'
+import { Header } from '@/components/site/header/header'
+import Index from '@/components/site/index/Index'
+import SiteLayout from '@/components/site/site-layout'
 export default function Home() {
   return (
-    <>
-      <Header />
+    <SiteLayout>
       <Index />
-    </>
+    </SiteLayout>
   )
 }

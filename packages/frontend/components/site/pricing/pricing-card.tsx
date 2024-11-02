@@ -6,7 +6,7 @@ import {
   CardFooter,
 } from '@/components/ui/card'
 import { PricingTier } from './pricing-data'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 
 export function PricingCard({ tier }: { tier: PricingTier }) {

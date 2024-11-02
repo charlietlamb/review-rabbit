@@ -1,7 +1,7 @@
-import { Faq } from '../site/index/faq'
-import { PricingCard } from '../site/pricing/pricing-card'
-import PricingCta from '../site/pricing/pricing-cta'
-import { pricingTiers } from '../site/pricing/pricing-data'
+import { pricingTiers } from './pricing-data'
+import { PricingCard } from './pricing-card'
+import PricingCta from './pricing-cta'
+import { Faq } from '@/components/site/index/faq'
 
 export function Pricing() {
   return (

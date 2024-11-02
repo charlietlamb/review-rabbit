@@ -4,11 +4,16 @@ import DialogProvider from '../dashboard/provider/DialogProvider'
 import TanstackQueryProvider from './TanstackQueryProvider'
 import { useEffect, useState } from 'react'
 import ThemeProvider from './ThemeProvider'
+import SessionProvider from './SessionProvider'
 
 export default function Providers({
+  user,
+  jwt,
   className,
   children,
 }: {
+  user: User | null
+  jwt: string | null
   className?: string
   children: React.ReactNode
 }) {
@@ -26,7 +31,9 @@ export default function Providers({
       <ThemeProvider attribute="class" defaultTheme="light">
         <TanstackQueryProvider>
           <DialogProvider />
-          {children}
+          <SessionProvider user={user} jwt={jwt}>
+            {children}
+          </SessionProvider>
         </TanstackQueryProvider>
       </ThemeProvider>
     </body>

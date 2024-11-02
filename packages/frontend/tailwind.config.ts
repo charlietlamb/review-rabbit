@@ -13,8 +13,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1200px',
+        },
+      },
       fontFamily: {
-        geist: ['var(--font-geist-sans)'],
+        sans: ['var(--font-geist-sans)'],
         heading: ['var(--font-bricolage-grotesque)'],
       },
       colors: {
@@ -100,7 +107,6 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        base: '0.5rem',
       },
       keyframes: {
         'accordion-down': {
@@ -119,16 +125,10 @@ const config: Config = {
             height: '0',
           },
         },
-        'border-spin': {
-          '100%': {
-            transform: 'rotate(-360deg)',
-          },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'border-spin': 'border-spin 4s linear infinite',
       },
     },
   },

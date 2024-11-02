@@ -164,7 +164,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
       <Button
         type="button"
         variant="outline"
-        className="font-geist"
+        className="font-sans"
         onClick={() => {
           setIsGitHubLoading(true)
           // signInAction('github')

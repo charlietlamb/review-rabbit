@@ -6,15 +6,16 @@ import { userAtom } from '@/atoms/user/userAtom'
 import { JWTPayload, JWTVerifyResult } from 'jose'
 import { jwtAtom } from '@/atoms/jwt/jwtAtom'
 
-export default function DashboardProvider({
+export default function SessionProvider({
   user,
   jwt,
   children,
 }: {
-  user: User
-  jwt: JWTVerifyResult<JWTPayload>
+  user: User | null
+  jwt: string | null
   children: React.ReactNode
 }) {
+  if (!user || !jwt) return null
   const setUser = useSetAtom(userAtom)
   const setJwt = useSetAtom(jwtAtom)
 

@@ -1,9 +1,9 @@
+import { Header } from '@/components/header/header'
 import Index from '@/components/index/Index'
-import Nav from '@/components/nav/Nav'
 export default function Home() {
   return (
     <>
-      <Nav />
+      <Header />
       <Index />
     </>
   )

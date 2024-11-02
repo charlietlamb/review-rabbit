@@ -1,7 +1,7 @@
 import React from 'react'
-import AuthHeader from './AuthHeader'
-import AuthFormLogin from './AuthFormLogin'
-import AuthFormSignup from './AuthFormSignup'
+import AuthHeader from './auth-header'
+import AuthFormLogin from './auth-form-login'
+import AuthFormSignup from './auth-form-signup'
 
 export default function Auth({ login }: { login: boolean }) {
   return (

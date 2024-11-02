@@ -1,4 +1,4 @@
-import Auth from '@/components/auth/Auth'
+import Auth from '@/components/auth/auth'
 import { Header } from '@/components/header/header'
 import useAuth from '@/hooks/use-auth'
 import useIsNotUser from '@/hooks/use-is-not-user'

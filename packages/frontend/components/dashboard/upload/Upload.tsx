@@ -1,5 +1,5 @@
 import React from 'react'
-import DashboardTitle from '../title/DashboardTitle'
+import DashboardTitle from '../title/dashboard-title'
 
 export default function Upload() {
   return (

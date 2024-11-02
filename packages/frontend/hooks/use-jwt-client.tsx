@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { jwtAtom } from '@/atoms/jwt/jwtAtom'
+import { jwtAtom } from '@/atoms/jwt/jwt-atom'
 
 export default function useJwtClient() {
   const jwt = useAtomValue(jwtAtom)

@@ -6,10 +6,10 @@ import {
   SidebarProvider,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import ScheduleSidebarCalendar from './ScheduleSidebarCalendar'
-import ScheduleSidebarHeader from './ScheduleSidebarHeader'
+import ScheduleSidebarCalendar from './schedule-sidebar-calendar'
+import ScheduleSidebarHeader from './schedule-sidebar-header'
 import { useAtom } from 'jotai'
-import { scheduleSidebarAtom } from '@/atoms/dashboard/schedule/scheduleSidebarAtom'
+import { scheduleSidebarAtom } from '@/atoms/dashboard/schedule/schedule-sidebar-atom'
 
 export default function ScheduleSidebar() {
   const [open, setOpen] = useAtom(scheduleSidebarAtom)

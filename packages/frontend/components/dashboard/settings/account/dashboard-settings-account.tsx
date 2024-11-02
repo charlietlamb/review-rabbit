@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator'
-import DashboardTitle from '../../title/DashboardTitle'
-import DashboadSettingsAccountForm from './DashboadSettingsAccountForm'
+import DashboardTitle from '../../title/dashboard-title'
+import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 
 export default function DashboardSettingsAccount() {
   return (

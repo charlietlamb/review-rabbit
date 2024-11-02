@@ -1,13 +1,13 @@
 'use client'
 
-import { dialogKeyAtom, dialogOpenAtom } from '@/atoms/dialog/dialogAtoms'
+import { dialogKeyAtom, dialogOpenAtom } from '@/atoms/dialog/dialog-atoms'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { EDIT_ACCOUNT_DIALOG_KEY } from '@/constants/dialog/dialogKeys'
+import { EDIT_ACCOUNT_DIALOG_KEY } from '@/constants/dialog/dialog-keys'
 import { useAtomValue } from 'jotai'
 import { useState } from 'react'
 

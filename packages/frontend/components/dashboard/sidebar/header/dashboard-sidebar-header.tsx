@@ -1,6 +1,6 @@
 import { SidebarHeader } from '@/components/ui/sidebar'
 import Link from 'next/link'
-import DashboardSidebarHeaderThemeToggle from './DashboardSidebarHeaderThemeToggle'
+import DashboardSidebarHeaderThemeToggle from './dashboard-sidebar-header-theme-toggle'
 
 export default function DashboardSidebarHeader() {
   return (

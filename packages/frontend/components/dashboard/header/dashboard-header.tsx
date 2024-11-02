@@ -1,6 +1,6 @@
-import DashboardBreadcrumb from '../breadcrumb/DashboardBreadcrumb'
-import DashboardSidebarToggle from '../sidebar/toggle/DashboardSidebarToggle'
-import DashboardHeaderCalendarToggle from './DashboardHeaderCalendarToggle'
+import DashboardBreadcrumb from '../breadcrumb/dashboard-breadcrumb'
+import DashboardSidebarToggle from '../sidebar/toggle/dashboard-sidebar-toggle'
+import DashboardHeaderCalendarToggle from './dashboard-header-calendar-toggle'
 
 export default function DashboardHeader() {
   return (

@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
-import { userAtom } from '@/atoms/user/userAtom'
+import { userAtom } from '@/atoms/user/user-atom'
 import { JWTPayload, JWTVerifyResult } from 'jose'
-import { jwtAtom } from '@/atoms/jwt/jwtAtom'
+import { jwtAtom } from '@/atoms/jwt/jwt-atom'
 
 export default function SessionProvider({
   user,

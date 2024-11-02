@@ -1,4 +1,4 @@
-import Upload from './upload/Upload'
+import Upload from './upload/upload'
 
 export default function Dashboard() {
   return (

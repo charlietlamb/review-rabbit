@@ -1,6 +1,6 @@
 import { DropdownMenuContent } from '@/components/ui/dropdown-menu'
 import React from 'react'
-import DashboardSidebarFooterDropdown from './DashboardSidebarFooterDropdown'
+import DashboardSidebarFooterDropdown from './dashboard-sidebar-footer-dropdown'
 
 export default function DashboardSidebarFooterMenu() {
   return (

@@ -5,10 +5,10 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { dashboardSidebarItems } from './data/dashboardSidebarItems'
-import DashboardSidebarMenuItem from './DashboardSidebarMenuItem'
-import DashboardSidebarFooter from './footer/DashboardSidebarFooter'
-import DashboardSidebarHeader from './header/DashboardSidebarHeader'
-import DashboardSidebarSettings from './DashboardSidebarSettings'
+import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
+import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
+import DashboardSidebarHeader from './header/dashboard-sidebar-header'
+import DashboardSidebarSettings from './dashboard-sidebar-settings'
 
 export default function DashboardSidebar() {
   return (

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import Providers from '@/components/providers/Providers'
+import Providers from '@/components/providers/providers'
 import { Bricolage_Grotesque } from 'next/font/google'
 import useAuth from '@/hooks/use-auth'
 import useJwt from '@/hooks/use-jwt'

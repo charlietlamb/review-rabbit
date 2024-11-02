@@ -1,5 +1,5 @@
-import DashboardHeader from '@/components/dashboard/header/DashboardHeader'
-import DashboardSidebar from '@/components/dashboard/sidebar/DashboardSidebar'
+import DashboardHeader from '@/components/dashboard/header/dashboard-header'
+import DashboardSidebar from '@/components/dashboard/sidebar/dashboard-sidebar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import useAuth from '@/hooks/use-auth'
 import useIsUser from '@/hooks/use-is-user'

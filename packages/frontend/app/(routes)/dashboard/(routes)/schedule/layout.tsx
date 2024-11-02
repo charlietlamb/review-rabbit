@@ -1,4 +1,4 @@
-import ScheduleSidebar from '@/components/dashboard/schedule/sidebar/ScheduleSidebar'
+import ScheduleSidebar from '@/components/dashboard/schedule/sidebar/schedule-sidebar'
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

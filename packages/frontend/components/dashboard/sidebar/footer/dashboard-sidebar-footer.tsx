@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sidebar'
 import useUser from '@/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
-import DashboardSidebarFooterMenu from './DashboardSidebarFooterMenu'
+import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
 
 export default function DashboardSidebarFooter() {
   const user = useUser()

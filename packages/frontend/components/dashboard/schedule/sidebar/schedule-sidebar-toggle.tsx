@@ -1,4 +1,4 @@
-import { scheduleSidebarAtom } from '@/atoms/dashboard/schedule/scheduleSidebarAtom'
+import { scheduleSidebarAtom } from '@/atoms/dashboard/schedule/schedule-sidebar-atom'
 import { Button } from '@/components/ui/button'
 import { useAtom } from 'jotai'
 import { CalendarIcon } from 'lucide-react'

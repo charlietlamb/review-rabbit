@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import EditAccountDialog from '../dialogs/editAccount/EditAccountDialog'
+import EditAccountDialog from '../dialogs/editAccount/edit-account-dialog'
 
 export default function DialogProvider() {
   const [isMounted, setIsMounted] = useState(false)

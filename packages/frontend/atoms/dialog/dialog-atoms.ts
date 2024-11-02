@@ -1,4 +1,4 @@
-import { EDIT_ACCOUNT_DIALOG_KEY } from '@/constants/dialog/dialogKeys'
+import { EDIT_ACCOUNT_DIALOG_KEY } from '@/constants/dialog/dialog-keys'
 import { atom } from 'jotai'
 
 export const dialogOpenAtom = atom(false)

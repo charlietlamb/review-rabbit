@@ -1,5 +1,5 @@
-import { setSessionCookie } from '@/actions/auth/jwt/setSessionCookie'
-import { getProfilePicUrl } from '@/actions/auth/user/getProfilePicUrl'
+import { setSessionCookie } from '@/actions/auth/jwt/set-session-cookie'
+import { getProfilePicUrl } from '@/actions/auth/user/get-profile-pic-url'
 import { decrypt } from '@/backend/src/lib/decrypt'
 import client from '@/client'
 import { cookies } from 'next/headers'

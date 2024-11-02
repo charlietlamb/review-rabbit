@@ -7,45 +7,35 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { toast } from '@/hooks/use-toast'
 import { FaGithub } from 'react-icons/fa'
-import Spinner from '../misc/Spinner'
-import { Mail, Lock, User, EyeOff, Eye } from 'lucide-react'
-import FieldInfo from '../form/FieldInfo'
+import Spinner from '../misc/spinner'
+import { Mail, EyeOff, Eye } from 'lucide-react'
+import FieldInfo from '../form/field-info'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import { authClient } from '@/authClient'
-import { useRouter } from 'next/navigation'
-import { signup } from '@/actions/auth/auth/signup'
 import { useState } from 'react'
+import { login } from '@/actions/auth/auth/login'
 
-export const userAuthSignupSchema = z.object({
-  name: z.string().min(1),
+export const userAuthSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 })
 
-type FormData = z.infer<typeof userAuthSignupSchema>
+type FormData = z.infer<typeof userAuthSchema>
 
-export default function AuthFormSignup({ className }: { className?: string }) {
-  const router = useRouter()
+export default function AuthFormLogin({ className }: { className?: string }) {
   const form = useForm({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     } as FormData,
     onSubmit: async ({ value }) => {
-      const { name, email, password } = value
       setIsLoading(true)
-      const { data, error } = await signup(name, email, password)
-      if (error) {
-        console.error(error)
-      }
+      await login(value.email, value.password)
       setIsLoading(false)
     },
     validatorAdapter: zodValidator(),
     validators: {
-      onChange: userAuthSignupSchema,
+      onChange: userAuthSchema,
     },
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -68,48 +58,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
           form.handleSubmit()
         }}
       >
-        <form.Field
-          name="name"
-          validators={{ onChange: z.string().min(1) }}
-          children={(field) => (
-            <div className="flex flex-col gap-1">
-              <Label
-                htmlFor={field.name}
-                className="font-heading text-base font-semibold"
-              >
-                Name
-              </Label>
-              <div className="relative">
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value ?? ''}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  placeholder="Name"
-                  type="text"
-                  className={cn(
-                    '',
-                    field.state.meta.errors.some((error) => error) &&
-                      'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
-                  )}
-                />
-                <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
-                  <User
-                    size={16}
-                    strokeWidth={2}
-                    aria-hidden="true"
-                    className={cn(
-                      field.state.meta.errors.some((error) => error) &&
-                        'text-destructive/80'
-                    )}
-                  />
-                </div>
-              </div>
-              <FieldInfo field={field} />
-            </div>
-          )}
-        />
         <form.Field
           name="email"
           validators={{ onChange: z.string().email() }}
@@ -199,7 +147,7 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         />
         <Button className="w-full" disabled={isLoading}>
           {isLoading && <Spinner />}
-          Sign Up
+          Sign In
         </Button>
       </form>
       <div className="relative">

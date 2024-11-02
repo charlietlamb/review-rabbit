@@ -1,10 +1,10 @@
 'use client'
 
-import DialogProvider from '../dashboard/provider/DialogProvider'
-import TanstackQueryProvider from './TanstackQueryProvider'
+import DialogProvider from '../dashboard/provider/dialog-provider'
+import TanstackQueryProvider from './tanstack-query-provider'
 import { useEffect, useState } from 'react'
-import ThemeProvider from './ThemeProvider'
-import SessionProvider from './SessionProvider'
+import ThemeProvider from './theme-provider'
+import SessionProvider from './session-provider'
 
 export default function Providers({
   user,

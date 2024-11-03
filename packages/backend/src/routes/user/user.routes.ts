@@ -66,3 +66,32 @@ export const update = createRoute({
 })
 
 export type UpdateUserRoute = typeof update
+
+export const getFromToken = createRoute({
+  path: '/user/get-from-token',
+  method: 'get',
+  summary: 'Get a user by their reset token',
+  tags,
+  request: {
+    query: z.object({
+      token: z.string(),
+    }),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(selectUserSchema, 'User information.'),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Reset token is required'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User not found'
+    ),
+  },
+})
+
+export type GetUserFromTokenRoute = typeof getFromToken

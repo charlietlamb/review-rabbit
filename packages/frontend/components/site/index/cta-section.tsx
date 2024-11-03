@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
 export function CtaSection() {
   return (
@@ -9,12 +9,17 @@ export function CtaSection() {
         Code at the speed of no-code
       </h2>
       <p className="text-lg text-muted-foreground text-balance max-w-lg text-center">
-        Build at the speed of no-code. Export to Next.js and Tailwind code. Customize without
-        limits.
+        Build at the speed of no-code. Export to Next.js and Tailwind code.
+        Customize without limits.
       </p>
-      <Button size="lg" asChild variant="default" className="cursor-pointer border-border">
+      <Button
+        size="lg"
+        asChild
+        variant="gooeyLeft"
+        className="cursor-pointer border-border"
+      >
         <Link href="#">Get Started</Link>
       </Button>
     </section>
-  );
+  )
 }

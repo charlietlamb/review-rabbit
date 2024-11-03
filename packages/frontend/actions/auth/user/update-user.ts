@@ -1,7 +1,7 @@
 import client from '@/client'
 
 export async function updateUser(
-  form: UpdateUser,
+  form: { name: string; email: string; image?: string },
   session: string
 ): Promise<number> {
   const response = await client.auth.user.update.$put({

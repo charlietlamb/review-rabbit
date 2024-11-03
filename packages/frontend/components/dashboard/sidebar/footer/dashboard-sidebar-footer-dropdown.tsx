@@ -1,19 +1,22 @@
 import { logout } from '@/actions/auth/auth/logout'
+import { userAtom } from '@/atoms/user/user-atom'
 import { authClient } from '@/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
+import { useSetAtom } from 'jotai'
 import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function DashboardSidebarFooterDropdown() {
   const router = useRouter()
+  const setUser = useSetAtom(userAtom)
   return (
     <>
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push('/pricing')}>
           <Sparkles />
           Upgrade to Pro
         </DropdownMenuItem>
@@ -36,7 +39,7 @@ export default function DashboardSidebarFooterDropdown() {
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={logout}>
+      <DropdownMenuItem onClick={() => logout().then(() => setUser(null))}>
         <LogOut />
         Log out
       </DropdownMenuItem>

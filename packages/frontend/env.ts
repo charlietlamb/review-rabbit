@@ -11,14 +11,27 @@ const env = createEnv({
     BETTER_AUTH_URL: z.string().url(),
     BETTER_AUTH_BASE_PATH: z.string(),
     BETTER_AUTH_SECRET: z.string(),
+    STRIPE_SECRET_KEY: z.string(),
   },
   client: {
     NEXT_PUBLIC_LOCATION: z.string().url(),
     NEXT_PUBLIC_AWS_S3_URL: z.string().url(),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID: z.string(),
+    NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID: z.string(),
+    NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID: z.string(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_LOCATION: process.env.NEXT_PUBLIC_LOCATION,
     NEXT_PUBLIC_AWS_S3_URL: process.env.NEXT_PUBLIC_AWS_S3_URL,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID:
+      process.env.NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
+    NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID:
+      process.env.NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
+    NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID:
+      process.env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
   },
 })
 

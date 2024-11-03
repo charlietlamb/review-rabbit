@@ -20,17 +20,24 @@ export function Hero() {
         Build at the speed of no-code. Export to Next.js & Tailwind code and
         customize without limits.
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="flex gap-3">
         <Button
           size="lg"
-          asChild
-          variant="outline"
-          className="cursor-pointer border-border"
+          variant="expandIcon"
+          colors="outline"
+          Icon={ArrowRight}
+          iconPlacement="right"
+          className="font-heading text-lg"
         >
-          <Link href="#">Learn More</Link>
+          Learn More
         </Button>
-        <Button size="lg" asChild className="cursor-pointer">
-          <Link href="#">Get Started</Link>
+        <Button
+          size="lg"
+          variant="shine"
+          colors="ghost"
+          className="font-heading text-lg hover:text-white"
+        >
+          Get Started
         </Button>
       </div>
       <div className="relative sm:mt-8">

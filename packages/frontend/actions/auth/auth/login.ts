@@ -5,17 +5,17 @@ import { cookies } from 'next/headers'
 import { encrypt } from '../jwt/encrypt'
 
 export async function login(email: string, password: string) {
-  const { data, error } = await authClient.signIn.email({
+  const response = await authClient.signIn.email({
     email,
     password,
   })
-  if (!data) return { data, error }
+  if (response.error) return response.error.status
 
-  const encryptedSession = await encrypt(data.session)
+  const encryptedSession = await encrypt(response.data.session)
   const cookieStore = await cookies()
   cookieStore.set('remio.session', encryptedSession, {
     httpOnly: true,
     secure: true,
   })
-  return { data, error }
+  return 200
 }

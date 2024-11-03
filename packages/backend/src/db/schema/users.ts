@@ -1,5 +1,15 @@
-import { timestamp, pgTable, text, boolean, uuid } from 'drizzle-orm/pg-core'
+import { plans } from '@/src/lib/types'
+import {
+  timestamp,
+  pgTable,
+  text,
+  boolean,
+  uuid,
+  pgEnum,
+} from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
+
+const plan = pgEnum('plan', plans)
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey(),
@@ -11,6 +21,7 @@ export const users = pgTable('users', {
   imageExpiresAt: timestamp('imageExpiresAt'),
   createdAt: timestamp('createdAt').notNull(),
   updatedAt: timestamp('updatedAt').notNull(),
+  plan: plan().default('free').notNull(),
 })
 
 export const selectUserSchema = createSelectSchema(users)

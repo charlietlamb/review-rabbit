@@ -197,7 +197,12 @@ export default function AuthFormSignup({ className }: { className?: string }) {
             </div>
           )}
         />
-        <Button className="w-full" disabled={isLoading}>
+        <Button
+          className="w-full"
+          disabled={isLoading}
+          variant="shine"
+          colors="ghost"
+        >
           {isLoading && <Spinner />}
           Sign Up
         </Button>

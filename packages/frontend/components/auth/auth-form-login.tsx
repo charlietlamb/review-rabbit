@@ -14,6 +14,8 @@ import FieldInfo from '../form/field-info'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { useState } from 'react'
 import { login } from '@/actions/auth/auth/login'
+import AuthFormForgotPassword from './auth-form-forgot-password'
+import { toast } from '@/hooks/use-toast'
 
 export const userAuthSchema = z.object({
   email: z.string().email(),
@@ -30,7 +32,15 @@ export default function AuthFormLogin({ className }: { className?: string }) {
     } as FormData,
     onSubmit: async ({ value }) => {
       setIsLoading(true)
-      await login(value.email, value.password)
+      const status = await login(value.email, value.password)
+      if (status !== 200) {
+        console.error(status)
+      } else {
+        toast({
+          title: 'Welcome back!',
+          description: 'You have been signed in successfully',
+        })
+      }
       setIsLoading(false)
     },
     validatorAdapter: zodValidator(),
@@ -145,7 +155,12 @@ export default function AuthFormLogin({ className }: { className?: string }) {
             </div>
           )}
         />
-        <Button className="w-full" disabled={isLoading}>
+        <Button
+          className="w-full"
+          disabled={isLoading}
+          variant="shine"
+          colors="ghost"
+        >
           {isLoading && <Spinner />}
           Sign In
         </Button>
@@ -162,8 +177,8 @@ export default function AuthFormLogin({ className }: { className?: string }) {
       </div>
       <Button
         type="button"
-        variant="outline"
-        className="font-sans"
+        colors="outline"
+        className="font-sans gap-2"
         onClick={() => {
           setIsGitHubLoading(true)
           // signInAction('github')
@@ -173,6 +188,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
         {isGitHubLoading ? <Spinner /> : <FaGithub className="h-4 w-4" />}{' '}
         Github
       </Button>
+      <AuthFormForgotPassword />
     </div>
   )
 }

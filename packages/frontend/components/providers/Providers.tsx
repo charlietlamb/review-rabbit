@@ -5,6 +5,7 @@ import TanstackQueryProvider from './tanstack-query-provider'
 import { useEffect, useState } from 'react'
 import ThemeProvider from './theme-provider'
 import SessionProvider from './session-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 export default function Providers({
   user,
@@ -31,6 +32,7 @@ export default function Providers({
       <ThemeProvider attribute="class" defaultTheme="light">
         <TanstackQueryProvider>
           <DialogProvider />
+          <Toaster />
           <SessionProvider user={user} jwt={jwt}>
             {children}
           </SessionProvider>

@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import useUser from '@/hooks/use-user'
+import { userAtom } from '@/atoms/user/user-atom'
+import { useAtomValue } from 'jotai'
+import { useRouter } from 'next/navigation'
 
 type GetStartedButtonProps = {
   className?: string
@@ -13,12 +15,16 @@ export function ActionButton({
   className,
   size = 'default',
 }: GetStartedButtonProps) {
-  const user = useUser()
+  const user = useAtomValue(userAtom)
+  const router = useRouter()
   return (
-    <Button size={size} asChild className={className}>
-      <Link href={user ? '/dashboard' : '/sign-up'} className="cursor-pointer">
-        {user ? 'Dashboard' : 'Get Started'}
-      </Link>
+    <Button
+      size={size}
+      className={className}
+      variant="gooeyLeft"
+      onClick={() => router.push(user ? '/dashboard' : '/signup')}
+    >
+      {user ? 'Dashboard' : 'Get Started'}
     </Button>
   )
 }

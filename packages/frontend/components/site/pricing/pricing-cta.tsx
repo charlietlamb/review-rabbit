@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { ArrowRight } from 'lucide-react'
 
 export default function PricingCta() {
   return (
@@ -9,7 +10,16 @@ export default function PricingCta() {
       <p className="text-muted-foreground mb-6">
         Our team is here to help. Contact us for personalized assistance.
       </p>
-      <Button size="lg">Contact Sales</Button>
+      <Button
+        size="lg"
+        asChild
+        variant="expandIcon"
+        Icon={ArrowRight}
+        iconPlacement="right"
+        className="cursor-pointer border-border"
+      >
+        Contact Sales
+      </Button>
     </div>
   )
 }

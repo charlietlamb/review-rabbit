@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Card,
   CardHeader,
@@ -7,7 +9,8 @@ import {
 } from '@/components/ui/card'
 import { PricingTier } from './pricing-data'
 import { Button } from '@/components/ui/button'
-import { Check } from 'lucide-react'
+import { Check, Gift } from 'lucide-react'
+import { checkout } from '@/actions/stripe/checkout'
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
   return (
@@ -33,7 +36,16 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
         </ul>
       </CardContent>
       <CardFooter className="mt-auto flex-grow flex flex-col justify-end">
-        <Button className="w-full">{tier.buttonText}</Button>
+        <Button
+          size="lg"
+          variant="expandIcon"
+          Icon={Gift}
+          iconPlacement="right"
+          className="w-full"
+          onClick={() => checkout(tier.priceId)}
+        >
+          {tier.buttonText}
+        </Button>
       </CardFooter>
     </Card>
   )

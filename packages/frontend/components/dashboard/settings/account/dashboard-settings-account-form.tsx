@@ -16,6 +16,7 @@ import { updateUser } from '@/actions/auth/user/update-user'
 import useUser from '@/hooks/use-user'
 import useJwtClient from '@/hooks/use-jwt-client'
 import { useRouter } from 'next/navigation'
+import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -48,11 +49,13 @@ export default function DashboadSettingsAccountForm() {
           file,
           jwt,
         })
+        if (res !== 200) {
+          console.error('Failed to upload profile picture')
+        }
       }
       if (user) {
         await updateUser(
           {
-            id: user.id,
             name: values.formApi.getFieldValue('name'),
             email: values.formApi.getFieldValue('email'),
           },
@@ -160,6 +163,7 @@ export default function DashboadSettingsAccountForm() {
             </div>
           )}
         />
+        <DashboardSettingsAccountEmailVerification />
         <form.Field
           name="image"
           validators={{

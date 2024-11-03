@@ -11,6 +11,7 @@ export default function configureCors(app: AppOpenAPI) {
         'Upgrade-Insecure-Requests',
         'Access-Control-Allow-Origin',
         'Content-Type',
+        'Authorization',
       ],
       allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
       exposeHeaders: [
@@ -19,7 +20,7 @@ export default function configureCors(app: AppOpenAPI) {
         'Access-Control-Allow-Origin',
       ],
       maxAge: 600,
-      credentials: false,
+      credentials: true,
     })
   )
 }

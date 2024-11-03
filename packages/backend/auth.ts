@@ -33,6 +33,11 @@ export const auth = betterAuth({
         default: null,
         required: false,
       },
+      plan: {
+        type: 'string',
+        default: 'free',
+        required: true,
+      },
     },
   },
 })

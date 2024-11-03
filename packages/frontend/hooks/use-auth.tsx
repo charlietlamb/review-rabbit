@@ -36,7 +36,8 @@ export default async function useAuth(): Promise<User | null> {
   //return user
   if (
     !userWithDates.imageUploaded ||
-    new Date(userWithDates.imageExpiresAt ?? '') < new Date()
+    (userWithDates.imageExpiresAt != null &&
+      new Date(userWithDates.imageExpiresAt) > new Date())
   ) {
     return userWithDates as User
   } else {

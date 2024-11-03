@@ -20,6 +20,9 @@ const EnvSchema = z.object({
   BETTER_AUTH_URL: z.string().url(),
   BETTER_AUTH_BASE_PATH: z.string(),
   BETTER_AUTH_SECRET: z.string(),
+  STRIPE_SECRET_KEY: z.string(),
+  STRIPE_WEBHOOK_SECRET: z.string(),
+  FRONTEND_URL: z.string().url(),
 })
 
 export type Env = z.infer<typeof EnvSchema>

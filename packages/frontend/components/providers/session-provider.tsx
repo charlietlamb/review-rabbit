@@ -15,7 +15,7 @@ export default function SessionProvider({
   jwt: string | null
   children: React.ReactNode
 }) {
-  if (!user || !jwt) return null
+  if (!user || !jwt) return <>{children}</>
   const setUser = useSetAtom(userAtom)
   const setJwt = useSetAtom(jwtAtom)
 

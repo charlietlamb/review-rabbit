@@ -10,6 +10,7 @@ export default function DashboardSidebarHeaderThemeToggle() {
     <Button
       variant="ghost"
       size="iconSm"
+      colors="ghost"
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light')
       }}

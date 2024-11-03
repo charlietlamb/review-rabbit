@@ -1,9 +1,12 @@
+import env from '@/env'
+
 export type PricingTier = {
   title: string
   price: number
   description: string
   features: string[]
   buttonText: string
+  priceId: string
 }
 
 export const pricingTiers: PricingTier[] = [
@@ -13,6 +16,7 @@ export const pricingTiers: PricingTier[] = [
     description: 'Essential features for small projects',
     features: ['1 user', '5 projects', '5GB storage', 'Basic support'],
     buttonText: 'Get Started',
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
   },
   {
     title: 'Pro',
@@ -27,6 +31,7 @@ export const pricingTiers: PricingTier[] = [
       'Custom domains',
     ],
     buttonText: 'Upgrade to Pro',
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
   },
   {
     title: 'Enterprise',
@@ -42,5 +47,6 @@ export const pricingTiers: PricingTier[] = [
       'SLA guarantee',
     ],
     buttonText: 'Contact Sales',
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
   },
 ]

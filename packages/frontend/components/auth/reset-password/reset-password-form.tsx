@@ -49,7 +49,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       <DialogTrigger asChild>
         <Button
           variant="linkHover2"
-          colors="ghost"
+          colors="none"
           className="w-auto hover:bg-transparent"
         >
           Forgot password?

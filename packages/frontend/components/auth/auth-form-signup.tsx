@@ -201,7 +201,7 @@ export default function AuthFormSignup({ className }: { className?: string }) {
           className="w-full"
           disabled={isLoading}
           variant="shine"
-          colors="ghost"
+          colors="none"
         >
           {isLoading && <Spinner />}
           Sign Up

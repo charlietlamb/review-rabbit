@@ -16,6 +16,7 @@ import { useState } from 'react'
 import { login } from '@/actions/auth/auth/login'
 import AuthFormForgotPassword from './auth-form-forgot-password'
 import { toast } from '@/hooks/use-toast'
+import { authClient } from '@/authClient'
 
 export const userAuthSchema = z.object({
   email: z.string().email(),
@@ -32,9 +33,12 @@ export default function AuthFormLogin({ className }: { className?: string }) {
     } as FormData,
     onSubmit: async ({ value }) => {
       setIsLoading(true)
-      const status = await login(value.email, value.password)
-      if (status !== 200) {
-        console.error(status)
+      const response = await authClient.signIn.email({
+        email: value.email,
+        password: value.password,
+      })
+      if (response.error) {
+        console.error(response.error)
       } else {
         toast({
           title: 'Welcome back!',
@@ -159,7 +163,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
           className="w-full"
           disabled={isLoading}
           variant="shine"
-          colors="ghost"
+          colors="none"
         >
           {isLoading && <Spinner />}
           Sign In

@@ -55,7 +55,7 @@ export default function AuthFormForgotPassword() {
       <DialogTrigger asChild>
         <Button
           variant="linkHover2"
-          colors="ghost"
+          colors="none"
           className="w-auto hover:bg-transparent"
         >
           Forgot password?

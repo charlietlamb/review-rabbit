@@ -34,7 +34,7 @@ export function Hero() {
         <Button
           size="lg"
           variant="shine"
-          colors="ghost"
+          colors="none"
           className="font-heading text-lg hover:text-white"
         >
           Get Started

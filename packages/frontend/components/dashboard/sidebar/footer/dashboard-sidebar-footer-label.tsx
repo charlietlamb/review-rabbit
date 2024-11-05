@@ -4,6 +4,7 @@ import useUser from '@/hooks/use-user'
 
 export default function DashboardSidebarFooterLabel() {
   const user = useUser()
+  if (!user) return null
   return (
     <DropdownMenuLabel className="p-0 font-normal">
       <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">

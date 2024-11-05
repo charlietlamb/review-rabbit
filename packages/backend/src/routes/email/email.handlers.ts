@@ -6,7 +6,7 @@ import {
   VerifyEmailRoute,
 } from './email.routes'
 import { db } from '@/src/db/postgres'
-import { resets, users, verifications } from '@/src/db/schema'
+import { users, verifications } from '@/src/db/schema'
 import { eq } from 'drizzle-orm'
 import sendEmail from '@/src/actions/email/send-email'
 import getVerifyEmail from '@/src/email/verify-email'
@@ -16,6 +16,9 @@ export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
   c
 ) => {
   const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
   const token = crypto.randomUUID()
   const expiresAt = new Date(Date.now() + 1 * 60 * 60)
   await db.insert(verifications).values({

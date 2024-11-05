@@ -9,14 +9,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FaGithub } from 'react-icons/fa'
 import Spinner from '../misc/spinner'
-import { Mail, EyeOff, Eye } from 'lucide-react'
+import { Mail, EyeOff, Eye, UserCheck } from 'lucide-react'
 import FieldInfo from '../form/field-info'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { useState } from 'react'
-import { login } from '@/actions/auth/auth/login'
 import AuthFormForgotPassword from './auth-form-forgot-password'
-import { toast } from '@/hooks/use-toast'
 import { authClient } from '@/authClient'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 export const userAuthSchema = z.object({
   email: z.string().email(),
@@ -26,6 +26,7 @@ export const userAuthSchema = z.object({
 type FormData = z.infer<typeof userAuthSchema>
 
 export default function AuthFormLogin({ className }: { className?: string }) {
+  const router = useRouter()
   const form = useForm({
     defaultValues: {
       email: '',
@@ -40,10 +41,11 @@ export default function AuthFormLogin({ className }: { className?: string }) {
       if (response.error) {
         console.error(response.error)
       } else {
-        toast({
-          title: 'Welcome back!',
+        toast.success('Welcome back!', {
           description: 'You have been signed in successfully',
+          icon: <UserCheck />,
         })
+        router.push('/dashboard')
       }
       setIsLoading(false)
     },

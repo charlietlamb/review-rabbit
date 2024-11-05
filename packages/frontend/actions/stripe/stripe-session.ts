@@ -10,11 +10,9 @@ const stripe = new Stripe(apiKey)
 
 export const postStripeSession = async ({
   priceId,
-  jwt,
   plan,
 }: {
   priceId: string
-  jwt: string
   plan: Plan
 }) => {
   const successUrl = `${env.NEXT_PUBLIC_LOCATION}/welcome?session_id={CHECKOUT_SESSION_ID}`
@@ -30,9 +28,6 @@ export const postStripeSession = async ({
     mode: 'subscription',
     success_url: successUrl,
     cancel_url: cancelUrl,
-    metadata: {
-      session: jwt,
-    },
   })
   if (!session.url) throw new Error('Error initiating Stripe session')
   redirect(session.url)

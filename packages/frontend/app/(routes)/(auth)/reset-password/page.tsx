@@ -11,12 +11,12 @@ export default async function ResetPasswordPage({
   searchParams: { token: string }
 }) {
   //await is needed
+  //TODO: change this
   const { token } = await searchParams
   const user = await getUserFromResetToken(token)
   if (!user) {
     return notFound()
   }
-  await authClient.useSession()
   return (
     <SiteLayout>
       <ResetPasswordForm token={token} />

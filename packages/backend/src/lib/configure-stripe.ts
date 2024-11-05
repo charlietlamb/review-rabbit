@@ -1,7 +1,6 @@
 import Stripe from 'stripe'
 import env from '../env'
 import { AppOpenAPI, stripeMetaDataSchema } from './types'
-import handlePaymentIntentCreated from '../actions/stripe/handle-payment-intent-created'
 
 export default async function configureStripe(app: AppOpenAPI) {
   app.post('/webhook', async (context) => {
@@ -23,7 +22,6 @@ export default async function configureStripe(app: AppOpenAPI) {
       const { session, plan } = stripeMetaDataSchema.parse(metadata)
       switch (event.type) {
         case 'payment_intent.created': {
-          await handlePaymentIntentCreated(context, session, plan)
           break
         }
         default:

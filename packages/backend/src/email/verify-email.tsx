@@ -13,11 +13,8 @@ import {
   Text,
 } from '@react-email/components'
 import TailwindProvider from './tailwind-provider'
-import { User } from '../db/schema'
-import env from '../env'
 
-function VerifyEmail({ user, token }: { user: User; token: string }) {
-  const url = `${env.FRONTEND_URL}/verify?token=${token}`
+function VerifyEmail({ user, url }: { user: User; url: string }) {
   return (
     <TailwindProvider>
       <Html>
@@ -63,6 +60,6 @@ function VerifyEmail({ user, token }: { user: User; token: string }) {
   )
 }
 
-export default function getVerifyEmail(user: User, token: string) {
-  return <VerifyEmail user={user} token={token} />
+export default function getVerifyEmail(user: User, url: string) {
+  return <VerifyEmail user={user} url={url} />
 }

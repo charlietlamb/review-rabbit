@@ -7,16 +7,17 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { toast } from '@/hooks/use-toast'
 import { FaGithub } from 'react-icons/fa'
 import Spinner from '../misc/spinner'
-import { Mail, Lock, User, EyeOff, Eye } from 'lucide-react'
+import { Mail, User, EyeOff, Eye, UserCheck } from 'lucide-react'
 import FieldInfo from '../form/field-info'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { authClient } from '@/authClient'
 import { useRouter } from 'next/navigation'
-import { signup } from '@/actions/auth/auth/signup'
 import { useState } from 'react'
+import { toast } from 'sonner'
+import { useSetAtom } from 'jotai'
+import { userAtom } from '@/atoms/user/user-atom'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -28,6 +29,7 @@ type FormData = z.infer<typeof userAuthSignupSchema>
 
 export default function AuthFormSignup({ className }: { className?: string }) {
   const router = useRouter()
+  const setUser = useSetAtom(userAtom)
   const form = useForm({
     defaultValues: {
       name: '',
@@ -37,9 +39,23 @@ export default function AuthFormSignup({ className }: { className?: string }) {
     onSubmit: async ({ value }) => {
       const { name, email, password } = value
       setIsLoading(true)
-      const { data, error } = await signup(name, email, password)
-      if (error) {
-        console.error(error)
+      const response = await authClient.signUp.email({
+        name,
+        email,
+        password,
+        imageUploaded: false,
+        plan: 'free',
+      })
+      if (response.error) {
+        console.error(response.error)
+      } else {
+        setUser(response.data.user)
+        toast.success('Welcome!', {
+          description: 'You have been signed up successfully',
+          icon: <UserCheck />,
+        })
+
+        router.push('/dashboard')
       }
       setIsLoading(false)
     },

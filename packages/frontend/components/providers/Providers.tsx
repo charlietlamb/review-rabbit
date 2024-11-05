@@ -9,12 +9,10 @@ import { Toaster } from '@/components/ui/toaster'
 
 export default function Providers({
   user,
-  jwt,
   className,
   children,
 }: {
   user: User | null
-  jwt: string | null
   className?: string
   children: React.ReactNode
 }) {
@@ -28,16 +26,12 @@ export default function Providers({
     return null
   }
   return (
-    <body className={className}>
-      <ThemeProvider attribute="class" defaultTheme="light">
-        <TanstackQueryProvider>
-          <DialogProvider />
-          <Toaster />
-          <SessionProvider user={user} jwt={jwt}>
-            {children}
-          </SessionProvider>
-        </TanstackQueryProvider>
-      </ThemeProvider>
-    </body>
+    <ThemeProvider attribute="class" defaultTheme="light">
+      <TanstackQueryProvider>
+        <DialogProvider />
+        <Toaster />
+        {children}
+      </TanstackQueryProvider>
+    </ThemeProvider>
   )
 }

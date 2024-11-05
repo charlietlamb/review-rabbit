@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button'
 import { uploadProfilePicture } from '@/actions/s3/upload/upload-profile-picture'
 import { updateUser } from '@/actions/auth/user/update-user'
 import useUser from '@/hooks/use-user'
-import useJwtClient from '@/hooks/use-jwt-client'
 import { useRouter } from 'next/navigation'
 import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
 
@@ -34,7 +33,6 @@ type UserFormSchema = z.infer<typeof userFormSchema>
 
 export default function DashboadSettingsAccountForm() {
   const user = useUser()
-  const jwt = useJwtClient()
   const router = useRouter()
   const form = useForm({
     defaultValues: {
@@ -47,20 +45,16 @@ export default function DashboadSettingsAccountForm() {
       if (file) {
         const res = await uploadProfilePicture({
           file,
-          jwt,
         })
         if (res !== 200) {
           console.error('Failed to upload profile picture')
         }
       }
       if (user) {
-        await updateUser(
-          {
-            name: values.formApi.getFieldValue('name'),
-            email: values.formApi.getFieldValue('email'),
-          },
-          jwt
-        )
+        await updateUser({
+          name: values.formApi.getFieldValue('name'),
+          email: values.formApi.getFieldValue('email'),
+        })
         router.refresh()
       }
     },
@@ -70,6 +64,7 @@ export default function DashboadSettingsAccountForm() {
     },
   })
 
+  if (!user) return null
   return (
     <form
       onSubmit={(e) => {

@@ -1,11 +1,14 @@
 import { OpenAPIHono, RouteConfig, RouteHandler, z } from '@hono/zod-openapi'
 import { PinoLogger } from 'hono-pino'
-import { User } from '../db/schema/users'
+import { auth } from '@/auth'
 
+type Session = typeof auth.$Infer.Session.session
+type User = typeof auth.$Infer.Session.user
 export interface AppBindings {
   Variables: {
     logger: PinoLogger
-    user: User
+    user: User | null
+    session: Session | null
   }
 }
 

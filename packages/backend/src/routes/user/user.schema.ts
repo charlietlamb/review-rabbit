@@ -5,5 +5,4 @@ export const updateUserSchema = z.object({
     name: z.string(),
     email: z.string(),
   }),
-  session: z.string(),
 })

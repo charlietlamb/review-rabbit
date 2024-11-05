@@ -8,6 +8,13 @@
       "when": 1730653698007,
       "tag": "0000_tan_spectrum",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1730838921998,
+      "tag": "0001_lean_electro",
+      "breakpoints": true
     }
   ]
 }

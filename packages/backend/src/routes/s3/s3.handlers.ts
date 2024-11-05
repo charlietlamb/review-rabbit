@@ -13,6 +13,9 @@ export const uploadProfileImage: AppRouteHandler<
   UploadProfileImageRoute
 > = async (c) => {
   const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
   // Parse body
   const body = await c.req.json()
   const fileArrayBuffer = Buffer.from(body.file, 'base64')
@@ -42,40 +45,16 @@ export const uploadProfileImage: AppRouteHandler<
   }
 
   // update user imageUploaded to true and imageExpiresAt to null
+  const imageUrl = `https://${env.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/users/pp/${user.id}/pp.jpg`
   await db
     .update(users)
     .set({
+      image: imageUrl,
       imageUploaded: true,
       imageExpiresAt: null,
     })
     .where(eq(users.id, user.id))
-
-  // Generate presigned URL
-  const presignedUrlResponse = await generatePresignedUrl(user, c)
-
-  // Return presigned URL or error
-  switch (presignedUrlResponse.status) {
-    case HttpStatusCodes.NO_CONTENT:
-      return c.json(
-        presignedUrlResponse.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NO_CONTENT
-      )
-    case HttpStatusCodes.NOT_FOUND:
-      return c.json(
-        presignedUrlResponse.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NOT_FOUND
-      )
-    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
-      return c.json(
-        presignedUrlResponse.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.INTERNAL_SERVER_ERROR
-      )
-    default:
-      return c.json(
-        presignedUrlResponse.content as PresignedUrlResponseOk['content'],
-        HttpStatusCodes.OK
-      )
-  }
+  return c.json({ image: imageUrl }, HttpStatusCodes.OK)
 }
 
 export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (

@@ -1,4 +1,3 @@
-import { logout } from '@/actions/auth/auth/logout'
 import { userAtom } from '@/atoms/user/user-atom'
 import { authClient } from '@/authClient'
 import {
@@ -39,7 +38,13 @@ export default function DashboardSidebarFooterDropdown() {
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => logout().then(() => setUser(null))}>
+      <DropdownMenuItem
+        onClick={() =>
+          authClient.signOut().then(() => {
+            router.push('/')
+          })
+        }
+      >
         <LogOut />
         Log out
       </DropdownMenuItem>

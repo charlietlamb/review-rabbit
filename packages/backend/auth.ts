@@ -2,6 +2,8 @@ import { db } from './src/db/postgres'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import env from './src/env'
+import sendEmail from './src/actions/email/send-email'
+import getVerifyEmail from './src/email/verify-email'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -15,11 +17,16 @@ export const auth = betterAuth({
     enabled: true,
   },
   advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
-      domains: ['localhost'],
-    },
     disableCSRFCheck: true,
+    cookiePrefix: 'remio',
+    cookies: {
+      session_token: {
+        attributes: {
+          secure: true,
+          sameSite: 'lax',
+        },
+      },
+    },
   },
   user: {
     additionalFields: {
@@ -40,4 +47,15 @@ export const auth = betterAuth({
       },
     },
   },
+  emailVerification: {
+    sendVerificationEmail: async (user, url, token) => {
+      await sendEmail(
+        user.email,
+        'Verify your email address',
+        getVerifyEmail(user, url)
+      )
+    },
+    sendOnSignUp: true,
+  },
+  trustedOrigins: ['http://localhost:3000'],
 })

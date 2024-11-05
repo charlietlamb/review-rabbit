@@ -2,11 +2,10 @@ import client from '@/client'
 
 export async function uploadProfilePicture(form: {
   file: File
-  jwt: string
 }): Promise<number> {
   const fileAsString = encodeArrayBufferToJson(await form.file.arrayBuffer())
-  const response = await client.auth.s3.upload['profile-image'].$post({
-    json: { session: form.jwt, file: fileAsString },
+  const response = await client.s3.upload['profile-image'].$post({
+    json: { file: fileAsString },
   })
   return response.status
 }

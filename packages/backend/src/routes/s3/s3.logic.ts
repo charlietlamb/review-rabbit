@@ -1,4 +1,4 @@
-import { User, users } from '@/src/db/schema/users'
+import { users } from '@/src/db/schema/users'
 import { type Context } from 'hono'
 import {
   type PresignedUrlResponseError,

@@ -4,18 +4,18 @@ import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
-import FieldInfo from '@/components/form/field-info'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-import { Mail, User } from 'lucide-react'
-import ImageUpload from '@/components/form/image-upload'
 import { Button } from '@/components/ui/button'
+import Image from '@/components/auth/form/image'
 import { uploadProfilePicture } from '@/actions/s3/upload/upload-profile-picture'
 import { updateUser } from '@/actions/auth/user/update-user'
 import useUser from '@/hooks/use-user'
 import { useRouter } from 'next/navigation'
 import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
+import Name from '@/components/auth/form/name'
+import Email from '@/components/auth/form/email'
+import Spinner from '@/components/misc/spinner'
+import { toast } from 'sonner'
+import UpdatePassword from '@/components/auth/update-password/update-password'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -55,6 +55,9 @@ export default function DashboadSettingsAccountForm() {
           name: values.formApi.getFieldValue('name'),
           email: values.formApi.getFieldValue('email'),
         })
+        toast.success('Account updated', {
+          description: 'Your account has been updated successfully',
+        })
         router.refresh()
       }
     },
@@ -74,118 +77,20 @@ export default function DashboadSettingsAccountForm() {
       }}
     >
       <div>
-        <form.Field
-          name="name"
-          validators={{ onChange: z.string().min(1) }}
-          children={(field) => (
-            <div className="flex flex-col gap-1">
-              <Label
-                htmlFor={field.name}
-                className="font-heading text-base font-semibold"
-              >
-                Name
-              </Label>
-              <div className="relative">
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value ?? ''}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  placeholder="Name"
-                  type="text"
-                  className={cn(
-                    '',
-                    field.state.meta.errors.some((error) => error) &&
-                      'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
-                  )}
-                />
-                <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
-                  <User
-                    size={16}
-                    strokeWidth={2}
-                    aria-hidden="true"
-                    className={cn(
-                      field.state.meta.errors.some((error) => error) &&
-                        'text-destructive/80'
-                    )}
-                  />
-                </div>
-              </div>
-              <FieldInfo field={field} />
-            </div>
-          )}
-        />
-        <form.Field
-          name="email"
-          validators={{ onChange: z.string().email() }}
-          children={(field) => (
-            <div className="flex flex-col gap-1">
-              <Label
-                htmlFor={field.name}
-                className="font-heading text-base font-semibold"
-              >
-                Email
-              </Label>
-              <div className="relative">
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value ?? ''}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  placeholder="Email"
-                  type="email"
-                  className={cn(
-                    '',
-                    field.state.meta.errors.some((error) => error) &&
-                      'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
-                  )}
-                />
-                <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
-                  <Mail
-                    size={16}
-                    strokeWidth={2}
-                    aria-hidden="true"
-                    className={cn(
-                      field.state.meta.errors.some((error) => error) &&
-                        'text-destructive/80'
-                    )}
-                  />
-                </div>
-              </div>
-              <FieldInfo field={field} />
-            </div>
-          )}
-        />
+        <Name form={form} />
+        <Email form={form} />
         <DashboardSettingsAccountEmailVerification />
-        <form.Field
-          name="image"
-          validators={{
-            onChange: zfd
-              .file()
-              .optional()
-              .refine(
-                (file) => !file || file?.size <= 1024 * 1024 * 3,
-                'Max size is 3MB'
-              ),
-          }}
-          children={(field) => (
-            <div className="flex flex-col gap-1">
-              <Label
-                htmlFor={field.name}
-                className="font-heading text-base font-semibold"
-              >
-                Profile picture
-              </Label>
-              <ImageUpload previewUrl={user.image ?? undefined} field={field} />
-              <FieldInfo field={field} />
-            </div>
-          )}
-        />
-        <Button type="submit">Save</Button>
-        {form.state.isSubmitting && <p>Saving...</p>}
-        {form.state.isSubmitted && <p>Saved</p>}
+        <div className="grid md:grid-cols-2 gap-2 grid-cols-1">
+          <Image form={form} previewUrl={user.image ?? undefined} />
+          <UpdatePassword />
+        </div>
+        <Button
+          type="submit"
+          disabled={form.state.isSubmitting}
+          className="mt-2 w-full"
+        >
+          {form.state.isSubmitting ? <Spinner /> : 'Save Changes'}
+        </Button>
       </div>
     </form>
   )

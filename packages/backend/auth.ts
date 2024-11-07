@@ -4,6 +4,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import env from './src/env'
 import sendEmail from './src/actions/email/send-email'
 import getVerifyEmail from './src/email/verify-email'
+import resetPasswordEmail from './src/email/reset-password-email'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -15,18 +16,17 @@ export const auth = betterAuth({
   basePath: env.BETTER_AUTH_BASE_PATH,
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async (user, url) => {
+      await sendEmail(
+        user.email,
+        'Reset your password',
+        resetPasswordEmail(user, url)
+      )
+    },
   },
   advanced: {
     disableCSRFCheck: true,
     cookiePrefix: 'remio',
-    cookies: {
-      session_token: {
-        attributes: {
-          secure: true,
-          sameSite: 'lax',
-        },
-      },
-    },
   },
   user: {
     additionalFields: {
@@ -36,7 +36,7 @@ export const auth = betterAuth({
         default: false,
       },
       imageExpiresAt: {
-        type: 'date',
+        type: 'string',
         default: null,
         required: false,
       },

@@ -4,12 +4,7 @@ import { Button } from '@/components/ui/button'
 import { CircleUserRound } from 'lucide-react'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogOverlay,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
@@ -32,9 +27,14 @@ export default function ImageUpload({
     setPreviewUrl(initPreviewUrl ?? null)
   }, [initPreviewUrl])
 
-  const handleButtonClick = useCallback(() => {
-    fileInputRef.current?.click()
-  }, [])
+  const handleButtonClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
+      e.stopPropagation()
+      fileInputRef.current?.click()
+    },
+    []
+  )
 
   const handleFileChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

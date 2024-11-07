@@ -19,10 +19,9 @@ export default function DashboardSettingsAccountEmailVerification() {
         e.preventDefault()
         e.stopPropagation()
         if (!sent) {
-          console.log('Sending verification email')
           const response = await authClient.sendVerificationEmail({
             email: user.email,
-            callbackURL: '/dashboard',
+            callbackURL: '/redirect/verify',
           })
           if (response.error) {
             toast({

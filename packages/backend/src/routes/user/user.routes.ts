@@ -68,3 +68,45 @@ export const update = createRoute({
 })
 
 export type UpdateUserRoute = typeof update
+
+export const resetPassword = createRoute({
+  path: '/user/reset-password',
+  method: 'post',
+  summary: 'Reset a user password',
+  tags,
+  request: {
+    body: {
+      description: 'User token & new password',
+      content: {
+        'application/json': {
+          schema: z.object({
+            token: z.string(),
+            password: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        success: z.boolean(),
+      }),
+      'User password reset.'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Incorrect body sent'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User not found'
+    ),
+  },
+})
+
+export type ResetPasswordRoute = typeof resetPassword

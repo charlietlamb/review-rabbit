@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'charlie-lamb-dev-bucket.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }

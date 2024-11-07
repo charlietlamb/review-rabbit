@@ -8,9 +8,6 @@ export default async function sendEmail(
   subject: string,
   component: React.ReactElement
 ) {
-  console.log('-----------------')
-  console.log('Sending email to', to)
-  console.log('-----------------')
   const ses = new SES({
     region: env.AWS_REGION,
     credentials: {

@@ -6,18 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../ui/dialog'
-import { Button } from '../ui/button'
+} from '../../ui/dialog'
+import { Button } from '../../ui/button'
 import { ArrowRight, Mail } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { cn } from '@/lib/utils'
-import FieldInfo from '../form/field-info'
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
-import { sendResetPasswordEmail } from '@/actions/auth/email/send-reset-password-email'
+import FieldInfo from '../../form/field-info'
+import { Input } from '../../ui/input'
+import { Label } from '../../ui/label'
 import { toast } from '@/hooks/use-toast'
+import { authClient } from '@/authClient'
 
 export const resetPasswordSchema = z.object({
   email: z.string().email(),
@@ -31,14 +31,17 @@ export default function AuthFormForgotPassword() {
       email: '',
     } as ResetPasswordData,
     onSubmit: async ({ value }) => {
-      const status = await sendResetPasswordEmail(value.email)
-      if (status === 404) {
+      const response = await authClient.forgetPassword({
+        email: value.email,
+        redirectTo: '/redirect/reset-password',
+      })
+      if (response.error) {
         toast({
-          title: 'Reset password email sent',
-          description: 'Check your email for the reset password link',
+          title: 'Reset password failed',
+          description: 'Please try again',
           variant: 'destructive',
         })
-      } else if (status === 200) {
+      } else {
         toast({
           title: 'Reset password email sent',
           description: 'Check your email for the reset password link',
@@ -56,7 +59,7 @@ export default function AuthFormForgotPassword() {
         <Button
           variant="linkHover2"
           colors="none"
-          className="w-auto hover:bg-transparent"
+          className="w-fit mx-auto hover:bg-transparent"
         >
           Forgot password?
         </Button>
@@ -71,7 +74,9 @@ export default function AuthFormForgotPassword() {
           }}
         >
           <DialogHeader>
-            <DialogTitle className="font-heading">Forgot password</DialogTitle>
+            <DialogTitle className="font-heading text-xl">
+              Forgot password
+            </DialogTitle>
           </DialogHeader>
 
           <form.Field
@@ -81,7 +86,7 @@ export default function AuthFormForgotPassword() {
               <div className="flex flex-col gap-1">
                 <Label
                   htmlFor={field.name}
-                  className="font-heading text-base font-semibold"
+                  className="font-heading text-base font-medium"
                 >
                   Email
                 </Label>

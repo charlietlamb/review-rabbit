@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenuLabel } from '@/components/ui/dropdown-menu'
 import useUser from '@/hooks/use-user'
+import { getUserImage } from '@/lib/get-user-image'
 
 export default function DashboardSidebarFooterLabel() {
   const user = useUser()
@@ -9,7 +10,7 @@ export default function DashboardSidebarFooterLabel() {
     <DropdownMenuLabel className="p-0 font-normal">
       <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
         <Avatar className="h-8 w-8 rounded-lg">
-          <AvatarImage src={user.image ?? undefined} alt={user.name} />
+          <AvatarImage src={getUserImage(user)} alt={user.name} />
           <AvatarFallback className="rounded-lg">CN</AvatarFallback>
         </Avatar>
         <div className="grid flex-1 text-left text-sm leading-tight">

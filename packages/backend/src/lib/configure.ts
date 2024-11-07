@@ -4,6 +4,7 @@ import configureBetterAuth from './configure-better-auth'
 import configureAuth from './configure-auth'
 import configureCors from './configure-cors'
 import configureStripe from './configure-stripe'
+import configureRedirects from './configure-redirects'
 
 export default function configure(app: AppOpenAPI) {
   configureCors(app)
@@ -11,4 +12,5 @@ export default function configure(app: AppOpenAPI) {
   configureBetterAuth(app)
   configureOpenAPI(app)
   configureStripe(app)
+  configureRedirects(app)
 }

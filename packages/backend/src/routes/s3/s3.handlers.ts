@@ -19,7 +19,6 @@ export const uploadProfileImage: AppRouteHandler<
   // Parse body
   const body = await c.req.json()
   const fileArrayBuffer = Buffer.from(body.file, 'base64')
-
   // Upload file to S3
   const client = new S3Client({
     region: env.AWS_REGION,
@@ -36,25 +35,37 @@ export const uploadProfileImage: AppRouteHandler<
     ACL: 'public-read',
   })
 
-  const response = await client.send(command)
-  if (response.$metadata.httpStatusCode !== 200) {
+  const uploadResponse = await client.send(command)
+  if (uploadResponse.$metadata.httpStatusCode !== 200) {
     return c.json(
       { error: 'Failed to upload file' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }
 
-  // update user imageUploaded to true and imageExpiresAt to null
-  const imageUrl = `https://${env.AWS_S3_BUCKET_NAME}.s3.amazonaws.com/users/pp/${user.id}/pp.jpg`
-  await db
-    .update(users)
-    .set({
-      image: imageUrl,
-      imageUploaded: true,
-      imageExpiresAt: null,
-    })
-    .where(eq(users.id, user.id))
-  return c.json({ image: imageUrl }, HttpStatusCodes.OK)
+  const response = await generatePresignedUrl(user)
+  switch (response.status) {
+    case HttpStatusCodes.NO_CONTENT:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NO_CONTENT
+      )
+    case HttpStatusCodes.NOT_FOUND:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.NOT_FOUND
+      )
+    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
+      return c.json(
+        response.content as PresignedUrlResponseError['content'],
+        HttpStatusCodes.INTERNAL_SERVER_ERROR
+      )
+    default:
+      return c.json(
+        response.content as PresignedUrlResponseOk['content'],
+        HttpStatusCodes.OK
+      )
+  }
 }
 
 export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
@@ -67,7 +78,7 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
   const currentUser = await db.query.users.findFirst({
     where: eq(users.id, userId),
   })
-  const response = await generatePresignedUrl(currentUser, c)
+  const response = await generatePresignedUrl(currentUser)
   switch (response.status) {
     case HttpStatusCodes.NO_CONTENT:
       return c.json(

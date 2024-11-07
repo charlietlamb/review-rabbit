@@ -23,7 +23,7 @@ export const uploadProfileImage = createRoute({
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({
-        image: z.string(),
+        presignedUrl: z.string(),
       }),
       'Image uploaded.'
     ),
@@ -32,6 +32,18 @@ export const uploadProfileImage = createRoute({
         error: z.string(),
       }),
       'Failed to upload file'
+    ),
+    [HttpStatusCodes.NO_CONTENT]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User image not uploaded'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User not found'
     ),
     ...unauthorizedSchema,
   },

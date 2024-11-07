@@ -28,7 +28,7 @@
     "@tanstack/react-form": "^0.34.1",
     "@tanstack/zod-form-adapter": "^0.34.1",
     "aws-sdk": "^2.1691.0",
-    "better-auth": "^0.6.1",
+    "better-auth": "0.7.4",
     "jose": "^5.9.6",
     "stripe": "^17.3.1"
   }

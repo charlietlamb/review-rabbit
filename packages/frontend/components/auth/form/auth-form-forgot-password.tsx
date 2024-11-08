@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -6,18 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Button } from '../../ui/button'
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 import { ArrowRight, Mail } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { cn } from '@/lib/utils'
-import FieldInfo from '../../form/field-info'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { toast } from '@/hooks/use-toast'
+import FieldInfo from '@/components/form/field-info'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { authClient } from '@/authClient'
+import { toast } from 'sonner'
 
 export const resetPasswordSchema = z.object({
   email: z.string().email(),
@@ -26,35 +26,38 @@ export const resetPasswordSchema = z.object({
 type ResetPasswordData = z.infer<typeof resetPasswordSchema>
 
 export default function AuthFormForgotPassword() {
+  const [open, setOpen] = useState(false)
   const form = useForm({
     defaultValues: {
       email: '',
     } as ResetPasswordData,
     onSubmit: async ({ value }) => {
-      const response = await authClient.forgetPassword({
-        email: value.email,
-        redirectTo: '/redirect/reset-password',
-      })
-      if (response.error) {
-        toast({
-          title: 'Reset password failed',
-          description: 'Please try again',
-          variant: 'destructive',
-        })
-      } else {
-        toast({
-          title: 'Reset password email sent',
-          description: 'Check your email for the reset password link',
-        })
-      }
+      handleSubmit()
     },
     validatorAdapter: zodValidator(),
     validators: {
       onChange: resetPasswordSchema,
     },
   })
+
+  async function handleSubmit() {
+    const response = await authClient.forgetPassword({
+      email: form.state.values.email,
+      redirectTo: '/redirect/reset-password',
+    })
+    if (response.error) {
+      toast.error('Reset password failed', {
+        description: 'Please try again',
+      })
+    } else {
+      toast.success('Reset password email sent', {
+        description: 'Check your email for the reset password link',
+      })
+    }
+    setOpen(false)
+  }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="linkHover2"
@@ -126,6 +129,11 @@ export default function AuthFormForgotPassword() {
               variant="expandIcon"
               Icon={ArrowRight}
               iconPlacement="right"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleSubmit()
+              }}
             >
               Send reset email
             </Button>

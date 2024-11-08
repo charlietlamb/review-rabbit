@@ -6,6 +6,7 @@ import { Check, Eye, EyeOff, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import FieldInfo from '@/components/form/field-info'
 import { z } from 'zod'
+import { cn } from '@/lib/utils'
 
 export default function PasswordStrength({
   form,
@@ -58,7 +59,6 @@ export default function PasswordStrength({
 
   return (
     <div>
-      {/* Password input field with toggle visibility button */}
       <form.Field
         name={name}
         validators={{ onChange: z.string().min(8) }}
@@ -72,14 +72,21 @@ export default function PasswordStrength({
             </Label>
             <div className="relative">
               <Input
-                id="input-51"
-                className="pe-9"
-                placeholder={label}
+                id={field.name}
+                name={field.name}
+                value={field.state.value ?? ''}
+                onBlur={field.handleBlur}
+                onChange={(e) => {
+                  field.handleChange(e.target.value)
+                  setPassword(e.target.value)
+                }}
+                placeholder="Password"
                 type={isVisible ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-invalid={strengthScore < 4}
-                aria-describedby="password-strength"
+                className={cn(
+                  '',
+                  field.state.meta.errors.some((error) => error) &&
+                    'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+                )}
               />
               <button
                 className="absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg text-muted-foreground/80 transition-shadow hover:text-foreground focus-visible:border focus-visible:border-ring focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"

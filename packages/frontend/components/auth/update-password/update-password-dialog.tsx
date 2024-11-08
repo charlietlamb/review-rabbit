@@ -13,7 +13,8 @@ import { authClient } from '@/authClient'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { Lock } from 'lucide-react'
+import Spinner from '@/components/misc/spinner'
+import { updatePassword } from '@/actions/auth/user/update-password'
 
 const updatePasswordSchema = z.object({
   password: z.string().min(1),
@@ -29,27 +30,33 @@ export default function UpdatePasswordDialog() {
       password: '',
       newPassword: '',
     } as UpdatePasswordSchema,
-    onSubmit: async (values) => {
-      const res = await authClient.changePassword({
-        currentPassword: values.formApi.getFieldValue('password'),
-        newPassword: values.formApi.getFieldValue('newPassword'),
-        revokeOtherSessions: true,
-      })
-      if (res.error) {
-        console.error('Failed to update password')
-      } else {
-        toast.success('Password updated', {
-          description:
-            'Your password has been updated successfully. All other sessions have been revoked.',
-        })
-        setOpen(false)
-      }
+    onSubmit: async () => {
+      handleSubmit()
     },
     validatorAdapter: zodValidator(),
     validators: {
       onChange: updatePasswordSchema,
     },
   })
+
+  async function handleSubmit() {
+    const res = await updatePassword(
+      form.state.values.password,
+      form.state.values.newPassword
+    )
+    if (!res) {
+      toast.error('Failed to update password', {
+        description:
+          'Please try again, make sure your current password is correct.',
+      })
+    } else {
+      toast.success('Password updated', {
+        description: 'Your password has been updated successfully.',
+      })
+      setOpen(false)
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -57,14 +64,32 @@ export default function UpdatePasswordDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Update password</DialogTitle>
-        <form className="flex flex-col gap-2">
+        <form
+          className="flex flex-col gap-2"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
           <Password form={form} />
           <PasswordStrength
             form={form}
             name="newPassword"
             label="New password"
           />
-          <Button type="submit">Update password</Button>
+          <Button
+            variant="shine"
+            disabled={form.state.isSubmitting}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              handleSubmit()
+              console.log('submitted')
+            }}
+          >
+            {form.state.isSubmitting ? <Spinner /> : 'Update password'}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

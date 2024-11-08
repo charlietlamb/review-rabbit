@@ -9,6 +9,7 @@ import { resetPassword } from '@/actions/auth/user/reset-password'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import Password from '../form/password'
+import PasswordStrength from '../form/password-strength'
 
 export const resetPasswordSchema = z.object({
   password: z.string().min(8),
@@ -56,7 +57,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       <h1 className="font-heading mx-auto text-4xl font-bold mb-4">
         Reset password
       </h1>
-      <Password form={form} />
+      <PasswordStrength form={form} />
       <Button variant="expandIcon" Icon={ArrowRight} iconPlacement="right">
         Reset password
       </Button>

@@ -5,7 +5,6 @@ import { useForm } from '@tanstack/react-form'
 import * as z from 'zod'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { FaGithub } from 'react-icons/fa'
 import Spinner from '../../misc/spinner'
 import { UserCheck } from 'lucide-react'
 import { zodValidator } from '@tanstack/zod-form-adapter'
@@ -17,6 +16,7 @@ import { userAtom } from '@/atoms/user/user-atom'
 import PasswordStrength from './password-strength'
 import Name from './name'
 import Email from './email'
+import OAuth from '../oauth/oauth'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -104,19 +104,7 @@ export default function AuthFormSignup({ className }: { className?: string }) {
           </span>
         </div>
       </div>
-      <Button
-        type="button"
-        colors="outline"
-        className="font-sans flex items-center gap-2"
-        onClick={() => {
-          setIsGitHubLoading(true)
-          // signInAction('github')
-        }}
-        disabled={isLoading || isGitHubLoading}
-      >
-        {isGitHubLoading ? <Spinner /> : <FaGithub className="h-4 w-4" />}{' '}
-        Github
-      </Button>
+      <OAuth />
     </div>
   )
 }

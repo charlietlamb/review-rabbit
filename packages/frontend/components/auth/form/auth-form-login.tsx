@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import Email from './email'
 import Password from './password'
 import OrLabel from './or-label'
+import OAuth from '../oauth/oauth'
 
 export const userAuthSchema = z.object({
   email: z.string().email(),
@@ -84,19 +85,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
         </Button>
       </form>
       <OrLabel />
-      <Button
-        type="button"
-        colors="outline"
-        className="font-sans gap-2"
-        onClick={() => {
-          setIsGitHubLoading(true)
-          // signInAction('github')
-        }}
-        disabled={isLoading || isGitHubLoading}
-      >
-        {isGitHubLoading ? <Spinner /> : <FaGithub className="h-4 w-4" />}{' '}
-        Github
-      </Button>
+      <OAuth />
       <AuthFormForgotPassword />
     </div>
   )

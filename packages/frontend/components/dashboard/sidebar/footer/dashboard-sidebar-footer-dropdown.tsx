@@ -39,11 +39,13 @@ export default function DashboardSidebarFooterDropdown() {
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem
-        onClick={() =>
-          authClient.signOut().then(() => {
-            router.push('/')
+        onClick={async () => {
+          await authClient.signOut({
+            fetchOptions: {
+              onSuccess: () => router.push('/'),
+            },
           })
-        }
+        }}
       >
         <LogOut />
         Log out

@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { resetPassword } from '@/actions/auth/user/reset-password'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import Password from '../form/password'
 import PasswordStrength from '../form/password-strength'
 
 export const resetPasswordSchema = z.object({

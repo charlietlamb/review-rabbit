@@ -17,6 +17,7 @@ import PasswordStrength from './password-strength'
 import Name from './name'
 import Email from './email'
 import OAuth from '../oauth/oauth'
+import OrLabel from './or-label'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -64,7 +65,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
     },
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
 
   return (
     <div
@@ -94,16 +94,7 @@ export default function AuthFormSignup({ className }: { className?: string }) {
           Sign Up
         </Button>
       </form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
+      <OrLabel />
       <OAuth />
     </div>
   )

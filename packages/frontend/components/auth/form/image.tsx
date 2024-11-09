@@ -2,13 +2,17 @@ import ImageUpload from '@/components/form/image-upload'
 import { Label } from '@/components/ui/label'
 import FieldInfo from '@/components/form/field-info'
 import { zfd } from 'zod-form-data'
+import { SetStateAction } from 'react'
+import { Dispatch } from 'react'
 
 export default function Image({
   form,
   previewUrl,
+  setFileTooLarge,
 }: {
   form: TanstackForm<any>
   previewUrl?: string
+  setFileTooLarge: Dispatch<SetStateAction<boolean>>
 }) {
   return (
     <form.Field
@@ -22,7 +26,8 @@ export default function Image({
             'Max size is 3MB'
           ),
       }}
-      children={(field) => (
+    >
+      {(field) => (
         <div className="flex flex-col gap-1">
           <Label
             htmlFor={field.name}
@@ -30,10 +35,14 @@ export default function Image({
           >
             Profile picture
           </Label>
-          <ImageUpload previewUrl={previewUrl} field={field} />
+          <ImageUpload
+            previewUrl={previewUrl}
+            field={field}
+            setFileTooLarge={setFileTooLarge}
+          />
           <FieldInfo field={field} />
         </div>
       )}
-    />
+    </form.Field>
   )
 }

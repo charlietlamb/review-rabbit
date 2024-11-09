@@ -1,20 +1,20 @@
 import { authClient } from '@/authClient'
 import { Button } from '@/components/ui/button'
-import { toast } from '@/hooks/use-toast'
 import useUser from '@/hooks/use-user'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function DashboardSettingsAccountEmailVerification() {
   const user = useUser()
   const [sent, setSent] = useState(false)
   if (!user) return null
   return user?.emailVerified ? (
-    <span className="text-green-400 font-heading">Email verified</span>
+    <span className="font-heading text-green-400">Email verified</span>
   ) : (
     <Button
       variant="linkHover2"
       colors="none"
-      className="px-0 text-red-400 font-heading after:bg-red-400"
+      className="font-heading after:bg-red-400 px-0 text-red-400"
       onClick={async (e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -24,13 +24,11 @@ export default function DashboardSettingsAccountEmailVerification() {
             callbackURL: '/redirect/verify',
           })
           if (response.error) {
-            toast({
-              title: 'Error sending verification email',
-              description: response.error.message,
+            toast.error(response.error.message, {
+              description: 'Please try again later',
             })
           } else {
-            toast({
-              title: 'Verification email sent',
+            toast.success('Verification email sent', {
               description: 'Check your email for the verification link',
             })
             setSent(true)

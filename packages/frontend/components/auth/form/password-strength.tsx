@@ -59,10 +59,8 @@ export default function PasswordStrength({
 
   return (
     <div>
-      <form.Field
-        name={name}
-        validators={{ onChange: z.string().min(8) }}
-        children={(field) => (
+      <form.Field name={name} validators={{ onChange: z.string().min(8) }}>
+        {(field) => (
           <div className="space-y-2">
             <Label
               htmlFor={field.name}
@@ -107,7 +105,7 @@ export default function PasswordStrength({
             <FieldInfo field={field} />
           </div>
         )}
-      />
+      </form.Field>
       <div
         className="mb-4 mt-3 h-1 w-full overflow-hidden rounded-full bg-border"
         role="progressbar"

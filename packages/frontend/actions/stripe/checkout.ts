@@ -2,6 +2,6 @@
 
 import { postStripeSession } from './stripe-session'
 
-export const checkout = async (priceId: string) => {
-  return await postStripeSession({ priceId })
+export const checkout = async (priceId: string, plan: Plan) => {
+  return await postStripeSession({ priceId, plan })
 }

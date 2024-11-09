@@ -8,10 +8,8 @@ import FieldInfo from '@/components/form/field-info'
 
 export default function Email({ form }: { form: TanstackForm<any> }) {
   return (
-    <form.Field
-      name="email"
-      validators={{ onChange: z.string().email() }}
-      children={(field) => (
+    <form.Field name="email" validators={{ onChange: z.string().email() }}>
+      {(field) => (
         <div className="flex flex-col gap-1">
           <Label
             htmlFor={field.name}
@@ -49,6 +47,6 @@ export default function Email({ form }: { form: TanstackForm<any> }) {
           <FieldInfo field={field} />
         </div>
       )}
-    />
+    </form.Field>
   )
 }

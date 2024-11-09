@@ -1,5 +1,4 @@
 import { users } from '@/src/db/schema/users'
-import { type Context } from 'hono'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,
@@ -79,3 +78,11 @@ export async function generatePresignedUrl(
     status: HttpStatusCodes.OK,
   }
 }
+
+export const responseCodes = [
+  HttpStatusCodes.NO_CONTENT,
+  HttpStatusCodes.NOT_FOUND,
+  HttpStatusCodes.INTERNAL_SERVER_ERROR,
+] as const
+
+export type PresignedUrlErrorCodes = (typeof responseCodes)[number]

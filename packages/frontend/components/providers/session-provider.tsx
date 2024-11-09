@@ -20,7 +20,7 @@ export default function SessionProvider({
     if (!user) {
       router.push('/login')
     }
-  }, [user])
+  }, [user, router, setUser])
 
   return <>{children}</>
 }

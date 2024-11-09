@@ -5,7 +5,6 @@ import { useForm } from '@tanstack/react-form'
 import * as z from 'zod'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { FaGithub } from 'react-icons/fa'
 import Spinner from '../../misc/spinner'
 import { UserCheck } from 'lucide-react'
 import { zodValidator } from '@tanstack/zod-form-adapter'
@@ -55,8 +54,6 @@ export default function AuthFormLogin({ className }: { className?: string }) {
     },
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-
   return (
     <div
       className={cn('flex flex-col gap-4 w-full max-w-2xl mx-auto', className)}

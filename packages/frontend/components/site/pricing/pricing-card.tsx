@@ -42,7 +42,7 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
           Icon={Gift}
           iconPlacement="right"
           className="w-full"
-          onClick={() => checkout(tier.priceId)}
+          onClick={() => checkout(tier.priceId, tier.plan)}
         >
           {tier.buttonText}
         </Button>

@@ -5,7 +5,7 @@ import { zodValidator } from '@tanstack/zod-form-adapter'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
 import { Button } from '@/components/ui/button'
-import Image from '@/components/auth/form/image'
+import ImageForm from '@/components/auth/form/image'
 import { uploadProfilePicture } from '@/actions/s3/upload/upload-profile-picture'
 import { updateUser } from '@/actions/auth/user/update-user'
 import useUser from '@/hooks/use-user'
@@ -16,6 +16,8 @@ import Email from '@/components/auth/form/email'
 import Spinner from '@/components/misc/spinner'
 import { toast } from 'sonner'
 import UpdatePassword from '@/components/auth/update-password/update-password'
+import { useState } from 'react'
+import { MAX_IMAGE_SIZE_STRING } from '@/constants'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -66,6 +68,7 @@ export default function DashboadSettingsAccountForm() {
       onChange: userFormSchema,
     },
   })
+  const [fileTooLarge, setFileTooLarge] = useState(false)
 
   if (!user) return null
   return (
@@ -80,16 +83,26 @@ export default function DashboadSettingsAccountForm() {
         <Name form={form} />
         <Email form={form} />
         <DashboardSettingsAccountEmailVerification />
-        <div className="grid md:grid-cols-2 gap-2 grid-cols-1">
-          <Image form={form} previewUrl={user.image ?? undefined} />
+        <div className="md:grid-cols-2 grid grid-cols-1 gap-2">
+          <ImageForm
+            form={form}
+            previewUrl={user.image ?? undefined}
+            setFileTooLarge={setFileTooLarge}
+          />
           <UpdatePassword />
         </div>
         <Button
           type="submit"
-          disabled={form.state.isSubmitting}
-          className="mt-2 w-full"
+          disabled={form.state.isSubmitting || fileTooLarge}
+          className="w-full mt-2"
         >
-          {form.state.isSubmitting ? <Spinner /> : 'Save Changes'}
+          {fileTooLarge ? (
+            `File too large, max size is ${MAX_IMAGE_SIZE_STRING}`
+          ) : form.state.isSubmitting ? (
+            <Spinner />
+          ) : (
+            'Save Changes'
+          )}
         </Button>
       </div>
     </form>

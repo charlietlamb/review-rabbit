@@ -1,10 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-  RiFacebookFill,
-  RiGithubFill,
-  RiGoogleFill,
-  RiTwitterXFill,
-} from '@remixicon/react'
+import { RiGithubFill, RiGoogleFill, RiTwitterXFill } from '@remixicon/react'
 
 export default function OAuth() {
   return (

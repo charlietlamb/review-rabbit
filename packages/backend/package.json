@@ -10,7 +10,6 @@
     "@scalar/hono-api-reference": "^0.5.155",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
-    "drizzle-orm": "^0.35.2",
     "hono": "^4.6.5",
     "hono-pino": "^0.3.0",
     "next-auth": "^4.24.8",

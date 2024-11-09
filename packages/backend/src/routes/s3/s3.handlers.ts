@@ -6,7 +6,7 @@ import { HttpStatusCodes } from '@/src/http'
 import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
 import { users } from '@/src/db/schema'
-import { generatePresignedUrl } from './s3.logic'
+import { generatePresignedUrl, PresignedUrlErrorCodes } from './s3.logic'
 import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
 
 export const uploadProfileImage: AppRouteHandler<
@@ -44,27 +44,16 @@ export const uploadProfileImage: AppRouteHandler<
   }
 
   const response = await generatePresignedUrl(user)
-  switch (response.status) {
-    case HttpStatusCodes.NO_CONTENT:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NO_CONTENT
-      )
-    case HttpStatusCodes.NOT_FOUND:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NOT_FOUND
-      )
-    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.INTERNAL_SERVER_ERROR
-      )
-    default:
-      return c.json(
-        response.content as PresignedUrlResponseOk['content'],
-        HttpStatusCodes.OK
-      )
+  if (response.status === HttpStatusCodes.OK) {
+    return c.json(
+      response.content as PresignedUrlResponseOk['content'],
+      HttpStatusCodes.OK
+    )
+  } else {
+    return c.json(
+      response.content as PresignedUrlResponseError['content'],
+      response.status as PresignedUrlErrorCodes
+    )
   }
 }
 
@@ -75,30 +64,23 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
   const userId = c.req.param('userId')
 
   // Get current user
-  const currentUser = await db.query.users.findFirst({
+  const user = await db.query.users.findFirst({
     where: eq(users.id, userId),
   })
-  const response = await generatePresignedUrl(currentUser)
-  switch (response.status) {
-    case HttpStatusCodes.NO_CONTENT:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NO_CONTENT
-      )
-    case HttpStatusCodes.NOT_FOUND:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.NOT_FOUND
-      )
-    case HttpStatusCodes.INTERNAL_SERVER_ERROR:
-      return c.json(
-        response.content as PresignedUrlResponseError['content'],
-        HttpStatusCodes.INTERNAL_SERVER_ERROR
-      )
-    default:
-      return c.json(
-        response.content as PresignedUrlResponseOk['content'],
-        HttpStatusCodes.OK
-      )
+  if (!user) {
+    return c.json({ error: 'User not found' }, HttpStatusCodes.NOT_FOUND)
+  }
+
+  const response = await generatePresignedUrl(user)
+  if (response.status === HttpStatusCodes.OK) {
+    return c.json(
+      response.content as PresignedUrlResponseOk['content'],
+      HttpStatusCodes.OK
+    )
+  } else {
+    return c.json(
+      response.content as PresignedUrlResponseError['content'],
+      response.status as PresignedUrlErrorCodes
+    )
   }
 }

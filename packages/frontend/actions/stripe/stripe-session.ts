@@ -15,8 +15,8 @@ export const postStripeSession = async ({
   priceId: string
   plan: Plan
 }) => {
-  const successUrl = `${env.NEXT_PUBLIC_LOCATION}/welcome?session_id={CHECKOUT_SESSION_ID}`
-  const cancelUrl = `${env.NEXT_PUBLIC_LOCATION}/cancel?session_id={CHECKOUT_SESSION_ID}`
+  const successUrl = `${env.NEXT_PUBLIC_LOCATION}welcome?session_id={CHECKOUT_SESSION_ID}`
+  const cancelUrl = `${env.NEXT_PUBLIC_LOCATION}cancel?session_id={CHECKOUT_SESSION_ID}`
 
   const session = await stripe.checkout.sessions.create({
     line_items: [

@@ -14,7 +14,7 @@ import {
 } from '@react-email/components'
 import TailwindProvider from './tailwind-provider'
 
-function ResetPassword({ user, url }: { user: User; url: string }) {
+function ResetPassword({ name, url }: { name: string; url: string }) {
   return (
     <TailwindProvider>
       <Html>
@@ -32,7 +32,7 @@ function ResetPassword({ user, url }: { user: User; url: string }) {
             <Heading className="text-2xl font-bold text-center text-gray-800 mb-4">
               Password Reset Request
             </Heading>
-            <Text className="text-gray-700 mb-4">Hello {user.name},</Text>
+            <Text className="text-gray-700 mb-4">Hello {name},</Text>
             <Text className="text-gray-700 mb-4">
               We received a request to reset the password for your account. If
               you didn't make this request, you can safely ignore this email.
@@ -66,6 +66,6 @@ function ResetPassword({ user, url }: { user: User; url: string }) {
     </TailwindProvider>
   )
 }
-export default function resetPasswordEmail(user: User, url: string) {
-  return <ResetPassword user={user} url={url} />
+export default function resetPasswordEmail(name: string, url: string) {
+  return <ResetPassword name={name} url={url} />
 }

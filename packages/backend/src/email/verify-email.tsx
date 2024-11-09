@@ -14,7 +14,7 @@ import {
 } from '@react-email/components'
 import TailwindProvider from './tailwind-provider'
 
-function VerifyEmail({ user, url }: { user: User; url: string }) {
+function VerifyEmail({ name, url }: { name: string; url: string }) {
   return (
     <TailwindProvider>
       <Html>
@@ -32,7 +32,7 @@ function VerifyEmail({ user, url }: { user: User; url: string }) {
             <Heading className="text-2xl font-bold text-center text-gray-800 mb-4">
               Verify Your Email Address
             </Heading>
-            <Text className="text-gray-700 mb-4">Hello {user.name},</Text>
+            <Text className="text-gray-700 mb-4">Hello {name},</Text>
             <Text className="text-gray-700 mb-4">
               Thank you for signing up! To complete your registration and start
               using our service, please verify your email address by clicking
@@ -60,6 +60,6 @@ function VerifyEmail({ user, url }: { user: User; url: string }) {
   )
 }
 
-export default function getVerifyEmail(user: User, url: string) {
-  return <VerifyEmail user={user} url={url} />
+export default function getVerifyEmail(name: string, url: string) {
+  return <VerifyEmail name={name} url={url} />
 }

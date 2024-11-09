@@ -57,7 +57,7 @@ export default function ImageUpload({
         field?.handleChange(file)
       }
     },
-    [field]
+    [field, setFileTooLarge]
   )
 
   const handleRemove = useCallback(() => {

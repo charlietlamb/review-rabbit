@@ -1,5 +1,5 @@
 import { db } from './src/db/postgres'
-import { betterAuth } from 'better-auth'
+import { betterAuth, User } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import env from './src/env'
 import sendEmail from './src/actions/email/send-email'
@@ -16,11 +16,11 @@ export const auth = betterAuth({
   basePath: env.BETTER_AUTH_BASE_PATH,
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async (user, url) => {
+    sendResetPassword: async (user, url: string) => {
       await sendEmail(
         user.email,
         'Reset your password',
-        resetPasswordEmail(user, url)
+        resetPasswordEmail(user.name, url)
       )
     },
   },
@@ -52,7 +52,7 @@ export const auth = betterAuth({
       await sendEmail(
         user.email,
         'Verify your email address',
-        getVerifyEmail(user, url)
+        getVerifyEmail(user.name, url)
       )
     },
     sendOnSignUp: true,

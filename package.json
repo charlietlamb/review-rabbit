@@ -31,11 +31,7 @@
     "@tanstack/zod-form-adapter": "^0.34.1",
     "aws-sdk": "^2.1691.0",
     "better-auth": "0.8.0",
-    "better-call": "^0.2.13",
-    "better-sqlite3": "^11.5.0",
-    "jose": "^5.9.6",
     "next": "^15.0.3",
-    "stripe": "^17.3.1",
-    "type-fest": "^4.26.1"
+    "stripe": "^17.3.1"
   }
 }

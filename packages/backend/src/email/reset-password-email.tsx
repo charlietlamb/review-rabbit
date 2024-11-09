@@ -13,10 +13,8 @@ import {
   Text,
 } from '@react-email/components'
 import TailwindProvider from './tailwind-provider'
-import { User } from '../db/schema/users'
 
-function ResetPassword({ user, token }: { user: User; token: string }) {
-  const url = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
+function ResetPassword({ user, url }: { user: User; url: string }) {
   return (
     <TailwindProvider>
       <Html>
@@ -68,6 +66,6 @@ function ResetPassword({ user, token }: { user: User; token: string }) {
     </TailwindProvider>
   )
 }
-export default function resetPasswordEmail(user: User, token: string) {
-  return <ResetPassword user={user} token={token} />
+export default function resetPasswordEmail(user: User, url: string) {
+  return <ResetPassword user={user} url={url} />
 }

@@ -17,6 +17,7 @@ import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
 
 export default function DashboardSidebarFooter() {
   const user = useUser()
+  if (!user) return null
   return (
     <SidebarFooter>
       <SidebarMenu>

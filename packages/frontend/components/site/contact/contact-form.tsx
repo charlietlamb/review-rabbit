@@ -7,7 +7,6 @@ import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 
-// Define the Zod schema for the form
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
@@ -15,7 +14,6 @@ const contactFormSchema = z.object({
 })
 
 export function ContactForm() {
-  // Initialize the form with TanStack Form
   const form = useForm({
     defaultValues: {
       name: '',
@@ -33,7 +31,7 @@ export function ContactForm() {
 
   return (
     <div className="mb-12">
-      <h2 className="font-heading text-2xl font-semibold text-primary mb-4">
+      <h2 className="font-heading mb-4 text-2xl font-semibold">
         Send Us a Message
       </h2>
       <form
@@ -45,9 +43,8 @@ export function ContactForm() {
         }}
       >
         <div>
-          <form.Field
-            name="name"
-            children={(field) => (
+          <form.Field name="name">
+            {(field) => (
               <Input
                 name={field.name}
                 value={field.state.value ?? ''}
@@ -57,12 +54,11 @@ export function ContactForm() {
                 className="w-full"
               />
             )}
-          />
+          </form.Field>
         </div>
         <div>
-          <form.Field
-            name="email"
-            children={(field) => (
+          <form.Field name="email">
+            {(field) => (
               <Input
                 name={field.name}
                 value={field.state.value ?? ''}
@@ -72,12 +68,11 @@ export function ContactForm() {
                 className="w-full"
               />
             )}
-          />
+          </form.Field>
         </div>
         <div>
-          <form.Field
-            name="message"
-            children={(field) => (
+          <form.Field name="message">
+            {(field) => (
               <Textarea
                 name={field.name}
                 value={field.state.value ?? ''}
@@ -87,7 +82,7 @@ export function ContactForm() {
                 className="w-full min-h-[150px]"
               />
             )}
-          />
+          </form.Field>
         </div>
         {Object.entries(form.state.errors).map(([field, error]) => (
           <p

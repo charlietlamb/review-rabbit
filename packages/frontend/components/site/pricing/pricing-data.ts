@@ -7,6 +7,7 @@ export type PricingTier = {
   features: string[]
   buttonText: string
   priceId: string
+  plan: Plan
 }
 
 export const pricingTiers: PricingTier[] = [
@@ -17,6 +18,7 @@ export const pricingTiers: PricingTier[] = [
     features: ['1 user', '5 projects', '5GB storage', 'Basic support'],
     buttonText: 'Get Started',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
+    plan: 'plan1',
   },
   {
     title: 'Pro',
@@ -32,6 +34,7 @@ export const pricingTiers: PricingTier[] = [
     ],
     buttonText: 'Upgrade to Pro',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
+    plan: 'plan2',
   },
   {
     title: 'Enterprise',
@@ -48,5 +51,6 @@ export const pricingTiers: PricingTier[] = [
     ],
     buttonText: 'Contact Sales',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
+    plan: 'plan3',
   },
 ]

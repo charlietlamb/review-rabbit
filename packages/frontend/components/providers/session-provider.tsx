@@ -3,31 +3,24 @@
 import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
 import { userAtom } from '@/atoms/user/user-atom'
-import { JWTPayload, JWTVerifyResult } from 'jose'
-import { jwtAtom } from '@/atoms/jwt/jwt-atom'
+import { useRouter } from 'next/navigation'
 
 export default function SessionProvider({
   user,
-  jwt,
   children,
 }: {
   user: User | null
-  jwt: string | null
   children: React.ReactNode
 }) {
-  if (!user || !jwt) return <>{children}</>
+  const router = useRouter()
   const setUser = useSetAtom(userAtom)
-  const setJwt = useSetAtom(jwtAtom)
-
-  setUser(user)
-  setJwt(jwt)
 
   useEffect(() => {
     setUser(user)
-  }, [user])
-  useEffect(() => {
-    setJwt(jwt)
-  }, [jwt])
+    if (!user) {
+      router.push('/login')
+    }
+  }, [user, router, setUser])
 
   return <>{children}</>
 }

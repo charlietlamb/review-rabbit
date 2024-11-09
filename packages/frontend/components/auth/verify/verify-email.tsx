@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { VerificationHeader } from './verification-header'
 import { VerificationFeatures } from './verification-features'
+import Link from 'next/link'
 
 export function VerifyEmail() {
   return (
@@ -14,9 +15,11 @@ export function VerifyEmail() {
             You&apos;re now ready to explore all the features we offer.
           </p>
         </div>
-        <Button variant="shine" color="ghost" size="lg">
-          Continue to Dashboard
-          <ArrowRight className="ml-2 h-6 w-6" />
+        <Button variant="shine" colors="none" size="lg">
+          <Link href="/dashboard" className="flex items-center gap-2">
+            Continue to Dashboard
+            <ArrowRight className="ml-2 h-6 w-6" />
+          </Link>
         </Button>
         <VerificationFeatures />
       </div>

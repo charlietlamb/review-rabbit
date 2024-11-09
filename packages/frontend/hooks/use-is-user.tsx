@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
 export default function useIsUser(user: User | null) {
-  if (!user) {
+  if (user === null) {
     return redirect('/login')
   }
   return

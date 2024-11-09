@@ -1,7 +1,7 @@
 import type { SendEmailCommandInput } from '@aws-sdk/client-ses'
 import { render } from '@react-email/components'
 import { SES } from '@aws-sdk/client-ses'
-import env from '@/src/env'
+import env from '../../env'
 
 export default async function sendEmail(
   to: string,

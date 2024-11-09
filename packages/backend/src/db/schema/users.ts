@@ -1,4 +1,4 @@
-import { plans } from '@/src/lib/types'
+import { plans } from '../../lib/types'
 import {
   timestamp,
   pgTable,

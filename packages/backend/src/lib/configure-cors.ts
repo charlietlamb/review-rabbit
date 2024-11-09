@@ -7,18 +7,12 @@ export default function configureCors(app: AppOpenAPI) {
     cors({
       origin: 'http://localhost:3000',
       allowHeaders: [
-        'X-Custom-Header',
-        'Upgrade-Insecure-Requests',
         'Access-Control-Allow-Origin',
         'Content-Type',
         'Authorization',
       ],
-      allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
-      exposeHeaders: [
-        'Content-Length',
-        'X-Kuma-Revision',
-        'Access-Control-Allow-Origin',
-      ],
+      allowMethods: ['POST', 'GET', 'OPTIONS'],
+      exposeHeaders: ['Content-Length'],
       maxAge: 600,
       credentials: true,
     })

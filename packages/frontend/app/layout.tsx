@@ -3,8 +3,6 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Providers from '@/components/providers/providers'
 import { Bricolage_Grotesque } from 'next/font/google'
-import useAuth from '@/hooks/use-auth'
-import useJwt from '@/hooks/use-jwt'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -28,17 +26,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const user = await useAuth()
-  const jwt = await useJwt()
   return (
     <html lang="en">
-      <Providers
-        user={user}
-        jwt={jwt}
+      <body
         className={`${geistSans.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative`}
       >
-        {children}
-      </Providers>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

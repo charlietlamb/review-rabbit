@@ -1,7 +1,8 @@
 import { AppOpenAPI } from '@/src/lib/types'
-import { auth as betterAuth } from '@/auth'
+import { auth } from '@/auth'
 
 export default function configureBetterAuth(app: AppOpenAPI) {
-  app.get('/api/auth/*', (c) => betterAuth.handler(c.req.raw))
-  app.post('/api/auth/*', (c) => betterAuth.handler(c.req.raw))
+  app.on(['POST', 'GET'], '/api/auth/**', (c) => {
+    return auth.handler(c.req.raw)
+  })
 }

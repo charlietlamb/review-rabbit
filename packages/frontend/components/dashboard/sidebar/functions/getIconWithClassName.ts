@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 
 export function getIconWithClassName(
-  icon: React.ReactElement,
+  icon: React.JSX.Element,
   className: string
 ) {
   return React.cloneElement(icon, {

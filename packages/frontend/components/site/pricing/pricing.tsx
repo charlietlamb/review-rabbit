@@ -1,21 +1,21 @@
 import { pricingTiers } from './pricing-data'
 import { PricingCard } from './pricing-card'
 import PricingCta from './pricing-cta'
-import { Faq } from '@/components/site/index/faq'
+import { Faq } from '../index/faq/faq-section'
 
 export function Pricing() {
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col">
-      <span className="font-bold uppercase text-primary text-center">
+    <div className="container flex flex-col px-4 py-16 mx-auto">
+      <span className="text-primary font-bold text-center uppercase">
         Pricing
       </span>
-      <h1 className="font-heading font-bold text-4xl text-center mb-2">
+      <h1 className="font-heading mb-2 text-4xl font-bold text-center">
         Choose Your Plan
       </h1>
-      <p className="text-center text-muted-foreground mb-8">
+      <p className="text-muted-foreground mb-8 text-center">
         Choose the plan that best suits your needs.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="md:grid-cols-3 grid grid-cols-1 gap-8">
         {pricingTiers.map((tier, index) => (
           <PricingCard key={index} tier={tier} />
         ))}

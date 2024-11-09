@@ -11,11 +11,10 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
 import { ChevronRight, Settings } from 'lucide-react'
-import { getIconWithClassName } from './functions/getIconWithClassName'
 
 const item = {
   title: 'Settings',
-  icon: <Settings />,
+  icon: <Settings className="min-w-4 min-h-4" />,
   isActive: false,
   items: [
     {
@@ -25,7 +24,6 @@ const item = {
   ],
 }
 export default function DashboardSidebarSettings() {
-  const iconWithClassName = getIconWithClassName(item.icon, 'min-w-4 min-h-4')
   return (
     <Collapsible
       asChild
@@ -35,7 +33,7 @@ export default function DashboardSidebarSettings() {
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
-            {iconWithClassName}
+            {item.icon}
             <span className="text-base">{item.title}</span>
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
           </SidebarMenuButton>

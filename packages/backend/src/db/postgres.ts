@@ -1,4 +1,19 @@
 import env from '../env'
-import { drizzle } from 'drizzle-orm/postgres-js'
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 import * as schema from './schema'
-export const db = drizzle(env.DATABASE_URL ?? 'undefined-db-url', { schema })
+
+declare global {
+  var db: PostgresJsDatabase<typeof schema> | undefined
+}
+
+let db: PostgresJsDatabase<typeof schema>
+
+if (env.NODE_ENV === 'production') {
+  db = drizzle(env.DATABASE_URL ?? 'undefined-db-url', { schema })
+} else {
+  if (!global.db)
+    global.db = drizzle(env.DATABASE_URL ?? 'undefined-db-url', { schema })
+  db = global.db
+}
+
+export { db }

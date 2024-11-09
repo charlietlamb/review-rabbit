@@ -1,11 +1,12 @@
 import { createRoute, z } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { HttpStatusCodes } from '@/src/http'
+import { unauthorizedSchema } from '@/src/lib/configure-auth'
 
 const tags = ['S3']
 
 export const uploadProfileImage = createRoute({
-  path: '/auth/s3/upload/profile-image',
+  path: '/s3/upload/profile-image',
   method: 'post',
   summary: 'Upload a profile image to S3',
   tags,
@@ -14,7 +15,7 @@ export const uploadProfileImage = createRoute({
       description: 'File to upload',
       content: {
         'application/json': {
-          schema: z.object({ session: z.string(), file: z.string() }),
+          schema: z.object({ file: z.string() }),
         },
       },
     },
@@ -24,7 +25,7 @@ export const uploadProfileImage = createRoute({
       z.object({
         presignedUrl: z.string(),
       }),
-      'Presigned URL returned.'
+      'Image uploaded.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
@@ -44,6 +45,7 @@ export const uploadProfileImage = createRoute({
       }),
       'User not found'
     ),
+    ...unauthorizedSchema,
   },
 })
 

@@ -1,9 +1,12 @@
-import type { selectUserSchema } from '@/backend/src/db/schema/users'
+import { auth } from '@/backend/auth'
 import { plans } from '@/backend/src/lib/types'
-import { z } from 'zod'
+import { FormApi, ReactFormApi } from '@tanstack/react-form'
+import { ZodValidator } from '@tanstack/zod-form-adapter'
 
 declare global {
-  type UserSchema = typeof selectUserSchema
-  type User = z.infer<typeof selectUserSchema>
+  type User = typeof auth.$Infer.Session.user
+  type Session = typeof auth.$Infer.Session.session
   type Plan = (typeof plans)[number]
+  type TanstackForm<T> = FormApi<T, ZodValidator> &
+    ReactFormApi<T, ZodValidator>
 }

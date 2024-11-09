@@ -198,3 +198,7 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+[data-icon] {
+  @apply w-auto h-auto;
+}

@@ -1,5 +1,4 @@
-import { User, users } from '@/src/db/schema/users'
-import { type Context } from 'hono'
+import { users } from '@/src/db/schema/users'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,
@@ -12,8 +11,7 @@ import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
 
 export async function generatePresignedUrl(
-  user: User | undefined,
-  c: Context
+  user: User | undefined
 ): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
   if (!user) {
     return {
@@ -31,7 +29,7 @@ export async function generatePresignedUrl(
   if (
     (!!user.image &&
       !!user?.imageExpiresAt &&
-      user.imageExpiresAt < new Date()) ??
+      new Date(user.imageExpiresAt) > new Date()) ??
     true
   ) {
     return {
@@ -70,7 +68,8 @@ export async function generatePresignedUrl(
     .update(users)
     .set({
       image: presignedUrl,
-      imageExpiresAt: new Date(Date.now() + 60 * 60 * 24),
+      imageUploaded: true,
+      imageExpiresAt: new Date(Date.now() + 60 * 60 * 24 * 1000),
     })
     .where(eq(users.id, user.id))
 
@@ -79,3 +78,11 @@ export async function generatePresignedUrl(
     status: HttpStatusCodes.OK,
   }
 }
+
+export const responseCodes = [
+  HttpStatusCodes.NO_CONTENT,
+  HttpStatusCodes.NOT_FOUND,
+  HttpStatusCodes.INTERNAL_SERVER_ERROR,
+] as const
+
+export type PresignedUrlErrorCodes = (typeof responseCodes)[number]

@@ -17,7 +17,7 @@ export function PolicySection({
         <Icon className="w-6 h-6 text-primary" />
       </div>
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold text-primary font-heading group-hover:text-primary-focus transition-colors duration-200">
+        <h2 className="text-2xl font-semibold font-heading group-hover:text-primary-focus transition-colors duration-200">
           {title}
         </h2>
         <p className="text-muted-foreground text-lg leading-relaxed">

@@ -1,5 +1,4 @@
 import Auth from '@/components/auth/auth'
-import { Header } from '@/components/site/header/header'
 import SiteLayout from '@/components/site/site-layout'
 import useAuth from '@/hooks/use-auth'
 import useIsNotUser from '@/hooks/use-is-not-user'

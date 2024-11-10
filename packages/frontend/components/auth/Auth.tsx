@@ -1,4 +1,3 @@
-import React from 'react'
 import AuthHeader from './auth-header'
 import AuthFormLogin from './form/auth-form-login'
 import AuthFormSignup from './form/auth-form-signup'

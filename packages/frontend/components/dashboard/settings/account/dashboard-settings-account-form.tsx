@@ -7,7 +7,6 @@ import { zfd } from 'zod-form-data'
 import { Button } from '@/components/ui/button'
 import ImageForm from '@/components/auth/form/image'
 import { uploadProfilePicture } from '@/actions/s3/upload/upload-profile-picture'
-import { updateUser } from '@/actions/auth/user/update-user'
 import useUser from '@/hooks/use-user'
 import { useRouter } from 'next/navigation'
 import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
@@ -18,6 +17,7 @@ import { toast } from 'sonner'
 import UpdatePassword from '@/components/auth/update-password/update-password'
 import { useState } from 'react'
 import { MAX_IMAGE_SIZE_STRING } from '@/constants'
+import { updateUser } from '@/actions/auth/user/update-user'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -46,7 +46,7 @@ export default function DashboadSettingsAccountForm() {
       const file = values.formApi.getFieldValue('image')
       if (file) {
         const res = await uploadProfilePicture({
-          file,
+          file: file as File,
         })
         if (res !== 200) {
           console.error('Failed to upload profile picture')
@@ -54,8 +54,8 @@ export default function DashboadSettingsAccountForm() {
       }
       if (user) {
         await updateUser({
-          name: values.formApi.getFieldValue('name'),
-          email: values.formApi.getFieldValue('email'),
+          name: values.formApi.getFieldValue('name') as string,
+          email: values.formApi.getFieldValue('email') as string,
         })
         toast.success('Account updated', {
           description: 'Your account has been updated successfully',

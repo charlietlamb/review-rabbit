@@ -2,7 +2,6 @@
 
 import client from '@/client'
 import { headersWithCookies } from '@/lib/header-with-cookies'
-import { headers } from 'next/headers'
 
 export async function updateUser(form: {
   name: string

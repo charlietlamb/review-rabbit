@@ -8,6 +8,7 @@ export default async function useAuth(): Promise<User | null> {
       headers: await headers(),
     },
   })
+  if (response.error) return null
   const session = response.data
   if (!session) return null
   session.user.image = await getUserImage(session.user)

@@ -11,7 +11,7 @@
     "@hono/zod-openapi": "^0.16.4",
     "@react-email/components": "^0.0.28",
     "@scalar/hono-api-reference": "^0.5.155",
-    "aws-sdk": "^2.1692.0",
+    "@stripe/stripe-js": "^4.9.0",
     "better-auth": "^0.8.1",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",

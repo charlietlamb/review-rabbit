@@ -19,19 +19,5 @@
   "type": "module",
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {
-    "@aws-sdk/client-ses": "^3.682.0",
-    "@aws-sdk/s3-request-presigner": "^3.679.0",
-    "@react-email/components": "^0.0.26",
-    "@remixicon/react": "^4.5.0",
-    "@stripe/react-stripe-js": "^2.8.1",
-    "@stripe/stripe-js": "^4.9.0",
-    "@tanstack/react-form": "^0.34.1",
-    "@tanstack/zod-form-adapter": "^0.34.1",
-    "aws-sdk": "^2.1691.0",
-    "better-auth": "0.8.0",
-    "next": "^15.0.3",
-    "stripe": "^17.3.1"
-  }
+  ]
 }

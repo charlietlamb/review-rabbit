@@ -23,6 +23,7 @@ const EnvSchema = z.object({
   STRIPE_SECRET_KEY: z.string(),
   STRIPE_WEBHOOK_SECRET: z.string(),
   FRONTEND_URL: z.string().url(),
+  ELEVENLABS_API_KEY: z.string(),
 })
 
 export type Env = z.infer<typeof EnvSchema>

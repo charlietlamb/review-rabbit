@@ -5,7 +5,7 @@ import DashboardSidebarHeaderThemeToggle from './dashboard-sidebar-header-theme-
 export default function DashboardSidebarHeader() {
   return (
     <SidebarHeader className="h-10 border-b w-full font-black flex flex-row items-center justify-between">
-      <Link href="/">dublify</Link>
+      <Link href="/">dubble</Link>
       <DashboardSidebarHeaderThemeToggle />
     </SidebarHeader>
   )

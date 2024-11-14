@@ -41,4 +41,4 @@ export const createDub = createRoute({
   },
 })
 
-export type CreateDubRoute = typeof createDub
+export type Createdubbleoute = typeof createDub

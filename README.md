@@ -1,4 +1,4 @@
-# dublify
+# dubble
 
 To install dependencies:
 

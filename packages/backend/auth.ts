@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'dublify',
+    cookiePrefix: 'dubble',
   },
   user: {
     additionalFields: {

@@ -10,7 +10,11 @@ export default function OAuth() {
         aria-label="Login with Google"
         size="icon"
       >
-        <RiGoogleFill size={16} aria-hidden="true" />
+        <RiGoogleFill
+          size={16}
+          aria-hidden="true"
+          className="text-foreground"
+        />
       </Button>
       <Button
         className="flex-1"
@@ -19,7 +23,7 @@ export default function OAuth() {
         size="icon"
       >
         <RiTwitterXFill
-          className="text-[#14171a] dark:text-primary"
+          className="text-[#14171a] text-foreground"
           size={16}
           aria-hidden="true"
         />
@@ -31,7 +35,7 @@ export default function OAuth() {
         size="icon"
       >
         <RiGithubFill
-          className="text-black dark:text-primary"
+          className="text-black text-foreground"
           size={16}
           aria-hidden="true"
         />

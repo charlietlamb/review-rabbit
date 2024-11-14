@@ -2,13 +2,13 @@ services:
   stacked-db:
     image: postgres
     restart: always
-    container_name: db-dublify
+    container_name: db-dubble
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dublify
-      POSTGRES_DB: dublify
+      POSTGRES_PASSWORD: dubble
+      POSTGRES_DB: dubble
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

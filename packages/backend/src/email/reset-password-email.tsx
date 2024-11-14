@@ -58,7 +58,7 @@ function ResetPassword({ name, url }: { name: string; url: string }) {
             </Text>
             <Hr className="border-gray-300 my-4" />
             <Text className="text-gray-500 text-sm text-center">
-              © {new Date().getFullYear()} dublify. All rights reserved.
+              © {new Date().getFullYear()} dubble. All rights reserved.
             </Text>
           </Container>
         </Body>

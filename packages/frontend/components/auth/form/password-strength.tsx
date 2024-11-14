@@ -64,7 +64,7 @@ export default function PasswordStrength({
           <div className="space-y-2">
             <Label
               htmlFor={field.name}
-              className="font-heading text-base font-semibold"
+              className="font-heading text-base font-semibold text-foreground"
             >
               {label}
             </Label>

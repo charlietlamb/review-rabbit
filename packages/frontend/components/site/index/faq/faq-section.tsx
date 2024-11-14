@@ -9,7 +9,7 @@ export function Faq() {
         <span className="text-primary font-bold text-center uppercase">
           Faq
         </span>
-        <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center">
+        <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center text-foreground">
           Frequently Asked Questions
         </h2>
       </div>

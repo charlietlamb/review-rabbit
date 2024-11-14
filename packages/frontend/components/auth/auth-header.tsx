@@ -15,13 +15,13 @@ export default function AuthHeader({ login }: { login: boolean }) {
         {login ? 'Create a new account' : 'Login to existing account'}
         <ArrowRight />
       </Badge>
-      <h1 className="title-size font-bold font-heading">
-        {login ? 'Sign in to dublify' : 'Create your dublify account'}
+      <h1 className="title-size font-bold font-heading text-foreground">
+        {login ? 'Sign in to dubble' : 'Create your dubble account'}
       </h1>
-      <p>
+      <p className="text-muted-foreground">
         {login
           ? 'Welcome back! Please enter your details.'
-          : 'Welcome to dublify! Please enter your details.'}
+          : 'Welcome to dubble! Please enter your details.'}
       </p>
     </div>
   )

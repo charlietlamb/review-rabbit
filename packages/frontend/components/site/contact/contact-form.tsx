@@ -6,6 +6,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
+import Name from '@/components/auth/form/name'
+import Email from '@/components/auth/form/email'
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -31,45 +33,19 @@ export function ContactForm() {
 
   return (
     <div className="mb-12">
-      <h2 className="font-heading mb-4 text-2xl font-semibold">
+      <h2 className="font-heading mb-4 text-2xl font-semibold text-foreground">
         Send Us a Message
       </h2>
       <form
-        className="space-y-6"
+        className="space-y-2"
         onSubmit={(e) => {
           e.preventDefault()
           e.stopPropagation()
           form.handleSubmit()
         }}
       >
-        <div>
-          <form.Field name="name">
-            {(field) => (
-              <Input
-                name={field.name}
-                value={field.state.value ?? ''}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Your Name"
-                className="w-full"
-              />
-            )}
-          </form.Field>
-        </div>
-        <div>
-          <form.Field name="email">
-            {(field) => (
-              <Input
-                name={field.name}
-                value={field.state.value ?? ''}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Your Email"
-                className="w-full"
-              />
-            )}
-          </form.Field>
-        </div>
+        <Name form={form} />
+        <Email form={form} />
         <div>
           <form.Field name="message">
             {(field) => (
@@ -84,15 +60,7 @@ export function ContactForm() {
             )}
           </form.Field>
         </div>
-        {Object.entries(form.state.errors).map(([field, error]) => (
-          <p
-            key={field}
-            className={field === 'name' ? 'text-destructive' : 'text-primary'}
-          >
-            {typeof error === 'string' ? error : ''}
-          </p>
-        ))}
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full mt-4">
           Send Message
         </Button>
       </form>

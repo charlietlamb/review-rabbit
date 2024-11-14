@@ -1,5 +1,5 @@
 import { AppRouteHandler } from '@/src/lib/types'
-import { CreateDubRoute } from './dub.routes'
+import { Createdubbleoute } from './dub.routes'
 import { HttpStatusCodes } from '@/src/http'
 import { ElevenLabsClient } from 'elevenlabs'
 import env from '@/src/env'
@@ -8,7 +8,7 @@ const elevenlabs = new ElevenLabsClient({
   apiKey: env.ELEVENLABS_API_KEY,
 })
 
-export const createDub: AppRouteHandler<CreateDubRoute> = async (c) => {
+export const createDub: AppRouteHandler<Createdubbleoute> = async (c) => {
   const user = c.get('user')
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)

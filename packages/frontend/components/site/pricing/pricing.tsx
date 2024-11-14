@@ -9,7 +9,7 @@ export function Pricing() {
       <span className="text-primary font-bold text-center uppercase">
         Pricing
       </span>
-      <h1 className="font-heading mb-2 text-4xl font-bold text-center">
+      <h1 className="font-heading mb-2 text-4xl font-bold text-center text-foreground">
         Choose Your Plan
       </h1>
       <p className="text-muted-foreground mb-8 text-center">

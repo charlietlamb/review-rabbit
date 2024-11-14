@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 export default function PricingCta() {
   return (
     <div className="text-center p-8 rounded-lg">
-      <h2 className="font-heading font-bold text-3xl mb-4">
+      <h2 className="font-heading font-bold text-3xl mb-4 text-foreground">
         Still have questions?
       </h2>
       <p className="text-muted-foreground mb-6">

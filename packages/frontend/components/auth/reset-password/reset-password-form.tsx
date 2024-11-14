@@ -46,16 +46,22 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   })
   return (
     <form
-      className="flex flex-col gap-2 w-full max-w-2xl mx-auto"
+      className="flex flex-col gap-2 w-full max-w-2xl mx-auto justify-center h-full flex-grow"
       onSubmit={(e) => {
         e.preventDefault()
         e.stopPropagation()
         form.handleSubmit()
       }}
     >
-      <h1 className="font-heading mx-auto text-4xl font-bold mb-4">
-        Reset password
-      </h1>
+      <div className="flex flex-col">
+        <h1 className="font-heading mx-auto text-4xl font-bold mb-4 text-foreground">
+          Reset password
+        </h1>
+        <p className="text-muted-foreground mx-auto mb-4">
+          Please enter your new password
+        </p>
+      </div>
+
       <PasswordStrength form={form} />
       <Button variant="expandIcon" Icon={ArrowRight} iconPlacement="right">
         Reset password

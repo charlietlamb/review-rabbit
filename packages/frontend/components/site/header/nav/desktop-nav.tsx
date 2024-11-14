@@ -6,10 +6,10 @@ export function DesktopNav() {
     <div className="hidden items-center gap-10 md:flex">
       <NavLinks
         className="flex items-center gap-10 justify-end"
-        linkClassName="flex cursor-pointer items-center text-lg font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+        linkClassName="flex cursor-pointer items-center font-semibold font-heading text-foreground transition-colors hover:text-theme-950 sm:text-base"
       />
       <div className="flex items-center gap-2">
-        <ActionButton />
+        <ActionButton className="font-medium" />
       </div>
     </div>
   )

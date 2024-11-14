@@ -8,13 +8,13 @@ export function Testimonials() {
         <span className="text-primary font-bold text-center uppercase">
           Testimonials
         </span>
-        <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center">
+        <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center text-foreground">
           What our users say
         </h2>
       </div>
       <p className="text-muted-foreground text-balance max-w-lg text-lg text-center">
         What developers and founders of top companies around the internet are
-        saying about dublify.
+        saying about dubble.
       </p>
       <div className="columns-1 gap-7 md:columns-2 lg:columns-3">
         {testimonials.map((testimonial, index) => (

@@ -1,30 +1,33 @@
-"use client";
+'use client'
 
-import { Menu, X } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { Menu, X } from 'lucide-react'
+import { ReactNode, useEffect, useState } from 'react'
 
 export function MobileNavbar({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const overflow = isOpen ? "hidden" : "auto";
-    document.documentElement.style.overflow = overflow;
-  }, [isOpen]);
+    const overflow = isOpen ? 'hidden' : 'auto'
+    document.documentElement.style.overflow = overflow
+  }, [isOpen])
 
   useEffect(() => {
-    const closeHamburgerNavigation = () => setIsOpen(false);
-    window.addEventListener("orientationchange", closeHamburgerNavigation);
-    window.addEventListener("resize", closeHamburgerNavigation);
+    const closeHamburgerNavigation = () => setIsOpen(false)
+    window.addEventListener('orientationchange', closeHamburgerNavigation)
+    window.addEventListener('resize', closeHamburgerNavigation)
 
     return () => {
-      window.removeEventListener("orientationchange", closeHamburgerNavigation);
-      window.removeEventListener("resize", closeHamburgerNavigation);
-    };
-  }, []);
+      window.removeEventListener('orientationchange', closeHamburgerNavigation)
+      window.removeEventListener('resize', closeHamburgerNavigation)
+    }
+  }, [])
 
   return (
     <>
-      <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="md:hidden text-foreground"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {isOpen ? <X /> : <Menu />}
       </button>
       {isOpen && (
@@ -36,5 +39,5 @@ export function MobileNavbar({ children }: { children: ReactNode }) {
         </div>
       )}
     </>
-  );
+  )
 }

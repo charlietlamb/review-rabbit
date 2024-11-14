@@ -5,7 +5,7 @@ import { FooterLinks } from './footer-links'
 
 export function Footer() {
   return (
-    <footer className="container flex flex-wrap justify-between pt-10 pb-16 mt-10">
+    <footer className="container flex flex-wrap justify-between pt-10 pb-16 mt-10 dark bg-background">
       <div className="basis-full md:basis-auto md:flex-col md:justify-start flex justify-between gap-8">
         <FooterLogo />
         <FooterSocial />

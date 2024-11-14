@@ -6,7 +6,9 @@ type TermsSectionProps = {
 export function TermsSection({ title, content }: TermsSectionProps) {
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2 font-heading">{title}</h2>
+      <h2 className="text-xl font-semibold mb-2 font-heading text-foreground">
+        {title}
+      </h2>
       <p className="text-muted-foreground">{content}</p>
     </div>
   )

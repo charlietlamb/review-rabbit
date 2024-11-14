@@ -1,4 +1,4 @@
-import { Hero } from './hero'
+import { Hero } from './hero/hero'
 import { SocialProof } from './social-proof/social-proof-section'
 import { Features } from './features/features-section'
 import { Testimonials } from './testimonials/testimonials'

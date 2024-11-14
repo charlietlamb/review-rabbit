@@ -3,7 +3,7 @@ import { ContactForm } from './contact-form'
 export function Contact() {
   return (
     <div className="bg-background p-8">
-      <h1 className="font-heading text-4xl font-bold mb-2 text-center">
+      <h1 className="font-heading text-4xl font-bold mb-2 text-center text-foreground">
         Contact Us
       </h1>
       <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">

@@ -16,7 +16,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     return null
   }
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <TanstackQueryProvider>
         <Toaster />
         {children}

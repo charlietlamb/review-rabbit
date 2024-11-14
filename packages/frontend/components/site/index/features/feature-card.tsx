@@ -27,7 +27,7 @@ export function FeatureCard({
       </div>
       <div className="relative z-10 mb-2 px-10 text-lg font-bold">
         <div className="absolute inset-y-0 left-0 h-6 w-1 origin-center rounded-r-full bg-neutral-300 transition-all duration-200 group-hover/feature:h-8 group-hover/feature:bg-primary" />
-        <span className="inline-block">{title}</span>
+        <span className="inline-block text-foreground">{title}</span>
       </div>
       <p className="relative z-10 max-w-xs px-10 text-sm text-muted-foreground">
         {description}

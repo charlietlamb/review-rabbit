@@ -12,7 +12,7 @@ export default function Name({ form }: { form: TanstackForm<any> }) {
         <div className="flex flex-col gap-1">
           <Label
             htmlFor={field.name}
-            className="font-heading text-base font-semibold"
+            className="font-heading text-base font-semibold text-foreground"
           >
             Name
           </Label>

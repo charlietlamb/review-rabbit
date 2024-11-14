@@ -5,7 +5,7 @@ export function TermsAndConditions() {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-3xl mx-auto space-y-8">
-        <h1 className="text-4xl font-bold font-heading">
+        <h1 className="text-4xl font-bold font-heading text-foreground">
           Terms and Conditions
         </h1>
         <p className="text-muted-foreground">

@@ -1,4 +1,4 @@
-import { BarChart, Calendar, Home, Link, Upload } from 'lucide-react'
+import { BarChart, Home, Upload } from 'lucide-react'
 
 export const dashboardSidebarItems = [
   {

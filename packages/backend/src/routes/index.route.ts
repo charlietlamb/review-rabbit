@@ -14,12 +14,12 @@ const router = createRouter().openapi(
         z.object({
           message: z.string(),
         }),
-        'dublify API index!'
+        'dubble API index!'
       ),
     },
   }),
   (c) => {
-    return c.json({ message: 'dublify API index!' }, HttpStatusCodes.OK)
+    return c.json({ message: 'dubble API index!' }, HttpStatusCodes.OK)
   }
 )
 

@@ -1,5 +1,5 @@
 {
-  "name": "dublify",
+  "name": "dubble",
   "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest"

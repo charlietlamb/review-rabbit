@@ -12,11 +12,6 @@ export const dashboardSidebarItems = [
     href: '/dashboard/upload',
   },
   {
-    title: 'Schedule',
-    icon: <Calendar />,
-    href: '/dashboard/schedule',
-  },
-  {
     title: 'Analytics',
     icon: <BarChart />,
     href: '/dashboard/analytics',

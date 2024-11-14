@@ -1,12 +1,11 @@
 import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
 import Image from 'next/image'
 
 import { Button } from '@/components/ui/button'
 
 export function Hero() {
   return (
-    <section className="container flex flex-col items-center gap-8 pb-28 pt-20 sm:gap-10">
+    <section className="container relative flex flex-col items-center gap-8 pb-28 pt-20 sm:gap-10">
       <div className="flex cursor-pointer items-center gap-1 rounded-full border bg-secondary px-3 py-0.5 hover:bg-secondary/60">
         <span className="text-sm text-secondary-foreground">
           Announcing our seed round
@@ -14,11 +13,10 @@ export function Hero() {
         <ArrowRight size={16} />
       </div>
       <h1 className="max-w-2xl text-center font-heading text-4xl font-semibold sm:text-5xl tracking-tight">
-        Build beautiful landing pages in minutes with remio
+        Expand your audience with a few clicks
       </h1>
       <p className="max-w-lg text-center text-lg text-muted-foreground sm:text-xl">
-        Build at the speed of no-code. Export to Next.js & Tailwind code and
-        customize without limits.
+        Export your videos into 30+ languages, make your reach worldwide.
       </p>
       <div className="flex gap-3">
         <Button
@@ -50,6 +48,14 @@ export function Hero() {
           className="rounded-xl border border-border shadow-lg"
         />
         <div className="absolute inset-0 -z-10 bg-primary/20 [filter:blur(180px)]" />
+      </div>
+      <div className="absolute inset-0 -z-10">
+        <Image
+          alt="SaaS Dashboard"
+          src="https://d1xwrryt2q5y73.cloudfront.net/public/hero-image.png"
+          objectFit="cover"
+          priority
+        />
       </div>
     </section>
   )

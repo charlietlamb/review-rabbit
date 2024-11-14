@@ -1,5 +1,5 @@
 {
-  "name": "remio",
+  "name": "dublify",
   "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest"

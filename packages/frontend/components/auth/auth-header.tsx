@@ -16,12 +16,12 @@ export default function AuthHeader({ login }: { login: boolean }) {
         <ArrowRight />
       </Badge>
       <h1 className="title-size font-bold font-heading">
-        {login ? 'Sign in to remio' : 'Create your remio account'}
+        {login ? 'Sign in to dublify' : 'Create your dublify account'}
       </h1>
       <p>
         {login
           ? 'Welcome back! Please enter your details.'
-          : 'Welcome to remio! Please enter your details.'}
+          : 'Welcome to dublify! Please enter your details.'}
       </p>
     </div>
   )

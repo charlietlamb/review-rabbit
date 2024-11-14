@@ -14,12 +14,12 @@ const router = createRouter().openapi(
         z.object({
           message: z.string(),
         }),
-        'remio API index!'
+        'dublify API index!'
       ),
     },
   }),
   (c) => {
-    return c.json({ message: 'remio API index!' }, HttpStatusCodes.OK)
+    return c.json({ message: 'dublify API index!' }, HttpStatusCodes.OK)
   }
 )
 

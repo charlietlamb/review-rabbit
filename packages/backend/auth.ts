@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'remio',
+    cookiePrefix: 'dublify',
   },
   user: {
     additionalFields: {

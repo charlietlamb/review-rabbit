@@ -17,8 +17,8 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: 'Remio',
-  description: 'Remio',
+  title: 'dublify',
+  description: 'dublify',
 }
 
 export default async function RootLayout({

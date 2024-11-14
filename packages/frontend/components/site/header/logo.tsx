@@ -13,7 +13,7 @@ export function Logo() {
           fill="currentColor"
         />
       </svg>
-      <span className="font-heading text-xl font-bold">remio</span>
+      <span className="font-heading text-xl font-bold">dublify</span>
     </Link>
   )
 }

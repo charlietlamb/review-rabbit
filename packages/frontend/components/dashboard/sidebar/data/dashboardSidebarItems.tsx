@@ -1,4 +1,4 @@
-import { BarChart, Home, Upload } from 'lucide-react'
+import { Download, Home, Speech, Upload } from 'lucide-react'
 
 export const dashboardSidebarItems = [
   {
@@ -12,9 +12,14 @@ export const dashboardSidebarItems = [
     href: '/dashboard/upload',
   },
   {
-    title: 'Analytics',
-    icon: <BarChart />,
-    href: '/dashboard/analytics',
+    title: 'Dub',
+    icon: <Speech />,
+    href: '/dashboard/dub',
+  },
+  {
+    title: 'Results',
+    icon: <Download />,
+    href: '/dashboard/results',
   },
 ]
 

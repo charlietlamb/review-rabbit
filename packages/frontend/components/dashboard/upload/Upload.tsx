@@ -1,10 +1,12 @@
 import React from 'react'
-import DashboardTitle from '../title/dashboard-title'
+import Uploads from './uploads'
+import UploadToolbar from './toolbar/upload-toolbar'
 
 export default function Upload() {
   return (
-    <div className="flex flex-col gap-4">
-      <DashboardTitle title="Upload" description="Upload your files here" />
+    <div className="flex flex-col">
+      <UploadToolbar />
+      <Uploads />
     </div>
   )
 }

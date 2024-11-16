@@ -15,9 +15,10 @@ import { FileUploader } from '../file-uploader/file-uploader'
 
 export function UploadDialog() {
   const [files, setFiles] = React.useState<File[]>([])
+  const [open, setOpen] = React.useState(false)
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
           Upload files {files.length > 0 && `(${files.length})`}
@@ -35,6 +36,7 @@ export function UploadDialog() {
           maxFileCount={8}
           maxSize={8 * 1024 * 1024}
           onValueChange={setFiles}
+          setOpen={setOpen}
         />
       </DialogContent>
     </Dialog>

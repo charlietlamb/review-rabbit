@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { DropzoneProps } from 'react-dropzone'
 
 export interface FileUploaderProps
@@ -76,6 +77,14 @@ export interface FileUploaderProps
    * @example disabled
    */
   disabled?: boolean
+
+  /**
+   * Function to set the open state of the uploader.
+   * @type Dispatch<SetStateAction<boolean>>
+   * @default undefined
+   * @example setOpen={setOpen}
+   */
+  setOpen: Dispatch<SetStateAction<boolean>>
 }
 export interface FileCardProps {
   file: File

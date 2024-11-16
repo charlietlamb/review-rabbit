@@ -88,7 +88,7 @@ export type GetPresignedUrlRoute = typeof getPresignedUrl
 
 export const getUploadPresignedUrl = createRoute({
   path: '/s3/get/upload-presigned-url',
-  method: 'get',
+  method: 'post',
   summary: 'Get a presigned URL for a file upload',
   tags,
   request: {
@@ -97,7 +97,6 @@ export const getUploadPresignedUrl = createRoute({
       content: {
         'application/json': {
           schema: z.object({
-            name: z.string(),
             fileId: z.string(),
             extension: z.string(),
           }),

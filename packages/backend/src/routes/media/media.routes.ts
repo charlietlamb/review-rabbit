@@ -5,25 +5,23 @@ import { unauthorizedSchema } from '@/src/lib/configure-auth'
 
 const tags = ['Media']
 
-export const uploadMedia = createRoute({
-  path: '/media/upload',
+export const storeMedia = createRoute({
+  path: '/media/store',
   method: 'post',
-  summary: 'Upload media',
+  summary: 'Store a media file',
   tags,
   request: {
     body: {
-      description: 'File to upload',
+      description: 'Media file to store',
       content: {
         'application/json': {
           schema: z.object({
-            files: z.array(
-              z.object({
-                name: z.string(),
-                size: z.number(),
-                duration: z.number(),
-                arrayBuffer: z.string(),
-              })
-            ),
+            path: z.string(),
+            name: z.string(),
+            size: z.number(),
+            extension: z.string(),
+            duration: z.number(),
+            source: z.string(),
           }),
         },
       },
@@ -31,13 +29,10 @@ export const uploadMedia = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.array(
-        z.object({
-          name: z.string(),
-          url: z.string(),
-        })
-      ),
-      'Media uploaded.'
+      z.object({
+        id: z.string(),
+      }),
+      'Media file stored.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
@@ -45,8 +40,20 @@ export const uploadMedia = createRoute({
       }),
       'Failed to upload file'
     ),
+    [HttpStatusCodes.NO_CONTENT]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User image not uploaded'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User not found'
+    ),
     ...unauthorizedSchema,
   },
 })
 
-export type UploadMediaRoute = typeof uploadMedia
+export type StoreMediaRoute = typeof storeMedia

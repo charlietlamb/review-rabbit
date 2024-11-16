@@ -29,6 +29,7 @@ export function FileUploader(props: FileUploaderProps) {
     maxFileCount = 1,
     multiple = false,
     disabled = false,
+    setOpen,
     className,
     ...dropzoneProps
   } = props
@@ -178,7 +179,12 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         </ScrollArea>
       ) : null}
-      <FileUpload files={files} durations={durations} />
+      <FileUpload
+        files={files}
+        durations={durations}
+        setFiles={setFiles}
+        setOpen={setOpen}
+      />
     </div>
   )
 }

@@ -99,7 +99,7 @@ export const getUploadPresignedUrl: AppRouteHandler<
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const body = await c.req.json()
-  const file: { name: string; fileId: string; extension: string } = body.file
+  const file: { fileId: string; extension: string } = body
   const client = new S3Client({
     region: env.AWS_REGION,
     credentials: {

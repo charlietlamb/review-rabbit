@@ -5,5 +5,6 @@ import * as routes from './s3.routes'
 const router = createRouter()
   .openapi(routes.uploadProfileImage, handlers.uploadProfileImage)
   .openapi(routes.getPresignedUrl, handlers.getPresignedUrl)
+  .openapi(routes.getUploadPresignedUrl, handlers.getUploadPresignedUrl)
 
 export default router

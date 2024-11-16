@@ -13,6 +13,7 @@ import { FileUploaderProps } from './types'
 import FileCard from './file-card'
 import FileUpload from './file-upload'
 import { isFileWithPreview } from './is-file-with-preview'
+import { getFileDuration } from '@/lib/get-file-duration'
 
 export function FileUploader(props: FileUploaderProps) {
   const {
@@ -37,8 +38,10 @@ export function FileUploader(props: FileUploaderProps) {
     onChange: onValueChange,
   })
 
+  const [durations, setDurations] = React.useState<Record<string, number>>({})
+
   const onDrop = React.useCallback(
-    (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+    async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       if (!multiple && maxFileCount === 1 && acceptedFiles.length > 1) {
         toast.error('Cannot upload more than 1 file at a time')
         return
@@ -49,9 +52,18 @@ export function FileUploader(props: FileUploaderProps) {
         return
       }
 
-      const newFiles = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
+      const newFiles = await Promise.all(
+        acceptedFiles.map(async (file) => {
+          const duration = (await getFileDuration(file)) ?? 0
+          setDurations(
+            (prev): Record<string, number> => ({
+              ...prev,
+              [file.name]: duration,
+            })
+          )
+          return Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
         })
       )
 
@@ -64,27 +76,8 @@ export function FileUploader(props: FileUploaderProps) {
           toast.error(`File ${file.name} was rejected`)
         })
       }
-
-      if (
-        onUpload &&
-        updatedFiles.length > 0 &&
-        updatedFiles.length <= maxFileCount
-      ) {
-        const target =
-          updatedFiles.length > 0 ? `${updatedFiles.length} files` : `file`
-
-        toast.promise(onUpload(updatedFiles), {
-          loading: `Uploading ${target}...`,
-          success: () => {
-            setFiles([])
-            return `${target} uploaded`
-          },
-          error: `Failed to upload ${target}`,
-        })
-      }
     },
-
-    [files, maxFileCount, multiple, onUpload, setFiles]
+    [files, maxFileCount, multiple, setFiles]
   )
 
   function onRemove(index: number) {
@@ -185,7 +178,7 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         </ScrollArea>
       ) : null}
-      <FileUpload files={files} />
+      <FileUpload files={files} durations={durations} />
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
+import { User } from 'better-auth/types'
 
 export async function generatePresignedUrl(
   user: User | undefined

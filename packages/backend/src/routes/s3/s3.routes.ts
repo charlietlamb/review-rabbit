@@ -85,3 +85,41 @@ export const getPresignedUrl = createRoute({
 })
 
 export type GetPresignedUrlRoute = typeof getPresignedUrl
+
+export const getUploadPresignedUrl = createRoute({
+  path: '/s3/get/upload-presigned-url',
+  method: 'get',
+  summary: 'Get a presigned URL for a file upload',
+  tags,
+  request: {
+    body: {
+      description: 'File to upload',
+      content: {
+        'application/json': {
+          schema: z.object({
+            name: z.string(),
+            fileId: z.string(),
+            extension: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        presignedUrl: z.string(),
+      }),
+      'Presigned URL returned.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to get presigned URL'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetUploadPresignedUrlRoute = typeof getUploadPresignedUrl

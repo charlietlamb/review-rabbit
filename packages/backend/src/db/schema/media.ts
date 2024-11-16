@@ -6,6 +6,7 @@ import { timestamps } from './columns.helpers'
 export const media = pgTable('media', {
   id: uuid('id').primaryKey(),
   userId: uuid('userId').references(() => users.id),
+  pathId: uuid('pathId').notNull(),
   name: text('name').notNull(),
   size: integer('size').notNull(),
   type: text('type').notNull(),

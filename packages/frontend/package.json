@@ -53,6 +53,8 @@
     "drizzle-zod": "^0.5.1",
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^11.11.9",
+    "get-audio-duration": "^4.0.1",
+    "get-video-duration": "^4.1.0",
     "hono": "^4.6.9",
     "input-otp": "^1.2.4",
     "jotai": "^2.10.1",

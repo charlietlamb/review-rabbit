@@ -1,0 +1,1 @@
+ALTER TABLE "media" ADD COLUMN "pathId" uuid NOT NULL;

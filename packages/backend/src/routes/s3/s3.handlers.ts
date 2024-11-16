@@ -1,6 +1,10 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { AppRouteHandler } from '@/src/lib/types'
-import { GetPresignedUrlRoute, UploadProfileImageRoute } from './s3.routes'
+import {
+  GetPresignedUrlRoute,
+  GetUploadPresignedUrlRoute,
+  UploadProfileImageRoute,
+} from './s3.routes'
 import env from '@/src/env'
 import { HttpStatusCodes } from '@/src/http'
 import { db } from '@/src/db/postgres'
@@ -8,6 +12,8 @@ import { eq } from 'drizzle-orm'
 import { users } from '@/src/db/schema'
 import { generatePresignedUrl, PresignedUrlErrorCodes } from './s3.logic'
 import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { User } from 'better-auth'
 
 export const uploadProfileImage: AppRouteHandler<
   UploadProfileImageRoute
@@ -71,7 +77,7 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
     return c.json({ error: 'User not found' }, HttpStatusCodes.NOT_FOUND)
   }
 
-  const response = await generatePresignedUrl(user)
+  const response = await generatePresignedUrl(user as User)
   if (response.status === HttpStatusCodes.OK) {
     return c.json(
       response.content as PresignedUrlResponseOk['content'],
@@ -83,4 +89,38 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
       response.status as PresignedUrlErrorCodes
     )
   }
+}
+
+export const getUploadPresignedUrl: AppRouteHandler<
+  GetUploadPresignedUrlRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const body = await c.req.json()
+  const file: { name: string; fileId: string; extension: string } = body.file
+  const client = new S3Client({
+    region: env.AWS_REGION,
+    credentials: {
+      accessKeyId: env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    },
+  })
+
+  const command = new PutObjectCommand({
+    Bucket: env.AWS_S3_BUCKET_NAME,
+    Key: `media/${file.fileId}.${file.extension}`,
+  })
+
+  const presignedUrl = await getSignedUrl(client, command, {
+    expiresIn: 60 * 60 * 24,
+  })
+  if (!presignedUrl) {
+    return c.json(
+      { error: 'Failed to get presigned URL' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+  return c.json({ presignedUrl }, HttpStatusCodes.OK)
 }

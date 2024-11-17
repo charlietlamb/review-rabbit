@@ -4,9 +4,11 @@ import { Input } from '@/components/ui/input'
 import { File, LoaderCircle, Mic, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { UploadToolbarPopover } from './upload-toolbar-popover'
+import { useAtom } from 'jotai'
+import { uploadsSearchAtom } from '@/atoms/dashboard/upload/uploadsAtom'
 
 export default function Input27() {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useAtom(uploadsSearchAtom)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -16,13 +18,15 @@ export default function Input27() {
         setIsLoading(false)
       }, 500)
       return () => clearTimeout(timer)
+    } else {
+      setIsLoading(false)
     }
   }, [inputValue])
 
   return (
     <div className="relative flex-grow">
       <Input
-        id="input-27"
+        id="search"
         className="peer pe-9 ps-9"
         placeholder="Search..."
         type="search"

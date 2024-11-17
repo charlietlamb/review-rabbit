@@ -3,7 +3,7 @@ import DashboardSidebarToggle from '../sidebar/toggle/dashboard-sidebar-toggle'
 
 export default function DashboardHeader() {
   return (
-    <div className="h-10 border-b flex items-center gap-2">
+    <div className="min-h-10 h-10 border-b flex items-center gap-2 bg-sidebar">
       <DashboardSidebarToggle />
       <DashboardBreadcrumb />
     </div>

@@ -1,6 +1,11 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import {
+  PutObjectCommand,
+  S3Client,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3'
 import { AppRouteHandler } from '@/src/lib/types'
 import {
+  DeleteMediaRoute,
   GetPresignedUrlRoute,
   GetUploadPresignedUrlRoute,
   UploadProfileImageRoute,
@@ -9,7 +14,7 @@ import env from '@/src/env'
 import { HttpStatusCodes } from '@/src/http'
 import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
-import { users } from '@/src/db/schema'
+import { media, users } from '@/src/db/schema'
 import { generatePresignedUrl, PresignedUrlErrorCodes } from './s3.logic'
 import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
@@ -123,4 +128,48 @@ export const getUploadPresignedUrl: AppRouteHandler<
     )
   }
   return c.json({ presignedUrl }, HttpStatusCodes.OK)
+}
+
+export const deleteMedia: AppRouteHandler<DeleteMediaRoute> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const body = await c.req.json()
+  const { path, id } = body
+  const client = new S3Client({
+    region: env.AWS_REGION,
+    credentials: {
+      accessKeyId: env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    },
+  })
+
+  const command = new DeleteObjectCommand({
+    Bucket: env.AWS_S3_BUCKET_NAME,
+    Key: path,
+  })
+  const deleteResponse = await client.send(command)
+  console.log(deleteResponse)
+  if (
+    deleteResponse.$metadata.httpStatusCode !== 200 &&
+    deleteResponse.$metadata.httpStatusCode !== 204
+  ) {
+    return c.json(
+      { error: 'Failed to delete media file' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+  console.log(id)
+  try {
+    await db.delete(media).where(eq(media.id, id))
+  } catch (e) {
+    console.error(e)
+    return c.json(
+      { error: 'Failed to delete media from database' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+
+  return c.json({ success: true }, HttpStatusCodes.OK)
 }

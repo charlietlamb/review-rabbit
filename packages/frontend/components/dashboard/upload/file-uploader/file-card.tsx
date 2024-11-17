@@ -5,6 +5,7 @@ import FilePreview from './file-preview'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { isFileWithPreview } from './is-file-with-preview'
+
 export default function FileCard({ file, progress, onRemove }: FileCardProps) {
   return (
     <div className="relative flex items-center gap-2.5">

@@ -1,7 +1,5 @@
 'use client'
 
-import * as React from 'react'
-
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,10 +10,11 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { FileUploader } from '../file-uploader/file-uploader'
+import { useState } from 'react'
 
-export function UploadDialog() {
-  const [files, setFiles] = React.useState<File[]>([])
-  const [open, setOpen] = React.useState(false)
+export function UploadDialog({ dub = false }: { dub?: boolean }) {
+  const [files, setFiles] = useState<File[]>([])
+  const [open, setOpen] = useState(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -37,6 +36,7 @@ export function UploadDialog() {
           maxSize={8 * 1024 * 1024}
           onValueChange={setFiles}
           setOpen={setOpen}
+          dub={dub}
         />
       </DialogContent>
     </Dialog>

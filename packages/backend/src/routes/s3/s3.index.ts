@@ -6,5 +6,6 @@ const router = createRouter()
   .openapi(routes.uploadProfileImage, handlers.uploadProfileImage)
   .openapi(routes.getPresignedUrl, handlers.getPresignedUrl)
   .openapi(routes.getUploadPresignedUrl, handlers.getUploadPresignedUrl)
+  .openapi(routes.deleteMedia, handlers.deleteMedia)
 
 export default router

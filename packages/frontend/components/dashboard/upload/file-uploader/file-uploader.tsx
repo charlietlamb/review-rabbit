@@ -30,6 +30,7 @@ export function FileUploader(props: FileUploaderProps) {
     multiple = false,
     disabled = false,
     setOpen,
+    dub = false,
     className,
     ...dropzoneProps
   } = props
@@ -184,6 +185,7 @@ export function FileUploader(props: FileUploaderProps) {
         durations={durations}
         setFiles={setFiles}
         setOpen={setOpen}
+        dub={dub}
       />
     </div>
   )

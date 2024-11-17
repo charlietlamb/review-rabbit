@@ -23,5 +23,6 @@ export async function storeMedia(
     },
     await headersWithCookies()
   )
-  return response.status
+  const json = await response.json()
+  return 'id' in json ? json.id : null
 }

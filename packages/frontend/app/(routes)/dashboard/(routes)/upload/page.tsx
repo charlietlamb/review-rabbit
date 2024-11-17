@@ -1,6 +1,7 @@
 import Upload from '@/components/dashboard/upload/upload'
+import { fetchMedia } from '@/actions/media/fetch-media'
 
-export default function page() {
-  // const initialUploads = await client.media.uploads.
-  return <Upload />
+export default async function page() {
+  const initialUploads: Media[] = await fetchMedia('user', 0)
+  return <Upload initialUploads={initialUploads} />
 }

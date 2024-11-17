@@ -16,9 +16,11 @@ export default async function layout({
     <SidebarProvider className="flex w-full flex-grow">
       <SessionProvider user={user}>
         <DashboardSidebar />
-        <div className="w-full">
+        <div className="w-full max-h-screen flex flex-col overflow-hidden">
           <DashboardHeader />
-          <div className="p-4 flex flex-col">{children}</div>
+          <div className="flex flex-col flex-grow overflow-hidden">
+            {children}
+          </div>
         </div>
       </SessionProvider>
     </SidebarProvider>

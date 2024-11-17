@@ -6,11 +6,26 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
+import { useAtom } from 'jotai'
+import {
+  uploadsLayoutAtom,
+  uploadsSortAtom,
+} from '@/atoms/dashboard/upload/uploadsAtom'
 
 export function UploadToolbarPopover() {
-  const items = [
-    { id: '', value: 'r1', label: 'Hobby', price: '$9/mo' },
-    { id: 'radio-15-r2', value: 'r2', label: 'Plus', price: '$29/mo' },
+  const [sort, setSort] = useAtom(uploadsSortAtom)
+  const [layout, setLayout] = useAtom(uploadsLayoutAtom)
+  const sortItems = [
+    { id: 'name', value: 'name', label: 'Name' },
+    { id: 'newest', value: 'newest', label: 'Most Recent' },
+    { id: 'oldest', value: 'oldest', label: 'Oldest' },
+    { id: 'smallest', value: 'smallest', label: 'Smallest' },
+    { id: 'largest', value: 'largest', label: 'Largest' },
+    { id: 'type', value: 'type', label: 'Type' },
+  ]
+  const layoutItems = [
+    { id: 'grid', value: 'grid', label: 'Grid' },
+    { id: 'list', value: 'list', label: 'List' },
   ]
 
   return (
@@ -24,15 +39,27 @@ export function UploadToolbarPopover() {
           <EllipsisVertical size={16} strokeWidth={2} aria-hidden="true" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="w-80 flex flex-col gap-1">
+        <Label className="font-heading text-base">Sort</Label>
         <RadioGroup
-          className="gap-0 -space-y-px rounded-t-lg shadow-sm shadow-black/5"
-          defaultValue="r2"
+          className="gap-0 -space-y-px shadow-sm shadow-black/5"
+          defaultValue={sort}
+          onValueChange={(value) =>
+            setSort(
+              value as
+                | 'name'
+                | 'newest'
+                | 'oldest'
+                | 'smallest'
+                | 'largest'
+                | 'type'
+            )
+          }
         >
-          {items.map((item) => (
+          {sortItems.map((item) => (
             <div
               key={item.id}
-              className="relative flex flex-col gap-4 border border-input p-4 first:rounded-t-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
+              className="relative flex flex-col gap-4 border border-input p-4 first:rounded-t-lg last:rounded-b-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -45,26 +72,22 @@ export function UploadToolbarPopover() {
                   <Label className="inline-flex items-start" htmlFor={item.id}>
                     {item.label}
                   </Label>
-                </div>
-                <div
-                  id={`${item.id}-price`}
-                  className="text-xs leading-[inherit] text-muted-foreground"
-                >
-                  {item.price}
                 </div>
               </div>
             </div>
           ))}
         </RadioGroup>
 
+        <Label className="font-heading text-base hidden md:flex">Layout</Label>
         <RadioGroup
-          className="gap-0 -space-y-px rounded-b-lg shadow-sm shadow-black/5"
-          defaultValue="r2"
+          className="gap-0 -space-y-px rounded-b-lg shadow-sm shadow-black/5 hidden md:flex flex-col"
+          defaultValue={layout}
+          onValueChange={(value) => setLayout(value as 'grid' | 'list')}
         >
-          {items.map((item) => (
+          {layoutItems.map((item) => (
             <div
               key={item.id}
-              className="relative flex flex-col gap-4 border border-input p-4 last:rounded-b-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
+              className="relative flex flex-col gap-4 border border-input p-4 first:rounded-t-lg last:rounded-b-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -77,12 +100,6 @@ export function UploadToolbarPopover() {
                   <Label className="inline-flex items-start" htmlFor={item.id}>
                     {item.label}
                   </Label>
-                </div>
-                <div
-                  id={`${item.id}-price`}
-                  className="text-xs leading-[inherit] text-muted-foreground"
-                >
-                  {item.price}
                 </div>
               </div>
             </div>

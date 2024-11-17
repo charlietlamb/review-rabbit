@@ -85,6 +85,14 @@ export interface FileUploaderProps
    * @example setOpen={setOpen}
    */
   setOpen: Dispatch<SetStateAction<boolean>>
+
+  /**
+   * Whether the uploader is for dubbing.
+   * @type boolean
+   * @default false
+   * @example dub
+   */
+  dub?: boolean
 }
 export interface FileCardProps {
   file: File

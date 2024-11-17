@@ -6,5 +6,5 @@ export default function DashboardSidebarToggle() {
   const mobile = useIsMobile()
   if (!mobile) return null
 
-  return <SidebarTrigger />
+  return <SidebarTrigger className="ml-2" />
 }

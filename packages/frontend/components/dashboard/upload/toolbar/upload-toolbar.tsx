@@ -5,7 +5,7 @@ import UploadToolbarSort from './upload-toolbar-sort'
 
 export default function UploadToolbar() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 p-4 pb-0">
       <UploadToolbarSearch />
       <UploadToolbarSort />
       <UploadToolbarLayout />

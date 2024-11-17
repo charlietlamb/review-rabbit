@@ -84,7 +84,6 @@ export default function UpdatePasswordDialog() {
               e.preventDefault()
               e.stopPropagation()
               handleSubmit()
-              console.log('submitted')
             }}
           >
             {form.state.isSubmitting ? <Spinner /> : 'Update password'}

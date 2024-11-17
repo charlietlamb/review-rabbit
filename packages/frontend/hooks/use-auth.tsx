@@ -1,5 +1,5 @@
 import { authClient } from '@/authClient'
-import getUserImage from '@/lib/get-user-image'
+import getUserImage from '@/lib/misc/get-user-image'
 import { headers } from 'next/headers'
 
 export default async function useAuth(): Promise<User | null> {

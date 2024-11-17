@@ -1,19 +1,19 @@
 'use client'
 
 import MultipleSelector from '@/components/misc/multi-select'
-import { languagesWithFlags } from '@/types/language'
+import { languagesOptions } from '@/types/language'
+import { useAtom } from 'jotai'
+import { dubLanguagesOptionsAtom } from '@/atoms/dashboard/dub/dubAtom'
 
 export default function Select46() {
-  const languagesOptions = languagesWithFlags.map((language) => ({
-    value: language.value,
-    label: `${language.flag} ${language.label}`,
-  }))
+  const [languageOptions, setLanguageOptions] = useAtom(dubLanguagesOptionsAtom)
   return (
     <MultipleSelector
       commandProps={{
         label: 'Select languages',
       }}
-      value={languagesOptions.slice(0, 2)}
+      value={languageOptions}
+      onChange={setLanguageOptions}
       defaultOptions={languagesOptions}
       placeholder="Select languages"
       hideClearAllButton

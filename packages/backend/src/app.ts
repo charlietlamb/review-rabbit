@@ -4,9 +4,10 @@ import index from '@/src/routes/index.route'
 import users from '@/src/routes/user/user.index'
 import s3 from '@/src/routes/s3/s3.index'
 import media from '@/src/routes/media/media.index'
+import dub from '@/src/routes/dub/dub.index'
 
 const app = createApp()
-const routes = [index, users, s3, media] as const
+const routes = [index, users, s3, media, dub] as const
 
 configure(app)
 

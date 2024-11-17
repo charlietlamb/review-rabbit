@@ -19,6 +19,10 @@ export const createDub = createRoute({
           schema: z.object({
             url: z.string(),
             language: z.string(),
+            source: z.string(),
+            path: z.string().optional(),
+            taskId: z.string(),
+            mediaId: z.string(),
           }),
         },
       },
@@ -31,6 +35,12 @@ export const createDub = createRoute({
       }),
       'Dub created.'
     ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to create dub'
+    ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
@@ -41,4 +51,46 @@ export const createDub = createRoute({
   },
 })
 
-export type Createdubbleoute = typeof createDub
+export type CreateDubRoute = typeof createDub
+
+export const createDubTask = createRoute({
+  path: '/dub/task',
+  method: 'post',
+  summary: 'Create a dub task',
+  tags,
+  request: {
+    body: {
+      description: 'Tokens used for the task',
+      content: {
+        'application/json': {
+          schema: z.object({
+            tokens: z.number(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        taskId: z.string(),
+      }),
+      'Dub created.'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to create dub'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to create dub'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type CreateDubTaskRoute = typeof createDubTask

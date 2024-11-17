@@ -6,14 +6,14 @@ import Dropzone, { type FileRejection } from 'react-dropzone'
 import { toast } from 'sonner'
 
 import { cn } from '@/lib/utils'
-import { formatBytes } from '@/lib/format-bytes'
+import { formatBytes } from '@/lib/misc/format-bytes'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useControllableState } from '@/hooks/use-controllable-state'
 import { FileUploaderProps } from './types'
 import FileCard from './file-card'
 import FileUpload from './file-upload'
 import { isFileWithPreview } from './is-file-with-preview'
-import { getFileDuration } from '@/lib/get-file-duration'
+import { getFileDuration } from '@/lib/misc/get-file-duration'
 
 export function FileUploader(props: FileUploaderProps) {
   const {

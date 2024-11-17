@@ -1,0 +1,1 @@
+ALTER TABLE "dubs" DROP COLUMN IF EXISTS "tokens";

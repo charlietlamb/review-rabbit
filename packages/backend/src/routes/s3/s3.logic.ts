@@ -87,3 +87,37 @@ export const responseCodes = [
 ] as const
 
 export type PresignedUrlErrorCodes = (typeof responseCodes)[number]
+
+export async function generatePresignedUrlFromPath(
+  path: string
+): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
+  // Generate new presigned URL
+  const client = new S3Client({
+    region: env.AWS_REGION,
+    credentials: {
+      accessKeyId: env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    },
+  })
+
+  const command = new GetObjectCommand({
+    Bucket: env.AWS_S3_BUCKET_NAME,
+    Key: path,
+  })
+
+  const presignedUrl = await getSignedUrl(client, command, {
+    expiresIn: 60 * 60 * 24,
+  })
+
+  if (!presignedUrl) {
+    return {
+      content: { error: 'Failed to get presigned URL' },
+      status: HttpStatusCodes.INTERNAL_SERVER_ERROR,
+    }
+  }
+
+  return {
+    content: { presignedUrl },
+    status: HttpStatusCodes.OK,
+  }
+}

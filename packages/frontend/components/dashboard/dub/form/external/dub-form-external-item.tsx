@@ -1,21 +1,23 @@
 import SocialButton from '@/components/misc/social-button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import ExternalForm from './external-form'
+import { useState } from 'react'
+import { externalData, ExternalPlatformData } from './external'
 
 export default function DubFormExternalItem({
-  className,
-  content,
-  children,
+  platform,
 }: {
-  className?: string
-  content: React.ReactNode
-  children: React.ReactNode
+  platform: ExternalPlatformData
 }) {
+  const [open, setOpen] = useState(false)
   return (
-    <Dialog>
-      <DialogTrigger className="w-full">
-        <SocialButton className={className}>{children}</SocialButton>
-      </DialogTrigger>
-      {content}
-    </Dialog>
+    <>
+      <SocialButton platform={platform} onClick={() => setOpen(true)} />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <ExternalForm platform={platform} setOpen={setOpen}>
+          {platform.name}
+        </ExternalForm>
+      </Dialog>
+    </>
   )
 }

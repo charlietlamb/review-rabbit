@@ -1,4 +1,4 @@
-import { formatBytes } from '@/lib/format-bytes'
+import { formatBytes } from '@/lib/misc/format-bytes'
 import { FileCardProps } from './types'
 import { Progress } from '@/components/ui/progress'
 import FilePreview from './file-preview'

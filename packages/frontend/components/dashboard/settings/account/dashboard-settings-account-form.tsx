@@ -78,6 +78,7 @@ export default function DashboadSettingsAccountForm() {
         e.stopPropagation()
         form.handleSubmit()
       }}
+      className="p-4"
     >
       <div>
         <Name form={form} />

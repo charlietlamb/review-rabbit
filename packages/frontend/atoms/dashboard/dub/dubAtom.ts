@@ -1,9 +1,9 @@
 import { atom } from 'jotai'
 import { LanguageWithFlag } from '@/types/language'
-import { uploadPagesAtom, uploadsAtom } from '../upload/uploadsAtom'
+import { uploadsAtom } from '../upload/uploadsAtom'
 
-export const dubLanguageAtom = atom<LanguageWithFlag | null>(null)
-export const dubMediaAtom = atom<Media[] | null>(null)
+export const dubLanguagesAtom = atom<LanguageWithFlag[]>([])
+export const dubMediaAtom = atom<Media[]>([])
 export const dubSelectedMediaAtom = atom<Media[]>([])
 
 export const dubAvailableMediaAtom = atom<Media[]>((get) => {

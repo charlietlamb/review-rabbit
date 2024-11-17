@@ -38,7 +38,9 @@ export default function DubFormMediaUploads() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Previous Uploads</Button>
+        <Button colors="outline" className="font-heading">
+          Your Uploads
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] overflow-hidden p-0 flex flex-col gap-0">
         <DialogHeader className="border-b border-border p-2 w-full py-4 bg-background">

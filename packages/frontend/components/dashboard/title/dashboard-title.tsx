@@ -6,7 +6,7 @@ export default function DashboardTitle({
   description: string
 }) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col p-4">
       <h2 className="title-size font-bold font-heading">{title}</h2>
       <p className="text-sm text-gray-500">{description}</p>
     </div>

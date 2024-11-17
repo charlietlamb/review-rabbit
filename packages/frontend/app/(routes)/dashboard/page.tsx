@@ -1,5 +1,7 @@
-import Dashboard from '@/components/dashboard/dashboard'
+import Dub from '@/components/dashboard/dub/dub'
+import { redirect } from 'next/navigation'
 
 export default function DashboardPage() {
-  return <Dashboard />
+  redirect('/dashboard/dub')
+  return <Dub />
 }

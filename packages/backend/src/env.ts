@@ -13,6 +13,7 @@ const EnvSchema = z.object({
     .enum(['debug', 'info', 'warn', 'error', 'fatal', 'trace'])
     .default('info'),
   DATABASE_URL: z.string().url(),
+  AWS_S3_URL: z.string().url(),
   AWS_S3_BUCKET_NAME: z.string(),
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),

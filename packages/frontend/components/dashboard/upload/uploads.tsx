@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import InfiniteScroll from '@/components/misc/infinite-scroll'
 import UploadCardPopoverWrap from './card/upload-card-popover-wrap'
 import { dubAvailableMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
+import PageEmpty from '@/components/misc/page-empty'
 
 export default function Uploads({ dub = false }: { dub?: boolean }) {
   const uploads = useAtomValue(uploadsAtom)
@@ -48,6 +49,7 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
 
   if (status === 'pending') return <PageLoading />
   if (status === 'error') return <PageError error={error?.message} />
+  if (uploads.length === 0) return <PageEmpty />
   return (
     <div
       className={cn(

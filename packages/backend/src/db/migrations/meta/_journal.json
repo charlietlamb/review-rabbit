@@ -57,6 +57,27 @@
       "when": 1731767017763,
       "tag": "0007_moaning_scarlet_spider",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1731861489605,
+      "tag": "0008_chilly_vulcan",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1731861501504,
+      "tag": "0009_lethal_exodus",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1731862409038,
+      "tag": "0010_organic_major_mapleleaf",
+      "breakpoints": true
     }
   ]
 }

@@ -13,6 +13,7 @@ export const media = pgTable('media', {
   size: integer('size').notNull(),
   extension: text('type').notNull(),
   duration: integer('duration').notNull(),
+  url: text('url').notNull(),
   source: text('source').notNull(),
   language: text('language'),
   ...timestamps,

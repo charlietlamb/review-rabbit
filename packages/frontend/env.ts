@@ -4,6 +4,7 @@ import { createEnv } from '@t3-oss/env-nextjs'
 const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
+    AWS_S3_URL: z.string().url(),
     AWS_ACCESS_KEY_ID: z.string(),
     AWS_SECRET_ACCESS_KEY: z.string(),
     AWS_S3_BUCKET_NAME: z.string(),

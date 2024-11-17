@@ -102,6 +102,15 @@ const config: Config = {
           '900': 'var(--theme-900)',
           '950': 'var(--theme-950)',
         },
+        social: {
+          youtube: '#FF0000',
+          twitter: '#1DA1F2',
+          linkedin: '#0077B5',
+          instagram: '#883ab4',
+          tiktok: '#fe2858',
+          facebook: '#3B5998',
+          reddit: '#FF4500',
+        },
       },
       borderRadius: {
         // lg: 'var(--radius)',

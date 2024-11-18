@@ -11,7 +11,7 @@ import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 
-export async function generatePresignedUrl(
+export async function generatePresignedUrlUserImage(
   user: User | undefined
 ): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
   if (!user) {

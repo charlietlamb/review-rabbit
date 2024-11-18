@@ -12,10 +12,10 @@ export const uploadProfileImage = createRoute({
   tags,
   request: {
     body: {
-      description: 'File to upload',
+      description: 'Path of the uploaded file',
       content: {
         'application/json': {
-          schema: z.object({ file: z.string() }),
+          schema: z.object({ path: z.string() }),
         },
       },
     },
@@ -97,8 +97,7 @@ export const getUploadPresignedUrl = createRoute({
       content: {
         'application/json': {
           schema: z.object({
-            fileId: z.string(),
-            extension: z.string(),
+            key: z.string(),
           }),
         },
       },

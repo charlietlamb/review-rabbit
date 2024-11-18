@@ -3,9 +3,9 @@
 import client from '@/client'
 import { headersWithCookies } from '@/lib/header-with-cookies'
 
-export async function getUploadPresignedUrl(fileId: string, extension: string) {
+export async function getUploadPresignedUrl(key: string) {
   const response = await client.s3.get['upload-presigned-url'].$post(
-    { json: { fileId, extension } },
+    { json: { key } },
     await headersWithCookies()
   )
   if (response.status === 200) {

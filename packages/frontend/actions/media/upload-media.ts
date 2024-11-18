@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { getUploadPresignedUrl } from '@/actions/s3/upload/get-upload-presigned-url'
 import { storeMedia } from './store-media'
+import { createThumbnail } from './create-thumbnail'
 
 export async function uploadMedia(
   files: File[],
@@ -9,7 +10,9 @@ export async function uploadMedia(
   const uploadPromises = files.map(async (file) => {
     const uuid = uuidv4()
     const extension = file.name.split('.').pop() ?? file.type.split('/')[1]
-    const presignedUrl = await getUploadPresignedUrl(uuid, extension)
+    const presignedUrl = await getUploadPresignedUrl(
+      `media/${uuid}.${extension}`
+    )
     if (!presignedUrl) return null
     const response = await fetch(presignedUrl, {
       method: 'PUT',
@@ -18,6 +21,7 @@ export async function uploadMedia(
     if (response.status !== 200) {
       throw new Error('Failed to upload file')
     }
+    await createThumbnail(file, uuid)
     return await storeMedia(file, uuid, extension, durations[file.name])
   })
 

@@ -15,7 +15,10 @@ import { HttpStatusCodes } from '@/src/http'
 import { db } from '@/src/db/postgres'
 import { eq } from 'drizzle-orm'
 import { media, users } from '@/src/db/schema'
-import { generatePresignedUrl, PresignedUrlErrorCodes } from './s3.logic'
+import {
+  generatePresignedUrlUserImage,
+  PresignedUrlErrorCodes,
+} from './s3.logic'
 import { PresignedUrlResponseError, PresignedUrlResponseOk } from './s3.types'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { User } from 'better-auth'
@@ -27,34 +30,15 @@ export const uploadProfileImage: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  // Parse body
-  const body = await c.req.json()
-  const fileArrayBuffer = Buffer.from(body.file, 'base64')
-  // Upload file to S3
-  const client = new S3Client({
-    region: env.AWS_REGION,
-    credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-    },
-  })
 
-  const command = new PutObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
-    Key: `users/pp/${user.id}/pp.jpg`,
-    Body: fileArrayBuffer,
-    ACL: 'public-read',
-  })
+  await db
+    .update(users)
+    .set({
+      imageUploaded: true,
+    })
+    .where(eq(users.id, user.id))
 
-  const uploadResponse = await client.send(command)
-  if (uploadResponse.$metadata.httpStatusCode !== 200) {
-    return c.json(
-      { error: 'Failed to upload file' },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-
-  const response = await generatePresignedUrl(user)
+  const response = await generatePresignedUrlUserImage(user as User)
   if (response.status === HttpStatusCodes.OK) {
     return c.json(
       response.content as PresignedUrlResponseOk['content'],
@@ -82,7 +66,7 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
     return c.json({ error: 'User not found' }, HttpStatusCodes.NOT_FOUND)
   }
 
-  const response = await generatePresignedUrl(user as User)
+  const response = await generatePresignedUrlUserImage(user as User)
   if (response.status === HttpStatusCodes.OK) {
     return c.json(
       response.content as PresignedUrlResponseOk['content'],
@@ -104,7 +88,7 @@ export const getUploadPresignedUrl: AppRouteHandler<
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const body = await c.req.json()
-  const file: { fileId: string; extension: string } = body
+  const key = body.key
   const client = new S3Client({
     region: env.AWS_REGION,
     credentials: {
@@ -115,7 +99,7 @@ export const getUploadPresignedUrl: AppRouteHandler<
 
   const command = new PutObjectCommand({
     Bucket: env.AWS_S3_BUCKET_NAME,
-    Key: `media/${file.fileId}.${file.extension}`,
+    Key: key,
   })
 
   const presignedUrl = await getSignedUrl(client, command, {

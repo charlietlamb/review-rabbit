@@ -18,6 +18,7 @@ import UpdatePassword from '@/components/auth/update-password/update-password'
 import { useState } from 'react'
 import { MAX_IMAGE_SIZE_STRING } from '@/constants'
 import { updateUser } from '@/actions/auth/user/update-user'
+import { uploadProfilePictureClient } from '@/actions/s3/upload/upload-profile-picture-client'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -45,9 +46,8 @@ export default function DashboadSettingsAccountForm() {
     onSubmit: async (values) => {
       const file = values.formApi.getFieldValue('image')
       if (file) {
-        const res = await uploadProfilePicture({
-          file: file as File,
-        })
+        const res = await uploadProfilePictureClient(user as User, file as File)
+        console.log(res)
         if (res !== 200) {
           console.error('Failed to upload profile picture')
         }

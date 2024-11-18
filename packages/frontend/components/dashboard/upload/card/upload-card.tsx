@@ -7,16 +7,21 @@ import { numberToSize } from '@/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
 import { dubSelectedMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
 import { cn } from '@/lib/utils'
+import env from '@/env'
+import { AudioLines, Trash2 } from 'lucide-react'
 
 export default function UploadCard({
   upload,
-  dub = false,
+  onSelect,
+  onDelete,
 }: {
   upload: Media
-  dub?: boolean
+  onSelect?: () => void
+  onDelete?: () => void
 }) {
   const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
   const [selected, setSelected] = useState(false)
+  const isVideo = upload.extension === 'mp4' || upload.extension === 'mov'
 
   useEffect(() => {
     if (dubSelectedMedia?.some((m) => m.id === upload.id)) setSelected(true)
@@ -24,45 +29,56 @@ export default function UploadCard({
   }, [dubSelectedMedia])
 
   return (
-    <Card
-      className={cn(
-        'hover:shadow-lg hover:cursor-pointer hover:border-foreground transition-all duration-300 flex-grow w-full',
-        dub && selected && 'border-foreground'
-      )}
-      onClick={() => {
-        if (selected && dubSelectedMedia) {
-          setDubSelectedMedia(
-            dubSelectedMedia.filter((m) => m.id !== upload.id)
-          )
-        } else {
-          setDubSelectedMedia([...(dubSelectedMedia ?? []), upload])
-        }
-      }}
-    >
-      <CardHeader className="p-3 pb-0">
-        <CardTitle className="font-heading text-xl flex items-center justify-between text-left">
-          {upload.name}
-
-          <div className="flex items-center justify-between text-muted-foreground">
-            {fileToIcon(upload.extension)}
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent
+    <div className="w-full">
+      <Card
         className={cn(
-          'flex justify-between gap-4 p-3 pt-2',
-          dub && 'hover:border-foreground',
-          dub && selected && 'border-foreground'
+          'hover:shadow-lg hover:cursor-pointer hover:border-foreground transition-all duration-300 flex overflow-hidden',
+          onSelect && selected && 'border-foreground'
         )}
+        onClick={onSelect}
       >
-        <Badge
-          variant="secondary"
-          className="bg-primary text-primary-foreground hover:cursor-default hover:bg-primary"
-        >
-          {durationToTime(upload.duration)}
-        </Badge>
-        {numberToSize(upload.size)}
-      </CardContent>
-    </Card>
+        <div className="aspect-square w-20 min-w-[5rem] relative flex items-center justify-center border-r border-border">
+          {isVideo ? (
+            <img
+              src={`${env.NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`}
+              alt={upload.name}
+              className="w-full h-full absolute inset-0 object-cover"
+            />
+          ) : (
+            <AudioLines />
+          )}
+        </div>
+        <div className="flex flex-col min-w-0 flex-1">
+          <CardHeader className="p-3 pb-0">
+            <CardTitle className="font-heading text-xl flex items-center gap-2 text-left">
+              <span className="truncate">{upload.name}</span>
+              <div className="flex-shrink-0 text-muted-foreground">
+                {fileToIcon(upload.extension)}
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent
+            className={cn(
+              'flex justify-between items-center gap-4 p-3 pt-2',
+              onSelect && 'hover:border-foreground',
+              onSelect && selected && 'border-foreground'
+            )}
+          >
+            <div className="text-muted-foreground text-sm truncate">
+              {durationToTime(upload.duration)}
+            </div>
+            <div className="flex-shrink-0">{numberToSize(upload.size)}</div>
+          </CardContent>
+        </div>
+        {onDelete && (
+          <div
+            className="flex items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0"
+            onClick={onDelete}
+          >
+            <Trash2 className="w-4 h-4" />
+          </div>
+        )}
+      </Card>
+    </div>
   )
 }

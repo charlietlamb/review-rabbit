@@ -1,13 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { dubMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
-import { useAtomValue } from 'jotai'
-import DubMediaPopover from './dub-media-popover'
+import { useAtom, useAtomValue } from 'jotai'
+import UploadCard from '../../upload/card/upload-card'
 
 export default function DubMedia() {
   const media = useAtomValue(dubMediaAtom)
-  const [open, setOpen] = useState(false)
+  const [dubMedia, setDubMedia] = useAtom(dubMediaAtom)
+
+  function handleDelete(id: string) {
+    setDubMedia(dubMedia.filter((m) => m.id !== id))
+  }
 
   if (!media) return null
   if (!media.length)
@@ -18,10 +22,10 @@ export default function DubMedia() {
     )
 
   return (
-    <>
+    <div className="grid grid-cols-1 gap-2">
       {media.map((m) => (
-        <DubMediaPopover media={m} key={m.id} />
+        <UploadCard key={m.id} upload={m} onDelete={() => handleDelete(m.id)} />
       ))}
-    </>
+    </div>
   )
 }

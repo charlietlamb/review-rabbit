@@ -6,7 +6,7 @@ import {
   uploadsLayoutAtom,
 } from '@/atoms/dashboard/upload/uploadsAtom'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useAtomValue, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useRef } from 'react'
 import UploadCard from './card/upload-card'
 import PageLoading from '@/components/misc/page-loading'
@@ -14,7 +14,10 @@ import PageError from '@/components/misc/page-error'
 import { cn } from '@/lib/utils'
 import InfiniteScroll from '@/components/misc/infinite-scroll'
 import UploadCardPopoverWrap from './card/upload-card-popover-wrap'
-import { dubAvailableMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
+import {
+  dubAvailableMediaAtom,
+  dubSelectedMediaAtom,
+} from '@/atoms/dashboard/dub/dubAtom'
 import PageEmpty from '@/components/misc/page-empty'
 import UploadsPageEmpty from './uploads-page-empty'
 
@@ -25,6 +28,8 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
   const lastUpdated = useAtomValue(uploadsLastUpdatedAtom)
   const rootRef = useRef<HTMLDivElement>(null)
   const uploadLayout = useAtomValue(uploadsLayoutAtom)
+  const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
+
   const {
     data,
     error,
@@ -48,9 +53,16 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
     if (lastUpdated) refetch()
   }, [lastUpdated, refetch])
 
+  function handleSelect(upload: Media) {
+    if (dubSelectedMedia.some((m) => m.id === upload.id))
+      setDubSelectedMedia(dubSelectedMedia.filter((m) => m.id !== upload.id))
+    else setDubSelectedMedia([...(dubSelectedMedia ?? []), upload])
+  }
+
   if (status === 'pending') return <PageLoading />
   if (status === 'error') return <PageError error={error?.message} />
   if (uploads.length === 0) return <UploadsPageEmpty />
+
   return (
     <div
       className={cn(
@@ -67,7 +79,11 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
       >
         {dub
           ? availableMedia.map((upload: Media) => (
-              <UploadCard dub key={upload.id} upload={upload} />
+              <UploadCard
+                onSelect={() => handleSelect(upload)}
+                key={upload.id}
+                upload={upload}
+              />
             ))
           : uploads.map((upload: Media) => (
               <UploadCardPopoverWrap key={upload.id} upload={upload} />

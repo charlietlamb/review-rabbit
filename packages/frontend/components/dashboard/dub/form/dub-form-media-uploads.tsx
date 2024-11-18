@@ -33,7 +33,8 @@ export default function DubFormMediaUploads() {
   useEffect(() => {
     setUploadsSort('newest')
     setUploadsSearch('')
-  }, [setUploadsSort, setUploadsSearch])
+    setDubSelectedMedia([])
+  }, [setUploadsSort, setUploadsSearch, setDubSelectedMedia])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

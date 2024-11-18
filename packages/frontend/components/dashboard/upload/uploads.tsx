@@ -13,13 +13,14 @@ import PageLoading from '@/components/misc/page-loading'
 import PageError from '@/components/misc/page-error'
 import { cn } from '@/lib/utils'
 import InfiniteScroll from '@/components/misc/infinite-scroll'
-import UploadCardPopoverWrap from './card/upload-card-popover-wrap'
+import UploadCardPopoverWrap from './card/upload-card-dialog'
 import {
   dubAvailableMediaAtom,
   dubSelectedMediaAtom,
 } from '@/atoms/dashboard/dub/dubAtom'
 import PageEmpty from '@/components/misc/page-empty'
 import UploadsPageEmpty from './uploads-page-empty'
+import UploadCardDialog from './card/upload-card-dialog'
 
 export default function Uploads({ dub = false }: { dub?: boolean }) {
   const uploads = useAtomValue(uploadsAtom)
@@ -86,7 +87,7 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
               />
             ))
           : uploads.map((upload: Media) => (
-              <UploadCardPopoverWrap key={upload.id} upload={upload} />
+              <UploadCardDialog key={upload.id} upload={upload} />
             ))}
       </InfiniteScroll>
     </div>

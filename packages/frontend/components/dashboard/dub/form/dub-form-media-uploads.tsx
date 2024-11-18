@@ -34,7 +34,20 @@ export default function DubFormMediaUploads() {
     setUploadsSort('newest')
     setUploadsSearch('')
     setDubSelectedMedia([])
-  }, [setUploadsSort, setUploadsSearch, setDubSelectedMedia])
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter' && open) {
+        event.preventDefault()
+        document.getElementById('selectMediaButton')?.click()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [setUploadsSort, setUploadsSearch, setDubSelectedMedia, open])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -53,6 +66,7 @@ export default function DubFormMediaUploads() {
 
         <DialogFooter className="border-t border-border p-2 w-full py-4 bg-background">
           <Button
+            id="selectMediaButton"
             variant="shine"
             colors="none"
             className="font-heading w-full"

@@ -9,6 +9,7 @@ import { dubSelectedMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
 import { cn } from '@/lib/utils'
 import env from '@/env'
 import { AudioLines, Trash2 } from 'lucide-react'
+import { isVideo } from '@/lib/misc/is-video'
 
 export default function UploadCard({
   upload,
@@ -21,7 +22,7 @@ export default function UploadCard({
 }) {
   const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
   const [selected, setSelected] = useState(false)
-  const isVideo = upload.extension === 'mp4' || upload.extension === 'mov'
+  const video = isVideo(upload.extension)
 
   useEffect(() => {
     if (dubSelectedMedia?.some((m) => m.id === upload.id)) setSelected(true)
@@ -29,7 +30,7 @@ export default function UploadCard({
   }, [dubSelectedMedia])
 
   return (
-    <div className="w-full">
+    <div className="w-full group">
       <Card
         className={cn(
           'hover:shadow-lg hover:cursor-pointer hover:border-foreground transition-all duration-300 flex overflow-hidden',
@@ -38,7 +39,7 @@ export default function UploadCard({
         onClick={onSelect}
       >
         <div className="aspect-square w-20 min-w-[5rem] relative flex items-center justify-center border-r border-border">
-          {isVideo ? (
+          {video ? (
             <img
               src={`${env.NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`}
               alt={upload.name}
@@ -72,7 +73,7 @@ export default function UploadCard({
         </div>
         {onDelete && (
           <div
-            className="flex items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0"
+            className="flex items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0 group-hover:flex hidden"
             onClick={onDelete}
           >
             <Trash2 className="w-4 h-4" />

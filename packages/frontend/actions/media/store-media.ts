@@ -15,6 +15,7 @@ export async function storeMedia(
         path: fileId,
         name: file.name,
         size: file.size,
+        mimeType: file.type,
         extension,
         duration:
           Math.ceil(duration) === duration ? duration : Math.ceil(duration),

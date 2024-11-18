@@ -1,12 +1,20 @@
 import { Button } from '@/components/ui/button'
-import { PopoverContent } from '@/components/ui/popover'
+import {
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import { useRouter } from 'next/navigation'
 import { useSetAtom } from 'jotai'
 import { dubMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
+import { isVideo } from '@/lib/misc/is-video'
+import AudioPlayer from '@/components/misc/audio-player'
+import VideoPlayer from '@/components/misc/video-player'
 
-export default function UploadCardPopover({
+export default function UploadCardDialogContent({
   upload,
   setOpen,
 }: {
@@ -15,12 +23,18 @@ export default function UploadCardPopover({
 }) {
   const router = useRouter()
   const setDubMedia = useSetAtom(dubMediaAtom)
+  const video = isVideo(upload.extension)
   return (
-    <PopoverContent className="flex flex-col w-60 gap-2">
+    <DialogContent className="flex flex-col gap-2">
+      <DialogHeader>
+        <DialogTitle className="truncate">{upload.name}</DialogTitle>
+      </DialogHeader>
       <p className="text-sm text-muted-foreground">
         What do you want to do with this media?
       </p>
-      <div className="grid grid-cols-2 gap-2">
+
+      {video ? <VideoPlayer media={upload} /> : <AudioPlayer media={upload} />}
+      <DialogFooter className="grid grid-cols-2 gap-2">
         <Button
           variant="shine"
           colors="none"
@@ -34,7 +48,7 @@ export default function UploadCardPopover({
           Dub
         </Button>
         <UploadCardDeleteDialog upload={upload} setOpen={setOpen} />
-      </div>
-    </PopoverContent>
+      </DialogFooter>
+    </DialogContent>
   )
 }

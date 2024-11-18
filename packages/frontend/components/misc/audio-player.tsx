@@ -238,7 +238,7 @@ export default function AudioPlayer({ media }: { media: Media }) {
   if (isLoading) return <PageLoading />
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 bg-background rounded-lg shadow-md">
+    <div className="w-full max-w-md mx-auto p-4 bg-background rounded-lg">
       <div className="mb-4">
         <Slider
           value={[currentTime]}

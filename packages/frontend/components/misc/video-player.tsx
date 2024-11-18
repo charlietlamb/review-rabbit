@@ -100,7 +100,7 @@ export default function VideoPlayer({ media }: { media: Media }) {
 
   if (error) {
     return (
-      <div className="w-full max-w-md mx-auto p-4 bg-background rounded-lg shadow-md text-red-500">
+      <div className="w-full max-w-md mx-auto p-4 bg-background rounded-lg text-red-500">
         Error: {error}
       </div>
     )
@@ -112,7 +112,7 @@ export default function VideoPlayer({ media }: { media: Media }) {
     <div
       ref={containerRef}
       className={cn(
-        'w-full max-w-4xl mx-auto bg-background rounded-lg shadow-md overflow-hidden',
+        'w-full max-w-4xl mx-auto bg-background rounded-lg overflow-hidden',
         isFullscreen && 'fixed inset-0 max-w-none z-50'
       )}
     >

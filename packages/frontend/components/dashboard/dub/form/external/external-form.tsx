@@ -57,6 +57,7 @@ export default function ExternalForm({
           size,
           extension,
           duration,
+          mimeType: 'audio/mp3',
           language: null,
           deletedAt: null,
           userId: '',

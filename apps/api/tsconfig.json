@@ -1,0 +1,20 @@
+{
+  "extends": "@dubble/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@dubble/*": ["../../packages/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/auth/auth.ts",
+    "../../packages/email/components/reset-password-email.tsx",
+    "../../packages/email/components/tailwind-provider.tsx"
+  ]
+}

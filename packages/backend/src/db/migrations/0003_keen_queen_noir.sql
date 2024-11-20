@@ -1,1 +1,0 @@
-ALTER TABLE "media" RENAME COLUMN "pathId" TO "path";

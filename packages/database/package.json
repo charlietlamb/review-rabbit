@@ -1,0 +1,16 @@
+{
+  "name": "@dubble/database",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.28.1",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5"
+  }
+}

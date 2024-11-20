@@ -1,0 +1,18 @@
+{
+  "name": "@dubble/auth",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "@dubble/database": "workspace:*",
+    "@dubble/email": "workspace:*",
+    "@dubble/env": "workspace:*",
+    "better-auth": "1.0.0-canary.6"
+  },
+  "devDependencies": {
+    "@dubble/typescript-config": "workspace:*",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

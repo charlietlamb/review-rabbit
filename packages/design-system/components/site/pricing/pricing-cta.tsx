@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@dubble/design-system/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 
 export default function PricingCta() {

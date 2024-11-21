@@ -1,4 +1,4 @@
-import env from '@/env'
+import env from '@dubble/env'
 
 export type PricingTier = {
   title: string

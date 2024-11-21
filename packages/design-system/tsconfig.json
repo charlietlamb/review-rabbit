@@ -8,8 +8,7 @@
       }
     ],
     "paths": {
-      "@dubble/*": ["../*"],
-      "@dubble/design-system/*": ["./*"]
+      "@dubble/*": ["../*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

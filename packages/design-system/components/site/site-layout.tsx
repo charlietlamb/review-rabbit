@@ -1,7 +1,7 @@
 import React from 'react'
-import { Footer } from '@/components/site/footer/footer'
-import { Header } from '@/components/site/header/header'
-import { cn } from '@/lib/utils'
+import { Footer } from '@dubble/design-system/components/site/footer/footer'
+import { Header } from '@dubble/design-system/components/site/header/header'
+import { cn } from '@dubble/design-system/lib/utils'
 
 export default function SiteLayout({
   home,

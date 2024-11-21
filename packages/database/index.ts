@@ -1,2 +1,2 @@
-export * from './schema/index.js'
-export { db } from './postgres.js'
+export * from '@dubble/database/schema/index'
+export { db } from '@dubble/database/postgres'

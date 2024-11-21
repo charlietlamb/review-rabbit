@@ -1,5 +1,5 @@
-import { Contact } from '@/components/site/contact/contact'
-import SiteLayout from '@/components/site/site-layout'
+import { Contact } from '@dubble/design-system/components/site/contact/contact'
+import SiteLayout from '@dubble/design-system/components/site/site-layout'
 
 export default function ContactPage() {
   return (

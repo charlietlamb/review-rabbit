@@ -1,14 +1,14 @@
 'use client'
 
-import { dubMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
-import InputWithStart from '@/components/misc/input-with-start'
-import SocialButton from '@/components/misc/social-button'
+import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import InputWithStart from '@dubble/design-system/components/misc/input-with-start'
+import SocialButton from '@dubble/design-system/components/misc/social-button'
 import {
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@dubble/design-system/components/ui/dialog'
 import { useAtom } from 'jotai'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'

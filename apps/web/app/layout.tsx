@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import './globals.css'
 import { Bricolage_Grotesque } from 'next/font/google'
-import Providers from '@/components/providers/providers'
+import { DesignSystemProvider } from '@dubble/design-system'
+import './globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -31,7 +31,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative`}
       >
-        <Providers>{children}</Providers>
+        <DesignSystemProvider>{children}</DesignSystemProvider>
       </body>
     </html>
   )

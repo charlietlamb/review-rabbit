@@ -1,12 +1,12 @@
 'use client'
 
-import dub from '@/actions/dub/dub'
+import dub from '@dubble/design-system/actions/dub/dub'
 import {
   dubLanguagesAtom,
   dubMediaAtom,
   dubTokensAtom,
-} from '@/atoms/dashboard/dub/dubAtom'
-import { Button } from '@/components/ui/button'
+} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import { Button } from '@dubble/design-system/components/ui/button'
 import {
   DialogDescription,
   DialogTitle,
@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogFooter,
-} from '@/components/ui/dialog'
+} from '@dubble/design-system/components/ui/dialog'
 import { useAtomValue } from 'jotai'
 import DubSummary from './dub-summary'
 import { toast } from 'sonner'

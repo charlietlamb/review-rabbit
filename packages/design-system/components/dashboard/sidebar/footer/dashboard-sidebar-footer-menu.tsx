@@ -1,4 +1,4 @@
-import { DropdownMenuContent } from '@/components/ui/dropdown-menu'
+import { DropdownMenuContent } from '@dubble/design-system/components/ui/dropdown-menu'
 import React from 'react'
 import DashboardSidebarFooterDropdown from './dashboard-sidebar-footer-dropdown'
 

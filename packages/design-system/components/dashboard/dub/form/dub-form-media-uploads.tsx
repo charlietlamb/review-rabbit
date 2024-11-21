@@ -7,20 +7,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+} from '@dubble/design-system/components/ui/dialog'
+import { Button } from '@dubble/design-system/components/ui/button'
 import { useEffect, useState } from 'react'
 import Uploads from '../../upload/uploads'
 import {
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@/atoms/dashboard/upload/uploadsAtom'
+} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 import { useAtom, useSetAtom } from 'jotai'
 import {
   dubSelectedMediaAtom,
   dubMediaAtom,
-} from '@/atoms/dashboard/dub/dubAtom'
-import Spinner from '@/components/misc/spinner'
+} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import Spinner from '@dubble/design-system/components/misc/spinner'
 
 export default function DubFormMediaUploads() {
   const [open, setOpen] = useState(false)

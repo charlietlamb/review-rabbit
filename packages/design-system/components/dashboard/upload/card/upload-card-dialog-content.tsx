@@ -1,18 +1,18 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@dubble/design-system/components/ui/button'
 import {
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@dubble/design-system/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import { useRouter } from 'next/navigation'
 import { useSetAtom } from 'jotai'
-import { dubMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
-import { isVideo } from '@/lib/misc/is-video'
-import AudioPlayer from '@/components/misc/audio-player'
-import VideoPlayer from '@/components/misc/video-player'
+import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import { isVideo } from '@dubble/design-system/lib/misc/is-video'
+import AudioPlayer from '@dubble/design-system/components/misc/audio-player'
+import VideoPlayer from '@dubble/design-system/components/misc/video-player'
 
 export default function UploadCardDialogContent({
   upload,

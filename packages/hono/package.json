@@ -1,0 +1,14 @@
+{
+  "name": "@dubble/hono",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@dubble/http": "workspace:*",
+    "@dubble/env": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@dubble/typescript-config": "workspace:*",
+    "@types/node": "22.9.0"
+  }
+}

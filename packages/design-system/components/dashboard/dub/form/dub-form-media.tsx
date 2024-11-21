@@ -1,9 +1,9 @@
-import OrLabel from '@/components/auth/form/or-label'
+import OrLabel from '@dubble/design-system/components/auth/form/or-label'
 import { UploadDialog } from '../../upload/toolbar/upload-dialog'
 import DubFormMediaUploads from './dub-form-media-uploads'
 import DubMedia from '../media/dub-media'
 import DubFormExternal from './external/dub-form-external'
-import { Label } from '@/components/ui/label'
+import { Label } from '@dubble/design-system/components/ui/label'
 
 export default function DubFormMedia() {
   return (

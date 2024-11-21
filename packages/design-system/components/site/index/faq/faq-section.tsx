@@ -1,4 +1,4 @@
-import { Accordion } from '@/components/ui/accordion'
+import { Accordion } from '@dubble/design-system/components/ui/accordion'
 import { FaqItem } from './faq-item'
 import { faqData } from './faq-data'
 

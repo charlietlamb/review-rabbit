@@ -3,7 +3,7 @@ import {
   SidebarContent,
   SidebarMenu,
   SidebarRail,
-} from '@/components/ui/sidebar'
+} from '@dubble/design-system/components/ui/sidebar'
 import { dashboardSidebarItems } from './data/dashboardSidebarItems'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'

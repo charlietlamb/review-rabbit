@@ -3,7 +3,7 @@
 import TanstackQueryProvider from './tanstack-query-provider'
 import { useEffect, useState } from 'react'
 import ThemeProvider from './theme-provider'
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@dubble/design-system/components/ui/sonner'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)

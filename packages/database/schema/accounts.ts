@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
-import { users } from './users.js'
+import { users } from '@dubble/database/schema/users'
 
 export const accounts = pgTable('accounts', {
   id: uuid('id').primaryKey(),

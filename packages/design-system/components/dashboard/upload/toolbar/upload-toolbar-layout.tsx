@@ -1,5 +1,8 @@
-import { uploadsLayoutAtom } from '@/atoms/dashboard/upload/uploadsAtom'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { uploadsLayoutAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@dubble/design-system/components/ui/radio-group'
 import { useAtom } from 'jotai'
 import { Grid, Rows3 } from 'lucide-react'
 

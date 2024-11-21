@@ -1,11 +1,11 @@
 'use client'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '@dubble/design-system/components/ui/input'
 import { File, LoaderCircle, Mic, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { UploadToolbarPopover } from './upload-toolbar-popover'
 import { useAtom } from 'jotai'
-import { uploadsSearchAtom } from '@/atoms/dashboard/upload/uploadsAtom'
+import { uploadsSearchAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 
 export default function Input27() {
   const [inputValue, setInputValue] = useAtom(uploadsSearchAtom)

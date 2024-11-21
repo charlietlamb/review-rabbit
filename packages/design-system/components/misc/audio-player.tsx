@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
+import { Button } from '@dubble/design-system/components/ui/button'
+import { Slider } from '@dubble/design-system/components/ui/slider'
 import {
   Play,
   Pause,
@@ -11,7 +11,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react'
-import { getPresignedUrl } from '@/actions/s3/upload/get-presigned-url'
+import { getPresignedUrl } from '@dubble/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
 
 export default function AudioPlayer({ media }: { media: Media }) {

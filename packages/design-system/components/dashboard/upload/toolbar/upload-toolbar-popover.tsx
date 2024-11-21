@@ -1,16 +1,19 @@
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@dubble/design-system/components/ui/radio-group'
+import { Label } from '@dubble/design-system/components/ui/label'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@dubble/design-system/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
 import { useAtom } from 'jotai'
 import {
   uploadsLayoutAtom,
   uploadsSortAtom,
-} from '@/atoms/dashboard/upload/uploadsAtom'
+} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 
 export function UploadToolbarPopover() {
   const [sort, setSort] = useAtom(uploadsSortAtom)

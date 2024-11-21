@@ -1,12 +1,12 @@
 'use client'
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Input } from '@dubble/design-system/components/ui/input'
+import { Label } from '@dubble/design-system/components/ui/label'
 import { Check, Eye, EyeOff, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import FieldInfo from '@/components/form/field-info'
+import FieldInfo from '@dubble/design-system/components/form/field-info'
 import { z } from 'zod'
-import { cn } from '@/lib/utils'
+import { cn } from '@dubble/design-system/lib/utils'
 
 export default function PasswordStrength({
   form,

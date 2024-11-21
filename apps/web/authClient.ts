@@ -1,6 +1,6 @@
 import { createAuthClient } from 'better-auth/react'
 import { inferAdditionalFields } from 'better-auth/client/plugins'
-import { auth } from '@/api/auth'
+import { auth } from '@dubble/auth'
 
 export const authClient = createAuthClient({
   baseURL: 'http://localhost:8000',

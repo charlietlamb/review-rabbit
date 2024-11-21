@@ -1,4 +1,4 @@
-import { Input } from '@/components/ui/input'
+import { Input } from '@dubble/design-system/components/ui/input'
 import { Dispatch, SetStateAction } from 'react'
 import { ExternalPlatformData } from '../dashboard/dub/form/external/external'
 

@@ -1,24 +1,24 @@
-import { fetchMedia } from '@/actions/media/fetch-media'
+import { fetchMedia } from '@dubble/design-system/actions/media/fetch-media'
 import {
   uploadPagesAtom,
   uploadsAtom,
   uploadsLastUpdatedAtom,
   uploadsLayoutAtom,
-} from '@/atoms/dashboard/upload/uploadsAtom'
+} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useRef } from 'react'
 import UploadCard from './card/upload-card'
-import PageLoading from '@/components/misc/page-loading'
-import PageError from '@/components/misc/page-error'
-import { cn } from '@/lib/utils'
-import InfiniteScroll from '@/components/misc/infinite-scroll'
+import PageLoading from '@dubble/design-system/components/misc/page-loading'
+import PageError from '@dubble/design-system/components/misc/page-error'
+import { cn } from '@dubble/design-system/lib/utils'
+import InfiniteScroll from '@dubble/design-system/components/misc/infinite-scroll'
 import UploadCardPopoverWrap from './card/upload-card-dialog'
 import {
   dubAvailableMediaAtom,
   dubSelectedMediaAtom,
-} from '@/atoms/dashboard/dub/dubAtom'
-import PageEmpty from '@/components/misc/page-empty'
+} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import PageEmpty from '@dubble/design-system/components/misc/page-empty'
 import UploadsPageEmpty from './uploads-page-empty'
 import UploadCardDialog from './card/upload-card-dialog'
 

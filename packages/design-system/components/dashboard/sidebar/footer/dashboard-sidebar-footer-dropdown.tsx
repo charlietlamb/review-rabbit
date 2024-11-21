@@ -3,7 +3,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
+} from '@dubble/design-system/components/ui/dropdown-menu'
 import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 

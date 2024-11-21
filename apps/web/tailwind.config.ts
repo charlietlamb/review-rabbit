@@ -6,12 +6,13 @@ const {
 const colors = require('tailwindcss/colors')
 const svgToDataUri = require('mini-svg-data-uri')
 
-const config: Config = {
+export const config: Config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    '../../packages/design-system/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

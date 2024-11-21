@@ -2,7 +2,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@/components/ui/accordion'
+} from '@dubble/design-system/components/ui/accordion'
 
 type FaqItemProps = {
   value: string

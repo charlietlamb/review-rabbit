@@ -1,5 +1,5 @@
 import { serve } from 'bun'
-import app from './app'
+import app from '@dubble/hono'
 
 const port = 8000
 

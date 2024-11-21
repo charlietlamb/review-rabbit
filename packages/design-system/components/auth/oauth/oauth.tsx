@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@dubble/design-system/components/ui/button'
 import { RiGithubFill, RiGoogleFill, RiTwitterXFill } from '@remixicon/react'
 
 export default function OAuth() {

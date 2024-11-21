@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@dubble/design-system/*": ["./*"],
       "@dubble/*": ["../../packages/*"]
     }
   },
@@ -15,6 +15,7 @@
     ".next/types/**/*.ts",
     "../../packages/auth/auth.ts",
     "../../packages/email/components/reset-password-email.tsx",
-    "../../packages/email/components/tailwind-provider.tsx"
+    "../../packages/email/components/tailwind-provider.tsx",
+    "../../packages/hono/app.ts"
   ]
 }

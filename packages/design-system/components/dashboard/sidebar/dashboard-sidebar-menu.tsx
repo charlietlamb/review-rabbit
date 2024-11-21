@@ -6,7 +6,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar'
+} from '@dubble/design-system/components/ui/sidebar'
 import Link from 'next/link'
 import { getIconWithClassName } from './functions/getIconWithClassName'
 

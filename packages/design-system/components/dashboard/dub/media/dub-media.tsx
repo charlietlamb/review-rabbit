@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { dubMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
+import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { useAtom, useAtomValue } from 'jotai'
 import UploadCard from '../../upload/card/upload-card'
 

@@ -1,6 +1,6 @@
 import { authClient } from '@/authClient'
-import { Button } from '@/components/ui/button'
-import useUser from '@/hooks/use-user'
+import { Button } from '@dubble/design-system/components/ui/button'
+import useUser from '@dubble/design-system/hooks/use-user'
 import { useState } from 'react'
 import { toast } from 'sonner'
 

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import Uploads from './uploads'
 import UploadToolbar from './toolbar/upload-toolbar'
 import { useSetAtom } from 'jotai'
-import { uploadPagesAtom } from '@/atoms/dashboard/upload/uploadsAtom'
+import { uploadPagesAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 
 export default function Upload({
   initialUploads,

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { durationToTime } from '@/lib/misc/duration-to-time'
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+} from '@dubble/design-system/components/ui/card'
+import { Badge } from '@dubble/design-system/components/ui/badge'
+import { durationToTime } from '@dubble/design-system/lib/misc/duration-to-time'
 import { fileToIcon } from './file-to-icon'
-import { numberToSize } from '@/lib/misc/number-to-size'
+import { numberToSize } from '@dubble/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
-import { dubSelectedMediaAtom } from '@/atoms/dashboard/dub/dubAtom'
-import { cn } from '@/lib/utils'
-import env from '@/env'
+import { dubSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import { cn } from '@dubble/design-system/lib/utils'
+import env from '@dubble/env'
 import { AudioLines, Trash2 } from 'lucide-react'
-import { isVideo } from '@/lib/misc/is-video'
+import { isVideo } from '@dubble/design-system/lib/misc/is-video'
 
 export default function UploadCard({
   upload,

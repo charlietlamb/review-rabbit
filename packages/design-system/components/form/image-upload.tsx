@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@dubble/design-system/components/ui/button'
 import { CircleUserRound } from 'lucide-react'
 import Image from 'next/image'
 import React, {
@@ -11,7 +11,11 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from '@dubble/design-system/components/ui/dialog'
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'

@@ -7,10 +7,10 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
+} from '@dubble/design-system/components/ui/breadcrumb'
 import React from 'react'
-import { useIsMobile } from '@/hooks/use-mobile'
-import { cn } from '@/lib/utils'
+import { useIsMobile } from '@dubble/design-system/hooks/use-mobile'
+import { cn } from '@dubble/design-system/lib/utils'
 
 export default function DashboardBreadcrumb() {
   const pathname = usePathname()

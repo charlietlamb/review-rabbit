@@ -1,5 +1,5 @@
-import { VerifyEmail } from '@/components/auth/verify/verify-email'
-import SiteLayout from '@/components/site/site-layout'
+import { VerifyEmail } from '@dubble/design-system/components/auth/verify/verify-email'
+import SiteLayout from '@dubble/design-system/components/site/site-layout'
 
 export default async function VerifyPage() {
   return (

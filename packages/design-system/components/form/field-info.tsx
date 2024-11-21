@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@dubble/design-system/lib/utils'
 import { FieldApi } from '@tanstack/react-form'
 
 export default function FieldInfo({

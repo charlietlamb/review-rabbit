@@ -1,9 +1,9 @@
 'use client'
 
-import MultipleSelector from '@/components/misc/multi-select'
-import { languagesOptions } from '@/types/language'
+import MultipleSelector from '@dubble/design-system/components/misc/multi-select'
+import { languagesOptions } from '@dubble/design-system/types/language'
 import { useAtom } from 'jotai'
-import { dubLanguagesOptionsAtom } from '@/atoms/dashboard/dub/dubAtom'
+import { dubLanguagesOptionsAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 
 export default function Select46() {
   const [languageOptions, setLanguageOptions] = useAtom(dubLanguagesOptionsAtom)

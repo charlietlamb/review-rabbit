@@ -1,13 +1,13 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@dubble/design-system/components/ui/button'
+import { Input } from '@dubble/design-system/components/ui/input'
+import { Textarea } from '@dubble/design-system/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import Name from '@/components/auth/form/name'
-import Email from '@/components/auth/form/email'
+import Name from '@dubble/design-system/components/auth/form/name'
+import Email from '@dubble/design-system/components/auth/form/email'
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@dubble/design-system/lib/utils'
 import React from 'react'
 
 export function getIconWithClassName(

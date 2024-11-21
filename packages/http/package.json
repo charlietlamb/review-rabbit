@@ -1,7 +1,7 @@
 {
-  "name": "@dubble/utils",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@dubble/http",
+  "type": "module",
+  "module": "index.ts",
   "dependencies": {
     "stoker": "^1.3.0"
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import { Label } from '@/components/ui/label'
+import { Label } from '@dubble/design-system/components/ui/label'
 import DubFormLanguage from './dub-form-language'
 import DubFormMedia from './dub-form-media'
 

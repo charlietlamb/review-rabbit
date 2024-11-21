@@ -1,5 +1,8 @@
-import SocialButton from '@/components/misc/social-button'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import SocialButton from '@dubble/design-system/components/misc/social-button'
+import {
+  Dialog,
+  DialogTrigger,
+} from '@dubble/design-system/components/ui/dialog'
 import ExternalForm from './external-form'
 import { useState } from 'react'
 import { externalData, ExternalPlatformData } from './external'

@@ -1,11 +1,11 @@
-import { uploadsSortAtom } from '@/atoms/dashboard/upload/uploadsAtom'
+import { uploadsSortAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@dubble/design-system/components/ui/select'
 import { useAtom } from 'jotai'
 
 export default function UploadToolbarSort() {

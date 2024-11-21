@@ -3,7 +3,7 @@ import {
   dubMediaAtom,
   dubMediaDurationAtom,
   dubTokensAtom,
-} from '@/atoms/dashboard/dub/dubAtom'
+} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { useAtomValue } from 'jotai'
 
 export default function DubSummary() {

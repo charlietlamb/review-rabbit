@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+} from '@dubble/design-system/components/ui/dialog'
+import { Button } from '@dubble/design-system/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from '@tanstack/react-form'

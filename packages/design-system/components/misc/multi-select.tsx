@@ -5,14 +5,14 @@ import { X } from 'lucide-react'
 import * as React from 'react'
 import { forwardRef, useEffect } from 'react'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@dubble/design-system/components/ui/badge'
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import { cn } from '@/lib/utils'
+} from '@dubble/design-system/components/ui/command'
+import { cn } from '@dubble/design-system/lib/utils'
 
 export interface Option {
   value: string

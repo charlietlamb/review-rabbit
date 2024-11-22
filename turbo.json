@@ -1,5 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "LOG_LEVEL",
+    "PORT",
+    "AWS_S3_URL",
+    "AWS_ACCESS_KEY_ID",
+    "AWS_SECRET_ACCESS_KEY",
+    "AWS_S3_BUCKET_NAME",
+    "AWS_REGION",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_BASE_PATH",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "FRONTEND_URL",
+    "API_URL",
+    "ANALYZE",
+    "ELEVENLABS_API_KEY"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

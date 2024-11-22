@@ -16,9 +16,10 @@ import Spinner from '@dubble/design-system/components/misc/spinner'
 import { toast } from 'sonner'
 import UpdatePassword from '@dubble/design-system/components/auth/update-password/update-password'
 import { useState } from 'react'
-import { MAX_IMAGE_SIZE_STRING } from '@/constants'
+import { MAX_IMAGE_SIZE_STRING } from '@dubble/design-system/data/max-image-size'
 import { updateUser } from '@dubble/design-system/actions/auth/user/update-user'
 import { uploadProfilePictureClient } from '@dubble/design-system/actions/s3/upload/upload-profile-picture-client'
+import { User } from '@dubble/database/schema/users'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -47,7 +48,6 @@ export default function DashboadSettingsAccountForm() {
       const file = values.formApi.getFieldValue('image')
       if (file) {
         const res = await uploadProfilePictureClient(user as User, file as File)
-        console.log(res)
         if (res !== 200) {
           console.error('Failed to upload profile picture')
         }

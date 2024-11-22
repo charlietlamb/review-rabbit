@@ -31,6 +31,9 @@ const server = {
 
   // ElevenLabs
   ELEVENLABS_API_KEY: z.string().min(1).startsWith('sk_'),
+
+  // Bundle Analyzer
+  ANALYZE: z.string(),
 } as const
 
 const client = {
@@ -80,6 +83,9 @@ export const env = createEnv({
 
     // ElevenLabs
     ELEVENLABS_API_KEY: process.env.ELEVENLABS_API_KEY,
+
+    // Bundle Analyzer
+    ANALYZE: process.env.ANALYZE,
 
     // Client
     NEXT_PUBLIC_LOCATION: process.env.NEXT_PUBLIC_LOCATION,

@@ -40,7 +40,6 @@ export default function DubFormSubmit() {
                 description: 'Please select some media to dub.',
               })
             }
-            console.log(dubLanguages)
             if (!dubLanguages.length) {
               return toast.error('No languages selected', {
                 description: 'Please select at least one language.',

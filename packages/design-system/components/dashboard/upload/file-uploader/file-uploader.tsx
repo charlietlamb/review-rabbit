@@ -41,6 +41,7 @@ export function FileUploader(props: FileUploaderProps) {
   })
 
   const [durations, setDurations] = React.useState<Record<string, number>>({})
+  const [progress, setProgress] = React.useState<Record<string, number>>({})
 
   const onDrop = React.useCallback(
     async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -173,8 +174,8 @@ export function FileUploader(props: FileUploaderProps) {
               <FileCard
                 key={index}
                 file={file}
+                progress={progress[file.name]}
                 onRemove={() => onRemove(index)}
-                progress={progresses?.[file.name]}
               />
             ))}
           </div>
@@ -185,6 +186,7 @@ export function FileUploader(props: FileUploaderProps) {
         durations={durations}
         setFiles={setFiles}
         setOpen={setOpen}
+        setProgress={setProgress}
         dub={dub}
       />
     </div>

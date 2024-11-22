@@ -14,9 +14,9 @@ export default function SocialButton({
 }) {
   const { name, icon, className } = platform
   return (
-    <div
+    <button
       className={cn(
-        'flex items-center gap-1 font-heading w-full px-3 py-2 justify-center transition-all duration-300 cursor-pointer text-white',
+        'flex items-center gap-1 font-heading w-full px-3 py-2 justify-center transition-all duration-300 cursor-pointer text-white rounded-md',
         className
       )}
       onClick={onClick}
@@ -29,6 +29,6 @@ export default function SocialButton({
           <p className="hidden md:inline-block">{name}</p>
         </>
       )}
-    </div>
+    </button>
   )
 }

@@ -18,12 +18,14 @@ import {
 import useUser from '@dubble/design-system/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
 import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
+import DashboardSidebarThemeToggle from '../toggle/dashboard-sidebar-theme-toggle'
 
 export default function DashboardSidebarFooter() {
   const user = useUser()
   if (!user) return null
   return (
     <SidebarFooter>
+      <DashboardSidebarThemeToggle closed={true} />
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>

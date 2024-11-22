@@ -22,6 +22,6 @@
     "apps/*"
   ],
   "dependencies": {
-    "turbo": "latest"
+    "turbo": "^2.3.0"
   }
 }

@@ -1,11 +1,16 @@
-'use client'
-
 import { Moon, Sun } from 'lucide-react'
 import { Button } from '@dubble/design-system/components/ui/button'
 import { useTheme } from 'next-themes'
+import { useSidebar } from '@dubble/design-system/components/ui/sidebar'
 
-export default function DashboardSidebarHeaderThemeToggle() {
+export default function DashboardSidebarThemeToggle({
+  closed = false,
+}: {
+  closed?: boolean
+}) {
+  const { open } = useSidebar()
   const { theme, setTheme } = useTheme()
+  if ((!open && !closed) || (open && closed)) return null
   return (
     <Button
       variant="ghost"

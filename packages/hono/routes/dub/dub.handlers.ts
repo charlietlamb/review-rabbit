@@ -13,7 +13,7 @@ import { db } from '@dubble/database'
 import { v4 as uuidv4 } from 'uuid'
 import { dubs } from '@dubble/database/schema/dubs'
 
-const ELEVENLABS_URL = 'https://api.elevenlabs.io'
+const ELEVENLABS_URL = 'https://api.elevenlabs.io/'
 
 const elevenlabs = new ElevenLabsClient({
   apiKey: env.ELEVENLABS_API_KEY,

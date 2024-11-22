@@ -1,4 +1,5 @@
-import env from '@dubble/env'
+import { env } from '@dubble/env'
+import { Plan } from '@dubble/hono/lib/types'
 
 export type PricingTier = {
   title: string

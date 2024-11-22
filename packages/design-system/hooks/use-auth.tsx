@@ -9,7 +9,6 @@ export default async function useAuth(): Promise<User | null> {
       headers: await headers(),
     },
   })
-  console.log(response)
   if (response.error) return null
   const session = response.data
   if (!session) return null

@@ -14,12 +14,14 @@ export default function FileUpload({
   durations,
   setFiles,
   setOpen,
+  setProgress,
   dub = false,
 }: {
   files: File[] | undefined
   durations: Record<string, number>
   setFiles: Dispatch<SetStateAction<File[] | undefined>>
   setOpen: Dispatch<SetStateAction<boolean>>
+  setProgress: Dispatch<SetStateAction<Record<string, number>>>
   dub?: boolean
 }) {
   const [loading, setLoading] = useState(false)
@@ -29,7 +31,7 @@ export default function FileUpload({
   async function handleUpload() {
     if (!files?.length) return
     setLoading(true)
-    const ids = await uploadMedia(files, durations)
+    const ids = await uploadMedia(files, durations, setProgress)
     if (dub) {
       const media = await fetchMediaFromIds(ids)
       setDubMedia([...(dubMedia ?? []), ...media])

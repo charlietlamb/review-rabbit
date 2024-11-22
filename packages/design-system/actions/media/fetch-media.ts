@@ -16,7 +16,6 @@ export async function fetchMedia(
     await headersWithCookies()
   )
   if (!response.ok) {
-    console.log(response)
     throw new Error('Failed to fetch media')
   }
   const mediaResults = await response.json()

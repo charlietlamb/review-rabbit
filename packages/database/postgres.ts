@@ -1,18 +1,7 @@
 import { env } from '@dubble/env'
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import { drizzle } from 'drizzle-orm/neon-http'
+import { neon } from '@neondatabase/serverless'
 import * as schema from '@dubble/database/schema'
 
-declare global {
-  var db: PostgresJsDatabase<typeof schema> | undefined
-}
-
-let db: PostgresJsDatabase<typeof schema>
-
-if (env.NODE_ENV === 'production') {
-  db = drizzle(env.DATABASE_URL as any)
-} else {
-  if (!global.db) global.db = drizzle(env.DATABASE_URL as any)
-  db = global.db
-}
-
-export { db }
+const sql = neon(env.DATABASE_URL)
+export const db = drizzle({ client: sql }, { schema })

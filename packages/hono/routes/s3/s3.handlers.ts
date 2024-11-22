@@ -174,7 +174,6 @@ export const deleteMedia: AppRouteHandler<DeleteMediaRoute> = async (c) => {
     Key: path,
   })
   const deleteResponse = await client.send(command)
-  console.log(deleteResponse)
   if (
     deleteResponse.$metadata.httpStatusCode !== 200 &&
     deleteResponse.$metadata.httpStatusCode !== 204
@@ -184,7 +183,6 @@ export const deleteMedia: AppRouteHandler<DeleteMediaRoute> = async (c) => {
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }
-  console.log(id)
   try {
     await db.delete(media).where(eq(media.id, id))
   } catch (e) {

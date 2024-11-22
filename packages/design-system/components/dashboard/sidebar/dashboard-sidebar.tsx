@@ -19,8 +19,8 @@ export default function DashboardSidebar() {
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
+          <DashboardSidebarSettings />
         </SidebarMenu>
-        <DashboardSidebarSettings />
       </SidebarContent>
       <DashboardSidebarFooter />
       <SidebarRail />

@@ -50,10 +50,6 @@ export default function AudioPlayer({ media }: { media: Media }) {
     if (!audio) return
 
     const onLoadedMetadata = () => {
-      console.log('Metadata loaded:', {
-        duration: audio.duration,
-        currentTime: audio.currentTime,
-      })
       setDuration(audio.duration)
       setCurrentTime(audio.currentTime)
       setIsLoading(false)

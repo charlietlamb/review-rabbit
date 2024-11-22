@@ -1,14 +1,14 @@
+import { Label } from '@dubble/design-system/components/ui/label'
 import DubForm from './form/dub-form'
 import DubFormSubmit from './form/dub-form-submit'
-import DubHeader from './header/dub-header'
+import DubMedia from './media/dub-media'
+import DubMediaSection from './media/dub-media-section'
 
 export default function Dub() {
   return (
     <div className="flex flex-col divide-y divide-border relative flex-grow overflow-hidden">
-      <DubHeader />
-      <div className="p-4 flex-grow overflow-hidden flex flex-col">
-        <DubForm />
-      </div>
+      <DubForm />
+      <DubMediaSection />
       <DubFormSubmit />
     </div>
   )

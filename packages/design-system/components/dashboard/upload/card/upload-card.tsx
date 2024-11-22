@@ -12,9 +12,10 @@ import { numberToSize } from '@dubble/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
 import { dubSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { cn } from '@dubble/design-system/lib/utils'
-import env from '@dubble/env'
+import { env } from '@dubble/env'
 import { AudioLines, Trash2 } from 'lucide-react'
 import { isVideo } from '@dubble/design-system/lib/misc/is-video'
+import { Media } from '@dubble/database/schema/media'
 
 export default function UploadCard({
   upload,
@@ -78,7 +79,7 @@ export default function UploadCard({
         </div>
         {onDelete && (
           <div
-            className="flex items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0 group-hover:flex hidden"
+            className="items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0 group-hover:flex hidden"
             onClick={onDelete}
           >
             <Trash2 className="w-4 h-4" />

@@ -19,7 +19,7 @@ const server = {
 
   // Authentication
   BETTER_AUTH_SECRET: z.string().min(1),
-  BETTER_AUTH_URL: z.string().min(1).url(),
+  API_URL: z.string().min(1).url(),
   BETTER_AUTH_BASE_PATH: z.string().min(1).startsWith('/'),
 
   // Stripe
@@ -68,7 +68,7 @@ export const env = createEnv({
 
     // Auth
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
-    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+    API_URL: process.env.API_URL,
     BETTER_AUTH_BASE_PATH: process.env.BETTER_AUTH_BASE_PATH,
 
     // Stripe

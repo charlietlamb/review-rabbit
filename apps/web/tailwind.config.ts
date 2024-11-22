@@ -13,6 +13,7 @@ export const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     '../../packages/design-system/**/*.{ts,tsx}',
+    '../../packages/design-system/components/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
@@ -116,12 +117,12 @@ export const config: Config = {
         },
       },
       borderRadius: {
-        // lg: 'var(--radius)',
-        // md: 'calc(var(--radius) - 2px)',
-        // sm: 'calc(var(--radius) - 4px)',
-        lg: '0rem',
-        md: '0rem',
-        sm: '0rem',
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+        // lg: '0rem',
+        // md: '0rem',
+        // sm: '0rem',
       },
       keyframes: {
         'accordion-down': {

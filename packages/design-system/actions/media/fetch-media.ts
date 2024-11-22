@@ -1,7 +1,8 @@
 'use server'
 
-import client from '@/client'
-import { PAGE_SIZE } from '@/constants'
+import { Media } from '@dubble/database/schema/media'
+import client from '@dubble/design-system/lib/client'
+import { PAGE_SIZE } from '@dubble/design-system/data/page-size'
 import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
 
 export async function fetchMedia(
@@ -15,6 +16,7 @@ export async function fetchMedia(
     await headersWithCookies()
   )
   if (!response.ok) {
+    console.log(response)
     throw new Error('Failed to fetch media')
   }
   const mediaResults = await response.json()

@@ -1,9 +1,9 @@
 'use server'
 
 import { HttpStatusCodes } from '@dubble/http'
-import client from '@/client'
+import client from '@dubble/design-system/lib/client'
 import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
-import { LanguageWithFlag } from '@dubble/design-system/types/language'
+import { LanguageWithFlag } from '@dubble/design-system/data/language'
 
 export default async function dub(
   media: Media[],

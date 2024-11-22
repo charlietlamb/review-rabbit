@@ -3,13 +3,15 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { env } from '@dubble/env'
 import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@dubble/email'
+import * as schema from '@dubble/database/schema'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
     usePlural: true,
+    schema,
   }),
-  baseURL: env.BETTER_AUTH_URL,
+  baseURL: env.API_URL,
   basePath: env.BETTER_AUTH_BASE_PATH,
   emailAndPassword: {
     enabled: true,

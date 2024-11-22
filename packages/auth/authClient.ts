@@ -4,6 +4,6 @@ import { inferAdditionalFields } from 'better-auth/client/plugins'
 import { auth } from '@dubble/auth'
 
 export const authClient = createAuthClient({
-  baseURL: env.BETTER_AUTH_URL,
+  baseURL: env.API_URL,
   plugins: [inferAdditionalFields<typeof auth>()],
 })

@@ -9,9 +9,9 @@ declare global {
 let db: PostgresJsDatabase<typeof schema>
 
 if (env.NODE_ENV === 'production') {
-  db = drizzle(env.DATABASE_URL)
+  db = drizzle(env.DATABASE_URL as any)
 } else {
-  if (!global.db) global.db = drizzle(env.DATABASE_URL)
+  if (!global.db) global.db = drizzle(env.DATABASE_URL as any)
   db = global.db
 }
 

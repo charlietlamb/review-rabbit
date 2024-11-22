@@ -1,6 +1,6 @@
 'use server'
 
-import client from '@/client'
+import client from '@dubble/design-system/lib/client'
 import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
 
 export async function getUploadPresignedUrl(key: string) {

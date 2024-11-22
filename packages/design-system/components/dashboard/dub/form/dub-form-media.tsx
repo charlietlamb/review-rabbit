@@ -14,10 +14,6 @@ export default function DubFormMedia() {
       </div>
       <OrLabel text="Or add from" />
       <DubFormExternal />
-      <Label className="font-heading text-xl">Selected Media</Label>
-      <div className="overflow-y-auto flex flex-col gap-2 flex-grow">
-        <DubMedia />
-      </div>
     </div>
   )
 }

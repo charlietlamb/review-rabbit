@@ -9,7 +9,7 @@ export const sessions = pgTable('sessions', {
   userId: uuid('userId')
     .notNull()
     .references(() => users.id),
-  token: text('token').notNull(),
+  token: text('token'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })

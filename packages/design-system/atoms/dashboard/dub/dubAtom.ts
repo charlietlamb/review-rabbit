@@ -3,7 +3,7 @@ import {
   Language,
   LanguageWithFlag,
   languagesMap,
-} from '@dubble/design-system/types/language'
+} from '@dubble/design-system/data/language'
 import { uploadsAtom } from '../upload/uploadsAtom'
 import { Option } from '@dubble/design-system/components/misc/multi-select'
 

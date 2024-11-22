@@ -12,7 +12,7 @@ import DashboardSidebarSettings from './dashboard-sidebar-settings'
 
 export default function DashboardSidebar() {
   return (
-    <Sidebar collapsible="icon" className="font-heading">
+    <Sidebar collapsible="icon" className="font-heading border-none">
       <DashboardSidebarHeader />
       <SidebarContent>
         <SidebarMenu>

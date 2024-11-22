@@ -1,4 +1,4 @@
-import client from '@/client'
+import client from '@dubble/design-system/lib/client'
 
 export async function resetPassword(
   token: string,

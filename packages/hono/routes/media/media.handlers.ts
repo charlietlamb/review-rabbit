@@ -6,7 +6,7 @@ import {
   StoreMediaRoute,
 } from './media.routes'
 import { db } from '@dubble/database'
-import { media } from '@dubble/database/schema/media'
+import { media } from '@dubble/database'
 import { and, eq, desc, inArray } from 'drizzle-orm'
 import { env } from '@dubble/env'
 

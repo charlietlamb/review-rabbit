@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@dubble/design-system/*": ["./*"],
+      "@/*": ["./*"],
       "@dubble/*": ["../../packages/*"]
     }
   },
@@ -12,10 +12,6 @@
     "next.config.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "../../packages/auth/auth.ts",
-    "../../packages/email/components/reset-password-email.tsx",
-    "../../packages/email/components/tailwind-provider.tsx",
-    "../../packages/hono/app.ts"
+    ".next/types/**/*.ts"
   ]
 }

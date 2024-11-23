@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.679.0",
     "@dubble/database": "*",
+    "@dubble/next-config": "*",
     "@hookform/resolvers": "^3.9.0",
     "@next/bundle-analyzer": "^15.0.3",
     "@radix-ui/react-accordion": "^1.2.1",

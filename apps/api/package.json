@@ -1,14 +1,30 @@
 {
   "name": "api",
-  "version": "0.0.1",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "bun run --hot index.ts",
-    "build": "cd ../.. && docker build -t dubble-api -f apps/api/Dockerfile .",
-    "start": "docker run --rm -p 8000:8000 dubble-api"
+    "dev": "next dev -p 8000 --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "ANALYZE=true pnpm build",
+    "stripe": "stripe listen --forward-to localhost:8000/webhooks/stripe"
   },
-  "dependencies": { "@neondatabase/serverless": "^0.10.3" },
+  "dependencies": {
+    "@dubble/analytics": "workspace:*",
+    "@dubble/auth": "workspace:*",
+    "@dubble/database": "workspace:*",
+    "@dubble/design-system": "workspace:*",
+    "@dubble/env": "workspace:*",
+    "@dubble/next-config": "workspace:*",
+    "next": "15.0.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "svix": "^1.40.0"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@dubble/typescript-config": "workspace:*",
+    "@types/node": "22.9.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "typescript": "^5.6.3"
   }
 }

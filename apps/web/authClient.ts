@@ -1,8 +1,9 @@
+import { env } from '@dubble/env'
 import { createAuthClient } from 'better-auth/react'
 import { inferAdditionalFields } from 'better-auth/client/plugins'
 import { auth } from '@dubble/auth'
 
 export const authClient = createAuthClient({
-  baseURL: 'http://localhost:8000',
+  baseURL: env.NEXT_PUBLIC_API,
   plugins: [inferAdditionalFields<typeof auth>()],
 })

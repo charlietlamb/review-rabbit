@@ -1,4 +1,4 @@
-import { Download, Home, Speech, Upload } from 'lucide-react'
+import { Download, Home, Link, Speech, Upload, Workflow } from 'lucide-react'
 
 export const dashboardSidebarItems = [
   {
@@ -7,14 +7,19 @@ export const dashboardSidebarItems = [
     href: '/dashboard/dub',
   },
   {
+    title: 'Flow',
+    icon: <Workflow />,
+    href: '/dashboard/flows',
+  },
+  {
     title: 'Upload',
     icon: <Upload />,
     href: '/dashboard/upload',
   },
   {
-    title: 'Results',
-    icon: <Download />,
-    href: '/dashboard/results',
+    title: 'Connect',
+    icon: <Link />,
+    href: '/dashboard/connect',
   },
 ]
 

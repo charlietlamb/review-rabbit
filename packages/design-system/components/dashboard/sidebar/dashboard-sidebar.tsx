@@ -8,7 +8,6 @@ import { dashboardSidebarItems } from './data/dashboardSidebarItems'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import DashboardSidebarHeader from './header/dashboard-sidebar-header'
-import DashboardSidebarSettings from './dashboard-sidebar-settings'
 
 export default function DashboardSidebar() {
   return (
@@ -19,7 +18,7 @@ export default function DashboardSidebar() {
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
-          <DashboardSidebarSettings />
+          {/* <DashboardSidebarSettings /> */}
         </SidebarMenu>
       </SidebarContent>
       <DashboardSidebarFooter />

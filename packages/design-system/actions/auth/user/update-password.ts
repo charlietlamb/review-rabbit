@@ -1,6 +1,6 @@
 'use server'
 
-import { authClient } from '@/authClient'
+import { authClient } from '@dubble/design-system/lib/authClient'
 import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
 
 export async function updatePassword(

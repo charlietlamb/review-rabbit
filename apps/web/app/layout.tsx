@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Bricolage_Grotesque } from 'next/font/google'
 import { DesignSystemProvider } from '@dubble/design-system'
-import './globals.css'
+import '@dubble/design-system/styles/globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',

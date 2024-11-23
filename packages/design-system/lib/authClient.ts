@@ -6,4 +6,7 @@ import { auth } from '@dubble/auth'
 export const authClient = createAuthClient({
   baseURL: env.NEXT_PUBLIC_API,
   plugins: [inferAdditionalFields<typeof auth>()],
+  fetchOptions: {
+    credentials: 'include',
+  },
 })

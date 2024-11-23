@@ -58,20 +58,20 @@ export const config: NextConfig = withVercelToolbar()({
   },
 
   // biome-ignore lint/suspicious/useAwait: headers is async
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: createSecureHeaders({
-          // HSTS Preload: https://hstspreload.org/
-          forceHTTPSRedirect: [
-            true,
-            { maxAge: 63_072_000, includeSubDomains: true, preload: true },
-          ],
-        }),
-      },
-    ]
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: createSecureHeaders({
+  //         // HSTS Preload: https://hstspreload.org/
+  //         forceHTTPSRedirect: [
+  //           true,
+  //           { maxAge: 63_072_000, includeSubDomains: true, preload: true },
+  //         ],
+  //       }),
+  //     },
+  //   ]
+  // },
 
   // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,

@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { DashboardSidebarItem } from './data/dashboardSidebarItems'
 import {
   SidebarMenuButton,

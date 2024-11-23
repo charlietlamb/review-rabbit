@@ -1,4 +1,4 @@
-import { authClient } from '@/authClient'
+import { authClient } from '@dubble/design-system/lib/authClient'
 import { Button } from '@dubble/design-system/components/ui/button'
 import useUser from '@dubble/design-system/hooks/use-user'
 import { useState } from 'react'

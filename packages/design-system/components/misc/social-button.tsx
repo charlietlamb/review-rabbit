@@ -6,13 +6,15 @@ import Spinner from './spinner'
 export default function SocialButton({
   platform,
   onClick,
-  loading,
+  loading = false,
+  children,
 }: {
   platform: ExternalPlatformData
   onClick?: () => void
   loading?: boolean
+  children?: React.ReactNode
 }) {
-  const { name, icon, className } = platform
+  const { className } = platform
   return (
     <button
       className={cn(
@@ -21,14 +23,7 @@ export default function SocialButton({
       )}
       onClick={onClick}
     >
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {icon}
-          <p className="hidden md:inline-block">{name}</p>
-        </>
-      )}
+      {loading ? <Spinner /> : <>{children}</>}
     </button>
   )
 }

@@ -1,4 +1,4 @@
-import { authClient } from '@/authClient'
+import { authClient } from '@dubble/design-system/lib/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,

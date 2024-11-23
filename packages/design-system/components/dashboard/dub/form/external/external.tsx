@@ -1,48 +1,58 @@
 import { RiInstagramFill, RiTiktokFill, RiYoutubeFill } from '@remixicon/react'
+import DashboardConnectYoutube from '@dubble/design-system/components/dashboard/connect/youtube/dashboard-connect-youtube'
 import { Link } from 'lucide-react'
 
 export const externalData = [
   {
     name: 'YouTube',
+    company: 'Google',
     start: 'https://www.youtu.be/',
     placeholder: 'your-video-id',
-    icon: <RiYoutubeFill className="text-white" />,
+    icon: <RiYoutubeFill />,
+    button: <DashboardConnectYoutube />,
     className: 'bg-social-youtube/80 hover:bg-social-youtube',
+    classNameInner: 'text-social-youtube',
     error: 'Please enter a valid YouTube video URL.',
   },
   {
     name: 'Instagram',
+    company: 'Meta',
     start: 'https://instagram.com/',
     placeholder: 'your-video-id',
-    icon: <RiInstagramFill className="text-white" />,
+    icon: <RiInstagramFill />,
+    button: null,
     className: 'bg-social-instagram/80 hover:bg-social-instagram',
+    classNameInner: 'text-social-instagram',
     error: 'Please enter a valid Instagram video URL.',
   },
   {
     name: 'Tiktok',
+    company: 'ByteDance',
     start: 'https://tiktok.com/',
     placeholder: 'your-video-id',
-    icon: <RiTiktokFill className="text-white" />,
+    icon: <RiTiktokFill />,
+    button: null,
     className: 'bg-social-tiktok/80 hover:bg-social-tiktok',
+    classNameInner: 'text-social-tiktok',
     error: 'Please enter a valid Tiktok video URL.',
   },
-  {
-    name: 'Other',
-    start: '',
-    placeholder: 'www.your-video-url.com',
-    icon: <Link className="text-white" />,
-    className: 'bg-social-reddit/80 hover:bg-social-reddit',
-    error: 'Please enter a valid video URL.',
-  },
 ] as ExternalPlatformData[]
+
+export const externalDataByName = externalData.reduce((acc, platform) => {
+  acc[platform.name] = platform
+  return acc
+}, {} as Record<ExternalPlatform, ExternalPlatformData>)
 
 export type ExternalPlatform = ExternalPlatformData['name']
 
 export type ExternalPlatformData = {
   name: string
+  company: string
   start: string
   placeholder: string
   icon: React.ReactNode
+  button: React.ReactNode
   className: string
+  classNameInner: string
   error: string
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,7 +11,9 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@dubble/design-system/components/ui/sidebar'
+import { cn } from '@dubble/design-system/lib/utils'
 import { ChevronRight, Settings } from 'lucide-react'
 
 const item = {
@@ -24,6 +28,7 @@ const item = {
   ],
 }
 export default function DashboardSidebarSettings() {
+  const { open } = useSidebar()
   return (
     <Collapsible
       asChild
@@ -32,7 +37,10 @@ export default function DashboardSidebarSettings() {
     >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={item.title}>
+          <SidebarMenuButton
+            tooltip={item.title}
+            className={cn(!open, 'flex justify-center')}
+          >
             {item.icon}
             <span className="text-base">{item.title}</span>
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />

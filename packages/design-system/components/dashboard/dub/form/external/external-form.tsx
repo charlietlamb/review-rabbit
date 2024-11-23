@@ -82,7 +82,10 @@ export default function ExternalForm({
         platform={platform}
         onClick={handleSubmit}
         loading={loading}
-      />
+      >
+        {platform.icon}
+        Add a {children} video to be dubbed.
+      </SocialButton>
       {error && <p className="text-red-500">{error}</p>}
     </DialogContent>
   )

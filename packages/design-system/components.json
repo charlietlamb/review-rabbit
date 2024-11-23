@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "../tailwind-config/config.ts",
+    "css": "styles/globals.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@dubble/design-system/components",
+    "utils": "@dubble/design-system/lib/utils",
+    "hooks": "@dubble/design-system/hooks",
+    "lib": "@dubble/design-system/lib",
+    "ui": "@dubble/design-system/components/ui"
+  }
+}

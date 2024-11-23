@@ -66,7 +66,7 @@ export default function UploadCard({
           </CardHeader>
           <CardContent
             className={cn(
-              'flex justify-between items-center gap-4 p-3 pt-2',
+              'flex justify-between items-center gap-4 p-3 pt-0',
               onSelect && 'hover:border-foreground',
               onSelect && selected && 'border-foreground'
             )}

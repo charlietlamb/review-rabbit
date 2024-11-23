@@ -23,7 +23,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-10 py-4 transition-all duration-1000 px-32',
+        'fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-10 py-4 transition-all duration-1000 px-8 md:px-16 lg:px-32',
         hasBackground && 'bg-background/50 shadow-md backdrop-blur-lg'
       )}
     >

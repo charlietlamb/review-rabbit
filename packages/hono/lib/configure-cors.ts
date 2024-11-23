@@ -3,7 +3,6 @@ import { cors } from 'hono/cors'
 import { env } from '@dubble/env'
 
 export default function configureCors(app: AppOpenAPI) {
-  // Remove trailing slash from NEXT_PUBLIC_WEB if it exists
   const origin = env.NEXT_PUBLIC_WEB.replace(/\/$/, '')
 
   app.use(

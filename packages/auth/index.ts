@@ -58,5 +58,5 @@ export const auth = betterAuth({
     },
     sendOnSignUp: true,
   },
-  trustedOrigins: ['http://localhost:3000'],
+  trustedOrigins: [env.NEXT_PUBLIC_WEB],
 })

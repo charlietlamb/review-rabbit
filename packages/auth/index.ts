@@ -5,16 +5,14 @@ import { env } from '@dubble/env'
 import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@dubble/email'
 import * as schema from '@dubble/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
-import { $ } from 'bun'
 
-// base url is in the form of https://dubble.sbs
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
     usePlural: true,
     schema,
   }),
-  baseURL: env.NEXT_PUBLIC_WEB,
+  baseURL: env.NEXT_PUBLIC_API,
   basePath: env.BETTER_AUTH_BASE_PATH,
   emailAndPassword: {
     enabled: true,

@@ -59,7 +59,7 @@ export default function AuthFormForgotPassword() {
         <Button
           variant="linkHover2"
           colors="none"
-          className="w-fit mx-auto hover:bg-transparent"
+          className="w-fit mx-auto hover:bg-transparent text-white"
         >
           Forgot password?
         </Button>

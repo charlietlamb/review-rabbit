@@ -33,6 +33,7 @@ const server = {
 
 const client = {
   // Public URLs
+  NEXT_PUBLIC_DOMAIN: z.string().min(1),
   NEXT_PUBLIC_WEB: z.string().min(1).url(),
   NEXT_PUBLIC_API: z.string().min(1).url(),
   NEXT_PUBLIC_AWS_S3_URL: z.string().min(1).url(),
@@ -79,6 +80,7 @@ export const env = createEnv({
     ANALYZE: process.env.ANALYZE,
 
     // Client
+    NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
     NEXT_PUBLIC_WEB: process.env.NEXT_PUBLIC_WEB,
     NEXT_PUBLIC_API: process.env.NEXT_PUBLIC_API,
     NEXT_PUBLIC_AWS_S3_URL: process.env.NEXT_PUBLIC_AWS_S3_URL,

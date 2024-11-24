@@ -29,7 +29,7 @@ export const auth = betterAuth({
     cookiePrefix: 'dubble',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
-      enabled: true,
+      enabled: env.NODE_ENV === 'production' ? true : false,
       domain: env.NEXT_PUBLIC_DOMAIN,
     },
   },

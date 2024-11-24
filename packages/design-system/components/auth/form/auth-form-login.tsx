@@ -36,6 +36,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
       const response = await authClient.signIn.email({
         email: value.email,
         password: value.password,
+        callbackURL: '/dashboard',
       })
       if (response.error) {
         console.error(response.error)

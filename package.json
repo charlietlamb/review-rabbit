@@ -14,7 +14,8 @@
     "gen": "cd packages/database && bunx drizzle-kit generate",
     "migrate": "cd packages/database && bunx drizzle-kit migrate",
     "studio": "cd packages/database && bunx drizzle-kit studio",
-    "up": "docker compose up -d"
+    "up": "docker compose up -d",
+    "sync": "bun scripts/sync.ts"
   },
   "type": "module",
   "workspaces": [

@@ -32,6 +32,9 @@ const server = {
 
   // Bundle Analyzer
   ANALYZE: z.string().optional().default('false'),
+
+  // Oauth
+  GOOGLE_CLIENT_SECRET: z.string().min(1),
 } as const
 
 const client = {
@@ -50,6 +53,9 @@ const client = {
   // PostHog
   NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
   NEXT_PUBLIC_POSTHOG_HOST: z.string().min(1).url(),
+
+  // Oauth
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string().min(1),
 } as const
 
 export const env = createEnv({
@@ -82,6 +88,9 @@ export const env = createEnv({
     // Bundle Analyzer
     ANALYZE: process.env.ANALYZE,
 
+    // Oauth
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+
     // Client
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
     NEXT_PUBLIC_WEB: process.env.NEXT_PUBLIC_WEB,
@@ -97,5 +106,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+
+    // Oauth
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   },
 })

@@ -4,6 +4,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { env } from '@dubble/env'
 import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@dubble/email'
 import * as schema from '@dubble/database/schema'
+import { oneTap, openAPI } from 'better-auth/plugins'
 
 // base url is in the form of https://dubble.sbs
 export const auth = betterAuth({
@@ -65,4 +66,13 @@ export const auth = betterAuth({
     sendOnSignUp: true,
   },
   trustedOrigins: [env.NEXT_PUBLIC_WEB],
+  plugins: [openAPI(), oneTap()],
+  socialProviders: {
+    google: {
+      clientId:
+        '1063999285216-pkh72jia8l352ivn7q9ojpqrp1dvuv9m.apps.googleusercontent.com',
+      clientSecret: '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',
+      redirectURI: `${env.NEXT_PUBLIC_WEB}/dashboard/connect`,
+    },
+  },
 })

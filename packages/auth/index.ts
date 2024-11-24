@@ -28,8 +28,9 @@ export const auth = betterAuth({
     disableCSRFCheck: true,
     cookiePrefix: 'dubble',
     generateId: () => crypto.randomUUID(),
-    defaultCookieAttributes: {
-      sameSite: 'none',
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: env.NEXT_PUBLIC_DOMAIN,
     },
   },
   user: {

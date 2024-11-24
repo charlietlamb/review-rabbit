@@ -6,7 +6,10 @@ const server = {
   DATABASE_URL: z.string().min(1).url(),
 
   // Server Config
-  LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']),
+  LOG_LEVEL: z
+    .enum(['debug', 'info', 'warn', 'error'])
+    .optional()
+    .default('debug'),
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
   // AWS Configuration
@@ -28,7 +31,7 @@ const server = {
   ELEVENLABS_API_KEY: z.string().min(1).startsWith('sk_'),
 
   // Bundle Analyzer
-  ANALYZE: z.string(),
+  ANALYZE: z.string().optional().default('false'),
 } as const
 
 const client = {

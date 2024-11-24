@@ -11,6 +11,8 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.10.3",
     "@types/pg": "^8.11.10",
+    "@xata.io/client": "^0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
+    "@xata.io/drizzle": "^0.0.24",
     "drizzle-kit": "^0.28.1",
     "drizzle-orm": "^0.36.4",
     "pg": "^8.13.1",

@@ -1,11 +1,11 @@
-import { pgTable, text, uuid, integer } from 'drizzle-orm/pg-core'
+import { pgTable, text, integer } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { users } from './users'
 import { timestamps } from './columns.helpers'
 import { sql } from 'drizzle-orm'
 
 export const media = pgTable('media', {
-  id: uuid('id')
+  id: text('id')
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   userId: text('userId')

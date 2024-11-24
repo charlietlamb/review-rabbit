@@ -1,16 +1,12 @@
 import { socialPlatformsByName } from '@dubble/design-system/lib/socials'
 import SocialButton from '@dubble/design-system/components/misc/social-button'
-import { authClient } from '@dubble/design-system/lib/authClient'
+import { useRouter } from 'next/navigation'
+import connectGoogle from '@dubble/design-system/actions/connect/connect-google'
 
 export default function DashboardConnectYoutubeButton() {
-  // const login = useGoogleLogin({
-  //   onSuccess: (tokenResponse) => console.log(tokenResponse),
-  // })
+  const router = useRouter()
   async function login() {
-    await authClient.linkSocial({
-      provider: 'google',
-      callbackURL: '/dashboard/connect',
-    })
+    connectGoogle(router.push)
   }
   const platform = socialPlatformsByName['YouTube']
 

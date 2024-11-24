@@ -6,7 +6,7 @@ import * as z from 'zod'
 import { cn } from '@dubble/design-system/lib/utils'
 import { Button } from '@dubble/design-system/components/ui/button'
 import Spinner from '../../misc/spinner'
-import { UserCheck } from 'lucide-react'
+import { UserCheck, UserX } from 'lucide-react'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import AuthFormForgotPassword from './auth-form-forgot-password'
 import { authClient } from '@dubble/design-system/lib/authClient'
@@ -39,7 +39,10 @@ export default function AuthFormLogin({ className }: { className?: string }) {
         callbackURL: '/dashboard',
       })
       if (response.error) {
-        console.error(response.error)
+        toast.error('We could not find an account with those details', {
+          description: 'Please try again',
+          icon: <UserX />,
+        })
       } else {
         toast.success('Welcome back!', {
           description: 'You have been signed in successfully',

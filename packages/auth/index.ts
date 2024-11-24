@@ -65,6 +65,11 @@ export const auth = betterAuth({
     sendOnSignUp: true,
   },
   trustedOrigins: [env.NEXT_PUBLIC_WEB],
+  account: {
+    accountLinking: {
+      enabled: true,
+    },
+  },
   plugins: [openAPI(), oneTap()],
   socialProviders: {
     google: {

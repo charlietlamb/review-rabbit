@@ -8,7 +8,9 @@ export const media = pgTable('media', {
   id: uuid('id')
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  userId: uuid('userId').references(() => users.id),
+  userId: text('userId')
+    .references(() => users.id)
+    .notNull(),
   name: text('name').notNull(),
   size: integer('size').notNull(),
   extension: text('type').notNull(),

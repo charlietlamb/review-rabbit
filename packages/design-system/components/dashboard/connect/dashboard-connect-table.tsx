@@ -11,11 +11,11 @@ import {
   TableRow,
 } from '@dubble/design-system/components/roadmap-ui/table'
 import type { ColumnDef } from '@tanstack/react-table'
-import { externalData } from '../dub/form/external/external'
+import { socialPlatforms } from '../../../lib/socials'
 import { cn } from '@dubble/design-system/lib/utils'
 
 export const DashboardConnectTable = () => {
-  const columns: ColumnDef<(typeof externalData)[number]>[] = [
+  const columns: ColumnDef<(typeof socialPlatforms)[number]>[] = [
     {
       accessorKey: 'name',
       header: ({ column }) => (
@@ -57,7 +57,7 @@ export const DashboardConnectTable = () => {
   ]
 
   return (
-    <TableProvider columns={columns} data={externalData}>
+    <TableProvider columns={columns} data={socialPlatforms}>
       <TableHeader>
         {({ headerGroup }) => (
           <TableHeaderGroup key={headerGroup.id} headerGroup={headerGroup}>

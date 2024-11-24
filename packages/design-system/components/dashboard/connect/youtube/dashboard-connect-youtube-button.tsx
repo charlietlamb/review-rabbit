@@ -1,5 +1,4 @@
-import { useGoogleLogin } from '@react-oauth/google'
-import { externalDataByName } from '@dubble/design-system/components/dashboard/dub/form/external/external'
+import { socialPlatformsByName } from '@dubble/design-system/lib/socials'
 import SocialButton from '@dubble/design-system/components/misc/social-button'
 import { authClient } from '@dubble/design-system/lib/authClient'
 
@@ -13,7 +12,7 @@ export default function DashboardConnectYoutubeButton() {
       callbackURL: '/dashboard/connect',
     })
   }
-  const platform = externalDataByName['YouTube']
+  const platform = socialPlatformsByName['YouTube']
 
   return (
     <SocialButton platform={platform} onClick={() => login()}>

@@ -18,6 +18,7 @@ import Name from './name'
 import Email from './email'
 import OAuth from '../oauth/oauth'
 import OrLabel from './or-label'
+import { User } from '@dubble/database'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -46,16 +47,16 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         imageUploaded: false,
         plan: 'free',
       })
-      if (response.error) {
-        console.error(response.error)
-      } else {
-        setUser(response.data.user)
+      if ('user' in response) {
+        setUser(response.user as User)
         toast.success('Welcome!', {
           description: 'You have been signed up successfully',
           icon: <UserCheck />,
         })
 
         router.push('/dashboard')
+      } else {
+        console.error(response.error)
       }
       setIsLoading(false)
     },

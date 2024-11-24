@@ -13,14 +13,14 @@ import { useAtom } from 'jotai'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
-import { ExternalPlatformData } from './external'
+import { SocialPlatformData } from '../../../../../lib/socials'
 
 export default function ExternalForm({
   platform,
   setOpen,
   children,
 }: {
-  platform: ExternalPlatformData
+  platform: SocialPlatformData
   setOpen: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode
 }) {

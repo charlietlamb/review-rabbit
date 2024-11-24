@@ -5,12 +5,12 @@ import {
 } from '@dubble/design-system/components/ui/dialog'
 import ExternalForm from './external-form'
 import { useState } from 'react'
-import { externalData, ExternalPlatformData } from './external'
+import { socialPlatforms, SocialPlatformData } from '../../../../../lib/socials'
 
 export default function DubFormExternalItem({
   platform,
 }: {
-  platform: ExternalPlatformData
+  platform: SocialPlatformData
 }) {
   const [open, setOpen] = useState(false)
   return (

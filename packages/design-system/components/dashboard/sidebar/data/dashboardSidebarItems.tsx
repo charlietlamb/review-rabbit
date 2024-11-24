@@ -9,7 +9,7 @@ export const dashboardSidebarItems = [
   {
     title: 'Flow',
     icon: <Workflow />,
-    href: '/dashboard/flows',
+    href: '/dashboard/flow',
   },
   {
     title: 'Upload',

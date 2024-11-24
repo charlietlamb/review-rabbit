@@ -5,10 +5,10 @@ import { users } from './users'
 import { sql } from 'drizzle-orm'
 
 export const tasks = pgTable('tasks', {
-  id: uuid('id')
+  id: text('id')
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  userId: uuid('user_id').references(() => users.id),
+  userId: text('user_id').references(() => users.id),
   tokens: integer('tokens').notNull().default(0),
   status: text('status').notNull().default('incomplete'),
   ...timestamps,

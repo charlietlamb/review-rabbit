@@ -1,10 +1,10 @@
 import DubFormExternalItem from './dub-form-external-item'
-import { externalData } from './external'
+import { socialPlatforms } from '../../../../../lib/socials'
 
 export default function DubFormExternal() {
   return (
     <div className="flex gap-2">
-      {externalData.map((platform) => (
+      {socialPlatforms.map((platform) => (
         <DubFormExternalItem platform={platform} key={platform.name} />
       ))}
     </div>

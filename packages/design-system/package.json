@@ -42,6 +42,7 @@
     "@types/lodash.throttle": "^4.1.9",
     "@uidotdev/usehooks": "^2.4.1",
     "@vercel/toolbar": "^0.1.27",
+    "@xyflow/react": "^12.3.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",

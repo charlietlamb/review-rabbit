@@ -1,11 +1,11 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '@dubble/database/schema/users'
 
 export const accounts = pgTable('accounts', {
-  id: uuid('id').primaryKey(),
-  accountId: uuid('accountId').notNull(),
+  id: text('id').primaryKey(),
+  accountId: text('accountId').notNull(),
   providerId: text('providerId').notNull(),
-  userId: uuid('userId')
+  userId: text('userId')
     .notNull()
     .references(() => users.id),
   accessToken: text('accessToken'),

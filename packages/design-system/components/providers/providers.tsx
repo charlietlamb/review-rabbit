@@ -3,7 +3,6 @@
 import TanstackQueryProvider from './tanstack-query-provider'
 import { useEffect, useState } from 'react'
 import ThemeProvider from './theme-provider'
-import { Toaster } from '@dubble/design-system/components/ui/sonner'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -17,10 +16,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   }
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
-      <TanstackQueryProvider>
-        <Toaster />
-        {children}
-      </TanstackQueryProvider>
+      <TanstackQueryProvider>{children}</TanstackQueryProvider>
     </ThemeProvider>
   )
 }

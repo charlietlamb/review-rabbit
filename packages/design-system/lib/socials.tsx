@@ -2,7 +2,7 @@ import { RiInstagramFill, RiTiktokFill, RiYoutubeFill } from '@remixicon/react'
 import DashboardConnectYoutube from '@dubble/design-system/components/dashboard/connect/youtube/dashboard-connect-youtube'
 import { Link } from 'lucide-react'
 
-export const externalData = [
+export const socialPlatforms = [
   {
     name: 'YouTube',
     company: 'Google',
@@ -36,16 +36,16 @@ export const externalData = [
     classNameInner: 'text-social-tiktok',
     error: 'Please enter a valid Tiktok video URL.',
   },
-] as ExternalPlatformData[]
+] as SocialPlatformData[]
 
-export const externalDataByName = externalData.reduce((acc, platform) => {
+export const socialPlatformsByName = socialPlatforms.reduce((acc, platform) => {
   acc[platform.name] = platform
   return acc
-}, {} as Record<ExternalPlatform, ExternalPlatformData>)
+}, {} as Record<SocialPlatform, SocialPlatformData>)
 
-export type ExternalPlatform = ExternalPlatformData['name']
+export type SocialPlatform = SocialPlatformData['name']
 
-export type ExternalPlatformData = {
+export type SocialPlatformData = {
   name: string
   company: string
   start: string

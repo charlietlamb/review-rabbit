@@ -2,8 +2,8 @@ import { parseJWT } from 'oslo/jwt'
 import type { OAuthProvider, ProviderOptions } from '../types'
 import { logger, BetterAuthError } from 'better-auth'
 import { betterFetch } from '@better-fetch/fetch'
-import { createAuthorizationURL } from '../create-authorization-url'
-import { validateAuthorizationCode } from '../validate-authorization-code'
+import { createAuthorizationURL } from '../utils/create-authorization-url'
+import { validateAuthorizationCode } from '../utils/validate-authorization-code'
 
 export interface GoogleProfile {
   aud: string

@@ -9,26 +9,13 @@ import {
   PopoverTrigger,
 } from '@dubble/design-system/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
-import { useAtom } from 'jotai'
-import {
-  uploadsLayoutAtom,
-  uploadsSortAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
+import { useToolbarContext } from './toolbar-context'
 
-export function UploadToolbarPopover() {
-  const [sort, setSort] = useAtom(uploadsSortAtom)
-  const [layout, setLayout] = useAtom(uploadsLayoutAtom)
-  const sortItems = [
-    { id: 'name', value: 'name', label: 'Name' },
-    { id: 'newest', value: 'newest', label: 'Most Recent' },
-    { id: 'oldest', value: 'oldest', label: 'Oldest' },
-    { id: 'smallest', value: 'smallest', label: 'Smallest' },
-    { id: 'largest', value: 'largest', label: 'Largest' },
-    { id: 'type', value: 'type', label: 'Type' },
-  ]
+export function ToolbarPopover() {
+  const { sort, setSort, sortOptions, layout, setLayout } = useToolbarContext()
   const layoutItems = [
-    { id: 'grid', value: 'grid', label: 'Grid' },
-    { id: 'list', value: 'list', label: 'List' },
+    { value: 'grid', label: 'Grid' },
+    { value: 'list', label: 'List' },
   ]
 
   return (
@@ -47,32 +34,25 @@ export function UploadToolbarPopover() {
         <RadioGroup
           className="gap-0 -space-y-px shadow-sm shadow-black/5"
           defaultValue={sort}
-          onValueChange={(value) =>
-            setSort(
-              value as
-                | 'name'
-                | 'newest'
-                | 'oldest'
-                | 'smallest'
-                | 'largest'
-                | 'type'
-            )
-          }
+          onValueChange={(value) => setSort(value as string)}
         >
-          {sortItems.map((item) => (
+          {sortOptions.map((item) => (
             <div
-              key={item.id}
+              key={item.value}
               className="relative flex flex-col gap-4 border border-input p-4 first:rounded-t-lg last:rounded-b-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <RadioGroupItem
-                    id={item.id}
+                    id={item.value}
                     value={item.value}
                     className="after:absolute after:inset-0"
-                    aria-describedby={`${item.id}-price`}
+                    aria-describedby={`${item.value}`}
                   />
-                  <Label className="inline-flex items-start" htmlFor={item.id}>
+                  <Label
+                    className="inline-flex items-start"
+                    htmlFor={item.value}
+                  >
                     {item.label}
                   </Label>
                 </div>
@@ -89,18 +69,21 @@ export function UploadToolbarPopover() {
         >
           {layoutItems.map((item) => (
             <div
-              key={item.id}
+              key={item.value}
               className="relative flex flex-col gap-4 border border-input p-4 first:rounded-t-lg last:rounded-b-lg has-[[data-state=checked]]:z-10 has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <RadioGroupItem
-                    id={item.id}
+                    id={item.value}
                     value={item.value}
                     className="after:absolute after:inset-0"
-                    aria-describedby={`${item.id}-price`}
+                    aria-describedby={`${item.value}`}
                   />
-                  <Label className="inline-flex items-start" htmlFor={item.id}>
+                  <Label
+                    className="inline-flex items-start"
+                    htmlFor={item.value}
+                  >
                     {item.label}
                   </Label>
                 </div>

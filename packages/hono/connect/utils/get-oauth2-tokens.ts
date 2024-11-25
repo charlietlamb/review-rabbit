@@ -1,5 +1,5 @@
-import { getDate } from './get-date'
-import { OAuth2Tokens } from '../types'
+import { getDate } from '@dubble/hono/connect/utils/get-date'
+import { OAuth2Tokens } from '@dubble/hono/connect/types'
 
 export function getOAuth2Tokens(data: Record<string, any>): OAuth2Tokens {
   return {

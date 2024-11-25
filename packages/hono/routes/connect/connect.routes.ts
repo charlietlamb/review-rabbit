@@ -26,7 +26,7 @@ export const connectGet = createRoute({
       z.object({
         error: z.string(),
       }),
-      'Failed to connect to a provider'
+      'No authorization code provided'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
@@ -58,7 +58,7 @@ export const connectPost = createRoute({
       z.object({
         error: z.string(),
       }),
-      'Failed to connect to a provider'
+      'No authorization code provided'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
@@ -69,4 +69,4 @@ export const connectPost = createRoute({
   },
 })
 
-export type ConnectGoogleRoute = typeof connectPost
+export type ConnectPostRoute = typeof connectPost

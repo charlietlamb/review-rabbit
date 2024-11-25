@@ -1,13 +1,12 @@
-import { uploadsLayoutAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
 import {
   RadioGroup,
   RadioGroupItem,
 } from '@dubble/design-system/components/ui/radio-group'
-import { useAtom } from 'jotai'
 import { Grid, Rows3 } from 'lucide-react'
+import { useToolbarContext } from './toolbar-context'
 
-export default function UploadToolbarLayout() {
-  const [layout, setLayout] = useAtom(uploadsLayoutAtom)
+export default function ToolbarLayout() {
+  const { layout, setLayout } = useToolbarContext()
   return (
     <RadioGroup
       className="gap-2 hidden lg:flex"

@@ -9,9 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@dubble/design-system/components/ui/dialog'
-import { FileUploader } from '../file-uploader/file-uploader'
 import { useState } from 'react'
-
+import { FileUploader } from '@dubble/design-system/components/misc/file-uploader/file-uploader'
 export function UploadDialog({ dub = false }: { dub?: boolean }) {
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)

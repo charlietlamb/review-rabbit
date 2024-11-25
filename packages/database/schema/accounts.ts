@@ -1,8 +1,11 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '@dubble/database/schema/users'
+import { sql } from 'drizzle-orm'
 
 export const accounts = pgTable('accounts', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   accountId: text('accountId').notNull(),
   providerId: text('providerId').notNull(),
   userId: text('userId')

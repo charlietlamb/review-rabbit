@@ -1,5 +1,5 @@
-import type { ProviderOptions } from './types'
-import { generateCodeChallenge } from './utils/generate-code-challenge'
+import type { ProviderOptions } from '@dubble/hono/connect/types'
+import { generateCodeChallenge } from '@dubble/hono/connect/utils/generate-code-challenge'
 
 export async function createAuthorizationURL({
   id,

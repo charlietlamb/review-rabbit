@@ -1,5 +1,4 @@
-import React from 'react'
-import { UploadDialog } from './toolbar/upload-dialog'
+import { UploadDialog } from '@dubble/design-system/components/dashboard/upload/upload-dialog'
 
 export default function UploadsPageEmpty() {
   return (

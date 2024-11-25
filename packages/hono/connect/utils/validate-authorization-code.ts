@@ -1,6 +1,6 @@
 import { betterFetch } from '@better-fetch/fetch'
-import { ProviderOptions } from './types'
-import { getOAuth2Tokens } from './utils/get-oauth2-tokens'
+import { ProviderOptions } from '@dubble/hono/connect/types'
+import { getOAuth2Tokens } from '@dubble/hono/connect/utils/get-oauth2-tokens'
 
 export async function validateAuthorizationCode({
   code,

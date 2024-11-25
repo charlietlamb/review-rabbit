@@ -11,7 +11,7 @@ export interface OAuth2Tokens {
 export type ProviderOptions = {
   /**
    * The client ID of your application
-   */
+   **/
   clientId: string
   /**
    * The client secret of your application

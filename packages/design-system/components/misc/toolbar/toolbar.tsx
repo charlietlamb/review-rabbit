@@ -11,7 +11,6 @@ export default function Toolbar(props: ToolbarProps) {
     <ToolbarContext.Provider value={rest}>
       <div className="flex items-center gap-4 p-4 pb-0">
         <ToolbarSearch />
-        <ToolbarLayout />
         <ToolbarSort />
         <ToolbarLayout />
         {props.button}

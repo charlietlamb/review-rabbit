@@ -1,77 +1,58 @@
-export interface OAuth2Tokens {
-  tokenType?: string
-  accessToken?: string
+export interface OAuthTokens {
+  accessToken: string
   refreshToken?: string
-  accessTokenExpiresAt?: Date
-  refreshTokenExpiresAt?: Date
-  scopes?: string[]
   idToken?: string
+  expiresAt?: Date
 }
 
-export type ProviderOptions = {
+export interface ProviderOptions {
   /**
-   * The client ID of your application
-   **/
+   * The client ID from the provider
+   */
   clientId: string
   /**
-   * The client secret of your application
+   * The client secret from the provider
    */
   clientSecret: string
   /**
-   * The scopes you want to request from the provider
+   * The scopes to request from the provider
    */
-  scope?: string[]
-  /**
-   * The redirect URL for your application. This is where the provider will
-   * redirect the user after the sign in process. Make sure this URL is
-   * whitelisted in the provider's dashboard.
-   */
-  redirectURI?: string
-  /**
-   * Disable provider from allowing users to sign in
-   * with this provider with an id token sent from the
-   * client.
-   */
-  disableIdTokenSignIn?: boolean
-  /**
-   * verifyIdToken function to verify the id token
-   */
-  verifyIdToken?: (token: string, nonce?: string) => Promise<boolean>
-  /**
-   * Custom function to get user info from the provider
-   */
-  getUserInfo?: (token: OAuth2Tokens) => Promise<any>
+  scopes?: string[]
 }
 
-export type LiteralString = '' | (string & Record<never, never>)
+export interface AuthorizationParams {
+  /**
+   * The state parameter for CSRF protection
+   */
+  state: string
+  /**
+   * The redirect URI for the OAuth flow
+   */
+  redirectURI: string
+}
 
-export interface OAuthProvider<
-  T extends Record<string, any> = Record<string, any>
-> {
-  id: LiteralString
-  createAuthorizationURL: (data: {
-    state: string
-    codeVerifier: string
-    scopes?: string[]
-    redirectURI: string
-  }) => Promise<URL> | URL
-  name: string
-  validateAuthorizationCode: (data: {
+export interface OAuthProvider {
+  /**
+   * Create the authorization URL for the OAuth flow
+   */
+  createAuthorizationURL(params: AuthorizationParams): Promise<URL>
+
+  /**
+   * Exchange the authorization code for tokens
+   */
+  validateAuthorizationCode(params: {
     code: string
+    state: string
     redirectURI: string
-    codeVerifier?: string
-  }) => Promise<OAuth2Tokens>
-  getUserInfo: (token: OAuth2Tokens) => Promise<{
-    user: {
-      id: string
-      name?: string
-      email?: string | null
-      image?: string
-      emailVerified: boolean
-    }
-    data: T
-  } | null>
-  refreshAccessToken?: (refreshToken: string) => Promise<OAuth2Tokens>
-  revokeToken?: (token: string) => Promise<void>
-  verifyIdToken?: (token: string, nonce?: string) => Promise<boolean>
+  }): Promise<OAuthTokens>
+
+  /**
+   * Refresh the access token using the refresh token
+   */
+  refreshTokens(refreshToken: string): Promise<OAuthTokens>
+
+  /**
+   * Get user information using the access token
+   */
+  getUserProfile(accessToken: string): Promise<unknown>
 }

@@ -32,6 +32,14 @@ export default function FileUpload({
     if (!files?.length) return
     setLoading(true)
     const ids = await uploadMedia(files, durations, setProgress)
+    if (!ids || ids.length !== files.length) {
+      toast.error('Failed to upload files', {
+        description: 'Please try again.',
+      })
+      setOpen(false)
+      setLoading(false)
+      return
+    }
     if (dub) {
       const media = await fetchMediaFromIds(ids)
       setDubMedia([...(dubMedia ?? []), ...media])
@@ -51,15 +59,13 @@ export default function FileUpload({
     setOpen(false)
   }
   return (
-    <>
-      <Button
-        variant="shine"
-        colors="none"
-        disabled={!files?.length || loading}
-        onClick={handleUpload}
-      >
-        {loading ? <Spinner /> : 'Upload Files'}
-      </Button>
-    </>
+    <Button
+      variant="shine"
+      colors="none"
+      disabled={!files?.length || loading}
+      onClick={handleUpload}
+    >
+      {loading ? <Spinner /> : 'Upload Files'}
+    </Button>
   )
 }

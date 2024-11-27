@@ -1,6 +1,6 @@
 'use client'
 
-import { Background, Position, ReactFlow } from '@xyflow/react'
+import { Background, ReactFlow } from '@xyflow/react'
 
 import '@xyflow/react/dist/style.css'
 import CreateNodeButton from './create/create-node-button'
@@ -8,7 +8,7 @@ import {
   SocialNode,
   SocialNodeType,
 } from '@dubble/design-system/components/react-flow/social-node'
-import { socialPlatformsByName } from '@dubble/design-system/lib/socials'
+import { providerDataByName } from '@dubble/design-system/lib/providers'
 
 const nodeTypes = {
   social: SocialNode,
@@ -19,7 +19,7 @@ const defaultNodes: SocialNodeType[] = [
     id: '1',
     position: { x: 200, y: 200 },
     data: {
-      platform: socialPlatformsByName.YouTube,
+      platform: providerDataByName.YouTube,
     },
     type: 'social',
   },

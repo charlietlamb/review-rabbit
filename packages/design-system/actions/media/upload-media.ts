@@ -10,7 +10,7 @@ export async function uploadMedia(
   files: File[],
   durations: Record<string, number>,
   setProgress: Dispatch<SetStateAction<Record<string, number>>>
-): Promise<string[]> {
+): Promise<string[] | null> {
   // Create a stable callback that won't trigger React warnings
   const updateProgress: ProgressCallback = (
     fileName: string,
@@ -32,7 +32,7 @@ export async function uploadMedia(
       const presignedUrl = await getUploadPresignedUrl(
         `media/${uuid}.${extension}`
       )
-
+      console.log('presignedUrl', presignedUrl)
       if (!presignedUrl) {
         console.error('Failed to get presigned URL')
         return null

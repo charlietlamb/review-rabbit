@@ -1,4 +1,4 @@
-import { socialPlatformsByName } from '@dubble/design-system/lib/socials'
+import { providerDataByName } from '@dubble/design-system/lib/providers'
 import SocialButton from '@dubble/design-system/components/misc/social-button'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@dubble/design-system/lib/authClient'
@@ -15,7 +15,7 @@ export default function DashboardConnectYoutubeButton() {
   //     callbackURL: `${env.NEXT_PUBLIC_API}/connect/google`,
   //   })
   // }
-  const platform = socialPlatformsByName['YouTube']
+  const platform = providerDataByName['YouTube']
 
   return (
     <SocialButton platform={platform} onClick={() => login()}>

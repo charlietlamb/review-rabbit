@@ -141,6 +141,9 @@ export const getUploadPresignedUrl: AppRouteHandler<
     Bucket: env.AWS_S3_BUCKET_NAME,
     Key: key,
   })
+  console.log('command', command)
+  console.log('key', key)
+  console.log('client', client)
 
   const presignedUrl = await getSignedUrl(client, command, {
     expiresIn: 60 * 60 * 24,

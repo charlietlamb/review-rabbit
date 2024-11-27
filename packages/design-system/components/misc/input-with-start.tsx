@@ -1,6 +1,6 @@
 import { Input } from '@dubble/design-system/components/ui/input'
 import { Dispatch, SetStateAction } from 'react'
-import { SocialPlatformData } from '../../lib/socials'
+import { ProviderData } from '../../lib/providers'
 
 export default function InputWithStart({
   text,
@@ -9,7 +9,7 @@ export default function InputWithStart({
 }: {
   text: string
   setText: Dispatch<SetStateAction<string>>
-  platform: SocialPlatformData
+  platform: ProviderData
 }) {
   const { name, start, placeholder } = platform
   return (

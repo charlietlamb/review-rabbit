@@ -1,125 +1,112 @@
-import { parseJWT } from 'oslo/jwt'
-import type { OAuthProvider, ProviderOptions } from '../types'
-import { logger, BetterAuthError } from 'better-auth'
-import { betterFetch } from '@better-fetch/fetch'
+import { OAuthProvider } from '../types'
+import { ProviderOptions } from '../types'
 import { createAuthorizationURL } from '../utils/create-authorization-url'
 import { validateAuthorizationCode } from '../utils/validate-authorization-code'
+import { refreshTokens as refreshOAuthTokens } from '../utils/refresh-tokens'
+import { BetterAuthError } from 'better-auth'
 
 export interface GoogleProfile {
-  aud: string
-  azp: string
+  sub: string
+  name: string
+  given_name: string
+  family_name: string
+  picture: string
   email: string
   email_verified: boolean
-  exp: number
-  /**
-   * The family name of the user, or last name in most
-   * Western languages.
-   */
-  family_name: string
-  /**
-   * The given name of the user, or first name in most
-   * Western languages.
-   */
-  given_name: string
-  hd?: string
-  iat: number
-  iss: string
-  jti?: string
-  locale?: string
-  name: string
-  nbf?: number
-  picture: string
-  sub: string
+  locale: string
 }
 
-export interface GoogleOptions extends ProviderOptions {
-  accessType?: 'offline' | 'online'
+interface BaseGoogleOptions {
+  /**
+   * Optional access type for Google OAuth
+   * @default 'offline'
+   */
+  accessType?: 'online' | 'offline'
+  /**
+   * Optional prompt configuration
+   * @default 'consent'
+   */
   prompt?: 'none' | 'consent' | 'select_account'
 }
 
-export const google = (options: GoogleOptions) => {
-  return {
-    id: 'google',
-    name: 'Google',
-    async createAuthorizationURL({ state, scopes, codeVerifier, redirectURI }) {
-      if (!options.clientId || !options.clientSecret) {
-        logger.error(
-          'Client Id and Client Secret is required for Google. Make sure to provide them in the options.'
-        )
-        throw new BetterAuthError('CLIENT_ID_AND_SECRET_REQUIRED')
-      }
-      if (!codeVerifier) {
-        throw new BetterAuthError('codeVerifier is required for Google')
-      }
-      const _scopes = scopes || ['email', 'profile', 'openid']
-      options.scope && _scopes.push(...options.scope)
+export type GoogleOptions = ProviderOptions & BaseGoogleOptions
 
-      const url = await createAuthorizationURL({
-        id: 'google',
-        options,
-        authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-        scopes: _scopes,
-        state,
-        codeVerifier,
-        redirectURI,
+const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
+const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
+const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
+
+const DEFAULT_SCOPES = ['openid', 'profile', 'email']
+
+export function google(options: GoogleOptions): OAuthProvider {
+  const scopes = options.scopes
+    ? [...DEFAULT_SCOPES, ...options.scopes]
+    : DEFAULT_SCOPES
+
+  return {
+    async createAuthorizationURL(params) {
+      const searchParams = {
+        access_type: options.accessType ?? 'offline',
+        prompt: options.prompt ?? 'consent',
+      }
+
+      return createAuthorizationURL({
+        ...params,
+        authorizationEndpoint: GOOGLE_AUTH_URL,
+        clientId: options.clientId,
+        scopes,
+        ...searchParams,
       })
-      options.accessType &&
-        url.searchParams.set('access_type', options.accessType)
-      options.prompt && url.searchParams.set('prompt', options.prompt)
-      return url
     },
-    validateAuthorizationCode: async ({ code, codeVerifier, redirectURI }) => {
-      return validateAuthorizationCode({
-        code,
-        codeVerifier,
-        redirectURI: options.redirectURI || redirectURI,
-        options,
-        tokenEndpoint: 'https://oauth2.googleapis.com/token',
-      })
+
+    async validateAuthorizationCode(params) {
+      try {
+        return await validateAuthorizationCode({
+          ...params,
+          clientId: options.clientId,
+          clientSecret: options.clientSecret,
+          tokenEndpoint: GOOGLE_TOKEN_URL,
+        })
+      } catch (error) {
+        throw new BetterAuthError(
+          `Failed to validate Google authorization code: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`
+        )
+      }
     },
-    async verifyIdToken(token, nonce) {
-      if (options.disableIdTokenSignIn) {
-        return false
+
+    async refreshTokens(refreshToken) {
+      try {
+        return await refreshOAuthTokens({
+          refreshToken,
+          clientId: options.clientId,
+          clientSecret: options.clientSecret,
+          tokenEndpoint: GOOGLE_TOKEN_URL,
+        })
+      } catch (error) {
+        throw new BetterAuthError(
+          `Failed to refresh Google tokens: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`
+        )
       }
-      if (options.verifyIdToken) {
-        return options.verifyIdToken(token, nonce)
-      }
-      const googlePublicKeyUrl = `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`
-      const { data: tokenInfo } = await betterFetch<{
-        aud: string
-        iss: string
-        email: string
-        email_verified: boolean
-        name: string
-        picture: string
-        sub: string
-      }>(googlePublicKeyUrl)
-      if (!tokenInfo) {
-        return false
-      }
-      const isValid =
-        tokenInfo.aud === options.clientId &&
-        tokenInfo.iss === 'https://accounts.google.com'
-      return isValid
     },
-    async getUserInfo(token) {
-      if (options.getUserInfo) {
-        return options.getUserInfo(token)
-      }
-      if (!token.idToken) {
-        return null
-      }
-      const user = parseJWT(token.idToken)?.payload as GoogleProfile
-      return {
-        user: {
-          id: user.sub,
-          name: user.name,
-          email: user.email,
-          image: user.picture,
-          emailVerified: user.email_verified,
+
+    async getUserProfile(accessToken): Promise<GoogleProfile> {
+      const response = await fetch(GOOGLE_USERINFO_URL, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-        data: user,
+      })
+
+      if (!response.ok) {
+        throw new BetterAuthError(
+          `Failed to fetch Google user profile: ${response.status}`
+        )
       }
+
+      const data = await response.json()
+      return data as GoogleProfile
     },
-  } satisfies OAuthProvider<GoogleProfile>
+  }
 }

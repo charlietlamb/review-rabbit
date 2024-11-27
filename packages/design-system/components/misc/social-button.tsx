@@ -1,6 +1,6 @@
 import React from 'react'
 import { cn } from '@dubble/design-system/lib/utils'
-import { SocialPlatformData } from '../../lib/socials'
+import { ProviderData } from '../../lib/providers'
 import Spinner from './spinner'
 
 export default function SocialButton({
@@ -9,7 +9,7 @@ export default function SocialButton({
   loading = false,
   children,
 }: {
-  platform: SocialPlatformData
+  platform: ProviderData
   onClick?: () => void
   loading?: boolean
   children?: React.ReactNode

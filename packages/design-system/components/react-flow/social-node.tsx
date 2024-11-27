@@ -1,6 +1,6 @@
 import { Node, NodeProps, Handle, Position } from '@xyflow/react'
 import { BaseNode } from '@dubble/design-system/components/react-flow/base-node'
-import { SocialPlatformData } from '@dubble/design-system/lib/socials'
+import { ProviderData } from 'lib/providers'
 import { cn } from '@dubble/design-system/lib/utils'
 import {
   Sheet,
@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from '@dubble/design-system/components/ui/sheet'
 export type SocialNodeType = Node<{
-  platform: SocialPlatformData
+  platform: ProviderData
 }>
 
 export function SocialNode({ data, selected }: NodeProps<SocialNodeType>) {
@@ -22,7 +22,7 @@ export function SocialNode({ data, selected }: NodeProps<SocialNodeType>) {
         <SheetTrigger asChild>
           <div
             className={cn(
-              'text-background font-heading p-2 py-0 flex items-center gap-2 cursor-pointer',
+              'text-background font-heading p-2 py-0 flex items-center gap-2 cursor-pointer font-bold',
               data.platform.className
             )}
           >

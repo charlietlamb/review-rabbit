@@ -1,72 +1,110 @@
-import { HttpStatusCodes } from '@dubble/http'
-import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
+import { z } from 'zod'
 import { jsonContent } from 'stoker/openapi/helpers'
-import { connectSchema } from './connect.schema'
+import { HttpStatusCodes } from '@dubble/http'
+import { unauthorizedSchema } from '@dubble/hono/lib/configure-auth'
 
 const tags = ['Connect']
 
-//use the better-auth docs to create my own oauth implementation
-export const connectGet = createRoute({
+// Route for initiating OAuth flow
+export const connectInitiate = createRoute({
   path: '/connect/:providerId',
   method: 'get',
-  summary: 'Connect to a provider',
+  summary: 'Initiate OAuth connection flow',
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        redirectURI: z.string(),
+      }),
+      'Redirect to provider authorization URL'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Invalid provider'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+// Route for OAuth callback
+export const connectCallback = createRoute({
+  path: '/connect/:providerId/callback',
+  method: 'get',
+  summary: 'Handle OAuth callback',
   tags,
   request: {
-    query: connectSchema,
+    query: z.object({
+      code: z.string(),
+      state: z.string(),
+    }),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({
         success: z.boolean(),
       }),
-      'Connected to a provider'
+      'Connection successful'
     ),
     [HttpStatusCodes.BAD_REQUEST]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'No authorization code provided'
+      'Invalid callback parameters'
     ),
-    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to connect to a provider'
-    ),
+    ...unauthorizedSchema,
   },
 })
 
-export type ConnectGetRoute = typeof connectGet
-
-export const connectPost = createRoute({
-  path: '/connect/:providerId',
-  method: 'get',
-  summary: 'Connect to a provider',
+// Route for refreshing tokens
+export const refreshTokens = createRoute({
+  path: '/connect/:providerId/refresh',
+  method: 'post',
+  summary: 'Refresh OAuth tokens',
   tags,
-  request: {
-    body: jsonContent(connectSchema, 'Connect schema'),
-  },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({
         success: z.boolean(),
       }),
-      'Connected to a provider'
+      'Tokens refreshed successfully'
     ),
     [HttpStatusCodes.BAD_REQUEST]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'No authorization code provided'
+      'Failed to refresh tokens'
     ),
-    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to connect to a provider'
-    ),
+    ...unauthorizedSchema,
   },
 })
 
-export type ConnectPostRoute = typeof connectPost
+// Route for disconnecting provider
+export const disconnect = createRoute({
+  path: '/connect/:providerId',
+  method: 'delete',
+  summary: 'Disconnect OAuth provider',
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        success: z.boolean(),
+      }),
+      'Provider disconnected successfully'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to disconnect provider'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type ConnectInitiateRoute = typeof connectInitiate
+export type ConnectCallbackRoute = typeof connectCallback
+export type RefreshTokensRoute = typeof refreshTokens
+export type DisconnectRoute = typeof disconnect

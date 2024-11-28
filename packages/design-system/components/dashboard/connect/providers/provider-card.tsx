@@ -1,21 +1,23 @@
 import { ProviderData } from '@dubble/design-system/lib/providers'
 import { cn } from '@dubble/design-system/lib/utils'
+import { cloneElement, isValidElement, ReactElement } from 'react'
 
 export default function ProviderCard({ provider }: { provider: ProviderData }) {
+  const iconElement = isValidElement(provider.icon)
+    ? cloneElement(provider.icon as ReactElement<{ className?: string }>, {
+        className: cn('w-16 h-16 mb-2', provider.icon.props?.className),
+      })
+    : provider.icon
+
   return (
-    <div className="flex flex-col rounded-lg overflow-hidden border divide-y group cursor-pointer h-auto transition-all duration-300">
-      <div
-        className={cn(
-          'text-lg font-bold font-heading p-2 transition-all duration-300',
-          provider.className
-        )}
-      >
-        <div className="flex items-center gap-2 text-white">
-          {provider.icon}
-          {provider.name}
-        </div>
-      </div>
-      <div className="p-2">23 accounts connected</div>
-    </div>
+    <button
+      className={cn(
+        'text-lg font-bold font-heading p-2 transition-all duration-300 rounded-lg flex flex-col items-center justify-center md:py-8 cursor-pointer',
+        provider.className
+      )}
+    >
+      {iconElement}
+      <p className="text-2xl">{provider.name}</p>
+    </button>
   )
 }

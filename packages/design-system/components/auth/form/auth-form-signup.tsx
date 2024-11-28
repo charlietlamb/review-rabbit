@@ -47,16 +47,20 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         imageUploaded: false,
         plan: 'free',
       })
-      if ('user' in response) {
-        setUser(response.user as User)
+      if ('error' in response && response.error) {
+        toast.error(response.error.message, {
+          description: 'Something went wrong',
+        })
+      } else {
         toast.success('Welcome!', {
           description: 'You have been signed up successfully',
           icon: <UserCheck />,
         })
 
-        router.push('/dashboard')
-      } else {
-        console.error(response.error)
+        if ('user' in response) {
+          setUser(response.user as User)
+          router.push('/dashboard')
+        }
       }
       setIsLoading(false)
     },

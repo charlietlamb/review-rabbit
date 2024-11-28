@@ -38,6 +38,10 @@ const server = {
   INSTAGRAM_APP_SECRET: z.string().min(1),
 } as const
 
+const dbOnlyServer = {
+  DATABASE_URL: z.string().min(1).url(),
+} as const
+
 const client = {
   // Public URLs
   NEXT_PUBLIC_DOMAIN: z.string().min(1),
@@ -60,12 +64,13 @@ const client = {
   NEXT_PUBLIC_INSTAGRAM_APP_ID: z.string().min(1),
 } as const
 
-export const env = createEnv({
+const mainEnv = createEnv({
   server,
   client,
   runtimeEnv: {
     // Server
     DATABASE_URL: process.env.DATABASE_URL,
+
     LOG_LEVEL: process.env.LOG_LEVEL,
     NODE_ENV: process.env.NODE_ENV,
 
@@ -114,3 +119,16 @@ export const env = createEnv({
     NEXT_PUBLIC_INSTAGRAM_APP_ID: process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID,
   },
 })
+
+const dbOnlyEnv = createEnv({
+  server: dbOnlyServer,
+  client: {},
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+})
+
+// @ts-expect-error - This is a workaround to avoid type errors when using the env variable
+export const env: typeof mainEnv = !process.env.DATABASE_ONLY
+  ? mainEnv
+  : dbOnlyEnv

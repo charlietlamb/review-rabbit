@@ -32,6 +32,7 @@ export function instagram(
     shortLivedToken: string
   ): Promise<OAuthTokens> {
     const url = new URL('https://graph.instagram.com/access_token')
+
     url.searchParams.set('grant_type', 'ig_exchange_token')
     url.searchParams.set('client_secret', options.clientSecret)
     url.searchParams.set('access_token', shortLivedToken)

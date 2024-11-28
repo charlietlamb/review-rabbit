@@ -10,6 +10,10 @@ export const connects = pgTable('connects', {
     .notNull()
     .references(() => users.id),
   providerId: text('providerId').notNull(),
+  accountId: text('accountId').notNull(),
+  accountName: text('accountName').notNull(),
+  username: text('username'),
+  profileImageUrl: text('profileImageUrl'),
   accessToken: text('accessToken').notNull(),
   refreshToken: text('refreshToken'),
   expiresAt: timestamp('expiresAt'),

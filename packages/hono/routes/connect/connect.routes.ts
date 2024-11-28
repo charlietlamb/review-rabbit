@@ -6,6 +6,23 @@ import { unauthorizedSchema } from '@dubble/hono/lib/configure-auth'
 
 const tags = ['Connect']
 
+// Common error responses
+const commonErrorResponses = {
+  [HttpStatusCodes.NOT_FOUND]: jsonContent(
+    z.object({
+      error: z.string(),
+    }),
+    'Resource not found'
+  ),
+  [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+    z.object({
+      error: z.string(),
+    }),
+    'Bad request'
+  ),
+  ...unauthorizedSchema,
+}
+
 // Route for initiating OAuth flow
 export const connectInitiate = createRoute({
   path: '/connect/:providerId',
@@ -19,13 +36,7 @@ export const connectInitiate = createRoute({
       }),
       'Redirect to provider authorization URL'
     ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Invalid provider'
-    ),
-    ...unauthorizedSchema,
+    ...commonErrorResponses,
   },
 })
 
@@ -42,25 +53,16 @@ export const connectCallback = createRoute({
     }),
   },
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(
-      z.object({
-        success: z.boolean(),
-      }),
-      'Connection successful'
-    ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Invalid callback parameters'
-    ),
-    ...unauthorizedSchema,
+    [302]: {
+      description: 'Redirect to dashboard',
+    },
+    ...commonErrorResponses,
   },
 })
 
 // Route for refreshing tokens
 export const refreshTokens = createRoute({
-  path: '/connect/:providerId/refresh',
+  path: '/connect/:connectionId/refresh',
   method: 'post',
   summary: 'Refresh OAuth tokens',
   tags,
@@ -71,19 +73,13 @@ export const refreshTokens = createRoute({
       }),
       'Tokens refreshed successfully'
     ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to refresh tokens'
-    ),
-    ...unauthorizedSchema,
+    ...commonErrorResponses,
   },
 })
 
 // Route for disconnecting provider
 export const disconnect = createRoute({
-  path: '/connect/:providerId',
+  path: '/connect/:connectionId',
   method: 'delete',
   summary: 'Disconnect OAuth provider',
   tags,
@@ -94,13 +90,7 @@ export const disconnect = createRoute({
       }),
       'Provider disconnected successfully'
     ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to disconnect provider'
-    ),
-    ...unauthorizedSchema,
+    ...commonErrorResponses,
   },
 })
 

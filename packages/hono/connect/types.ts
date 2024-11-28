@@ -31,7 +31,15 @@ export interface AuthorizationParams {
   redirectURI: string
 }
 
-export interface OAuthProvider {
+export interface BaseProfile {
+  id: string
+  email: string
+  name: string
+  picture?: string
+  sub?: string
+}
+
+export interface OAuthProvider<TProfile extends BaseProfile = BaseProfile> {
   /**
    * Create the authorization URL for the OAuth flow
    */
@@ -54,5 +62,5 @@ export interface OAuthProvider {
   /**
    * Get user information using the access token
    */
-  getUserProfile(accessToken: string): Promise<unknown>
+  getUserProfile(accessToken: string): Promise<TProfile>
 }

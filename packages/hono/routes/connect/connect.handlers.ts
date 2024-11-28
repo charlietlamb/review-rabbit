@@ -10,15 +10,9 @@ import {
   RefreshTokensRoute,
   DisconnectRoute,
 } from './connect.routes'
-import { providerMap } from '@dubble/hono/connect/providers/provider-map'
-import { connects } from '@dubble/database/schema'
-
-// Extend the Variables interface to include our state
-declare module 'hono' {
-  interface ContextVariableMap {
-    stateVar: { state: string }
-  }
-}
+import { providerMap } from '../../connect/providers/provider-map'
+import { GoogleProfile } from '../../connect/providers/google'
+import { InstagramProfile } from '../../connect/providers/instagram'
 
 // Handler for initiating OAuth flow
 export const connectInitiate: AppRouteHandler<ConnectInitiateRoute> = async (
@@ -45,10 +39,14 @@ export const connectInitiate: AppRouteHandler<ConnectInitiateRoute> = async (
       redirectURI,
     })
 
-    // Store state in session using the extended Variables interface
-    c.set('stateVar', { state })
+    // Store state in verifications table
+    await db.insert(schema.verifications).values({
+      id: state,
+      identifier: user.id,
+      value: state,
+      expiresAt: new Date(Date.now() + 5 * 60 * 1000), // 5 minutes expiry
+    })
 
-    // Return the URL for the frontend to handle the redirect
     return c.json({ redirectURI: authURL.toString() }, HttpStatusCodes.OK)
   } catch (error) {
     return c.json(
@@ -75,44 +73,98 @@ export const connectCallback: AppRouteHandler<ConnectCallbackRoute> = async (
     return c.json({ error: 'Provider not found' }, HttpStatusCodes.BAD_REQUEST)
   }
 
-  // Verify state matches
-  const stateVar = c.get('stateVar')
-  if (!stateVar || stateVar.state !== state) {
+  // Verify state from verifications table
+  const verification = await db.query.verifications.findFirst({
+    where: and(
+      eq(schema.verifications.identifier, user.id),
+      eq(schema.verifications.value, state)
+    ),
+  })
+
+  if (!verification || verification.expiresAt < new Date()) {
     return c.json({ error: 'Invalid state' }, HttpStatusCodes.BAD_REQUEST)
   }
 
   try {
     const redirectURI = `${env.NEXT_PUBLIC_API}/connect/${providerId}/callback`
+    console.log('Attempting to validate code with:', {
+      code,
+      state,
+      redirectURI,
+    })
+
     const tokens = await provider.validateAuthorizationCode({
       code,
       state,
       redirectURI,
     })
 
-    // Store tokens in database
-    await db
-      .insert(connects)
-      .values({
-        userId: user.id,
-        providerId,
-        accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken,
-        expiresAt: tokens.expiresAt,
-      })
-      .onConflictDoUpdate({
-        target: [connects.userId, connects.providerId],
-        set: {
-          accessToken: tokens.accessToken,
-          refreshToken: tokens.refreshToken,
-          expiresAt: tokens.expiresAt,
-        },
-      })
+    // Get user profile to identify the account
+    const profile = await provider.getUserProfile(tokens.accessToken)
+    const accountId =
+      providerId === 'google'
+        ? (profile as GoogleProfile).sub
+        : providerId === 'instagram'
+        ? (profile as InstagramProfile).id
+        : profile.id
 
-    return c.json({ success: true }, HttpStatusCodes.OK)
+    // Check if account is already connected
+    const existingConnection = await db
+      .select()
+      .from(schema.connects)
+      .where(
+        and(
+          eq(schema.connects.userId, user.id),
+          eq(schema.connects.providerId, providerId),
+          eq(schema.connects.accountId, accountId)
+        )
+      )
+      .limit(1)
+      .then((rows) => rows[0])
+
+    if (existingConnection) {
+      return c.redirect(
+        `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=already-connected`
+      )
+    }
+
+    // Clean up used verification
+    await db
+      .delete(schema.verifications)
+      .where(eq(schema.verifications.id, verification.id))
+
+    // Store tokens in database
+    await db.insert(schema.connects).values({
+      userId: user.id,
+      providerId,
+      accountId,
+      accountName:
+        providerId === 'instagram'
+          ? (profile as InstagramProfile).username
+          : profile.email || profile.name || 'Unknown Account',
+      username:
+        providerId === 'instagram'
+          ? (profile as InstagramProfile).username
+          : providerId === 'google'
+          ? (profile as GoogleProfile).channelName ||
+            (profile as GoogleProfile).given_name
+          : null,
+      profileImageUrl:
+        providerId === 'instagram'
+          ? (profile as InstagramProfile).profile_picture_url
+          : profile.picture || null,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      expiresAt: tokens.expiresAt,
+    })
+
+    return c.redirect(
+      `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=success`
+    )
   } catch (error) {
-    return c.json(
-      { error: 'Failed to validate authorization code' },
-      HttpStatusCodes.BAD_REQUEST
+    console.error('Token validation error:', error)
+    return c.redirect(
+      `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=error`
     )
   }
 }
@@ -124,29 +176,47 @@ export const refreshTokens: AppRouteHandler<RefreshTokensRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { providerId } = c.req.param()
-  const provider = providerMap.get(providerId)
-
-  if (!provider) {
-    return c.json({ error: 'Provider not found' }, HttpStatusCodes.BAD_REQUEST)
-  }
+  const { connectionId } = c.req.param() // Use connectionId instead of providerId
 
   try {
     // Get existing connection
     const connection = await db
       .select()
-      .from(connects)
+      .from(schema.connects)
       .where(
-        and(eq(connects.userId, user.id), eq(connects.providerId, providerId))
+        and(
+          eq(schema.connects.userId, user.id),
+          eq(schema.connects.id, connectionId)
+        )
       )
       .limit(1)
       .then((rows) => rows[0])
 
-    if (!connection?.refreshToken) {
+    if (!connection) {
       return c.json(
-        { error: 'No refresh token found' },
+        { error: 'Connection not found' },
+        HttpStatusCodes.NOT_FOUND
+      )
+    }
+
+    if (!connection.refreshToken) {
+      return c.json(
+        { error: 'No refresh token available' },
         HttpStatusCodes.BAD_REQUEST
       )
+    }
+
+    const provider = providerMap.get(connection.providerId)
+    if (!provider) {
+      return c.json(
+        { error: 'Provider not found' },
+        HttpStatusCodes.BAD_REQUEST
+      )
+    }
+
+    // Check if token needs refresh
+    if (connection.expiresAt && connection.expiresAt > new Date()) {
+      return c.json({ success: true }, HttpStatusCodes.OK)
     }
 
     // Refresh tokens
@@ -154,15 +224,14 @@ export const refreshTokens: AppRouteHandler<RefreshTokensRoute> = async (c) => {
 
     // Update stored tokens
     await db
-      .update(connects)
+      .update(schema.connects)
       .set({
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
         expiresAt: tokens.expiresAt,
+        updatedAt: new Date(),
       })
-      .where(
-        and(eq(connects.userId, user.id), eq(connects.providerId, providerId))
-      )
+      .where(eq(schema.connects.id, connectionId))
 
     return c.json({ success: true }, HttpStatusCodes.OK)
   } catch (error) {
@@ -180,7 +249,7 @@ export const disconnect: AppRouteHandler<DisconnectRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { providerId } = c.req.param()
+  const { connectionId } = c.req.param() // Use connectionId instead of providerId
 
   try {
     const result = await db
@@ -188,15 +257,15 @@ export const disconnect: AppRouteHandler<DisconnectRoute> = async (c) => {
       .where(
         and(
           eq(schema.connects.userId, user.id),
-          eq(schema.connects.providerId, providerId)
+          eq(schema.connects.id, connectionId)
         )
       )
       .returning()
 
     if (!result.length) {
       return c.json(
-        { error: 'Provider connection not found' },
-        HttpStatusCodes.BAD_REQUEST
+        { error: 'Connection not found' },
+        HttpStatusCodes.NOT_FOUND
       )
     }
 

@@ -3,6 +3,7 @@
   "globalEnv": [
     "NODE_ENV",
     "DATABASE_URL",
+    "DATABASE_URL_UNPOOLED",
     "LOG_LEVEL",
     "PORT",
     "AWS_S3_URL",
@@ -16,7 +17,8 @@
     "STRIPE_WEBHOOK_SECRET",
     "ANALYZE",
     "ELEVENLABS_API_KEY",
-    "GOOGLE_CLIENT_SECRET"
+    "GOOGLE_CLIENT_SECRET",
+    "INSTAGRAM_APP_SECRET"
   ],
   "tasks": {
     "build": {

@@ -1,21 +1,24 @@
-import { BaseProfile, OAuthProvider, ProviderOptions } from '../types'
-import { validateAuthorizationCode } from '../utils/validate-authorization-code'
-import { refreshTokens as refreshOAuthTokens } from '../utils/refresh-tokens'
+import {
+  BaseProfile,
+  OAuthProvider,
+  OAuthTokens,
+  ProviderOptions,
+} from '../types'
 import { BetterAuthError } from 'better-auth'
 
 export interface InstagramProfile extends BaseProfile {
   id: string
   username: string
-  account_type: string
-  media_count: number
-  profile_picture_url: string
+  account_type?: string
+  media_count?: number
+  profile_picture_url?: string
 }
 
 export type InstagramOptions = ProviderOptions
 
 const INSTAGRAM_AUTH_URL = 'https://api.instagram.com/oauth/authorize'
 const INSTAGRAM_TOKEN_URL = 'https://api.instagram.com/oauth/access_token'
-const INSTAGRAM_GRAPH_URL = 'https://graph.instagram.com/v18.0'
+const INSTAGRAM_USER_URL = 'https://graph.instagram.com/me'
 
 // Instagram Basic Display API permissions
 // https://developers.facebook.com/docs/instagram-basic-display-api/overview#permissions
@@ -24,6 +27,34 @@ const SCOPES = ['user_profile', 'user_media'].join(' ')
 export function instagram(
   options: InstagramOptions
 ): OAuthProvider<InstagramProfile> {
+  // Helper function to exchange short-lived token for long-lived token
+  async function exchangeForLongLivedToken(
+    shortLivedToken: string
+  ): Promise<OAuthTokens> {
+    const url = new URL('https://graph.instagram.com/access_token')
+    url.searchParams.set('grant_type', 'ig_exchange_token')
+    url.searchParams.set('client_secret', options.clientSecret)
+    url.searchParams.set('access_token', shortLivedToken)
+
+    const response = await fetch(url.toString())
+
+    if (!response.ok) {
+      throw new BetterAuthError(
+        `Failed to exchange for long-lived token: ${response.status}`
+      )
+    }
+
+    const data = await response.json()
+    const expiresIn = data.expires_in
+
+    return {
+      accessToken: data.access_token,
+      expiresAt: expiresIn
+        ? new Date(Date.now() + expiresIn * 1000)
+        : undefined,
+    }
+  }
+
   return {
     async createAuthorizationURL(params) {
       const url = new URL(INSTAGRAM_AUTH_URL)
@@ -36,7 +67,8 @@ export function instagram(
       return url
     },
 
-    async validateAuthorizationCode(params) {
+    async validateAuthorizationCode(params): Promise<OAuthTokens> {
+      // Exchange code for short-lived access token
       const formData = new URLSearchParams()
       formData.append('client_id', options.clientId)
       formData.append('client_secret', options.clientSecret)
@@ -60,34 +92,41 @@ export function instagram(
       }
 
       const data = await response.json()
-      return {
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        expiresIn: data.expires_in,
-      }
+
+      // Exchange short-lived token for long-lived token
+      return exchangeForLongLivedToken(data.access_token)
     },
 
-    async refreshTokens(refreshToken) {
-      try {
-        return await refreshOAuthTokens({
-          refreshToken,
-          clientId: options.clientId,
-          clientSecret: options.clientSecret,
-          tokenEndpoint: INSTAGRAM_TOKEN_URL,
-        })
-      } catch (error) {
+    async refreshTokens(refreshToken: string): Promise<OAuthTokens> {
+      // For Instagram Basic Display API, we refresh using the access token
+      const url = new URL('https://graph.instagram.com/refresh_access_token')
+      url.searchParams.set('grant_type', 'ig_refresh_token')
+      url.searchParams.set('access_token', refreshToken)
+
+      const response = await fetch(url.toString())
+
+      if (!response.ok) {
         throw new BetterAuthError(
-          `Failed to refresh Instagram tokens: ${
-            error instanceof Error ? error.message : 'Unknown error'
-          }`
+          `Failed to refresh Instagram token: ${response.status}`
         )
+      }
+
+      const data = await response.json()
+      const expiresIn = data.expires_in
+
+      return {
+        accessToken: data.access_token,
+        expiresAt: expiresIn
+          ? new Date(Date.now() + expiresIn * 1000)
+          : undefined,
       }
     },
 
     async getUserProfile(accessToken): Promise<InstagramProfile> {
-      // Get basic profile
+      // Get basic profile fields
+      const fields = ['id', 'username', 'account_type', 'media_count'].join(',')
       const response = await fetch(
-        `${INSTAGRAM_GRAPH_URL}/me?fields=id,username,account_type,media_count&access_token=${accessToken}`
+        `${INSTAGRAM_USER_URL}?fields=${fields}&access_token=${accessToken}`
       )
 
       if (!response.ok) {
@@ -98,27 +137,13 @@ export function instagram(
 
       const profile = await response.json()
 
-      // Get profile picture URL in a separate call
-      const mediaResponse = await fetch(
-        `${INSTAGRAM_GRAPH_URL}/me/media?fields=media_url&access_token=${accessToken}`
-      )
-
-      let profilePictureUrl = null
-      if (mediaResponse.ok) {
-        const mediaData = await mediaResponse.json()
-        if (mediaData.data?.[0]?.media_url) {
-          profilePictureUrl = mediaData.data[0].media_url
-        }
-      }
-
       return {
         id: profile.id,
         username: profile.username,
-        name: profile.username,
-        email: '', // Instagram doesn't provide email
+        name: profile.username, // Instagram Basic Display API doesn't provide full name
+        email: '', // Instagram Basic Display API doesn't provide email
         account_type: profile.account_type,
         media_count: profile.media_count,
-        profile_picture_url: profilePictureUrl,
       }
     },
   }

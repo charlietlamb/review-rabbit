@@ -128,7 +128,9 @@ const dbOnlyEnv = createEnv({
   },
 })
 
+console.log('DATABASE_ONLY', process.env.DATABASE_ONLY)
+console.log('DATABASE_ONLY', process.env.DATABASE_ONLY === 'true')
+const databaseOnly = process.env.DATABASE_ONLY === 'true'
+
 // @ts-expect-error - This is a workaround to avoid type errors when using the env variable
-export const env: typeof mainEnv = !process.env.DATABASE_ONLY
-  ? mainEnv
-  : dbOnlyEnv
+export const env: typeof mainEnv = !databaseOnly ? mainEnv : dbOnlyEnv

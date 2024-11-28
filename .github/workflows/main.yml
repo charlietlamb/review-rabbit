@@ -1,0 +1,23 @@
+name: run-migrations
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  migrate:
+    name: migrate
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_ONLY: true
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      # Run `bun` commands in the correct directory, if necessary
+      - run: bun install
+      - run: bun gen
+      - run: bun migrate

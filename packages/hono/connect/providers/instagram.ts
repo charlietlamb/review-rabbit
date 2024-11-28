@@ -23,10 +23,10 @@ const INSTAGRAM_USER_URL = 'https://graph.instagram.com/me'
 // Instagram Basic Display API permissions
 // https://developers.facebook.com/docs/instagram-basic-display-api/overview#permissions
 const SCOPES = [
-  'business_basic',
-  'business_manage_messages',
-  'business_manage_comments',
-  'business_content_publish',
+  'instagram_business_basic',
+  'instagram_business_manage_messages',
+  'instagram_business_manage_comments',
+  'instagram_business_content_publish',
 ].join(' ')
 
 export function instagram(

@@ -19,18 +19,18 @@ export interface TikTokProfile extends BaseProfile {
 
 export type TikTokOptions = ProviderOptions
 
-const TIKTOK_AUTH_URL = 'https://www.tiktok.com/auth/authorize/'
-const TIKTOK_TOKEN_URL = 'https://open-api.tiktok.com/oauth/access_token/'
-const TIKTOK_USER_URL = 'https://open-api.tiktok.com/user/info/'
+const TIKTOK_AUTH_URL = 'https://www.tiktok.com/v2/auth/authorize/'
+const TIKTOK_TOKEN_URL = 'https://open.tiktokapis.com/v2/oauth/token/'
+const TIKTOK_USER_URL = 'https://open.tiktokapis.com/v2/user/info/'
 
-// TikTok API scopes
-// https://developers.tiktok.com/doc/login-kit-web
+// TikTok API v2 scopes
+// https://developers.tiktok.com/doc/oauth-user-access-token-management
 const SCOPES = [
   'user.info.basic',
   'user.info.profile',
   'user.info.stats',
   'video.list',
-].join(',') // TikTok uses comma separator
+].join(',')
 
 export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
   return {
@@ -39,25 +39,26 @@ export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
       url.searchParams.set('client_key', options.clientId)
       url.searchParams.set('redirect_uri', params.redirectURI)
       url.searchParams.set('response_type', 'code')
-      url.searchParams.set('state', params.state)
       url.searchParams.set('scope', SCOPES)
+      url.searchParams.set('state', params.state)
 
       return url
     },
 
     async validateAuthorizationCode(params): Promise<OAuthTokens> {
-      const formData = new URLSearchParams()
-      formData.append('client_key', options.clientId)
-      formData.append('client_secret', options.clientSecret)
-      formData.append('grant_type', 'authorization_code')
-      formData.append('code', params.code)
-
       const response = await fetch(TIKTOK_TOKEN_URL, {
         method: 'POST',
-        body: formData,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          'Cache-Control': 'no-cache',
         },
+        body: new URLSearchParams({
+          client_key: options.clientId,
+          client_secret: options.clientSecret,
+          code: params.code,
+          grant_type: 'authorization_code',
+          redirect_uri: params.redirectURI,
+        }),
       })
 
       if (!response.ok) {
@@ -67,41 +68,31 @@ export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
         )
       }
 
-      const data = await response.json()
-      const {
-        access_token,
-        expires_in,
-        open_id,
-        refresh_token,
-        refresh_expires_in,
-      } = data.data
+      const { data } = await response.json()
 
       return {
-        accessToken: access_token,
-        refreshToken: refresh_token,
-        expiresAt: expires_in
-          ? new Date(Date.now() + expires_in * 1000)
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+        expiresAt: data.expires_in
+          ? new Date(Date.now() + data.expires_in * 1000)
           : undefined,
       }
     },
 
     async refreshTokens(refreshToken): Promise<OAuthTokens> {
-      const formData = new URLSearchParams()
-      formData.append('client_key', options.clientId)
-      formData.append('client_secret', options.clientSecret)
-      formData.append('grant_type', 'refresh_token')
-      formData.append('refresh_token', refreshToken)
-
-      const response = await fetch(
-        'https://open-api.tiktok.com/oauth/refresh_token/',
-        {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
-      )
+      const response = await fetch(TIKTOK_TOKEN_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cache-Control': 'no-cache',
+        },
+        body: new URLSearchParams({
+          client_key: options.clientId,
+          client_secret: options.clientSecret,
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        }),
+      })
 
       if (!response.ok) {
         throw new BetterAuthError(
@@ -109,14 +100,13 @@ export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
         )
       }
 
-      const data = await response.json()
-      const { access_token, expires_in, refresh_token } = data.data
+      const { data } = await response.json()
 
       return {
-        accessToken: access_token,
-        refreshToken: refresh_token,
-        expiresAt: expires_in
-          ? new Date(Date.now() + expires_in * 1000)
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+        expiresAt: data.expires_in
+          ? new Date(Date.now() + data.expires_in * 1000)
           : undefined,
       }
     },
@@ -125,6 +115,7 @@ export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
       const response = await fetch(TIKTOK_USER_URL, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
         },
       })
 
@@ -135,19 +126,18 @@ export function tiktok(options: TikTokOptions): OAuthProvider<TikTokProfile> {
       }
 
       const { data } = await response.json()
-      const user = data.user
 
       return {
-        id: user.open_id,
-        username: user.union_id,
-        name: user.display_name,
+        id: data.user.open_id,
+        username: data.user.username,
+        name: data.user.display_name,
+        display_name: data.user.display_name,
         email: '', // TikTok doesn't provide email
-        display_name: user.display_name,
-        avatar_url: user.avatar_url,
-        follower_count: user.follower_count,
-        following_count: user.following_count,
-        likes_count: user.likes_count,
-        video_count: user.video_count,
+        avatar_url: data.user.avatar_url,
+        follower_count: data.user.follower_count,
+        following_count: data.user.following_count,
+        likes_count: data.user.likes_count,
+        video_count: data.user.video_count,
       }
     },
   }

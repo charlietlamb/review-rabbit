@@ -1,60 +1,67 @@
 import { RiInstagramFill, RiTiktokFill, RiYoutubeFill } from '@remixicon/react'
-import DashboardConnectYoutube from '@dubble/design-system/components/dashboard/connect/youtube/dashboard-connect-youtube'
 
 export const providerData = [
   {
+    id: 'youtube',
     name: 'YouTube',
     company: 'Google',
     start: 'https://www.youtu.be/',
     placeholder: 'your-video-id',
     icon: <RiYoutubeFill />,
-    button: <DashboardConnectYoutube />,
     className:
       'bg-social-youtube/80 hover:bg-social-youtube group-hover:bg-social-youtube',
-    classNameInner: 'text-social-youtube',
+    classNameText: 'text-social-youtube',
+    classNameBorder: 'border-social-youtube/80 hover:border-social-youtube',
     error: 'Please enter a valid YouTube video URL.',
+    info: 'Make sure to allow all access to your YouTube account. We will never post anything without your permission.',
   },
   {
+    id: 'instagram',
     name: 'Instagram',
     company: 'Meta',
     start: 'https://instagram.com/',
     placeholder: 'your-video-id',
     icon: <RiInstagramFill />,
-    button: null,
     className:
       'bg-social-instagram/80 hover:bg-social-instagram group-hover:bg-social-instagram',
-    classNameInner: 'text-social-instagram',
+    classNameText: 'text-social-instagram',
+    classNameBorder: 'border-social-instagram/80 hover:border-social-instagram',
     error: 'Please enter a valid Instagram video URL.',
+    info: 'Your account must be a business/creator account to connect to Instagram. We will never post anything without your permission.',
   },
   {
+    id: 'tiktok',
     name: 'Tiktok',
     company: 'ByteDance',
     start: 'https://tiktok.com/',
     placeholder: 'your-video-id',
     icon: <RiTiktokFill />,
-    button: null,
     className:
       'bg-social-tiktok/80 hover:bg-social-tiktok group-hover:bg-social-tiktok',
-    classNameInner: 'text-social-tiktok',
+    classNameText: 'text-social-tiktok',
+    classNameBorder: 'border-social-tiktok/80 hover:border-social-tiktok',
     error: 'Please enter a valid Tiktok video URL.',
+    info: 'Your account must be a business/creator account to connect to Tiktok. We will never post anything without your permission.',
   },
 ] as ProviderData[]
 
-export const providerDataByName = providerData.reduce((acc, platform) => {
-  acc[platform.name] = platform
+export const providerDataById = providerData.reduce((acc, platform) => {
+  acc[platform.id] = platform
   return acc
-}, {} as Record<Provider, ProviderData>)
+}, {} as Record<ProviderData['id'], ProviderData>)
 
 export type Provider = ProviderData['name']
 
 export type ProviderData = {
+  id: string
   name: string
   company: string
   start: string
   placeholder: string
   icon: React.ReactNode
-  button: React.ReactNode
   className: string
-  classNameInner: string
+  classNameText: string
+  classNameBorder: string
   error: string
+  info: string
 }

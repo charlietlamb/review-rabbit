@@ -1,31 +1,36 @@
 'use client'
 
-import { DashboardSidebarItem } from './data/dashboardSidebarItems'
+import { DashboardSidebarItem } from './data/dashboard-sidebar-items'
 import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from '@dubble/design-system/components/ui/sidebar'
 import Link from 'next/link'
-import { getIconWithClassName } from './functions/getIconWithClassName'
+import { usePathname } from 'next/navigation'
+import { cn } from '@dubble/design-system/lib/utils'
 
 export default function DashboardSidebarMenuItem({
   item,
 }: {
   item: DashboardSidebarItem
 }) {
-  const iconWithClassName = getIconWithClassName(item.icon, 'min-w-4 min-h-4')
-  const { setOpenMobile } = useSidebar()
+  const pathname = usePathname()
+  const isActive = pathname.includes(item.key)
+  const { open, setOpenMobile } = useSidebar()
+
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild>
         <Link
           href={item.href}
-          className="mx-auto py-1 h-auto flex items-center"
+          className={cn(
+            'mx-auto py-1 h-auto flex items-center text-muted-foreground',
+            isActive && 'text-foreground'
+          )}
           onClick={() => setOpenMobile(false)}
         >
-          {iconWithClassName}
-          <span className="text-base">{item.title}</span>
+          {item.icon}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>

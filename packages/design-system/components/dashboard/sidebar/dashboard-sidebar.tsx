@@ -4,7 +4,7 @@ import {
   SidebarMenu,
   SidebarRail,
 } from '@dubble/design-system/components/ui/sidebar'
-import { dashboardSidebarItems } from './data/dashboardSidebarItems'
+import { dashboardSidebarItems } from './data/dashboard-sidebar-items'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import DashboardSidebarHeader from './header/dashboard-sidebar-header'

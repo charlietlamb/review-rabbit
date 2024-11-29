@@ -8,7 +8,7 @@ import {
   SocialNode,
   SocialNodeType,
 } from '@dubble/design-system/components/react-flow/social-node'
-import { providerDataByName } from '@dubble/design-system/lib/providers'
+import { providerDataById } from '@dubble/design-system/lib/providers'
 
 const nodeTypes = {
   social: SocialNode,
@@ -19,7 +19,7 @@ const defaultNodes: SocialNodeType[] = [
     id: '1',
     position: { x: 200, y: 200 },
     data: {
-      platform: providerDataByName.YouTube,
+      platform: providerDataById.youtube,
     },
     type: 'social',
   },

@@ -1,6 +1,7 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from './users'
 import { sql } from 'drizzle-orm'
+import { createSelectSchema } from 'drizzle-zod'
 
 export const connects = pgTable('connects', {
   id: text('id')
@@ -20,3 +21,6 @@ export const connects = pgTable('connects', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })
+
+export type Connect = typeof connects.$inferSelect
+export const selectConnectSchema = createSelectSchema(connects)

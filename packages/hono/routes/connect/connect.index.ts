@@ -7,5 +7,5 @@ const router = createRouter()
   .openapi(routes.connectCallback, handlers.connectCallback)
   .openapi(routes.refreshTokens, handlers.refreshTokens)
   .openapi(routes.disconnect, handlers.disconnect)
-
+  .openapi(routes.getProviderConnects, handlers.getProviderConnects)
 export default router

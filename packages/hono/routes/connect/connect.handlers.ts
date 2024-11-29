@@ -9,10 +9,17 @@ import {
   ConnectCallbackRoute,
   RefreshTokensRoute,
   DisconnectRoute,
+  GetProviderConnectsRoute,
 } from './connect.routes'
 import { providerMap } from '../../connect/providers/provider-map'
-import { GoogleProfile } from '../../connect/providers/google'
 import { InstagramProfile } from '../../connect/providers/instagram'
+import { connects } from '@dubble/database/schema/connects'
+import {
+  getAccountId,
+  getAccountName,
+  getProfileImageUrl,
+  getUsername,
+} from './connect.helpers'
 
 // Handler for initiating OAuth flow
 export const connectInitiate: AppRouteHandler<ConnectInitiateRoute> = async (
@@ -101,12 +108,7 @@ export const connectCallback: AppRouteHandler<ConnectCallbackRoute> = async (
 
     // Get user profile to identify the account
     const profile = await provider.getUserProfile(tokens.accessToken)
-    const accountId =
-      providerId === 'google'
-        ? (profile as GoogleProfile).sub
-        : providerId === 'instagram'
-        ? (profile as InstagramProfile).id
-        : profile.id
+    const accountId = getAccountId(profile, providerId)
 
     // Check if account is already connected
     const existingConnection = await db
@@ -124,7 +126,7 @@ export const connectCallback: AppRouteHandler<ConnectCallbackRoute> = async (
 
     if (existingConnection) {
       return c.redirect(
-        `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=already-connected`
+        `${env.NEXT_PUBLIC_WEB}/dashboard/connect/${providerId}?status=already-connected`
       )
     }
 
@@ -138,33 +140,21 @@ export const connectCallback: AppRouteHandler<ConnectCallbackRoute> = async (
       userId: user.id,
       providerId,
       accountId,
-      accountName:
-        providerId === 'instagram'
-          ? (profile as InstagramProfile).username
-          : profile.email || profile.name || 'Unknown Account',
-      username:
-        providerId === 'instagram'
-          ? (profile as InstagramProfile).username
-          : providerId === 'google'
-          ? (profile as GoogleProfile).channelName ||
-            (profile as GoogleProfile).given_name
-          : null,
-      profileImageUrl:
-        providerId === 'instagram'
-          ? (profile as InstagramProfile).profile_picture_url
-          : profile.picture || null,
+      accountName: getAccountName(profile, providerId),
+      username: getUsername(profile, providerId),
+      profileImageUrl: getProfileImageUrl(profile, providerId),
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       expiresAt: tokens.expiresAt,
     })
 
     return c.redirect(
-      `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=success`
+      `${env.NEXT_PUBLIC_WEB}/dashboard/connect/${providerId}?status=success`
     )
   } catch (error) {
     console.error('Token validation error:', error)
     return c.redirect(
-      `${env.NEXT_PUBLIC_WEB}/dashboard/connect?provider=${providerId}&status=error`
+      `${env.NEXT_PUBLIC_WEB}/dashboard/connect/${providerId}?status=error`
     )
   }
 }
@@ -274,6 +264,39 @@ export const disconnect: AppRouteHandler<DisconnectRoute> = async (c) => {
     return c.json(
       { error: 'Failed to disconnect provider' },
       HttpStatusCodes.BAD_REQUEST
+    )
+  }
+}
+
+//add handler for gettings connects
+
+export const getProviderConnects: AppRouteHandler<
+  GetProviderConnectsRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  let { providerId } = c.req.param()
+  if (!providerId) {
+    return c.json(
+      { error: 'Provider ID is required' },
+      HttpStatusCodes.BAD_REQUEST
+    )
+  }
+  try {
+    const connections = await db.query.connects.findMany({
+      where: and(
+        eq(connects.userId, user.id),
+        eq(connects.providerId, providerId)
+      ),
+    })
+
+    return c.json({ connections }, HttpStatusCodes.OK)
+  } catch (error) {
+    return c.json(
+      { error: 'Failed to get provider connects' },
+      HttpStatusCodes.NOT_FOUND
     )
   }
 }

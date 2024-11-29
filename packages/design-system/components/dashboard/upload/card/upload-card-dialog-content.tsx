@@ -13,6 +13,7 @@ import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { isVideo } from '@dubble/design-system/lib/misc/is-video'
 import AudioPlayer from '@dubble/design-system/components/misc/audio-player'
 import VideoPlayer from '@dubble/design-system/components/misc/video-player'
+import { Media } from '@dubble/database/schema/media'
 
 export default function UploadCardDialogContent({
   upload,

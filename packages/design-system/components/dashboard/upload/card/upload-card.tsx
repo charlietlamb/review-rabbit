@@ -13,7 +13,7 @@ import { useAtom } from 'jotai'
 import { dubSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { cn } from '@dubble/design-system/lib/utils'
 import { env } from '@dubble/env'
-import { AudioLines, Trash2 } from 'lucide-react'
+import { AudioLines, Dot, Trash2 } from 'lucide-react'
 import { isVideo } from '@dubble/design-system/lib/misc/is-video'
 import { Media } from '@dubble/database/schema/media'
 
@@ -57,7 +57,7 @@ export default function UploadCard({
         </div>
         <div className="flex flex-col min-w-0 flex-1">
           <CardHeader className="p-3 pb-0">
-            <CardTitle className="font-heading text-xl flex items-center gap-2 text-left">
+            <CardTitle className="font-heading text-lg flex justify-between items-center gap-2 text-left">
               <span className="truncate">{upload.name}</span>
               <div className="flex-shrink-0 text-muted-foreground">
                 {fileToIcon(upload.extension)}
@@ -66,15 +66,14 @@ export default function UploadCard({
           </CardHeader>
           <CardContent
             className={cn(
-              'flex justify-between items-center gap-4 p-3 pt-0',
+              'flex items-center p-3 pt-0 text-muted-foreground text-sm',
               onSelect && 'hover:border-foreground',
               onSelect && selected && 'border-foreground'
             )}
           >
-            <div className="text-muted-foreground text-sm truncate">
-              {durationToTime(upload.duration)}
-            </div>
             <div className="flex-shrink-0">{numberToSize(upload.size)}</div>
+            <Dot />
+            <div className="truncate">{durationToTime(upload.duration)}</div>
           </CardContent>
         </div>
         {onDelete && (

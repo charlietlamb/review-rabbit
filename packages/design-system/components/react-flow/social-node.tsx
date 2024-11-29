@@ -1,6 +1,6 @@
 import { Node, NodeProps, Handle, Position } from '@xyflow/react'
 import { BaseNode } from '@dubble/design-system/components/react-flow/base-node'
-import { ProviderData } from 'lib/providers'
+import { ProviderData } from '@dubble/design-system/lib/providers'
 import { cn } from '@dubble/design-system/lib/utils'
 import {
   Sheet,

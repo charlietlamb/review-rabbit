@@ -3,7 +3,7 @@ import { validateAuthorizationCode } from '../utils/validate-authorization-code'
 import { refreshTokens as refreshOAuthTokens } from '../utils/refresh-tokens'
 import { BetterAuthError } from 'better-auth'
 
-export interface GoogleProfile extends BaseProfile {
+export interface YouTubeProfile extends BaseProfile {
   sub: string
   given_name: string
   family_name: string
@@ -14,7 +14,7 @@ export interface GoogleProfile extends BaseProfile {
   channelName?: string
 }
 
-export type GoogleOptions = ProviderOptions
+export type YouTubeOptions = ProviderOptions
 
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
@@ -31,7 +31,9 @@ const SCOPES = [
   'https://www.googleapis.com/auth/youtubepartner', // Content management
 ].join(' ')
 
-export function google(options: GoogleOptions): OAuthProvider<GoogleProfile> {
+export function youtube(
+  options: YouTubeOptions
+): OAuthProvider<YouTubeProfile> {
   return {
     async createAuthorizationURL(params) {
       const url = new URL(GOOGLE_AUTH_URL)
@@ -80,7 +82,7 @@ export function google(options: GoogleOptions): OAuthProvider<GoogleProfile> {
       }
     },
 
-    async getUserProfile(accessToken): Promise<GoogleProfile> {
+    async getUserProfile(accessToken): Promise<YouTubeProfile> {
       const response = await fetch(GOOGLE_USERINFO_URL, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -115,7 +117,7 @@ export function google(options: GoogleOptions): OAuthProvider<GoogleProfile> {
         ...profile,
         id: profile.sub,
         username: profile.channelName || profile.given_name || null,
-      } as GoogleProfile
+      } as YouTubeProfile
     },
   }
 }

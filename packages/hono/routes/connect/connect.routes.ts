@@ -3,10 +3,10 @@ import { z } from 'zod'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { HttpStatusCodes } from '@dubble/http'
 import { unauthorizedSchema } from '@dubble/hono/lib/configure-auth'
+import { connects, selectConnectSchema } from '@dubble/database'
 
 const tags = ['Connect']
 
-// Common error responses
 const commonErrorResponses = {
   [HttpStatusCodes.NOT_FOUND]: jsonContent(
     z.object({
@@ -77,7 +77,6 @@ export const refreshTokens = createRoute({
   },
 })
 
-// Route for disconnecting provider
 export const disconnect = createRoute({
   path: '/connect/:connectionId',
   method: 'delete',
@@ -94,7 +93,24 @@ export const disconnect = createRoute({
   },
 })
 
+export const getProviderConnects = createRoute({
+  path: '/connect/:providerId/get',
+  method: 'get',
+  summary: 'Get connections for a specific provider',
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        connections: z.array(selectConnectSchema),
+      }),
+      'Provider connections'
+    ),
+    ...commonErrorResponses,
+  },
+})
+
 export type ConnectInitiateRoute = typeof connectInitiate
 export type ConnectCallbackRoute = typeof connectCallback
 export type RefreshTokensRoute = typeof refreshTokens
 export type DisconnectRoute = typeof disconnect
+export type GetProviderConnectsRoute = typeof getProviderConnects

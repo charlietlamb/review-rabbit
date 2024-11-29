@@ -20,9 +20,10 @@ const INSTAGRAM_AUTH_URL = 'https://api.instagram.com/oauth/authorize'
 const INSTAGRAM_TOKEN_URL = 'https://api.instagram.com/oauth/access_token'
 const INSTAGRAM_USER_URL = 'https://graph.instagram.com/me'
 
-// Instagram Basic Display API permissions
+// Instagram Basic Display API permissions for development
+// Only requesting basic permissions available without app review
 // https://developers.facebook.com/docs/instagram-basic-display-api/overview#permissions
-const SCOPES = ['user_profile', 'user_media'].join(' ')
+const SCOPES = ['basic'].join(' ')
 
 export function instagram(
   options: InstagramOptions

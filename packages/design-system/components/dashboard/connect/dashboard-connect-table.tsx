@@ -20,9 +20,13 @@ import { CloudAlert, Plus, X } from 'lucide-react'
 import DisconnectDialog from './provider/disconnect-dialog'
 import ConnectDialog from './provider/connect-dialog'
 import { Separator } from '@dubble/design-system/components/ui/separator'
+import { cloneElement } from 'react'
 
 export const DashboardConnectTable = () => {
   const { provider, connects } = useDashboardConnectProviderContext()
+  const largeIcon = cloneElement(provider.icon as React.ReactElement, {
+    className: 'w-12 h-12 text-muted-foreground',
+  })
   const columns: ColumnDef<Connect>[] = [
     {
       accessorKey: 'account',
@@ -130,7 +134,7 @@ export const DashboardConnectTable = () => {
         </>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 flex-grow font-heading">
-          <CloudAlert className="w-12 h-12 text-muted-foreground" />
+          {largeIcon}
           <p>We couldn't find any connected {provider.name} accounts...</p>
           <ConnectDialog provider={provider}>
             Connect your first {provider.name} account

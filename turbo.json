@@ -18,7 +18,9 @@
     "ANALYZE",
     "ELEVENLABS_API_KEY",
     "GOOGLE_CLIENT_SECRET",
-    "INSTAGRAM_APP_SECRET"
+    "INSTAGRAM_APP_SECRET",
+    "TIKTOK_CLIENT_SECRET",
+    "SNAPCHAT_CLIENT_SECRET"
   ],
   "tasks": {
     "build": {

@@ -1,4 +1,10 @@
-import { RiInstagramFill, RiTiktokFill, RiYoutubeFill } from '@remixicon/react'
+import {
+  RiInstagramFill,
+  RiTiktokFill,
+  RiYoutubeFill,
+  RiTwitterXFill,
+  RiSnapchatFill,
+} from '@remixicon/react'
 
 export const providerData = [
   {
@@ -11,6 +17,7 @@ export const providerData = [
     className:
       'bg-social-youtube/80 hover:bg-social-youtube group-hover:bg-social-youtube',
     classNameText: 'text-social-youtube',
+    classNameTextOnBackground: 'text-white',
     classNameBorder: 'border-social-youtube/80 hover:border-social-youtube',
     error: 'Please enter a valid YouTube video URL.',
     info: 'Make sure to allow all access to your YouTube account. We will never post anything without your permission.',
@@ -25,6 +32,7 @@ export const providerData = [
     className:
       'bg-social-instagram/80 hover:bg-social-instagram group-hover:bg-social-instagram',
     classNameText: 'text-social-instagram',
+    classNameTextOnBackground: 'text-white',
     classNameBorder: 'border-social-instagram/80 hover:border-social-instagram',
     error: 'Please enter a valid Instagram video URL.',
     info: 'Your account must be a business/creator account to connect to Instagram. We will never post anything without your permission.',
@@ -39,9 +47,39 @@ export const providerData = [
     className:
       'bg-social-tiktok/80 hover:bg-social-tiktok group-hover:bg-social-tiktok',
     classNameText: 'text-social-tiktok',
+    classNameTextOnBackground: 'text-white',
     classNameBorder: 'border-social-tiktok/80 hover:border-social-tiktok',
     error: 'Please enter a valid Tiktok video URL.',
     info: 'Your account must be a business/creator account to connect to Tiktok. We will never post anything without your permission.',
+  },
+  {
+    id: 'twitter',
+    name: 'X (Twitter)',
+    company: 'X Corp',
+    start: 'https://twitter.com/',
+    placeholder: 'your-tweet-id',
+    icon: <RiTwitterXFill />,
+    className: 'bg-social-x/80 hover:bg-social-x group-hover:bg-social-x',
+    classNameText: 'text-social-x',
+    classNameTextOnBackground: 'text-white',
+    classNameBorder: 'border-social-x/80 hover:border-social-x',
+    error: 'Please enter a valid X (Twitter) post URL.',
+    info: 'Make sure to allow all access to your X account. We will never post anything without your permission.',
+  },
+  {
+    id: 'snapchat',
+    name: 'Snapchat',
+    company: 'Snap Inc.',
+    start: 'https://snapchat.com/',
+    placeholder: 'your-snap-id',
+    icon: <RiSnapchatFill />,
+    className:
+      'bg-social-snapchat/80 hover:bg-social-snapchat/90 group-hover:bg-social-snapchat/90',
+    classNameText: 'text-social-snapchat',
+    classNameTextOnBackground: 'text-black',
+    classNameBorder: 'border-social-snapchat/80 hover:border-social-snapchat',
+    error: 'Please enter a valid Snapchat URL.',
+    info: 'Your account must be a business/creator account to connect to Snapchat. We will never post anything without your permission.',
   },
 ] as ProviderData[]
 
@@ -61,6 +99,7 @@ export type ProviderData = {
   icon: React.ReactNode
   className: string
   classNameText: string
+  classNameTextOnBackground: string
   classNameBorder: string
   error: string
   info: string

@@ -9,8 +9,8 @@ import {
   uploadsLayoutAtom,
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
-import { Media } from '@dubble/database'
+} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
+import { Media } from '@dubble/database/schema/media'
 import { UploadDialog } from './upload-dialog'
 
 export default function Upload({

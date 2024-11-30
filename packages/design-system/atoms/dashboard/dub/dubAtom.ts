@@ -4,7 +4,7 @@ import {
   LanguageWithFlag,
   languagesMap,
 } from '@dubble/design-system/data/language'
-import { uploadsAtom } from '../upload/uploadsAtom'
+import { uploadsAtom } from '../upload/uploads-atom'
 import { Option } from '@dubble/design-system/components/misc/multi-select'
 
 export const dubLanguagesOptionsAtom = atom<Option[]>([])

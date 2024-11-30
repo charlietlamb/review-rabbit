@@ -13,8 +13,12 @@ import { useAtom } from 'jotai'
 import { dubSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import { cn } from '@dubble/design-system/lib/utils'
 import { env } from '@dubble/env'
-import { AudioLines, Dot, Trash2 } from 'lucide-react'
-import { isVideo } from '@dubble/design-system/lib/misc/is-video'
+import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
+import {
+  isAudio,
+  isImage,
+  isVideo,
+} from '@dubble/design-system/lib/misc/is-video'
 import { Media } from '@dubble/database/schema/media'
 
 export default function UploadCard({
@@ -29,6 +33,8 @@ export default function UploadCard({
   const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
   const [selected, setSelected] = useState(false)
   const video = isVideo(upload.extension)
+  const image = isImage(upload.extension)
+  const audio = isAudio(upload.extension)
 
   useEffect(() => {
     if (dubSelectedMedia?.some((m) => m.id === upload.id)) setSelected(true)
@@ -45,14 +51,20 @@ export default function UploadCard({
         onClick={onSelect}
       >
         <div className="aspect-square w-20 min-w-[5rem] relative flex items-center justify-center border-r border-border">
-          {video ? (
+          {video || image ? (
             <img
-              src={`${env.NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`}
+              src={
+                video
+                  ? `${env.NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`
+                  : `${env.NEXT_PUBLIC_AWS_S3_URL}media/${upload.id}.${upload.extension}`
+              }
               alt={upload.name}
               className="w-full h-full absolute inset-0 object-cover"
             />
-          ) : (
+          ) : audio ? (
             <AudioLines />
+          ) : (
+            <FileIcon />
           )}
         </div>
         <div className="flex flex-col min-w-0 flex-1">
@@ -72,8 +84,14 @@ export default function UploadCard({
             )}
           >
             <div className="flex-shrink-0">{numberToSize(upload.size)}</div>
-            <Dot />
-            <div className="truncate">{durationToTime(upload.duration)}</div>
+            {!!upload.duration && (
+              <>
+                <Dot />
+                <div className="truncate">
+                  {durationToTime(upload.duration)}
+                </div>
+              </>
+            )}
           </CardContent>
         </div>
         {onDelete && (

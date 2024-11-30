@@ -4,7 +4,7 @@ import {
   uploadsAtom,
   uploadsLastUpdatedAtom,
   uploadsLayoutAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
+} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useRef } from 'react'
@@ -13,14 +13,13 @@ import PageLoading from '@dubble/design-system/components/misc/page-loading'
 import PageError from '@dubble/design-system/components/misc/page-error'
 import { cn } from '@dubble/design-system/lib/utils'
 import InfiniteScroll from '@dubble/design-system/components/misc/infinite-scroll'
-import UploadCardPopoverWrap from './card/upload-card-dialog'
 import {
   dubAvailableMediaAtom,
   dubSelectedMediaAtom,
 } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
-import PageEmpty from '@dubble/design-system/components/misc/page-empty'
 import UploadsPageEmpty from './uploads-page-empty'
 import UploadCardDialog from './card/upload-card-dialog'
+import { Media } from '@dubble/database/schema/media'
 
 export default function Uploads({ dub = false }: { dub?: boolean }) {
   const uploads = useAtomValue(uploadsAtom)

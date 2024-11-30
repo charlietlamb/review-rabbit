@@ -1,7 +1,7 @@
 import { fetchMediaFromIds } from '@dubble/design-system/actions/media/fetch-media-from-ids'
 import { uploadMedia } from '@dubble/design-system/actions/media/upload-media'
 import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
-import { uploadsLastUpdatedAtom } from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
+import { uploadsLastUpdatedAtom } from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
 import Spinner from '@dubble/design-system/components/misc/spinner'
 import { Button } from '@dubble/design-system/components/ui/button'
 import { useAtom, useSetAtom } from 'jotai'
@@ -20,7 +20,7 @@ export default function FileUpload({
   files: File[] | undefined
   durations: Record<string, number>
   setFiles: Dispatch<SetStateAction<File[] | undefined>>
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen?: Dispatch<SetStateAction<boolean>>
   setProgress: Dispatch<SetStateAction<Record<string, number>>>
   dub?: boolean
 }) {
@@ -36,7 +36,7 @@ export default function FileUpload({
       toast.error('Failed to upload files', {
         description: 'Please try again.',
       })
-      setOpen(false)
+      setOpen?.(false)
       setLoading(false)
       return
     }
@@ -56,7 +56,7 @@ export default function FileUpload({
     )
     setLastUpdated(new Date())
     setLoading(false)
-    setOpen(false)
+    setOpen?.(false)
   }
   return (
     <Button

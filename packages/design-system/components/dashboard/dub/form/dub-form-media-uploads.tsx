@@ -14,7 +14,7 @@ import Uploads from '../../upload/uploads'
 import {
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploadsAtom'
+} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
 import { useAtom, useSetAtom } from 'jotai'
 import {
   dubSelectedMediaAtom,

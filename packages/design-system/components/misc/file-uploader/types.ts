@@ -84,15 +84,15 @@ export interface FileUploaderProps
    * @default undefined
    * @example setOpen={setOpen}
    */
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen?: Dispatch<SetStateAction<boolean>>
 
   /**
-   * Whether the uploader is for dubbing.
+   * Whether the uploader should not show the preview.
    * @type boolean
    * @default false
-   * @example dub
+   * @example noPreview
    */
-  dub?: boolean
+  noPreview?: boolean
 }
 export interface FileCardProps {
   file: File

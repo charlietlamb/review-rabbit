@@ -112,6 +112,8 @@ export const config: Config = {
           linkedin: '#0077B5',
           instagram: '#883ab4',
           tiktok: '#fe2858',
+          x: '#000000',
+          snapchat: '#FFFC00',
           facebook: '#3B5998',
           reddit: '#FF4500',
         },

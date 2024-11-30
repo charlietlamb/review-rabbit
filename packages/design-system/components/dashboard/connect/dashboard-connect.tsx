@@ -6,7 +6,7 @@ import {
   providersLayoutAtom,
   providersSearchAtom,
   providersSortAtom,
-} from '@dubble/design-system/atoms/providers/providersAtom'
+} from '@dubble/design-system/atoms/providers/provders-atom'
 import { useAtom } from 'jotai'
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '@dubble/design-system/components/ui/button'

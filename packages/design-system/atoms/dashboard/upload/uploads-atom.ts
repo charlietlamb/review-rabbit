@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { Media } from '@dubble/hono/db/schema'
+import { Media } from '@dubble/database/schema/media'
 
 export const uploadPagesAtom = atom<Media[][]>([])
 export const uploadsSortAtom = atom<

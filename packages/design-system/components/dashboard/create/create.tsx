@@ -1,3 +1,5 @@
+import CreateOptions from './options/create-options'
+
 export default function DashboardCreate() {
-  return <div></div>
+  return <CreateOptions />
 }

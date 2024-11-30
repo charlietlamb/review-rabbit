@@ -285,12 +285,17 @@ export const getProviderConnects: AppRouteHandler<
     )
   }
   try {
-    const connections = await db.query.connects.findMany({
-      where: and(
-        eq(connects.userId, user.id),
-        eq(connects.providerId, providerId)
-      ),
-    })
+    const connections =
+      providerId === 'all'
+        ? await db.query.connects.findMany({
+            where: eq(connects.userId, user.id),
+          })
+        : await db.query.connects.findMany({
+            where: and(
+              eq(connects.userId, user.id),
+              eq(connects.providerId, providerId)
+            ),
+          })
 
     return c.json({ connections }, HttpStatusCodes.OK)
   } catch (error) {

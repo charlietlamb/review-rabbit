@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player'
 import { getPresignedUrl } from '@dubble/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
 import { cn } from '@dubble/design-system/lib/utils'
+import { Media } from '@dubble/database/schema/media'
 
 export default function VideoPlayer({ media }: { media: Media }) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -113,10 +114,15 @@ export default function VideoPlayer({ media }: { media: Media }) {
       ref={containerRef}
       className={cn(
         'w-full max-w-4xl mx-auto bg-background rounded-lg overflow-hidden',
-        isFullscreen && 'fixed inset-0 max-w-none z-50'
+        isFullscreen && 'fixed inset-0 max-w-none z-50 bg-black'
       )}
     >
-      <div className="relative aspect-video bg-black group border border-border">
+      <div
+        className={cn(
+          'relative aspect-video bg-black group border border-border',
+          isFullscreen && 'h-screen aspect-auto'
+        )}
+      >
         <ReactPlayer
           ref={playerRef}
           url={src}

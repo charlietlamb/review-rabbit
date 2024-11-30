@@ -22,16 +22,15 @@ export function FileUploader(props: FileUploaderProps) {
     onUpload,
     progresses,
     accept = {
-      'video/*': [],
-      'audio/*': [],
+      '*': [],
     },
     maxSize = 1024 * 1024 * 2,
     maxFileCount = 1,
     multiple = false,
     disabled = false,
     setOpen,
-    dub = false,
     className,
+    noPreview = false,
     ...dropzoneProps
   } = props
 
@@ -57,7 +56,12 @@ export function FileUploader(props: FileUploaderProps) {
 
       const newFiles = await Promise.all(
         acceptedFiles.map(async (file) => {
-          const duration = (await getFileDuration(file)) ?? 0
+          let duration = 0
+          try {
+            duration = (await getFileDuration(file)) ?? 0
+          } catch {
+            // ignore
+          }
           setDurations(
             (prev): Record<string, number> => ({
               ...prev,
@@ -167,7 +171,7 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         )}
       </Dropzone>
-      {files?.length ? (
+      {!noPreview && files?.length ? (
         <ScrollArea className="h-fit w-full px-3">
           <div className="flex max-h-48 flex-col gap-4">
             {files?.map((file, index) => (
@@ -181,14 +185,15 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         </ScrollArea>
       ) : null}
-      <FileUpload
-        files={files}
-        durations={durations}
-        setFiles={setFiles}
-        setOpen={setOpen}
-        setProgress={setProgress}
-        dub={dub}
-      />
+      {!noPreview && (
+        <FileUpload
+          files={files}
+          durations={durations}
+          setFiles={setFiles}
+          setOpen={setOpen}
+          setProgress={setProgress}
+        />
+      )}
     </div>
   )
 }

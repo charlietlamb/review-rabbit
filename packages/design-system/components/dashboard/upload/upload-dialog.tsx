@@ -11,7 +11,7 @@ import {
 } from '@dubble/design-system/components/ui/dialog'
 import { useState } from 'react'
 import { FileUploader } from '@dubble/design-system/components/misc/file-uploader/file-uploader'
-export function UploadDialog({ dub = false }: { dub?: boolean }) {
+export function UploadDialog() {
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)
 
@@ -35,7 +35,6 @@ export function UploadDialog({ dub = false }: { dub?: boolean }) {
           maxSize={8 * 1024 * 1024}
           onValueChange={setFiles}
           setOpen={setOpen}
-          dub={dub}
         />
       </DialogContent>
     </Dialog>

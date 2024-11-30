@@ -16,24 +16,30 @@ import {
   uploadsSortAtom,
 } from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
 import { useAtom, useSetAtom } from 'jotai'
-import {
-  dubSelectedMediaAtom,
-  dubMediaAtom,
-} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
 import Spinner from '@dubble/design-system/components/misc/spinner'
+import { createSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import { createMediaAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
 
-export default function DubFormMediaUploads() {
+export default function CreateFormUploads({
+  maxFileCount,
+  accept,
+  disabled,
+}: {
+  maxFileCount: number
+  accept: string[]
+  disabled: boolean
+}) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const setUploadsSort = useSetAtom(uploadsSortAtom)
   const setUploadsSearch = useSetAtom(uploadsSearchAtom)
-  const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
-  const [dubMedia, setDubMedia] = useAtom(dubMediaAtom)
+  const [media, setMedia] = useAtom(createMediaAtom)
+  const [selectedMedia, setSelectedMedia] = useAtom(createSelectedMediaAtom)
 
   useEffect(() => {
     setUploadsSort('newest')
     setUploadsSearch('')
-    setDubSelectedMedia([])
+    setSelectedMedia([])
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Enter' && open) {
@@ -47,12 +53,12 @@ export default function DubFormMediaUploads() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [setUploadsSort, setUploadsSearch, setDubSelectedMedia, open])
+  }, [setUploadsSort, setUploadsSearch, setSelectedMedia, open])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button colors="outline" className="font-heading">
+        <Button colors="outline" className="font-heading" disabled={disabled}>
           Your Uploads
         </Button>
       </DialogTrigger>
@@ -61,7 +67,13 @@ export default function DubFormMediaUploads() {
           <DialogTitle>Select a video to Dub</DialogTitle>
         </DialogHeader>
         <div className="flex-grow h-full overflow-y-auto">
-          <Uploads select />
+          <Uploads
+            select
+            selected={selectedMedia}
+            setSelected={setSelectedMedia}
+            maxFileCount={maxFileCount}
+            accept={accept}
+          />
         </div>
 
         <DialogFooter className="border-t border-border p-2 w-full py-4 bg-background">
@@ -70,11 +82,11 @@ export default function DubFormMediaUploads() {
             variant="shine"
             colors="none"
             className="font-heading w-full"
-            disabled={loading || dubSelectedMedia.length === 0}
+            disabled={loading || selectedMedia.length === 0}
             onClick={() => {
               setLoading(true)
-              setDubMedia([...(dubMedia || []), ...dubSelectedMedia])
-              setDubSelectedMedia([])
+              setMedia([...(media || []), ...selectedMedia])
+              setSelectedMedia([])
               setOpen(false)
               setLoading(false)
             }}

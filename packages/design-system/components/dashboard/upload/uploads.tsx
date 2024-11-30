@@ -20,15 +20,26 @@ import {
 import UploadsPageEmpty from './uploads-page-empty'
 import UploadCardDialog from './card/upload-card-dialog'
 import { Media } from '@dubble/database/schema/media'
-
-export default function Uploads({ dub = false }: { dub?: boolean }) {
+import { Dispatch, SetStateAction } from 'react'
+export default function Uploads({
+  select = false,
+  selected,
+  setSelected,
+  maxFileCount,
+  accept,
+}: {
+  select?: boolean
+  selected?: Media[]
+  setSelected?: Dispatch<SetStateAction<Media[]>>
+  maxFileCount?: number
+  accept?: string[]
+}) {
   const uploads = useAtomValue(uploadsAtom)
   const availableMedia = useAtomValue(dubAvailableMediaAtom)
   const setUploadPages = useSetAtom(uploadPagesAtom)
   const lastUpdated = useAtomValue(uploadsLastUpdatedAtom)
   const rootRef = useRef<HTMLDivElement>(null)
   const uploadLayout = useAtomValue(uploadsLayoutAtom)
-  const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
 
   const {
     data,
@@ -54,9 +65,12 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
   }, [lastUpdated, refetch])
 
   function handleSelect(upload: Media) {
-    if (dubSelectedMedia.some((m) => m.id === upload.id))
-      setDubSelectedMedia(dubSelectedMedia.filter((m) => m.id !== upload.id))
-    else setDubSelectedMedia([...(dubSelectedMedia ?? []), upload])
+    if (selected?.some((m) => m.id === upload.id))
+      setSelected?.(selected?.filter((m) => m.id !== upload.id))
+    else {
+      if (maxFileCount && selected && selected?.length >= maxFileCount) return
+      setSelected?.([...(selected ?? []), upload])
+    }
   }
 
   if (status === 'pending') return <PageLoading />
@@ -67,7 +81,7 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
     <div
       className={cn(
         'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full overflow-y-auto h-full overflow-x-hidden p-4',
-        (dub || uploadLayout === 'list') &&
+        (select || uploadLayout === 'list') &&
           'grid-cols-1 md:grid-cols-1 lg:grid-cols-1'
       )}
       ref={rootRef}
@@ -77,14 +91,18 @@ export default function Uploads({ dub = false }: { dub?: boolean }) {
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
       >
-        {dub
-          ? availableMedia.map((upload: Media) => (
-              <UploadCard
-                onSelect={() => handleSelect(upload)}
-                key={upload.id}
-                upload={upload}
-              />
-            ))
+        {select
+          ? availableMedia
+              .filter((upload: Media) =>
+                accept ? accept.includes(upload.mimeType.split('/')[0]) : true
+              )
+              .map((upload: Media) => (
+                <UploadCard
+                  onSelect={() => handleSelect(upload)}
+                  key={upload.id}
+                  upload={upload}
+                />
+              ))
           : uploads.map((upload: Media) => (
               <UploadCardDialog key={upload.id} upload={upload} />
             ))}

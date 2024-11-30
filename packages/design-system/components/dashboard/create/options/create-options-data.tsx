@@ -7,6 +7,7 @@ import {
   ImageIcons,
 } from '@dubble/design-system/components/dashboard/connect/provider/provider-icons'
 import { DropzoneProps } from 'react-dropzone'
+import { CreatePreviewShorts } from '../preview/create-preview-shorts'
 
 export type CreateOptionData = {
   id: string
@@ -15,8 +16,10 @@ export type CreateOptionData = {
   variants?: any
   subVariants?: any
   acceptedFileTypes?: DropzoneProps['accept']
+  acceptedMimeTypes?: string[]
   single?: boolean
   description: string
+  preview?: React.ReactElement
 }
 
 export const createOptionsMap = new Map<string, CreateOptionData>([
@@ -26,9 +29,11 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       id: 'short',
       name: 'Short',
       acceptedFileTypes: { 'video/*': [] },
+      acceptedMimeTypes: ['video'],
       providerIcons: ShortIcons,
       single: true,
       description: 'A shortform video.',
+      preview: <CreatePreviewShorts />,
     },
   ],
   [
@@ -38,6 +43,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Text',
       providerIcons: TextIcons,
       acceptedFileTypes: {},
+      acceptedMimeTypes: [],
       single: false,
       description: 'A text post.',
     },
@@ -49,6 +55,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Carousel',
       providerIcons: CarouselIcons,
       acceptedFileTypes: { 'image/*': [], 'video/*': [] },
+      acceptedMimeTypes: ['image', 'video'],
       single: false,
       description: 'A carousel of images or videos.',
     },
@@ -60,6 +67,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Video',
       providerIcons: VideoIcons,
       acceptedFileTypes: { 'video/*': [] },
+      acceptedMimeTypes: ['video'],
       single: true,
       description: 'A single video.',
     },
@@ -71,6 +79,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Image',
       providerIcons: ImageIcons,
       acceptedFileTypes: { 'image/*': [] },
+      acceptedMimeTypes: ['image'],
       single: true,
       description: 'A single image.',
     },
@@ -82,6 +91,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Story',
       providerIcons: StoryIcons,
       acceptedFileTypes: { 'video/*': [], 'image/*': [] },
+      acceptedMimeTypes: ['video', 'image'],
       description: 'A story of images or videos.',
     },
   ],

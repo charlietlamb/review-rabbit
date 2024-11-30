@@ -62,7 +62,7 @@ export default function CreateFormTextDialog() {
                   key={provider.id}
                   className={cn(
                     'p-2 rounded-md w-full items-center flex justify-center',
-                    provider.className
+                    provider?.className
                   )}
                 >
                   {provider.icon}

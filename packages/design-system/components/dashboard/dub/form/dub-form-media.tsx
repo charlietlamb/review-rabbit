@@ -8,7 +8,7 @@ export default function DubFormMedia() {
     <div className="flex flex-col gap-2 overflow-hidden flex-grow">
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
         <DubFormMediaUploads />
-        <UploadDialog dub />
+        <UploadDialog />
       </div>
       <OrLabel text="Or add from" />
       <DubFormExternal />

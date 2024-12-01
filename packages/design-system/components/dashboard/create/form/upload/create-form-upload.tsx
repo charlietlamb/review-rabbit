@@ -1,10 +1,10 @@
-import { FileUploader } from '@dubble/design-system/components/misc/file-uploader/file-uploader'
+import { FileUploader } from '@ff/design-system/components/misc/file-uploader/file-uploader'
 import { useAtom, useAtomValue } from 'jotai'
 import {
   createTypeAtom,
   createFilesAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { Label } from '@dubble/design-system/components/ui/label'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { Label } from '@ff/design-system/components/ui/label'
 import CreateFormUploads from './create-form-uploads'
 import CreateFormUploadsReset from './create-form-uploads-reset'
 import CreateFormUploadUrl from './create-form-upload-url'
@@ -33,14 +33,20 @@ export default function CreateFormUpload() {
           maxFileCount={maxFileCount - files.length}
           accept={createOption.acceptedMimeTypes ?? []}
           disabled={files.length >= maxFileCount}
+          files={files}
+          setFiles={setFiles}
         />
         <CreateFormUploadUrl
-          maxFileCount={maxFileCount - files.length}
-          accept={createOption.acceptedMimeTypes ?? []}
+          files={files}
+          setFiles={setFiles}
           disabled={files.length >= maxFileCount}
         />
       </div>
-      <CreateFormUploadsReset maxFileCount={maxFileCount} />
+      <CreateFormUploadsReset
+        files={files}
+        setFiles={setFiles}
+        maxFileCount={maxFileCount}
+      />
     </div>
   )
 }

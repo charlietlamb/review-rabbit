@@ -1,21 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
-import { Button } from '@dubble/design-system/components/ui/button'
-import { Slider } from '@dubble/design-system/components/ui/slider'
+import { Button } from '@ff/design-system/components/ui/button'
+import { Slider } from '@ff/design-system/components/ui/slider'
 import { Play, Pause, Check, X } from 'lucide-react'
-import { cn } from '@dubble/design-system/lib/utils'
-import { Media } from '@dubble/database/schema/media'
+import { cn } from '@ff/design-system/lib/utils'
+import { Media } from '@ff/database/schema/media'
 import { useAtom, useSetAtom } from 'jotai'
 import ReactPlayer from 'react-player'
 import {
   createFilesAtom,
   createPreviewUrlsAtom,
   createThumbnailTimeAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
 import debounce from 'lodash/debounce'
-import { AspectRatio } from '@dubble/design-system/components/ui/aspect-ratio'
-import { getPresignedUrl } from '@dubble/design-system/actions/s3/upload/get-presigned-url'
+import { AspectRatio } from '@ff/design-system/components/ui/aspect-ratio'
+import { getPresignedUrl } from '@ff/design-system/actions/s3/upload/get-presigned-url'
 
 interface CreatePreviewShortsProps {
   media?: File | Media | null

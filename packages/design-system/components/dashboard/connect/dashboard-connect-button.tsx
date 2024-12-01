@@ -1,5 +1,5 @@
-import { Button } from '@dubble/design-system/components/ui/button'
-import { cn } from '@dubble/design-system/lib/utils'
+import { Button } from '@ff/design-system/components/ui/button'
+import { cn } from '@ff/design-system/lib/utils'
 
 export default function DashboardConnectButton({
   className,

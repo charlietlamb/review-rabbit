@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from '@dubble/design-system/components/ui/button'
-import { cn } from '@dubble/design-system/lib/utils'
+import { Button } from '@ff/design-system/components/ui/button'
+import { cn } from '@ff/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import Spinner from '@dubble/design-system/components/misc/spinner'
+import Spinner from '@ff/design-system/components/misc/spinner'
 import { toast } from 'sonner'
 
 export function ConnectButton({

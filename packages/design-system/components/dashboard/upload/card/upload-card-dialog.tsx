@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import UploadCard from './upload-card'
-import { Dialog } from '@dubble/design-system/components/ui/dialog'
-import { DialogTrigger } from '@dubble/design-system/components/ui/dialog'
+import { Dialog } from '@ff/design-system/components/ui/dialog'
+import { DialogTrigger } from '@ff/design-system/components/ui/dialog'
 import UploadCardDialogContent from './upload-card-dialog-content'
-import { Media } from '@dubble/database/schema/media'
+import { Media } from '@ff/database/schema/media'
 
 export default function UploadCardDialog({ upload }: { upload: Media }) {
   const [open, setOpen] = useState(false)

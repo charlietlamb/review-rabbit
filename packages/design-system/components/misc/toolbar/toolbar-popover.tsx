@@ -1,13 +1,13 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@dubble/design-system/components/ui/radio-group'
-import { Label } from '@dubble/design-system/components/ui/label'
+} from '@ff/design-system/components/ui/radio-group'
+import { Label } from '@ff/design-system/components/ui/label'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@dubble/design-system/components/ui/popover'
+} from '@ff/design-system/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
 import { useToolbarContext } from './toolbar-context'
 

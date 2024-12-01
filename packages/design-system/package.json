@@ -1,13 +1,13 @@
 {
-  "name": "@dubble/design-system",
+  "name": "@ff/design-system",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.2.0",
     "@dnd-kit/modifiers": "^8.0.0",
-    "@dubble/analytics": "workspace:*",
-    "@dubble/auth": "workspace:*",
-    "@dubble/env": "workspace:*",
+    "@ff/analytics": "workspace:*",
+    "@ff/auth": "workspace:*",
+    "@ff/env": "workspace:*",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -71,7 +71,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "autoprefixer": "^10.4.20",

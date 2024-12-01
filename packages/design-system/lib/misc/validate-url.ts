@@ -10,7 +10,7 @@ export default async function validateUrl(
     const parsedUrl = new URL(url)
 
     // Common file extensions map
-    const extensionMap: Record<MediaType, string[]> = {
+    const extensionMap: Record<AcceptedMimeType, string[]> = {
       audio: ['.mp3', '.wav', '.ogg', '.m4a', '.aac'],
       video: ['.mp4', '.mov', '.avi', '.webm', '.mkv'],
       image: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'],

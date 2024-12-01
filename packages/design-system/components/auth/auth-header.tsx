@@ -16,12 +16,12 @@ export default function AuthHeader({ login }: { login: boolean }) {
         <ArrowRight />
       </Badge>
       <h1 className="title-size font-bold font-heading text-foreground">
-        {login ? 'Sign in to dubble' : 'Create your dubble account'}
+        {login ? 'Sign in to ff' : 'Create your ff account'}
       </h1>
       <p className="text-muted-foreground">
         {login
           ? 'Welcome back! Please enter your details.'
-          : 'Welcome to dubble! Please enter your details.'}
+          : 'Welcome to ff! Please enter your details.'}
       </p>
     </div>
   )

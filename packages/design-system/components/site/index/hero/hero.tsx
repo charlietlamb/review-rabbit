@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import HeroImage from './hero-image'
 import HeroPitch from './hero-pitch'
 import { HeroText } from './hero-text'

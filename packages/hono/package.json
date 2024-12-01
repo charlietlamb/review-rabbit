@@ -1,13 +1,13 @@
 {
-  "name": "@dubble/hono",
+  "name": "@ff/hono",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@aws-sdk/client-s3": "^3.687.0",
     "@aws-sdk/client-ses": "^3.687.0",
     "@aws-sdk/s3-request-presigner": "^3.688.0",
-    "@dubble/env": "workspace:*",
-    "@dubble/http": "workspace:*",
+    "@ff/env": "workspace:*",
+    "@ff/http": "workspace:*",
     "@hono/zod-openapi": "^0.18.0",
     "@scalar/hono-api-reference": "^0.5.161",
     "drizzle-zod": "^0.5.1",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "typescript": "^5.6.3",
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "@types/node": "22.9.0"
   }
 }

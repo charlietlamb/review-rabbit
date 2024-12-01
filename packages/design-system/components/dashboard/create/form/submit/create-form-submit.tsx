@@ -1,17 +1,17 @@
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@dubble/design-system/components/ui/dialog'
+} from '@ff/design-system/components/ui/dialog'
 import {
   createCaptionAtom,
   createFilesAtom,
   createScheduleAtom,
   createSelectedConnectsAtom,
   createCaptionPlatformAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { useAtomValue } from 'jotai'

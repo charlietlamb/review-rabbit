@@ -4,18 +4,18 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@dubble/design-system/components/ui/avatar'
+} from '@ff/design-system/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-} from '@dubble/design-system/components/ui/dropdown-menu'
+} from '@ff/design-system/components/ui/dropdown-menu'
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@dubble/design-system/components/ui/sidebar'
-import useUser from '@dubble/design-system/hooks/use-user'
+} from '@ff/design-system/components/ui/sidebar'
+import useUser from '@ff/design-system/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
 import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
 import DashboardSidebarThemeToggle from '../toggle/dashboard-sidebar-theme-toggle'

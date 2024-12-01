@@ -1,7 +1,7 @@
-import { AppBindings, AppOpenAPI } from '@dubble/hono/lib/types'
+import { AppBindings, AppOpenAPI } from '@ff/hono/lib/types'
 import { createMiddleware } from 'hono/factory'
-import { auth } from '@dubble/auth'
-import { HttpStatusCodes } from '@dubble/http'
+import { auth } from '@ff/auth'
+import { HttpStatusCodes } from '@ff/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 

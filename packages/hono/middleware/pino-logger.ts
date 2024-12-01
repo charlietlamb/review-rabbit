@@ -1,4 +1,4 @@
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import { logger } from 'hono-pino'
 import pino from 'pino'
 import pretty from 'pino-pretty'

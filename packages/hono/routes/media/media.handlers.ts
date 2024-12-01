@@ -1,14 +1,14 @@
-import { AppRouteHandler } from '@dubble/hono/lib/types'
-import { HttpStatusCodes } from '@dubble/http'
+import { AppRouteHandler } from '@ff/hono/lib/types'
+import { HttpStatusCodes } from '@ff/http'
 import {
   FetchMediaBatchRoute,
   FetchMediaRoute,
   StoreMediaRoute,
 } from './media.routes'
-import { db } from '@dubble/database'
-import { media } from '@dubble/database'
+import { db } from '@ff/database'
+import { media } from '@ff/database'
 import { and, eq, desc, inArray } from 'drizzle-orm'
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 
 export const storeMedia: AppRouteHandler<StoreMediaRoute> = async (c) => {
   const user = c.get('user')

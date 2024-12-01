@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { authClient } from '@dubble/design-system/lib/authClient'
+import { authClient } from '@ff/design-system/lib/authClient'
 
 export default function OneTapProvider({
   children,

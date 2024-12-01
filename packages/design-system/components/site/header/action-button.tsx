@@ -1,7 +1,7 @@
 'use client'
 
-import { authClient } from '@dubble/design-system/lib/authClient'
-import { Button } from '@dubble/design-system/components/ui/button'
+import { authClient } from '@ff/design-system/lib/authClient'
+import { Button } from '@ff/design-system/components/ui/button'
 import { useRouter } from 'next/navigation'
 type GetStartedButtonProps = {
   className?: string

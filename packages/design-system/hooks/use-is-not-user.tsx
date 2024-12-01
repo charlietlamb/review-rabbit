@@ -1,4 +1,4 @@
-import { User } from '@dubble/database/schema/users'
+import { User } from '@ff/database/schema/users'
 import { redirect } from 'next/navigation'
 
 export default function useIsNotUser(user: User | null) {

@@ -14,7 +14,7 @@ export function Testimonials() {
       </div>
       <p className="text-lg text-muted-foreground text-balance max-w-lg text-center">
         What developers and founders of top companies around the internet are
-        saying about dubble.
+        saying about ff.
       </p>
       <div className="columns-1 gap-7 md:columns-2 lg:columns-3">
         {testimonials.map((testimonial, index) => (

@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import { AppOpenAPI, stripeMetaDataSchema } from './types'
 
 export default async function configureStripe(app: AppOpenAPI) {

@@ -1,13 +1,13 @@
 'use client'
 
-import { Card } from '@dubble/design-system/components/ui/card'
+import { Card } from '@ff/design-system/components/ui/card'
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from '@dubble/design-system/components/ui/context-menu'
-import { cn } from '@dubble/design-system/lib/utils'
+} from '@ff/design-system/components/ui/context-menu'
+import { cn } from '@ff/design-system/lib/utils'
 import { DndContext, MouseSensor, useDraggable, useSensor } from '@dnd-kit/core'
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
 import { useMouse, useThrottle, useWindowScroll } from '@uidotdev/usehooks'

@@ -1,25 +1,20 @@
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import {
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@dubble/design-system/components/ui/dialog'
+} from '@ff/design-system/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import { useRouter } from 'next/navigation'
 import { useSetAtom } from 'jotai'
-import { dubMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
-import {
-  isAudio,
-  isImage,
-  isVideo,
-} from '@dubble/design-system/lib/misc/is-video'
-import AudioPlayer from '@dubble/design-system/components/misc/audio-player'
-import VideoPlayer from '@dubble/design-system/components/misc/video-player'
-import { Media } from '@dubble/database/schema/media'
-import { ImagePreview } from '@dubble/design-system/components/misc/image-preview'
-import OtherFilePreview from '@dubble/design-system/components/misc/other-file-preview'
+import { isAudio, isImage, isVideo } from '@ff/design-system/lib/misc/is-video'
+import AudioPlayer from '@ff/design-system/components/misc/audio-player'
+import VideoPlayer from '@ff/design-system/components/misc/video-player'
+import { Media } from '@ff/database/schema/media'
+import { ImagePreview } from '@ff/design-system/components/misc/image-preview'
+import OtherFilePreview from '@ff/design-system/components/misc/other-file-preview'
 
 export default function UploadCardDialogContent({
   upload,
@@ -29,7 +24,6 @@ export default function UploadCardDialogContent({
   setOpen: Dispatch<SetStateAction<boolean>>
 }) {
   const router = useRouter()
-  const setDubMedia = useSetAtom(dubMediaAtom)
   const video = isVideo(upload.extension)
   const audio = isAudio(upload.extension)
   const image = isImage(upload.extension)
@@ -57,12 +51,11 @@ export default function UploadCardDialogContent({
           colors="none"
           className="font-heading text-base"
           onClick={() => {
-            setDubMedia([upload])
             setOpen(false)
-            router.push('/dashboard/dub')
+            router.push('/dashboard/create')
           }}
         >
-          Dub
+          Create a post
         </Button>
         <UploadCardDeleteDialog upload={upload} setOpen={setOpen} />
       </DialogFooter>

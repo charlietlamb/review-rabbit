@@ -13,9 +13,7 @@ export function Logo() {
           fill="currentColor"
         />
       </svg>
-      <span className="font-heading text-xl font-bold text-foreground">
-        dubble
-      </span>
+      <span className="font-heading text-xl font-bold text-foreground">ff</span>
     </Link>
   )
 }

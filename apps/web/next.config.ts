@@ -1,5 +1,5 @@
-import { env } from '@dubble/env'
-import { config, withAnalyzer } from '@dubble/next-config'
+import { env } from '@ff/env'
+import { config, withAnalyzer } from '@ff/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = { ...config }

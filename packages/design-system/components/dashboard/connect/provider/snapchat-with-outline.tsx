@@ -1,4 +1,4 @@
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import { RiSnapchatFill, RiSnapchatLine } from 'react-icons/ri'
 
 export default function SnapchatWithOutline({

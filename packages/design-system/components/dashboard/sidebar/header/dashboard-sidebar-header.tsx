@@ -3,10 +3,10 @@
 import {
   SidebarHeader,
   useSidebar,
-} from '@dubble/design-system/components/ui/sidebar'
+} from '@ff/design-system/components/ui/sidebar'
 import Link from 'next/link'
 import DashboardSidebarThemeToggle from '../toggle/dashboard-sidebar-theme-toggle'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 
 export default function DashboardSidebarHeader() {
   const { open } = useSidebar()
@@ -17,7 +17,7 @@ export default function DashboardSidebarHeader() {
         !open && 'justify-center'
       )}
     >
-      <Link href="/">{open ? 'dubble' : 'd'}</Link>
+      <Link href="/">{open ? 'ff' : 'd'}</Link>
       <DashboardSidebarThemeToggle />
     </SidebarHeader>
   )

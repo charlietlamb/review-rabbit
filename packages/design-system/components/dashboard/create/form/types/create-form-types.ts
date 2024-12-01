@@ -1,5 +1,2 @@
-import type { CreateOptionData } from '../options/create-options-data'
-
-export type CreateFormContext = {
-  createOption: CreateOptionData
-}
+import type { Media } from '@ff/database/schema/media'
+export type CreateFile = File | Media | string

@@ -1,10 +1,10 @@
 {
-  "extends": "@dubble/typescript-config/nextjs.json",
+  "extends": "@ff/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@dubble/*": ["../../packages/*"]
+      "@ff/*": ["../../packages/*"]
     }
   },
   "include": [

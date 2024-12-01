@@ -9,18 +9,17 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from '@dubble/design-system/components/ui/resizable'
+} from '@ff/design-system/components/ui/resizable'
 import {
   createConnectsAtom,
   createTypeAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useSetAtom } from 'jotai'
 import CreateFormHeader from './header/create-form-header'
-import { Connect } from '@dubble/database/schema/connects'
+import { Connect } from '@ff/database/schema/connects'
 import CreateFormAccounts from './accounts/create-form-accounts'
 import CreateFormSchedule from './schedule/create-form-schedule'
 import CreateFormSubmit from './submit/create-form-submit'
-import { Separator } from '@dubble/design-system/components/ui/separator'
 import CreateFormAudio from './audio/create-form-audio'
 
 export default function CreateForm({

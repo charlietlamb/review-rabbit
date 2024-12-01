@@ -1,7 +1,7 @@
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import { createAuthClient } from 'better-auth/react'
 import { inferAdditionalFields, oneTapClient } from 'better-auth/client/plugins'
-import { auth } from '@dubble/auth'
+import { auth } from '@ff/auth'
 
 export const authClient = createAuthClient({
   baseURL: env.NEXT_PUBLIC_API,

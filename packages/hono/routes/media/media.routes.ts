@@ -1,8 +1,8 @@
 import { createRoute, z } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
-import { HttpStatusCodes } from '@dubble/http'
-import { unauthorizedSchema } from '@dubble/hono/lib/configure-auth'
-import { selectMediaSchema } from '@dubble/database/schema/media'
+import { HttpStatusCodes } from '@ff/http'
+import { unauthorizedSchema } from '@ff/hono/lib/configure-auth'
+import { selectMediaSchema } from '@ff/database/schema/media'
 
 const tags = ['Media']
 

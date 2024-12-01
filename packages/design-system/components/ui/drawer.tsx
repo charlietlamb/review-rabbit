@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Drawer as DrawerPrimitive } from 'vaul'
 
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 
 const Drawer = ({
   shouldScaleBackground = true,

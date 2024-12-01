@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@dubble/design-system/components",
-    "utils": "@dubble/design-system/lib/utils",
-    "ui": "@dubble/design-system/components/ui",
-    "lib": "@dubble/design-system/lib",
-    "hooks": "@dubble/design-system/hooks"
+    "components": "@ff/design-system/components",
+    "utils": "@ff/design-system/lib/utils",
+    "ui": "@ff/design-system/components/ui",
+    "lib": "@ff/design-system/lib",
+    "hooks": "@ff/design-system/hooks"
   }
 }

@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@dubble/hono/lib/types'
+import { AppOpenAPI } from '@ff/hono/lib/types'
 import { cors } from 'hono/cors'
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 
 export default function configureCors(app: AppOpenAPI) {
   app.use('*', async (c, next) => {

@@ -1,5 +1,5 @@
 {
-  "name": "dubble",
+  "name": "ff",
   "packageManager": "bun@1.1.29",
   "devDependencies": {
     "@types/bun": "latest"

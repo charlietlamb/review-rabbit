@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
 import { useAtom, useAtomValue } from 'jotai'
 import {
   createCaptionPlatformAtom,
@@ -15,12 +15,12 @@ import {
   createSelectedProvidersAtom,
   createTextPlatformAtom,
   createCaptionAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { cn } from '@dubble/design-system/lib/utils'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { cn } from '@ff/design-system/lib/utils'
 import { useEffect } from 'react'
-import { Label } from '@dubble/design-system/components/ui/label'
-import { providerDataById, Provider } from '@dubble/design-system/lib/providers'
-import { Textarea } from '@dubble/design-system/components/ui/textarea'
+import { Label } from '@ff/design-system/components/ui/label'
+import { providerDataById, Provider } from '@ff/design-system/lib/providers'
+import { Textarea } from '@ff/design-system/components/ui/textarea'
 
 export default function CreateFormTextDialog() {
   const [textPlatform, setTextPlatform] = useAtom(createTextPlatformAtom)

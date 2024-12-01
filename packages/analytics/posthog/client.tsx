@@ -1,6 +1,6 @@
 'use client'
 
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import posthogRaw, { type PostHog } from 'posthog-js'
 import { PostHogProvider as PostHogProviderRaw } from 'posthog-js/react'
 import type { ReactNode } from 'react'

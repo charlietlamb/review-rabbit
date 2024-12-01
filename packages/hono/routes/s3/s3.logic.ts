@@ -1,13 +1,13 @@
-import { users } from '@dubble/database/schema/users'
+import { users } from '@ff/database/schema/users'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,
-} from '@dubble/hono/routes/s3/s3.types'
-import { HttpStatusCodes } from '@dubble/http'
-import { env } from '@dubble/env'
+} from '@ff/hono/routes/s3/s3.types'
+import { HttpStatusCodes } from '@ff/http'
+import { env } from '@ff/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { db } from '@dubble/database'
+import { db } from '@ff/database'
 import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 

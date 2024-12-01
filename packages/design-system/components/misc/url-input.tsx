@@ -1,7 +1,7 @@
 import { LoaderCircle, Check, X, AudioLines, Search } from 'lucide-react'
-import { Input } from '@dubble/design-system/components/ui/input'
+import { Input } from '@ff/design-system/components/ui/input'
 import { useState, useEffect } from 'react'
-import validateUrl from '@dubble/design-system/lib/misc/validate-url'
+import validateUrl from '@ff/design-system/lib/misc/validate-url'
 import { AcceptedMimeType } from 'data/file-types'
 
 export default function UrlInput({

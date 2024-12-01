@@ -11,15 +11,15 @@ import {
   X,
 } from 'lucide-react'
 
-import { cn } from '@dubble/design-system/lib/utils'
-import { Separator } from '@dubble/design-system/components/ui/separator'
-import { Button } from '@dubble/design-system/components/ui/button'
-import { Badge } from '@dubble/design-system/components/ui/badge'
+import { cn } from '@ff/design-system/lib/utils'
+import { Separator } from '@ff/design-system/components/ui/separator'
+import { Button } from '@ff/design-system/components/ui/button'
+import { Badge } from '@ff/design-system/components/ui/badge'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@dubble/design-system/components/ui/popover'
+} from '@ff/design-system/components/ui/popover'
 import {
   Command,
   CommandEmpty,
@@ -28,9 +28,9 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@dubble/design-system/components/ui/command'
-import { Connect } from '@dubble/database/schema/connects'
-import { Provider, providerDataById } from '@dubble/design-system/lib/providers'
+} from '@ff/design-system/components/ui/command'
+import { Connect } from '@ff/database/schema/connects'
+import { Provider, providerDataById } from '@ff/design-system/lib/providers'
 
 /**
  * Variants for the multi-select component to handle different styles.

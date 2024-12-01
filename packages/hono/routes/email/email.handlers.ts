@@ -1,10 +1,10 @@
-import { AppRouteHandler } from '@dubble/hono/lib/types'
-import { HttpStatusCodes } from '@dubble/http'
-import { SendVerifyEmailRoute } from '@dubble/hono/routes/email/email.routes'
-import { db } from '@dubble/database'
-import { verifications } from '@dubble/database/schema'
-import { sendEmail } from '@dubble/email'
-import { getVerifyEmail } from '@dubble/email'
+import { AppRouteHandler } from '@ff/hono/lib/types'
+import { HttpStatusCodes } from '@ff/http'
+import { SendVerifyEmailRoute } from '@ff/hono/routes/email/email.routes'
+import { db } from '@ff/database'
+import { verifications } from '@ff/database/schema'
+import { sendEmail } from '@ff/email'
+import { getVerifyEmail } from '@ff/email'
 
 export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
   c

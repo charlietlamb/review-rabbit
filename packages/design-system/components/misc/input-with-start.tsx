@@ -1,4 +1,4 @@
-import { Input } from '@dubble/design-system/components/ui/input'
+import { Input } from '@ff/design-system/components/ui/input'
 import { Dispatch, SetStateAction } from 'react'
 import { ProviderData } from '../../lib/providers'
 

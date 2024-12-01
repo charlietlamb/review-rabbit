@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@dubble/hono/lib/types'
-import { env } from '@dubble/env'
-import { HttpStatusCodes } from '@dubble/http'
+import { AppOpenAPI } from '@ff/hono/lib/types'
+import { env } from '@ff/env'
+import { HttpStatusCodes } from '@ff/http'
 
 export default function configureRedirects(app: AppOpenAPI) {
   app.use('/redirect/:path', async (c) => {

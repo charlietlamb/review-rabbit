@@ -1,5 +1,5 @@
 {
-  "name": "@dubble/env",
+  "name": "@ff/env",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "typescript": "^5.6.3",
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "@types/node": "22.9.0"
   }
 }

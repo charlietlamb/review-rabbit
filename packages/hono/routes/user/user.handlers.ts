@@ -2,16 +2,16 @@ import {
   GetUserRoute,
   ResetPasswordRoute,
   UpdateUserRoute,
-} from '@dubble/hono/routes/user/user.routes'
-import { AppRouteHandler } from '@dubble/hono/lib/types'
-import { db } from '@dubble/database'
+} from '@ff/hono/routes/user/user.routes'
+import { AppRouteHandler } from '@ff/hono/lib/types'
+import { db } from '@ff/database'
 import { eq } from 'drizzle-orm'
-import { users } from '@dubble/database/schema/users'
-import { updateUserSchema } from '@dubble/hono/routes/user/user.schema'
-import { HttpStatusCodes } from '@dubble/http'
-import { verifications } from '@dubble/database/schema/verifications'
-import { hashPassword } from '@dubble/hono/lib/password'
-import { accounts } from '@dubble/database/schema'
+import { users } from '@ff/database/schema/users'
+import { updateUserSchema } from '@ff/hono/routes/user/user.schema'
+import { HttpStatusCodes } from '@ff/http'
+import { verifications } from '@ff/database/schema/verifications'
+import { hashPassword } from '@ff/hono/lib/password'
+import { accounts } from '@ff/database/schema'
 
 export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   const userId = c.req.param('userId')

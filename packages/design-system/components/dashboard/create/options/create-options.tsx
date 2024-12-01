@@ -18,7 +18,7 @@ import {
   textVariants,
   videoVariants,
 } from './icons/option-motion-values'
-import DashboardContentHeader from '@dubble/design-system/components/dashboard/header/dashboard-content-header'
+import DashboardContentHeader from '@ff/design-system/components/dashboard/header/dashboard-content-header'
 
 export default function CreateOptions() {
   const controls = {

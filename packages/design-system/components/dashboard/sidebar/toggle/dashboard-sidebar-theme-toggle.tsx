@@ -1,7 +1,7 @@
 import { Moon, Sun } from 'lucide-react'
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import { useTheme } from 'next-themes'
-import { useSidebar } from '@dubble/design-system/components/ui/sidebar'
+import { useSidebar } from '@ff/design-system/components/ui/sidebar'
 
 export default function DashboardSidebarThemeToggle({
   closed = false,

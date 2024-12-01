@@ -1,6 +1,6 @@
-import { createScheduleAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { DateTimeInputComplex } from '@dubble/design-system/components/misc/date-time-input-complex'
-import { Label } from '@dubble/design-system/components/ui/label'
+import { createScheduleAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { DateTimeInputComplex } from '@ff/design-system/components/misc/date-time-input-complex'
+import { Label } from '@ff/design-system/components/ui/label'
 import { useAtom } from 'jotai'
 
 export default function CreateFormSchedule() {

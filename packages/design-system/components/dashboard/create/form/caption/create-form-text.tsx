@@ -1,8 +1,8 @@
 'use client'
 
-import { Label } from '@dubble/design-system/components/ui/label'
-import { Textarea } from '@dubble/design-system/components/ui/textarea'
-import { createCaptionAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import { Label } from '@ff/design-system/components/ui/label'
+import { Textarea } from '@ff/design-system/components/ui/textarea'
+import { createCaptionAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useAtom } from 'jotai'
 import CreateFormTextDialog from './create-form-text-dialog'
 

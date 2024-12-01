@@ -1,6 +1,6 @@
 import { DropzoneProps } from 'react-dropzone'
 import { CreatePreviewShorts } from '../preview/create-preview-shorts'
-import { Provider, providerDataById } from '@dubble/design-system/lib/providers'
+import { Provider, providerDataById } from '@ff/design-system/lib/providers'
 import { AcceptedMimeType } from 'data/file-types'
 
 export type CreateOptionData = {

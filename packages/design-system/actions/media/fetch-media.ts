@@ -1,9 +1,9 @@
 'use server'
 
-import { Media } from '@dubble/database/schema/media'
-import client from '@dubble/design-system/lib/client'
-import { PAGE_SIZE } from '@dubble/design-system/data/page-size'
-import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
+import { Media } from '@ff/database/schema/media'
+import client from '@ff/design-system/lib/client'
+import { PAGE_SIZE } from '@ff/design-system/data/page-size'
+import { headersWithCookies } from '@ff/design-system/lib/header-with-cookies'
 
 export async function fetchMedia(
   source: string,

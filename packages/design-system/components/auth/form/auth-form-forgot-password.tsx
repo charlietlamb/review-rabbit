@@ -6,13 +6,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import { authClient } from '@dubble/design-system/lib/authClient'
+import { authClient } from '@ff/design-system/lib/authClient'
 import { toast } from 'sonner'
 import Email from './email'
 

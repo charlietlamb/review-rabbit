@@ -1,5 +1,5 @@
 {
-  "extends": "@dubble/typescript-config/react-library.json",
+  "extends": "@ff/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
@@ -9,7 +9,7 @@
       }
     ],
     "paths": {
-      "@dubble/*": ["../*"]
+      "@ff/*": ["../*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

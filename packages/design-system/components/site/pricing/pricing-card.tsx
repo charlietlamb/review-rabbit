@@ -6,11 +6,11 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
-} from '@dubble/design-system/components/ui/card'
+} from '@ff/design-system/components/ui/card'
 import { PricingTier } from './pricing-data'
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import { Check, Gift } from 'lucide-react'
-import { checkout } from '@dubble/design-system/actions/stripe/checkout'
+import { checkout } from '@ff/design-system/actions/stripe/checkout'
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
   return (

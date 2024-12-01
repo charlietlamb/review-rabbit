@@ -7,8 +7,8 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { cn } from '@dubble/design-system/lib/utils'
-import { useSidebar } from '@dubble/design-system/components/ui/sidebar'
+import { cn } from '@ff/design-system/lib/utils'
+import { useSidebar } from '@ff/design-system/components/ui/sidebar'
 const transition: Transition = {
   duration: 0.3,
   opacity: { delay: 0.15 },

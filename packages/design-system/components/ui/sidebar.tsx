@@ -5,19 +5,19 @@ import { Slot } from '@radix-ui/react-slot'
 import { VariantProps, cva } from 'class-variance-authority'
 import { PanelLeft } from 'lucide-react'
 
-import { useIsMobile } from '@dubble/design-system/hooks/use-mobile'
-import { cn } from '@dubble/design-system/lib/utils'
-import { Button } from '@dubble/design-system/components/ui/button'
-import { Input } from '@dubble/design-system/components/ui/input'
-import { Separator } from '@dubble/design-system/components/ui/separator'
-import { Sheet, SheetContent } from '@dubble/design-system/components/ui/sheet'
-import { Skeleton } from '@dubble/design-system/components/ui/skeleton'
+import { useIsMobile } from '@ff/design-system/hooks/use-mobile'
+import { cn } from '@ff/design-system/lib/utils'
+import { Button } from '@ff/design-system/components/ui/button'
+import { Input } from '@ff/design-system/components/ui/input'
+import { Separator } from '@ff/design-system/components/ui/separator'
+import { Sheet, SheetContent } from '@ff/design-system/components/ui/sheet'
+import { Skeleton } from '@ff/design-system/components/ui/skeleton'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@dubble/design-system/components/ui/tooltip'
+} from '@ff/design-system/components/ui/tooltip'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

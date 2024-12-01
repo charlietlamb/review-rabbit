@@ -1,4 +1,4 @@
-import { Separator } from '@dubble/design-system/components/ui/separator'
+import { Separator } from '@ff/design-system/components/ui/separator'
 import DashboardTitle from '../../title/dashboard-title'
 import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 

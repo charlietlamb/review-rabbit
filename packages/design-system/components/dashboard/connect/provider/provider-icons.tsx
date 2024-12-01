@@ -4,7 +4,7 @@ import {
   RiYoutubeFill,
   RiTwitterXFill,
 } from 'react-icons/ri'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import SnapchatWithOutline from './snapchat-with-outline'
 
 const iconClassName = 'w-4 h-4 min-w-4 min-h-4 text-white'

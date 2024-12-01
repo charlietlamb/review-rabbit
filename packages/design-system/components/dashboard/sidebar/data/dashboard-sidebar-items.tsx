@@ -1,15 +1,15 @@
-import { WorkflowIcon } from '@dubble/design-system/components/dashboard/sidebar/icons/workflow'
-import { HomeIcon } from '@dubble/design-system/components/dashboard/sidebar/icons/home'
-import { LinkIcon } from '@dubble/design-system/components/dashboard/sidebar/icons/link'
-import { SparklesIcon } from '@dubble/design-system/components/dashboard/sidebar/icons/sparkles'
-import { SquarePenIcon } from '@dubble/design-system/components/dashboard/sidebar/icons/square-pen'
+import { WorkflowIcon } from '@ff/design-system/components/dashboard/sidebar/icons/workflow'
+import { HomeIcon } from '@ff/design-system/components/dashboard/sidebar/icons/home'
+import { LinkIcon } from '@ff/design-system/components/dashboard/sidebar/icons/link'
+import { SparklesIcon } from '@ff/design-system/components/dashboard/sidebar/icons/sparkles'
+import { SquarePenIcon } from '@ff/design-system/components/dashboard/sidebar/icons/square-pen'
 
 export const dashboardSidebarItems = [
   {
     title: 'Home',
     icon: <HomeIcon />,
-    href: '/dashboard/dub',
-    key: 'dub',
+    href: '/dashboard',
+    key: 'home',
   },
   {
     title: 'Create',

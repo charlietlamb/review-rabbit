@@ -1,13 +1,13 @@
 import { Node, NodeProps, Handle, Position } from '@xyflow/react'
-import { BaseNode } from '@dubble/design-system/components/react-flow/base-node'
-import { ProviderData } from '@dubble/design-system/lib/providers'
-import { cn } from '@dubble/design-system/lib/utils'
+import { BaseNode } from '@ff/design-system/components/react-flow/base-node'
+import { ProviderData } from '@ff/design-system/lib/providers'
+import { cn } from '@ff/design-system/lib/utils'
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from '@dubble/design-system/components/ui/sheet'
+} from '@ff/design-system/components/ui/sheet'
 export type SocialNodeType = Node<{
   platform: ProviderData
 }>

@@ -13,8 +13,8 @@ export function Features() {
         </h2>
       </div>
       <p className="text-muted-foreground text-balance max-w-xl text-lg text-center">
-        dubble brings the best of two worlds together: the speed of development
-        of no-code tools, and the flexibility of code.
+        ff brings the best of two worlds together: the speed of development of
+        no-code tools, and the flexibility of code.
       </p>
       <div className="max-w-7xl md:grid-cols-2 lg:grid-cols-4 relative z-10 grid grid-cols-1 py-10 mx-auto">
         {featuresData.map((feature) => (

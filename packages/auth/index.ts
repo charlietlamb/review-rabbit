@@ -1,9 +1,9 @@
-import { db } from '@dubble/database'
+import { db } from '@ff/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { env } from '@dubble/env'
-import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@dubble/email'
-import * as schema from '@dubble/database/schema'
+import { env } from '@ff/env'
+import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@ff/email'
+import * as schema from '@ff/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 
 export const auth = betterAuth({
@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'dubble',
+    cookiePrefix: 'ff',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
       enabled: env.NODE_ENV === 'production' ? true : false,

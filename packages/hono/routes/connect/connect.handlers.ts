@@ -1,9 +1,9 @@
-import { AppRouteHandler } from '@dubble/hono/lib/types'
-import { HttpStatusCodes } from '@dubble/http'
-import { db } from '@dubble/database'
-import * as schema from '@dubble/database/schema'
+import { AppRouteHandler } from '@ff/hono/lib/types'
+import { HttpStatusCodes } from '@ff/http'
+import { db } from '@ff/database'
+import * as schema from '@ff/database/schema'
 import { eq, and } from 'drizzle-orm'
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import {
   ConnectInitiateRoute,
   ConnectCallbackRoute,
@@ -13,7 +13,7 @@ import {
 } from './connect.routes'
 import { providerMap } from '../../connect/providers/provider-map'
 import { InstagramProfile } from '../../connect/providers/instagram'
-import { connects } from '@dubble/database/schema/connects'
+import { connects } from '@ff/database/schema/connects'
 import {
   getAccountId,
   getAccountName,

@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardHeader,
   CardContent,
   CardTitle,
-} from '@dubble/design-system/components/ui/card'
-import { Badge } from '@dubble/design-system/components/ui/badge'
-import { durationToTime } from '@dubble/design-system/lib/misc/duration-to-time'
+} from '@ff/design-system/components/ui/card'
+import { durationToTime } from '@ff/design-system/lib/misc/duration-to-time'
 import { fileToIcon } from './file-to-icon'
-import { numberToSize } from '@dubble/design-system/lib/misc/number-to-size'
+import { numberToSize } from '@ff/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
-import { dubSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
-import { cn } from '@dubble/design-system/lib/utils'
-import { env } from '@dubble/env'
+import { cn } from '@ff/design-system/lib/utils'
+import { env } from '@ff/env'
 import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
-import {
-  isAudio,
-  isImage,
-  isVideo,
-} from '@dubble/design-system/lib/misc/is-video'
-import { Media } from '@dubble/database/schema/media'
+import { isAudio, isImage, isVideo } from '@ff/design-system/lib/misc/is-video'
+import { Media } from '@ff/database/schema/media'
 
 export default function UploadCard({
   upload,
@@ -30,16 +24,10 @@ export default function UploadCard({
   onSelect?: () => void
   onDelete?: () => void
 }) {
-  const [dubSelectedMedia, setDubSelectedMedia] = useAtom(dubSelectedMediaAtom)
   const [selected, setSelected] = useState(false)
   const video = isVideo(upload.extension)
   const image = isImage(upload.extension)
   const audio = isAudio(upload.extension)
-
-  useEffect(() => {
-    if (dubSelectedMedia?.some((m) => m.id === upload.id)) setSelected(true)
-    else setSelected(false)
-  }, [dubSelectedMedia, upload])
 
   return (
     <div className="w-full group">

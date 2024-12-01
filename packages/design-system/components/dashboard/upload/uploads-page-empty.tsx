@@ -1,4 +1,4 @@
-import { UploadDialog } from '@dubble/design-system/components/dashboard/upload/upload-dialog'
+import { UploadDialog } from '@ff/design-system/components/dashboard/upload/upload-dialog'
 
 export default function UploadsPageEmpty() {
   return (

@@ -1,9 +1,9 @@
-import DashboardHeader from '@dubble/design-system/components/dashboard/header/dashboard-header'
-import DashboardSidebar from '@dubble/design-system/components/dashboard/sidebar/dashboard-sidebar'
-import SessionProvider from '@dubble/design-system/components/providers/session-provider'
-import { SidebarProvider } from '@dubble/design-system/components/ui/sidebar'
-import useAuth from '@dubble/design-system/hooks/use-auth'
-import useIsUser from '@dubble/design-system/hooks/use-is-user'
+import DashboardHeader from '@ff/design-system/components/dashboard/header/dashboard-header'
+import DashboardSidebar from '@ff/design-system/components/dashboard/sidebar/dashboard-sidebar'
+import SessionProvider from '@ff/design-system/components/providers/session-provider'
+import { SidebarProvider } from '@ff/design-system/components/ui/sidebar'
+import useAuth from '@ff/design-system/hooks/use-auth'
+import useIsUser from '@ff/design-system/hooks/use-is-user'
 
 export default async function layout({
   children,

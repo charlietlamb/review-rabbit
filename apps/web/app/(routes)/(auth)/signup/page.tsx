@@ -1,6 +1,6 @@
-import Auth from '@dubble/design-system/components/auth/auth'
-import SiteLayout from '@dubble/design-system/components/site/site-layout'
-import { auth } from '@dubble/auth'
+import Auth from '@ff/design-system/components/auth/auth'
+import SiteLayout from '@ff/design-system/components/site/site-layout'
+import { auth } from '@ff/auth'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 

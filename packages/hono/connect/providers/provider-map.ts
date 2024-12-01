@@ -4,7 +4,7 @@ import { instagram, InstagramOptions } from './instagram'
 import { tiktok, TikTokOptions } from './tiktok'
 import { x, XOptions } from './x'
 import { snapchat, SnapchatOptions } from './snapchat'
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 
 // Configure the providers
 const youtubeConfig: YouTubeOptions = {

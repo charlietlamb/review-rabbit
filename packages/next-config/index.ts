@@ -1,4 +1,4 @@
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withVercelToolbar from '@vercel/toolbar/plugins/next'
 import type { NextConfig } from 'next'

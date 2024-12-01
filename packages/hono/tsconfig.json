@@ -1,11 +1,11 @@
 {
-  "extends": "@dubble/typescript-config/react-library.json",
+  "extends": "@ff/typescript-config/react-library.json",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@dubble/hono/*": ["./*"]
+      "@ff/hono/*": ["./*"]
     }
   },
   "include": ["./*.ts", "./*.tsx"],

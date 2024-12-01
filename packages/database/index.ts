@@ -1,2 +1,2 @@
-export * from '@dubble/database/schema/index'
-export { db } from '@dubble/database/postgres'
+export * from '@ff/database/schema/index'
+export { db } from '@ff/database/postgres'

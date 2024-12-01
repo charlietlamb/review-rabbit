@@ -1,6 +1,6 @@
-import { createRouter } from '@dubble/hono/lib/create-app'
-import * as handlers from '@dubble/hono/routes/s3/s3.handlers'
-import * as routes from '@dubble/hono/routes/s3/s3.routes'
+import { createRouter } from '@ff/hono/lib/create-app'
+import * as handlers from '@ff/hono/routes/s3/s3.handlers'
+import * as routes from '@ff/hono/routes/s3/s3.routes'
 
 const router = createRouter()
   .openapi(routes.uploadProfileImage, handlers.uploadProfileImage)

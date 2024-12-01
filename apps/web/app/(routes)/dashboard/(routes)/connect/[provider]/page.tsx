@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
-import DashboardConnectProvider from '@dubble/design-system/components/dashboard/connect/provider/dashboard-connect-provider'
-import { providerDataById } from '@dubble/design-system/lib/providers'
-import { getProviderConnects } from '@dubble/design-system/actions/connect/get-provider-connects'
+import DashboardConnectProvider from '@ff/design-system/components/dashboard/connect/provider/dashboard-connect-provider'
+import { providerDataById } from '@ff/design-system/lib/providers'
+import { getProviderConnects } from '@ff/design-system/actions/connect/get-provider-connects'
 
 export default async function page({
   params,

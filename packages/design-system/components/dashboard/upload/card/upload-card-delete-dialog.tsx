@@ -1,9 +1,9 @@
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import { useSetAtom } from 'jotai'
-import { uploadsLastUpdatedAtom } from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
+import { uploadsLastUpdatedAtom } from '@ff/design-system/atoms/dashboard/upload/uploads-atom'
 import { toast } from 'sonner'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { deleteMedia } from '@dubble/design-system/actions/media/delete-media'
+import { deleteMedia } from '@ff/design-system/actions/media/delete-media'
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@dubble/design-system/components/ui/dialog'
-import Spinner from '@dubble/design-system/components/misc/spinner'
-import { Media } from '@dubble/database/schema/media'
+} from '@ff/design-system/components/ui/dialog'
+import Spinner from '@ff/design-system/components/misc/spinner'
+import { Media } from '@ff/database/schema/media'
 
 export default function UploadCardDeleteDialog({
   upload,

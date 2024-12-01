@@ -1,25 +1,21 @@
-import { fetchMedia } from '@dubble/design-system/actions/media/fetch-media'
+import { fetchMedia } from '@ff/design-system/actions/media/fetch-media'
 import {
   uploadPagesAtom,
   uploadsAtom,
   uploadsLastUpdatedAtom,
   uploadsLayoutAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
+} from '@ff/design-system/atoms/dashboard/upload/uploads-atom'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useRef } from 'react'
 import UploadCard from './card/upload-card'
-import PageLoading from '@dubble/design-system/components/misc/page-loading'
-import PageError from '@dubble/design-system/components/misc/page-error'
-import { cn } from '@dubble/design-system/lib/utils'
-import InfiniteScroll from '@dubble/design-system/components/misc/infinite-scroll'
-import {
-  dubAvailableMediaAtom,
-  dubSelectedMediaAtom,
-} from '@dubble/design-system/atoms/dashboard/dub/dubAtom'
+import PageLoading from '@ff/design-system/components/misc/page-loading'
+import PageError from '@ff/design-system/components/misc/page-error'
+import { cn } from '@ff/design-system/lib/utils'
+import InfiniteScroll from '@ff/design-system/components/misc/infinite-scroll'
 import UploadsPageEmpty from './uploads-page-empty'
 import UploadCardDialog from './card/upload-card-dialog'
-import { Media } from '@dubble/database/schema/media'
+import { Media } from '@ff/database/schema/media'
 import { Dispatch, SetStateAction } from 'react'
 export default function Uploads({
   select = false,
@@ -35,7 +31,6 @@ export default function Uploads({
   accept?: string[]
 }) {
   const uploads = useAtomValue(uploadsAtom)
-  const availableMedia = useAtomValue(dubAvailableMediaAtom)
   const setUploadPages = useSetAtom(uploadPagesAtom)
   const lastUpdated = useAtomValue(uploadsLastUpdatedAtom)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -92,7 +87,7 @@ export default function Uploads({
         fetchNextPage={fetchNextPage}
       >
         {select
-          ? availableMedia
+          ? uploads
               .filter((upload: Media) =>
                 accept ? accept.includes(upload.mimeType.split('/')[0]) : true
               )

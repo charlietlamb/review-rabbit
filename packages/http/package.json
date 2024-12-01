@@ -1,5 +1,5 @@
 {
-  "name": "@dubble/http",
+  "name": "@ff/http",
   "type": "module",
   "module": "index.ts",
   "dependencies": {

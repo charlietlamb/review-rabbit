@@ -1,9 +1,9 @@
 import { createRoute, z } from '@hono/zod-openapi'
-import { HttpStatusCodes } from '@dubble/http'
+import { HttpStatusCodes } from '@ff/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { updateUserSchema } from './user.schema'
-import { selectUserSchema } from '@dubble/database/schema/users'
-import { unauthorizedSchema } from '@dubble/hono/lib/configure-auth'
+import { selectUserSchema } from '@ff/database/schema/users'
+import { unauthorizedSchema } from '@ff/hono/lib/configure-auth'
 
 const tags = ['Users']
 

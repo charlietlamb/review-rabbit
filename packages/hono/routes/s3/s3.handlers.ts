@@ -4,27 +4,27 @@ import {
   DeleteObjectCommand,
   GetObjectCommand,
 } from '@aws-sdk/client-s3'
-import { AppRouteHandler } from '@dubble/hono/lib/types'
+import { AppRouteHandler } from '@ff/hono/lib/types'
 import {
   DeleteMediaRoute,
   GetPresignedUrlRoute,
   GetProfileImagePresignedUrlRoute,
   GetUploadPresignedUrlRoute,
   UploadProfileImageRoute,
-} from '@dubble/hono/routes/s3/s3.routes'
-import { env } from '@dubble/env'
-import { HttpStatusCodes } from '@dubble/http'
-import { db } from '@dubble/database'
+} from '@ff/hono/routes/s3/s3.routes'
+import { env } from '@ff/env'
+import { HttpStatusCodes } from '@ff/http'
+import { db } from '@ff/database'
 import { eq } from 'drizzle-orm'
-import { media, users } from '@dubble/database/schema'
+import { media, users } from '@ff/database/schema'
 import {
   generatePresignedUrlUserImage,
   PresignedUrlErrorCodes,
-} from '@dubble/hono/routes/s3/s3.logic'
+} from '@ff/hono/routes/s3/s3.logic'
 import {
   PresignedUrlResponseError,
   PresignedUrlResponseOk,
-} from '@dubble/hono/routes/s3/s3.types'
+} from '@ff/hono/routes/s3/s3.types'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { User } from 'better-auth'
 

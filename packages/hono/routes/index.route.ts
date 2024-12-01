@@ -1,4 +1,4 @@
-import { createRouter } from '@dubble/hono/lib/create-app'
+import { createRouter } from '@ff/hono/lib/create-app'
 import { createRoute, z } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
@@ -14,12 +14,12 @@ const router = createRouter().openapi(
         z.object({
           message: z.string(),
         }),
-        'dubble API index!'
+        'ff API index!'
       ),
     },
   }),
   (c) => {
-    return c.json({ message: 'dubble API index!' }, HttpStatusCodes.OK)
+    return c.json({ message: 'ff API index!' }, HttpStatusCodes.OK)
   }
 )
 

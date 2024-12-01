@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { Label } from '@dubble/design-system/components/ui/label'
-import { Input } from '@dubble/design-system/components/ui/input'
-import { cn } from '@dubble/design-system/lib/utils'
+import { Label } from '@ff/design-system/components/ui/label'
+import { Input } from '@ff/design-system/components/ui/input'
+import { cn } from '@ff/design-system/lib/utils'
 import { User } from 'lucide-react'
-import FieldInfo from '@dubble/design-system/components/form/field-info'
+import FieldInfo from '@ff/design-system/components/form/field-info'
 
 export default function Name({ form }: { form: TanstackForm<any> }) {
   return (

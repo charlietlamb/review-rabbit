@@ -1,10 +1,10 @@
-import { AnalyticsProvider } from '@dubble/analytics'
-import { env } from '@dubble/env'
+import { AnalyticsProvider } from '@ff/analytics'
+import { env } from '@ff/env'
 import { VercelToolbar } from '@vercel/toolbar/next'
-import { Toaster } from '@dubble/design-system/components/ui/sonner'
-import { TooltipProvider } from '@dubble/design-system/components/ui/tooltip'
-import Providers from '@dubble/design-system/components/providers/providers'
-import OneTapProvider from '@dubble/design-system/components/providers/one-tap-provider'
+import { Toaster } from '@ff/design-system/components/ui/sonner'
+import { TooltipProvider } from '@ff/design-system/components/ui/tooltip'
+import Providers from '@ff/design-system/components/providers/providers'
+import OneTapProvider from '@ff/design-system/components/providers/one-tap-provider'
 
 export const DesignSystemProvider = ({
   children,

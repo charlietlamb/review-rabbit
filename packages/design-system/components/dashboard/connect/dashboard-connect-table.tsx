@@ -9,17 +9,17 @@ import {
   TableHeaderGroup,
   TableProvider,
   TableRow,
-} from '@dubble/design-system/components/roadmap-ui/table'
+} from '@ff/design-system/components/roadmap-ui/table'
 import type { ColumnDef } from '@tanstack/react-table'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import { useDashboardConnectProviderContext } from './provider/dashboard-connect-provider-context'
-import { Connect } from '@dubble/database/schema/connects'
+import { Connect } from '@ff/database/schema/connects'
 import { format } from 'date-fns'
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import { CloudAlert, Plus, X } from 'lucide-react'
 import DisconnectDialog from './provider/disconnect-dialog'
 import ConnectDialog from './provider/connect-dialog'
-import { Separator } from '@dubble/design-system/components/ui/separator'
+import { Separator } from '@ff/design-system/components/ui/separator'
 import { cloneElement } from 'react'
 
 export const DashboardConnectTable = () => {

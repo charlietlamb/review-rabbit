@@ -2,15 +2,15 @@ import { HighlightedText } from './highlighted-text'
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import { useAtomValue } from 'jotai'
 import {
   createCaptionAtom,
   createCaptionPlatformAtom,
   createConnectsAtom,
   createSelectedConnectsAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { Skeleton } from '@dubble/design-system/components/ui/skeleton'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { Skeleton } from '@ff/design-system/components/ui/skeleton'
 import { PREVIEW_INTERVAL } from './create-form-preview-data'
 
 export function CreateFormPreviewText({ className }: { className?: string }) {

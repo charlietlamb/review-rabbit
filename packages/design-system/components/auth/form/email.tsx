@@ -2,9 +2,9 @@ import React from 'react'
 import { z } from 'zod'
 import { Label } from '../../ui/label'
 import { Input } from '../../ui/input'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import { Mail } from 'lucide-react'
-import FieldInfo from '@dubble/design-system/components/form/field-info'
+import FieldInfo from '@ff/design-system/components/form/field-info'
 
 export default function Email({ form }: { form: TanstackForm<any> }) {
   return (

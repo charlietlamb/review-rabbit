@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { ProviderData, providerData } from '@dubble/design-system/lib/providers'
+import { ProviderData, providerData } from '@ff/design-system/lib/providers'
 
 export const providersAtom = atom<ProviderData[]>((get) => {
   const sort = get(providersSortAtom)

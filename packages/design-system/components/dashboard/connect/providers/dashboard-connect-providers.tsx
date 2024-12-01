@@ -1,6 +1,6 @@
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 import { useAtomValue } from 'jotai'
-import { providersAtom } from '@dubble/design-system/atoms/providers/provders-atom'
+import { providersAtom } from '@ff/design-system/atoms/providers/provders-atom'
 import ProviderCard from './provider-card'
 
 export default function DashboardConnectProviders() {

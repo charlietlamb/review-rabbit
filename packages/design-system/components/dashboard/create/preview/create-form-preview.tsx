@@ -1,4 +1,4 @@
-import { createTypeAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import { createTypeAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useAtomValue } from 'jotai'
 import { CreateFormPreviewAccounts } from './create-form-preview-account'
 import { CreateFormPreviewText } from './create-form-preview-text'

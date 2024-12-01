@@ -1,10 +1,10 @@
-import { Button } from '@dubble/design-system/components/ui/button'
+import { Button } from '@ff/design-system/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@dubble/design-system/components/ui/dropdown-menu'
+} from '@ff/design-system/components/ui/dropdown-menu'
 import {
   TableBody as TableBodyRaw,
   TableCell as TableCellRaw,
@@ -12,8 +12,8 @@ import {
   TableHeader as TableHeaderRaw,
   Table as TableRaw,
   TableRow as TableRowRaw,
-} from '@dubble/design-system/components/ui/table'
-import { cn } from '@dubble/design-system/lib/utils'
+} from '@ff/design-system/components/ui/table'
+import { cn } from '@ff/design-system/lib/utils'
 import type {
   Cell,
   Column,

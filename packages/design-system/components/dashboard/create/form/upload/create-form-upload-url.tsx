@@ -5,30 +5,26 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
-import UrlInput from '@dubble/design-system/components/misc/url-input'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
+import UrlInput from '@ff/design-system/components/misc/url-input'
 import { useState } from 'react'
-import {
-  createFilesAtom,
-  createTypeAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { useAtom, useAtomValue } from 'jotai'
-import { AcceptedMimeType } from '@dubble/design-system/data/file-types'
+import { createTypeAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { useAtomValue } from 'jotai'
+import { CreateFile } from '../types/create-form-types'
 
 export default function CreateFormUploadUrl({
-  maxFileCount,
-  accept,
+  files,
+  setFiles,
   disabled,
 }: {
-  maxFileCount: number
-  accept: AcceptedMimeType[]
+  files: CreateFile[]
+  setFiles: (files: CreateFile[]) => void
   disabled: boolean
 }) {
   const [open, setOpen] = useState(false)
   const [url, setUrl] = useState('')
   const [valid, setValid] = useState(false)
-  const [files, setFiles] = useAtom(createFilesAtom)
   const createType = useAtomValue(createTypeAtom)
 
   return (

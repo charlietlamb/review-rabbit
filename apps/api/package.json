@@ -9,19 +9,19 @@
     "stripe": "stripe listen --forward-to localhost:8000/webhooks/stripe"
   },
   "dependencies": {
-    "@dubble/analytics": "workspace:*",
-    "@dubble/auth": "workspace:*",
-    "@dubble/database": "workspace:*",
-    "@dubble/design-system": "workspace:*",
-    "@dubble/env": "workspace:*",
-    "@dubble/next-config": "workspace:*",
+    "@ff/analytics": "workspace:*",
+    "@ff/auth": "workspace:*",
+    "@ff/database": "workspace:*",
+    "@ff/design-system": "workspace:*",
+    "@ff/env": "workspace:*",
+    "@ff/next-config": "workspace:*",
     "next": "15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "svix": "^1.40.0"
   },
   "devDependencies": {
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",

@@ -1,7 +1,7 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@dubble/design-system/components/ui/radio-group'
+} from '@ff/design-system/components/ui/radio-group'
 import { Grid, Rows3 } from 'lucide-react'
 import { useToolbarContext } from './toolbar-context'
 

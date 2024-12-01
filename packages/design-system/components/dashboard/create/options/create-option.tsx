@@ -5,7 +5,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-} from '@dubble/design-system/components/ui/card'
+} from '@ff/design-system/components/ui/card'
 import { useRouter } from 'next/navigation'
 
 export default function CreateOption({

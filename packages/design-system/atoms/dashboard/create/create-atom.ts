@@ -1,12 +1,12 @@
 import { atom } from 'jotai'
-import { CreateOptionData } from '@dubble/design-system/components/dashboard/create/options/create-options-data'
-import { Connect } from '@dubble/database/schema/connects'
+import { CreateOptionData } from '@ff/design-system/components/dashboard/create/options/create-options-data'
+import { Connect } from '@ff/database/schema/connects'
 import {
   Provider,
   ProviderData,
   providerDataById,
-} from '@dubble/design-system/lib/providers'
-import { Media } from '@dubble/database/schema/media'
+} from '@ff/design-system/lib/providers'
+import { Media } from '@ff/database/schema/media'
 
 export const createTypeAtom = atom<CreateOptionData | null>(null)
 export const createFilesAtom = atom<(File | Media | string)[]>([])

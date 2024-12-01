@@ -3,9 +3,9 @@ import { useAtom, useAtomValue } from 'jotai'
 import {
   createConnectsAtom,
   createSelectedConnectsAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { MultiSelect } from '@dubble/design-system/components/misc/account-multi-select'
-import { Label } from '@dubble/design-system/components/ui/label'
+} from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { MultiSelect } from '@ff/design-system/components/misc/account-multi-select'
+import { Label } from '@ff/design-system/components/ui/label'
 export default function AccountMultiSelect() {
   const [selectedConnects, setSelectedConnects] = useAtom(
     createSelectedConnectsAtom

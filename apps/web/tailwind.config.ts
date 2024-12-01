@@ -1,1 +1,1 @@
-export { config as default } from '@dubble/tailwind-config/config'
+export { config as default } from '@ff/tailwind-config/config'

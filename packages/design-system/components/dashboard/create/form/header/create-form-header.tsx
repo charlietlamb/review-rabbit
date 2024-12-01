@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { createTypeAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import { createTypeAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import React from 'react'
 
 export default function CreateFormHeader() {

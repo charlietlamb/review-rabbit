@@ -11,7 +11,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "@dubble/*": ["../../packages/*"]
+      "@ff/*": ["../../packages/*"]
     }
   },
   "exclude": ["node_modules"]

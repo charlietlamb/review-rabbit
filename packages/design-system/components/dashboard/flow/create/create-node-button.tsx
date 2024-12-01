@@ -19,8 +19,8 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '@dubble/design-system/components/ui/command'
-import { Button } from '@dubble/design-system/components/ui/button'
+} from '@ff/design-system/components/ui/command'
+import { Button } from '@ff/design-system/components/ui/button'
 import { DialogTitle } from '@radix-ui/react-dialog'
 
 export default function CommandDialogDemo() {

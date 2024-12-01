@@ -1,10 +1,10 @@
 {
-  "name": "@dubble/next-config",
+  "name": "@ff/next-config",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@dubble/env": "workspace:*",
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/env": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "next": "15.0.3"
   },
   "dependencies": {

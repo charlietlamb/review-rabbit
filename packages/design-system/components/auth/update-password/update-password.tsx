@@ -1,6 +1,6 @@
 import React from 'react'
 import UpdatePasswordDialog from './update-password-dialog'
-import { Label } from '@dubble/design-system/components/ui/label'
+import { Label } from '@ff/design-system/components/ui/label'
 
 export default function UpdatePassword() {
   return (

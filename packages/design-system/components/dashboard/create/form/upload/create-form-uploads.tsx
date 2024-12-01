@@ -7,26 +7,28 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
 import { useEffect, useState } from 'react'
 import {
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
+} from '@ff/design-system/atoms/dashboard/upload/uploads-atom'
 import { useAtom, useSetAtom } from 'jotai'
-import Spinner from '@dubble/design-system/components/misc/spinner'
-import {
-  createFilesAtom,
-  createSelectedMediaAtom,
-} from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import Uploads from '@dubble/design-system/components/dashboard/upload/uploads'
+import Spinner from '@ff/design-system/components/misc/spinner'
+import { createSelectedMediaAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
+import Uploads from '@ff/design-system/components/dashboard/upload/uploads'
+import { CreateFile } from '../types/create-form-types'
 
 export default function CreateFormUploads({
+  files,
+  setFiles,
   maxFileCount,
   accept,
   disabled,
 }: {
+  files: CreateFile[]
+  setFiles: (files: CreateFile[]) => void
   maxFileCount: number
   accept: string[]
   disabled: boolean
@@ -35,7 +37,6 @@ export default function CreateFormUploads({
   const [loading, setLoading] = useState(false)
   const setUploadsSort = useSetAtom(uploadsSortAtom)
   const setUploadsSearch = useSetAtom(uploadsSearchAtom)
-  const [files, setFiles] = useAtom(createFilesAtom)
   const [selectedMedia, setSelectedMedia] = useAtom(createSelectedMediaAtom)
 
   useEffect(() => {

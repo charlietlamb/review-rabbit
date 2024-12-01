@@ -5,10 +5,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@dubble/design-system/components/ui/sidebar'
+} from '@ff/design-system/components/ui/sidebar'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 
 export default function DashboardSidebarMenuItem({
   item,

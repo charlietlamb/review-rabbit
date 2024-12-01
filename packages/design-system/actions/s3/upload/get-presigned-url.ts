@@ -1,7 +1,7 @@
 'use server'
 
-import client from '@dubble/design-system/lib/client'
-import { headersWithCookies } from '@dubble/design-system/lib/header-with-cookies'
+import client from '@ff/design-system/lib/client'
+import { headersWithCookies } from '@ff/design-system/lib/header-with-cookies'
 
 export async function getPresignedUrl(key: string) {
   try {

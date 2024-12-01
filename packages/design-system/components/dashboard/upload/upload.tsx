@@ -2,15 +2,15 @@
 
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import Uploads from './uploads'
-import Toolbar from '@dubble/design-system/components/misc/toolbar/toolbar'
+import Toolbar from '@ff/design-system/components/misc/toolbar/toolbar'
 import { useAtom, useSetAtom } from 'jotai'
 import {
   uploadPagesAtom,
   uploadsLayoutAtom,
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
-import { Media } from '@dubble/database/schema/media'
+} from '@ff/design-system/atoms/dashboard/upload/uploads-atom'
+import { Media } from '@ff/database/schema/media'
 import { UploadDialog } from './upload-dialog'
 
 export default function Upload({

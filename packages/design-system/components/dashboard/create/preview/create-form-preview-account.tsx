@@ -6,11 +6,11 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@dubble/design-system/components/ui/avatar'
-import { Skeleton } from '@dubble/design-system/components/ui/skeleton'
-import { cn } from '@dubble/design-system/lib/utils'
-import { providerDataById } from '@dubble/design-system/lib/providers'
-import { createSelectedConnectsAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+} from '@ff/design-system/components/ui/avatar'
+import { Skeleton } from '@ff/design-system/components/ui/skeleton'
+import { cn } from '@ff/design-system/lib/utils'
+import { providerDataById } from '@ff/design-system/lib/providers'
+import { createSelectedConnectsAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useAtomValue } from 'jotai'
 import { PREVIEW_INTERVAL } from './create-form-preview-data'
 

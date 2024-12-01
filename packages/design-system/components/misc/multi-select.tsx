@@ -1,13 +1,13 @@
 'use client'
 
-import { Badge } from '@dubble/design-system/components/ui/badge'
+import { Badge } from '@ff/design-system/components/ui/badge'
 import {
   Command,
   CommandItem,
   CommandEmpty,
   CommandList,
-} from '@dubble/design-system/components/ui/command'
-import { cn } from '@dubble/design-system/lib/utils'
+} from '@ff/design-system/components/ui/command'
+import { cn } from '@ff/design-system/lib/utils'
 import { Command as CommandPrimitive } from 'cmdk'
 import { X as RemoveIcon, Check } from 'lucide-react'
 import React, {

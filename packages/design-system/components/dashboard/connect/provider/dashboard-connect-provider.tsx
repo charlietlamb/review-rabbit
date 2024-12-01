@@ -1,8 +1,8 @@
 'use client'
 
-import { ProviderData } from '@dubble/design-system/lib/providers'
+import { ProviderData } from '@ff/design-system/lib/providers'
 import { DashboardConnectTable } from '../dashboard-connect-table'
-import { Connect } from '@dubble/database/schema/connects'
+import { Connect } from '@ff/database/schema/connects'
 import { DashboardConnectProviderContext } from './dashboard-connect-provider-context'
 import { toast } from 'sonner'
 import { useEffect } from 'react'

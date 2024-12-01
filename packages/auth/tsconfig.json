@@ -1,9 +1,9 @@
 {
-  "extends": "@dubble/typescript-config/react-library.json",
+  "extends": "@ff/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@dubble/auth/*": ["./*"]
+      "@ff/auth/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

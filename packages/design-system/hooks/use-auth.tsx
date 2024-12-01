@@ -1,6 +1,6 @@
-import { auth } from '@dubble/auth'
-import { User } from '@dubble/database/schema/users'
-import getUserImage from '@dubble/design-system/lib/misc/get-user-image'
+import { auth } from '@ff/auth'
+import { User } from '@ff/database/schema/users'
+import getUserImage from '@ff/design-system/lib/misc/get-user-image'
 import { headers } from 'next/headers'
 
 export default async function useAuth(): Promise<User | null> {

@@ -1,10 +1,10 @@
-import { ProviderData } from '@dubble/design-system/lib/providers'
-import { cn } from '@dubble/design-system/lib/utils'
+import { ProviderData } from '@ff/design-system/lib/providers'
+import { cn } from '@ff/design-system/lib/utils'
 import {
   Card,
   CardContent,
   CardHeader,
-} from '@dubble/design-system/components/ui/card'
+} from '@ff/design-system/components/ui/card'
 import { useRouter } from 'next/navigation'
 
 export default function ProviderCard({ provider }: { provider: ProviderData }) {

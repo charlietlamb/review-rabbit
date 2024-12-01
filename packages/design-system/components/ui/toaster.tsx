@@ -1,6 +1,6 @@
 'use client'
 
-import { useToast } from '@dubble/design-system/hooks/use-toast'
+import { useToast } from '@ff/design-system/hooks/use-toast'
 import {
   Toast,
   ToastClose,
@@ -8,7 +8,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@dubble/design-system/components/ui/toast'
+} from '@ff/design-system/components/ui/toast'
 
 export function Toaster() {
   const { toasts } = useToast()

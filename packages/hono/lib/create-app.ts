@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { notFound, onError, serveEmojiFavicon } from 'stoker/middlewares'
-import { pinoLogger } from '@dubble/hono/middleware/pino-logger'
-import { AppBindings } from '@dubble/hono/lib/types'
+import { pinoLogger } from '@ff/hono/middleware/pino-logger'
+import { AppBindings } from '@ff/hono/lib/types'
 import defaultHook from 'stoker/openapi/default-hook'
 
 export function createRouter() {

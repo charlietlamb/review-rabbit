@@ -1,7 +1,7 @@
-import { createAudioAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { Label } from '@dubble/design-system/components/ui/label'
+import { createAudioAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
+import { Label } from '@ff/design-system/components/ui/label'
 import { useAtom } from 'jotai'
-import UrlInput from '@dubble/design-system/components/misc/url-input'
+import UrlInput from '@ff/design-system/components/misc/url-input'
 import { useState } from 'react'
 
 export default function CreateFormAudio() {

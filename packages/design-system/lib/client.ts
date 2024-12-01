@@ -1,6 +1,6 @@
 import { hc } from 'hono/client'
-import type { AppType } from '@dubble/hono'
-import { env } from '@dubble/env'
+import type { AppType } from '@ff/hono'
+import { env } from '@ff/env'
 
 const client = hc<AppType>(env.NEXT_PUBLIC_API)
 

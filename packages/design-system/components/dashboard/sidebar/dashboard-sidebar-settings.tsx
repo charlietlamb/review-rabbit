@@ -4,7 +4,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@dubble/design-system/components/ui/collapsible'
+} from '@ff/design-system/components/ui/collapsible'
 import {
   SidebarMenuButton,
   SidebarMenuItem,
@@ -12,8 +12,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   useSidebar,
-} from '@dubble/design-system/components/ui/sidebar'
-import { cn } from '@dubble/design-system/lib/utils'
+} from '@ff/design-system/components/ui/sidebar'
+import { cn } from '@ff/design-system/lib/utils'
 import { ChevronRight, Settings } from 'lucide-react'
 
 const item = {

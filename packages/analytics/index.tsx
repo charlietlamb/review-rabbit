@@ -1,4 +1,4 @@
-import { env } from '@dubble/env'
+import { env } from '@ff/env'
 import type { ReactNode } from 'react'
 import { GoogleAnalytics } from './google'
 import { PostHogProvider } from './posthog/client'

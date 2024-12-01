@@ -1,4 +1,4 @@
-import { Connect } from '@dubble/database'
+import { Connect } from '@ff/database'
 import {
   Dialog,
   DialogContent,
@@ -7,15 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
 import { X } from 'lucide-react'
-import { disconnectAccount } from '@dubble/design-system/actions/connect/disconnect-account'
+import { disconnectAccount } from '@ff/design-system/actions/connect/disconnect-account'
 import { toast } from 'sonner'
-import Spinner from '@dubble/design-system/components/misc/spinner'
+import Spinner from '@ff/design-system/components/misc/spinner'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 
 export default function DisconnectDialog({
   connect,

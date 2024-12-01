@@ -6,11 +6,11 @@ import {
   DialogTrigger,
   DialogDescription,
   DialogFooter,
-} from '@dubble/design-system/components/ui/dialog'
-import { Button } from '@dubble/design-system/components/ui/button'
-import { ProviderData } from '@dubble/design-system/lib/providers'
+} from '@ff/design-system/components/ui/dialog'
+import { Button } from '@ff/design-system/components/ui/button'
+import { ProviderData } from '@ff/design-system/lib/providers'
 import { ConnectButton } from './connect-button'
-import { cn } from '@dubble/design-system/lib/utils'
+import { cn } from '@ff/design-system/lib/utils'
 
 export default function ConnectDialog({
   provider,

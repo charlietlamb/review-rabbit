@@ -2,9 +2,9 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@dubble/design-system/components/ui/avatar'
-import { DropdownMenuLabel } from '@dubble/design-system/components/ui/dropdown-menu'
-import useUser from '@dubble/design-system/hooks/use-user'
+} from '@ff/design-system/components/ui/avatar'
+import { DropdownMenuLabel } from '@ff/design-system/components/ui/dropdown-menu'
+import useUser from '@ff/design-system/hooks/use-user'
 
 export default function DashboardSidebarFooterLabel() {
   const user = useUser()

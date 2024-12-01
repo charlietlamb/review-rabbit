@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
-import { users } from '@dubble/database/schema/users'
+import { users } from '@ff/database/schema/users'
 import { sql } from 'drizzle-orm'
 
 export const accounts = pgTable('accounts', {

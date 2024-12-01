@@ -1,15 +1,15 @@
 {
-  "name": "@dubble/auth",
+  "name": "@ff/auth",
   "module": "index.ts",
   "type": "module",
   "dependencies": {
-    "@dubble/database": "workspace:*",
-    "@dubble/email": "workspace:*",
-    "@dubble/env": "workspace:*",
+    "@ff/database": "workspace:*",
+    "@ff/email": "workspace:*",
+    "@ff/env": "workspace:*",
     "better-auth": "^1.0.2"
   },
   "devDependencies": {
-    "@dubble/typescript-config": "workspace:*",
+    "@ff/typescript-config": "workspace:*",
     "@types/bun": "latest"
   },
   "peerDependencies": {

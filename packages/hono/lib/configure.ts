@@ -1,10 +1,10 @@
-import { AppOpenAPI } from '@dubble/hono/lib/types'
-import configureOpenAPI from '@dubble/hono/lib/configure-open-api'
-import configureBetterAuth from '@dubble/hono/lib/configure-better-auth'
-import configureAuth from '@dubble/hono/lib/configure-auth'
-import configureCors from '@dubble/hono/lib/configure-cors'
-import configureStripe from '@dubble/hono/lib/configure-stripe'
-import configureRedirects from '@dubble/hono/lib/configure-redirects'
+import { AppOpenAPI } from '@ff/hono/lib/types'
+import configureOpenAPI from '@ff/hono/lib/configure-open-api'
+import configureBetterAuth from '@ff/hono/lib/configure-better-auth'
+import configureAuth from '@ff/hono/lib/configure-auth'
+import configureCors from '@ff/hono/lib/configure-cors'
+import configureStripe from '@ff/hono/lib/configure-stripe'
+import configureRedirects from '@ff/hono/lib/configure-redirects'
 
 export default function configure(app: AppOpenAPI) {
   configureCors(app)

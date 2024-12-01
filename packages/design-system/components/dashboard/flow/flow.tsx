@@ -7,8 +7,8 @@ import CreateNodeButton from './create/create-node-button'
 import {
   SocialNode,
   SocialNodeType,
-} from '@dubble/design-system/components/react-flow/social-node'
-import { providerDataById } from '@dubble/design-system/lib/providers'
+} from '@ff/design-system/components/react-flow/social-node'
+import { providerDataById } from '@ff/design-system/lib/providers'
 
 const nodeTypes = {
   social: SocialNode,

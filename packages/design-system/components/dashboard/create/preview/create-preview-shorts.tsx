@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import { Button } from '@dubble/design-system/components/ui/button'
 import { Slider } from '@dubble/design-system/components/ui/slider'
-import { Play, Pause } from 'lucide-react'
+import { Play, Pause, Check, X } from 'lucide-react'
 import { cn } from '@dubble/design-system/lib/utils'
 import { media, Media } from '@dubble/database/schema/media'
-import { useAtomValue } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import ReactPlayer from 'react-player'
 import {
   createFilesAtom,
   createMediaAtom,
+  createPreviewUrlsAtom,
+  createThumbnailTimeAtom,
 } from '@dubble/design-system/atoms/dashboard/create/create-atom'
 import debounce from 'lodash/debounce'
 import { AspectRatio } from '@dubble/design-system/components/ui/aspect-ratio'
@@ -18,24 +20,26 @@ import { getPresignedUrl } from '@dubble/design-system/actions/s3/upload/get-pre
 
 interface CreatePreviewShortsProps {
   media?: File | Media | null
-  onThumbnailSelect?: (time: number) => void
   className?: string
 }
 
 export function CreatePreviewShorts({
   media: propMedia,
-  onThumbnailSelect,
   className,
 }: CreatePreviewShortsProps) {
-  const files = useAtomValue(createFilesAtom)
-  const mediaItems = useAtomValue(createMediaAtom)
+  const [files, setFiles] = useAtom(createFilesAtom)
+  const [mediaItems, setMediaItems] = useAtom(createMediaAtom)
   const playerRef = useRef<ReactPlayer>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isReady, setIsReady] = useState(false)
-  const [videoUrl, setVideoUrl] = useState<string | null>(null)
+  const setThumbnailTime = useSetAtom(createThumbnailTimeAtom)
+  const [loading, setLoading] = useState(false)
+  const [createPreviewUrls, setCreatePreviewUrls] = useAtom(
+    createPreviewUrlsAtom
+  )
 
   useEffect(() => {
     async function fetchVideoUrl() {
@@ -45,19 +49,20 @@ export function CreatePreviewShorts({
         media instanceof File
           ? URL.createObjectURL(media)
           : await getPresignedUrl(`media/${media.id}.${media.extension}`)
-      setVideoUrl(url)
+      if (!url) return
+      setCreatePreviewUrls([url])
     }
     fetchVideoUrl()
   }, [propMedia, files, mediaItems])
 
   useEffect(() => {
-    if (!videoUrl) return
+    if (!createPreviewUrls.length) return
     async function cleanup() {
       setIsPlaying(false)
       setCurrentTime(0)
       setIsReady(false)
 
-      const objectUrl = await videoUrl
+      const objectUrl = createPreviewUrls[0]
       return () => {
         if (objectUrl && objectUrl.startsWith('blob:')) {
           URL.revokeObjectURL(objectUrl)
@@ -65,7 +70,7 @@ export function CreatePreviewShorts({
       }
     }
     cleanup()
-  }, [videoUrl])
+  }, [createPreviewUrls])
 
   const handlePlayPause = () => setIsPlaying(!isPlaying)
 
@@ -79,16 +84,17 @@ export function CreatePreviewShorts({
 
   const handleDuration = (duration: number) => {
     setDuration(duration)
-    onThumbnailSelect?.(0)
+
+    setThumbnailTime(0)
   }
 
   const debouncedSeek = useMemo(
     () =>
       debounce((time: number) => {
         playerRef.current?.seekTo(time, 'seconds')
-        onThumbnailSelect?.(time)
+        setThumbnailTime(time)
       }, 100),
-    [onThumbnailSelect]
+    [setThumbnailTime]
   )
 
   const handleSeek = (value: number[]) => {
@@ -103,9 +109,23 @@ export function CreatePreviewShorts({
     playerRef.current?.seekTo(0)
   }
 
-  if (!media || !videoUrl) {
+  const handleThumbnailSelect = async () => {
+    setLoading(true)
+    setThumbnailTime(currentTime)
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    setLoading(false)
+  }
+
+  const handleDelete = () => {
+    setMediaItems([])
+    setFiles([])
+    setThumbnailTime(0)
+    setCreatePreviewUrls([])
+  }
+
+  if (!createPreviewUrls.length) {
     return (
-      <div className="w-full max-w-[400px] flex justify-center mx-auto">
+      <div className="w-full flex justify-center">
         <AspectRatio
           ratio={9 / 16}
           className={cn('relative w-full bg-muted rounded-lg', className)}
@@ -119,7 +139,7 @@ export function CreatePreviewShorts({
   }
 
   return (
-    <div className="w-full max-w-[400px] flex justify-center mx-auto">
+    <div className="w-full flex justify-center group">
       <AspectRatio
         ratio={9 / 16}
         ref={containerRef}
@@ -128,7 +148,7 @@ export function CreatePreviewShorts({
         <div className="absolute inset-0 rounded-lg overflow-hidden bg-black">
           <ReactPlayer
             ref={playerRef}
-            url={videoUrl}
+            url={createPreviewUrls[0]}
             width="100%"
             height="100%"
             playing={isPlaying}
@@ -155,11 +175,39 @@ export function CreatePreviewShorts({
 
         {isReady && (
           <>
+            <div className="absolute top-2 right-2 z-50">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleDelete}
+                className="h-8 w-8 rounded-full bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-red-500"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <div className="absolute bottom-20 left-0 right-0 w-full flex justify-center px-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleThumbnailSelect}
+                className="p-2 w-full h-auto rounded-full z-50 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer font-heading hover:text-white"
+              >
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    Thumbnail selected <Check className="h-4 w-4" />
+                  </div>
+                ) : (
+                  'Choose this frame as the thumbnail'
+                )}
+              </Button>
+            </div>
+
             <div className="absolute inset-0 flex items-center justify-center">
               <Button
                 variant="ghost"
                 size="icon"
-                className="w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                className="w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white cursor-pointer"
                 onClick={handlePlayPause}
               >
                 {isPlaying ? (
@@ -178,7 +226,8 @@ export function CreatePreviewShorts({
                   max={duration || 100}
                   step={0.1}
                   onValueChange={handleSeek}
-                  thumbClassName="border-none"
+                  thumbClassName="border-none cursor-pointer"
+                  className="cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-white">
                   <span>{formatTime(currentTime)}</span>

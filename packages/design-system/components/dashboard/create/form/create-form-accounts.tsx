@@ -13,7 +13,7 @@ export default function AccountMultiSelect() {
   const connects = useAtomValue(createConnectsAtom)
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-4">
       <Label className="font-heading font-bold">Accounts</Label>
       <MultiSelect
         options={connects}

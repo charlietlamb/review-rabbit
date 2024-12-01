@@ -18,7 +18,7 @@ import {
   textVariants,
   videoVariants,
 } from './icons/option-motion-values'
-import CreateOptionsHeader from './create-options-header'
+import DashboardContentHeader from '@dubble/design-system/components/dashboard/header/dashboard-content-header'
 
 export default function CreateOptions() {
   const controls = {
@@ -52,7 +52,10 @@ export default function CreateOptions() {
 
   return (
     <div className="flex flex-col divide-y">
-      <CreateOptionsHeader />
+      <DashboardContentHeader
+        title="Create a new post"
+        subtitle="Create or schedule a post to your account."
+      />
       <div className="grid grid-cols-2 gap-4 p-4">
         {Array.from(createOptionsMap).map(([key, option]) => (
           <CreateOption

@@ -32,7 +32,8 @@ const buttonVariants = cva(
           'relative after:absolute after:bg-primary after:bottom-2 after:h-[1px] after:w-2/3 after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300',
       },
       colors: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        default: '',
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline:

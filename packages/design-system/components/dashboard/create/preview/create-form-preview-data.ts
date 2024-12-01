@@ -1,0 +1,1 @@
+export const PREVIEW_INTERVAL = 10000

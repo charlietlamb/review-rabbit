@@ -30,3 +30,7 @@ export const createSelectedCaptionProviderAtom = atom<Provider | null>(null)
 export const createCaptionPlatformAtom = atom<Map<Provider, string>>(new Map())
 
 export const createThumbnailTimeAtom = atom<number>(0)
+
+export const createScheduleAtom = atom<Date>(new Date())
+
+export const createPreviewUrlsAtom = atom<string[]>([])

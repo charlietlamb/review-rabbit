@@ -7,6 +7,7 @@ import {
 } from '@dubble/design-system/atoms/dashboard/create/create-atom'
 import { Label } from '@dubble/design-system/components/ui/label'
 import CreateFormUploads from './create-form-uploads'
+import CreateFormUploadsReset from './create-form-uploads-reset'
 
 export default function CreateFormUpload() {
   const createOption = useAtomValue(createTypeAtom)
@@ -16,7 +17,7 @@ export default function CreateFormUpload() {
   const maxFileCount = createOption.single ? 1 : 10
 
   return (
-    <>
+    <div className="py-4 px-4 flex flex-col gap-4">
       <Label className="font-heading font-bold">Upload Content</Label>
       <FileUploader
         value={files}
@@ -33,6 +34,7 @@ export default function CreateFormUpload() {
         accept={createOption.acceptedMimeTypes ?? []}
         disabled={files.length + media.length >= maxFileCount}
       />
-    </>
+      <CreateFormUploadsReset maxFileCount={maxFileCount} />
+    </div>
   )
 }

@@ -5,6 +5,13 @@ import {
   RiTwitterXFill,
   RiSnapchatFill,
 } from '@remixicon/react'
+import {
+  YouTubeIcon,
+  InstagramIcon,
+  TikTokIcon,
+  XIcon,
+  SnapchatIcon,
+} from '@dubble/design-system/components/dashboard/connect/provider/provider-icons'
 
 export const providerData = [
   {
@@ -21,6 +28,7 @@ export const providerData = [
     classNameBorder: 'border-social-youtube/80 hover:border-social-youtube',
     error: 'Please enter a valid YouTube video URL.',
     info: 'Make sure to allow all access to your YouTube account. We will never post anything without your permission.',
+    colorIcon: <YouTubeIcon />,
   },
   {
     id: 'instagram',
@@ -36,6 +44,7 @@ export const providerData = [
     classNameBorder: 'border-social-instagram/80 hover:border-social-instagram',
     error: 'Please enter a valid Instagram video URL.',
     info: 'Your account must be a business/creator account to connect to Instagram. We will never post anything without your permission.',
+    colorIcon: <InstagramIcon />,
   },
   {
     id: 'tiktok',
@@ -51,6 +60,7 @@ export const providerData = [
     classNameBorder: 'border-social-tiktok/80 hover:border-social-tiktok',
     error: 'Please enter a valid Tiktok video URL.',
     info: 'Your account must be a business/creator account to connect to Tiktok. We will never post anything without your permission.',
+    colorIcon: <TikTokIcon />,
   },
   {
     id: 'twitter',
@@ -65,6 +75,7 @@ export const providerData = [
     classNameBorder: 'border-social-x/80 hover:border-social-x',
     error: 'Please enter a valid X (Twitter) post URL.',
     info: 'Make sure to allow all access to your X account. We will never post anything without your permission.',
+    colorIcon: <XIcon />,
   },
   {
     id: 'snapchat',
@@ -80,6 +91,7 @@ export const providerData = [
     classNameBorder: 'border-social-snapchat/80 hover:border-social-snapchat',
     error: 'Please enter a valid Snapchat URL.',
     info: 'Your account must be a business/creator account to connect to Snapchat. We will never post anything without your permission.',
+    colorIcon: <SnapchatIcon />,
   },
 ] as ProviderData[]
 
@@ -103,4 +115,5 @@ export type ProviderData = {
   classNameBorder: string
   error: string
   info: string
+  colorIcon: React.ReactNode
 }

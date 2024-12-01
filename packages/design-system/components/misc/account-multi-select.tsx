@@ -211,7 +211,7 @@ export const MultiSelect = React.forwardRef<
                       <Badge
                         key={value}
                         className={cn(
-                          'bg-background flex items-center gap-2 h-8',
+                          'bg-background flex items-center gap-2 h-8 rounded-sm',
                           providerDataById[option?.providerId as Provider]
                             ?.className,
                           multiSelectVariants({ variant })
@@ -245,7 +245,7 @@ export const MultiSelect = React.forwardRef<
                   {selectedValues.length > maxCount && (
                     <Badge
                       className={cn(
-                        'bg-transparent text-foreground border-foreground/1 hover:bg-transparent h-full'
+                        'bg-transparent text-foreground border-foreground/1 hover:bg-transparent h-full rounded-sm'
                       )}
                     >
                       {`+ ${selectedValues.length - maxCount} more`}

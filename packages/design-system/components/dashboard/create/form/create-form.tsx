@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { CreateOptionData } from '../options/create-options-data'
-import CreateFormPreview from './create-form-preview'
+import CreateFormPreview from '../preview/create-form-preview'
 import CreateFormText from './create-form-text'
 import CreateFormUpload from './create-form-upload'
 import {
@@ -18,6 +18,9 @@ import { useSetAtom } from 'jotai'
 import CreateFormHeader from './create-form-header'
 import { Connect } from '@dubble/database/schema/connects'
 import CreateFormAccounts from './create-form-accounts'
+import CreateFormSchedule from './create-form-schedule'
+import CreateFormSubmit from './create-form-submit'
+import { Separator } from '@dubble/design-system/components/ui/separator'
 
 export default function CreateForm({
   createOption,
@@ -37,13 +40,18 @@ export default function CreateForm({
 
   return (
     <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel defaultSize={60} minSize={20} className="divide-y">
+      <ResizablePanel
+        defaultSize={60}
+        minSize={20}
+        className="divide-y flex flex-col relative"
+      >
         <CreateFormHeader />
-        <div className="flex flex-col gap-4 p-4 h-full">
-          <CreateFormText />
-          <CreateFormUpload />
-          <CreateFormAccounts />
-        </div>
+        <CreateFormText />
+        <CreateFormUpload />
+        <CreateFormAccounts />
+        <CreateFormSchedule />
+        <Separator />
+        <CreateFormSubmit />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={40} minSize={20}>

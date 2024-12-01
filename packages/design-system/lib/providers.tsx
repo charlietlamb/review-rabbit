@@ -63,7 +63,7 @@ export const providerData = [
     colorIcon: <TikTokIcon />,
   },
   {
-    id: 'twitter',
+    id: 'x',
     name: 'X (Twitter)',
     company: 'X Corp',
     start: 'https://twitter.com/',

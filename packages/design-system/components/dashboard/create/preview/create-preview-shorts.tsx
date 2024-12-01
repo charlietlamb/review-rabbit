@@ -5,12 +5,11 @@ import { Button } from '@dubble/design-system/components/ui/button'
 import { Slider } from '@dubble/design-system/components/ui/slider'
 import { Play, Pause, Check, X } from 'lucide-react'
 import { cn } from '@dubble/design-system/lib/utils'
-import { media, Media } from '@dubble/database/schema/media'
+import { Media } from '@dubble/database/schema/media'
 import { useAtom, useSetAtom } from 'jotai'
 import ReactPlayer from 'react-player'
 import {
   createFilesAtom,
-  createMediaAtom,
   createPreviewUrlsAtom,
   createThumbnailTimeAtom,
 } from '@dubble/design-system/atoms/dashboard/create/create-atom'
@@ -28,7 +27,6 @@ export function CreatePreviewShorts({
   className,
 }: CreatePreviewShortsProps) {
   const [files, setFiles] = useAtom(createFilesAtom)
-  const [mediaItems, setMediaItems] = useAtom(createMediaAtom)
   const playerRef = useRef<ReactPlayer>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -43,17 +41,19 @@ export function CreatePreviewShorts({
 
   useEffect(() => {
     async function fetchVideoUrl() {
-      const media = propMedia ?? files[0] ?? mediaItems[0] ?? null
+      const media = propMedia ?? files[0] ?? null
       if (!media) return
       const url =
         media instanceof File
           ? URL.createObjectURL(media)
-          : await getPresignedUrl(`media/${media.id}.${media.extension}`)
+          : typeof media === 'object' && 'id' in media && 'extension' in media
+          ? await getPresignedUrl(`media/${media.id}.${media.extension}`)
+          : media
       if (!url) return
       setCreatePreviewUrls([url])
     }
     fetchVideoUrl()
-  }, [propMedia, files, mediaItems])
+  }, [propMedia, files])
 
   useEffect(() => {
     if (!createPreviewUrls.length) return
@@ -117,7 +117,6 @@ export function CreatePreviewShorts({
   }
 
   const handleDelete = () => {
-    setMediaItems([])
     setFiles([])
     setThumbnailTime(0)
     setCreatePreviewUrls([])

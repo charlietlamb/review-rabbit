@@ -43,7 +43,7 @@ export function CreateFormPreviewAccounts({
       </div>
     )
   }
-
+  if (!accounts[currentIndex]) return null
   return (
     <div className={cn('relative', className)}>
       <AnimatePresence mode="wait">

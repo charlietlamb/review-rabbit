@@ -98,7 +98,7 @@ export default function CreateFormTextDialog() {
                   key={provider.id}
                   onClick={() => setSelectedProvider(provider.id)}
                   className={cn(
-                    'p-2 rounded-md flex-1 items-center flex justify-center transition-colors',
+                    'p-2 rounded-md flex-1 items-center flex justify-center transition-colors text-white',
                     provider.id === selectedProvider
                       ? provider.className
                       : 'bg-muted hover:bg-muted/80'

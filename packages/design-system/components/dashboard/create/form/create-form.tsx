@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { CreateOptionData } from '../options/create-options-data'
 import CreateFormPreview from '../preview/create-form-preview'
-import CreateFormText from './create-form-text'
-import CreateFormUpload from './create-form-upload'
+import CreateFormText from './caption/create-form-text'
+import CreateFormUpload from './upload/create-form-upload'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -15,12 +15,13 @@ import {
   createTypeAtom,
 } from '@dubble/design-system/atoms/dashboard/create/create-atom'
 import { useSetAtom } from 'jotai'
-import CreateFormHeader from './create-form-header'
+import CreateFormHeader from './header/create-form-header'
 import { Connect } from '@dubble/database/schema/connects'
-import CreateFormAccounts from './create-form-accounts'
-import CreateFormSchedule from './create-form-schedule'
-import CreateFormSubmit from './create-form-submit'
+import CreateFormAccounts from './accounts/create-form-accounts'
+import CreateFormSchedule from './schedule/create-form-schedule'
+import CreateFormSubmit from './submit/create-form-submit'
 import { Separator } from '@dubble/design-system/components/ui/separator'
+import CreateFormAudio from './audio/create-form-audio'
 
 export default function CreateForm({
   createOption,
@@ -31,11 +32,14 @@ export default function CreateForm({
 }) {
   const setCreateType = useSetAtom(createTypeAtom)
   const setConnects = useSetAtom(createConnectsAtom)
-  const [text, setText] = useState('')
 
   useEffect(() => {
     setCreateType(createOption)
-    setConnects(connects)
+    setConnects(
+      connects.filter((connect) =>
+        createOption.providers?.includes(connect.providerId)
+      )
+    )
   }, [createOption, setCreateType, connects])
 
   return (
@@ -46,11 +50,13 @@ export default function CreateForm({
         className="divide-y flex flex-col relative"
       >
         <CreateFormHeader />
-        <CreateFormText />
-        <CreateFormUpload />
-        <CreateFormAccounts />
-        <CreateFormSchedule />
-        <Separator />
+        <div className="overflow-y-auto divide-y flex flex-col">
+          <CreateFormText />
+          <CreateFormUpload />
+          <CreateFormAccounts />
+          <CreateFormSchedule />
+          <CreateFormAudio />
+        </div>
         <CreateFormSubmit />
       </ResizablePanel>
       <ResizableHandle withHandle />

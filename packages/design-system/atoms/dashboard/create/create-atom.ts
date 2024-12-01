@@ -9,13 +9,14 @@ import {
 import { Media } from '@dubble/database/schema/media'
 
 export const createTypeAtom = atom<CreateOptionData | null>(null)
-export const createFilesAtom = atom<File[]>([])
+export const createFilesAtom = atom<(File | Media | string)[]>([])
 
-export const createMediaAtom = atom<Media[]>([])
 export const createSelectedMediaAtom = atom<Media[]>([])
 
 export const createConnectsAtom = atom<Connect[]>([])
 export const createSelectedConnectsAtom = atom<Connect[]>([])
+
+export const createAudioAtom = atom<string>('')
 
 export const createSelectedProvidersAtom = atom<ProviderData[]>((get) => {
   const connects = get(createSelectedConnectsAtom)

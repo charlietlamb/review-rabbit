@@ -3,7 +3,6 @@ import {
   RiTiktokFill,
   RiYoutubeFill,
   RiTwitterXFill,
-  RiSnapchatFill,
 } from 'react-icons/ri'
 import { cn } from '@dubble/design-system/lib/utils'
 import SnapchatWithOutline from './snapchat-with-outline'
@@ -50,97 +49,3 @@ export const SnapchatIcon = () => {
     </div>
   )
 }
-
-export const ShortIcons = [
-  {
-    icon: <YouTubeIcon />,
-    name: 'YouTube',
-  },
-  {
-    icon: <InstagramIcon />,
-    name: 'Instagram',
-  },
-  {
-    icon: <TikTokIcon />,
-    name: 'TikTok',
-  },
-  {
-    icon: <XIcon />,
-    name: 'X',
-  },
-  {
-    icon: <SnapchatIcon />,
-    name: 'Snapchat',
-  },
-]
-
-export const TextIcons = [
-  {
-    icon: <YouTubeIcon />,
-    name: 'YouTube',
-  },
-  {
-    icon: <XIcon />,
-    name: 'X',
-  },
-]
-
-export const CarouselIcons = [
-  {
-    icon: <YouTubeIcon />,
-    name: 'YouTube',
-  },
-  {
-    icon: <InstagramIcon />,
-    name: 'Instagram',
-  },
-  {
-    icon: <TikTokIcon />,
-    name: 'TikTok',
-  },
-  {
-    icon: <XIcon />,
-    name: 'X',
-  },
-]
-
-export const VideoIcons = [
-  {
-    icon: <YouTubeIcon />,
-    name: 'YouTube',
-  },
-  {
-    icon: <InstagramIcon />,
-    name: 'Instagram',
-  },
-  {
-    icon: <XIcon />,
-    name: 'X',
-  },
-]
-
-export const ImageIcons = [
-  {
-    icon: <InstagramIcon />,
-    name: 'Instagram',
-  },
-]
-
-export const StoryIcons = [
-  {
-    icon: <YouTubeIcon />,
-    name: 'YouTube',
-  },
-  {
-    icon: <InstagramIcon />,
-    name: 'Instagram',
-  },
-  {
-    icon: <TikTokIcon />,
-    name: 'TikTok',
-  },
-  {
-    icon: <SnapchatIcon />,
-    name: 'Snapchat',
-  },
-]

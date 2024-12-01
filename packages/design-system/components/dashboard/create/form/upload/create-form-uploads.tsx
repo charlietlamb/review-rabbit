@@ -10,15 +10,17 @@ import {
 } from '@dubble/design-system/components/ui/dialog'
 import { Button } from '@dubble/design-system/components/ui/button'
 import { useEffect, useState } from 'react'
-import Uploads from '../../upload/uploads'
 import {
   uploadsSearchAtom,
   uploadsSortAtom,
 } from '@dubble/design-system/atoms/dashboard/upload/uploads-atom'
 import { useAtom, useSetAtom } from 'jotai'
 import Spinner from '@dubble/design-system/components/misc/spinner'
-import { createSelectedMediaAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
-import { createMediaAtom } from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import {
+  createFilesAtom,
+  createSelectedMediaAtom,
+} from '@dubble/design-system/atoms/dashboard/create/create-atom'
+import Uploads from '@dubble/design-system/components/dashboard/upload/uploads'
 
 export default function CreateFormUploads({
   maxFileCount,
@@ -33,7 +35,7 @@ export default function CreateFormUploads({
   const [loading, setLoading] = useState(false)
   const setUploadsSort = useSetAtom(uploadsSortAtom)
   const setUploadsSearch = useSetAtom(uploadsSearchAtom)
-  const [media, setMedia] = useAtom(createMediaAtom)
+  const [files, setFiles] = useAtom(createFilesAtom)
   const [selectedMedia, setSelectedMedia] = useAtom(createSelectedMediaAtom)
 
   useEffect(() => {
@@ -58,7 +60,11 @@ export default function CreateFormUploads({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button colors="outline" className="font-heading" disabled={disabled}>
+        <Button
+          colors="outline"
+          className="font-heading w-full"
+          disabled={disabled}
+        >
           Your Uploads
         </Button>
       </DialogTrigger>
@@ -85,7 +91,7 @@ export default function CreateFormUploads({
             disabled={loading || selectedMedia.length === 0}
             onClick={() => {
               setLoading(true)
-              setMedia([...(media || []), ...selectedMedia])
+              setFiles([...files, ...selectedMedia])
               setSelectedMedia([])
               setOpen(false)
               setLoading(false)

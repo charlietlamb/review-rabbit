@@ -44,7 +44,10 @@ export function CreateFormPreviewText({ className }: { className?: string }) {
     }
   }, [platformCaptions, currentIndex, mainCaption])
 
-  if (!mainCaption.length) {
+  if (
+    !mainCaption.length &&
+    !Array.from(platformCaptions.values()).some((caption) => caption.length)
+  ) {
     return (
       <div className={cn('space-y-1.5', className)}>
         <Skeleton className="h-2 w-[95%]" />

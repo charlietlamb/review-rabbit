@@ -18,7 +18,7 @@ import { getPresignedUrl } from '@ff/design-system/actions/s3/upload/get-presign
 import CreateFormAudioPreview from '../form/audio/create-form-audio-preview'
 import CreateFormPreviewDelete from './create-form-preview-delete'
 import debounce from 'lodash/debounce'
-import CreateFormPreviewThumbnailSelect from './create-form-preview-thumbnail-select'
+import CreateFormPreviewThumbnail from './create-form-preview-thumbnail'
 
 interface CreatePreviewShortsProps {
   media?: File | Media | null
@@ -36,11 +36,12 @@ export function CreatePreviewShorts({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isReady, setIsReady] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [createPreviewUrls, setCreatePreviewUrls] = useAtom(
     createPreviewUrlsAtom
   )
-  const [thumbnailTime, setThumbnailTime] = useAtom(createThumbnailTimeAtom)
+  const [createThumbnailTime, setCreateThumbnailTime] = useAtom(
+    createThumbnailTimeAtom
+  )
 
   useEffect(() => {
     async function fetchVideoUrl() {
@@ -75,12 +76,6 @@ export function CreatePreviewShorts({
     cleanup()
   }, [createPreviewUrls])
 
-  useEffect(() => {
-    if (!isReady || isPlaying) return
-    playerRef.current?.seekTo(thumbnailTime, 'seconds')
-    setCurrentTime(thumbnailTime)
-  }, [isReady, thumbnailTime, isPlaying])
-
   const handlePlayPause = () => setIsPlaying(!isPlaying)
 
   const handleProgress = useCallback(
@@ -95,19 +90,9 @@ export function CreatePreviewShorts({
     setDuration(duration)
   }
 
-  const debouncedSeek = useMemo(
-    () =>
-      debounce((time: number) => {
-        playerRef.current?.seekTo(time, 'seconds')
-        setThumbnailTime(time)
-      }, 100),
-    [setThumbnailTime]
-  )
-
   const handleSeek = (value: number[]) => {
-    const time = value[0]
+    const time = Math.round(value[0] * 1000) / 1000
     setCurrentTime(time)
-    debouncedSeek(time)
   }
 
   const handleEnded = () => {
@@ -118,7 +103,8 @@ export function CreatePreviewShorts({
 
   const handleDelete = () => {
     setFiles([])
-    setThumbnailTime(0)
+    setCreateThumbnailTime(0)
+
     setCreatePreviewUrls([])
   }
 
@@ -177,7 +163,7 @@ export function CreatePreviewShorts({
           <>
             <CreateFormAudioPreview />
             <CreateFormPreviewDelete handleDelete={handleDelete} />
-            <CreateFormPreviewThumbnailSelect currentTime={currentTime} />
+            <CreateFormPreviewThumbnail url={createPreviewUrls[0]} />
             <div className="absolute inset-0 flex items-center justify-center">
               <Button
                 variant="ghost"
@@ -186,9 +172,9 @@ export function CreatePreviewShorts({
                 onClick={handlePlayPause}
               >
                 {isPlaying ? (
-                  <Pause className="h-6 w-6" />
+                  <Pause className="h-6 w-6" fill="white" />
                 ) : (
-                  <Play className="h-6 w-6 ml-1" />
+                  <Play className="h-6 w-6 ml-1" fill="white" />
                 )}
               </Button>
             </div>
@@ -199,9 +185,9 @@ export function CreatePreviewShorts({
                   value={[currentTime]}
                   min={0}
                   max={duration || 100}
-                  step={0.1}
+                  step={0.001}
                   onValueChange={handleSeek}
-                  thumbClassName="border-none cursor-pointer"
+                  thumbClassName="hidden"
                   className="cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-white">

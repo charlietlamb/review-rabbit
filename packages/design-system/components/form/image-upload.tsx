@@ -19,7 +19,7 @@ import {
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import { MAX_IMAGE_SIZE } from '@/constants'
+import { MAX_IMAGE_SIZE } from '@ff/design-system/lib/constants'
 
 export default function ImageUpload({
   previewUrl: initPreviewUrl,

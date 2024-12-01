@@ -3,19 +3,22 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import { Button } from '@ff/design-system/components/ui/button'
 import { Slider } from '@ff/design-system/components/ui/slider'
-import { Play, Pause, Check, X } from 'lucide-react'
+import { Play, Pause } from 'lucide-react'
 import { cn } from '@ff/design-system/lib/utils'
 import { Media } from '@ff/database/schema/media'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom } from 'jotai'
 import ReactPlayer from 'react-player'
 import {
   createFilesAtom,
   createPreviewUrlsAtom,
   createThumbnailTimeAtom,
 } from '@ff/design-system/atoms/dashboard/create/create-atom'
-import debounce from 'lodash/debounce'
 import { AspectRatio } from '@ff/design-system/components/ui/aspect-ratio'
 import { getPresignedUrl } from '@ff/design-system/actions/s3/upload/get-presigned-url'
+import CreateFormAudioPreview from '../form/audio/create-form-audio-preview'
+import CreateFormPreviewDelete from './create-form-preview-delete'
+import debounce from 'lodash/debounce'
+import CreateFormPreviewThumbnailSelect from './create-form-preview-thumbnail-select'
 
 interface CreatePreviewShortsProps {
   media?: File | Media | null
@@ -33,11 +36,11 @@ export function CreatePreviewShorts({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isReady, setIsReady] = useState(false)
-  const setThumbnailTime = useSetAtom(createThumbnailTimeAtom)
   const [loading, setLoading] = useState(false)
   const [createPreviewUrls, setCreatePreviewUrls] = useAtom(
     createPreviewUrlsAtom
   )
+  const [thumbnailTime, setThumbnailTime] = useAtom(createThumbnailTimeAtom)
 
   useEffect(() => {
     async function fetchVideoUrl() {
@@ -72,6 +75,12 @@ export function CreatePreviewShorts({
     cleanup()
   }, [createPreviewUrls])
 
+  useEffect(() => {
+    if (!isReady || isPlaying) return
+    playerRef.current?.seekTo(thumbnailTime, 'seconds')
+    setCurrentTime(thumbnailTime)
+  }, [isReady, thumbnailTime, isPlaying])
+
   const handlePlayPause = () => setIsPlaying(!isPlaying)
 
   const handleProgress = useCallback(
@@ -84,8 +93,6 @@ export function CreatePreviewShorts({
 
   const handleDuration = (duration: number) => {
     setDuration(duration)
-
-    setThumbnailTime(0)
   }
 
   const debouncedSeek = useMemo(
@@ -109,13 +116,6 @@ export function CreatePreviewShorts({
     playerRef.current?.seekTo(0)
   }
 
-  const handleThumbnailSelect = async () => {
-    setLoading(true)
-    setThumbnailTime(currentTime)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setLoading(false)
-  }
-
   const handleDelete = () => {
     setFiles([])
     setThumbnailTime(0)
@@ -132,6 +132,7 @@ export function CreatePreviewShorts({
           <div className="absolute inset-0 flex items-center justify-center">
             <p className="text-muted-foreground">No video selected</p>
           </div>
+          <CreateFormAudioPreview />
         </AspectRatio>
       </div>
     )
@@ -174,34 +175,9 @@ export function CreatePreviewShorts({
 
         {isReady && (
           <>
-            <div className="absolute top-2 right-2 z-50">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleDelete}
-                className="h-8 w-8 rounded-full bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-red-500"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-
-            <div className="absolute bottom-20 left-0 right-0 w-full flex justify-center px-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleThumbnailSelect}
-                className="p-2 w-full h-auto rounded-full z-50 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer font-heading hover:text-white"
-              >
-                {loading ? (
-                  <div className="flex items-center gap-2">
-                    Thumbnail selected <Check className="h-4 w-4" />
-                  </div>
-                ) : (
-                  'Choose this frame as the thumbnail'
-                )}
-              </Button>
-            </div>
-
+            <CreateFormAudioPreview />
+            <CreateFormPreviewDelete handleDelete={handleDelete} />
+            <CreateFormPreviewThumbnailSelect currentTime={currentTime} />
             <div className="absolute inset-0 flex items-center justify-center">
               <Button
                 variant="ghost"

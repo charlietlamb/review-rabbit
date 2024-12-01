@@ -2,6 +2,8 @@ import { Button } from '@ff/design-system/components/ui/button'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@ff/design-system/components/ui/dialog'
@@ -15,6 +17,7 @@ import {
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { useAtomValue } from 'jotai'
+import CreateFormSummary from '../summary/create-form-summary'
 
 export default function CreateFormSubmit() {
   const [open, setOpen] = useState(false)
@@ -29,8 +32,8 @@ export default function CreateFormSubmit() {
       !caption.length &&
       !Array.from(captionProvider.values()).some((caption) => caption.length)
     ) {
-      toast.error('Please select a caption provider', {
-        description: 'You can select this in the caption section.',
+      toast.error('Please add a caption', {
+        description: 'You can add this in the caption section.',
       })
       return
     }
@@ -68,6 +71,12 @@ export default function CreateFormSubmit() {
           <DialogHeader>
             <DialogTitle>Post summary</DialogTitle>
           </DialogHeader>
+          <CreateFormSummary />
+          <DialogFooter>
+            <Button variant="shine" className="font-heading font-bold w-full">
+              Schedule post
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

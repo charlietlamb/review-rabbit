@@ -17,7 +17,7 @@ export default function DashboardSidebarHeader() {
         !open && 'justify-center'
       )}
     >
-      <Link href="/">{open ? 'ff' : 'd'}</Link>
+      <Link href="/">{open ? 'feedflow' : 'ff'}</Link>
       <DashboardSidebarThemeToggle />
     </SidebarHeader>
   )

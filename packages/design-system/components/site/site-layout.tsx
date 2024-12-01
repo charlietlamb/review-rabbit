@@ -13,7 +13,7 @@ export default function SiteLayout({
   return (
     <div
       className={cn(
-        'dark bg-background min-h-screen flex flex-col',
+        'light bg-background min-h-screen flex flex-col',
         !home && 'py-[72px]'
       )}
     >

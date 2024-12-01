@@ -8,6 +8,7 @@ import { Label } from '@ff/design-system/components/ui/label'
 import CreateFormUploads from './create-form-uploads'
 import CreateFormUploadsReset from './create-form-uploads-reset'
 import CreateFormUploadUrl from './create-form-upload-url'
+import RequiredLabel from '@ff/design-system/components/misc/required-label'
 
 export default function CreateFormUpload() {
   const createOption = useAtomValue(createTypeAtom)
@@ -17,7 +18,7 @@ export default function CreateFormUpload() {
 
   return (
     <div className="py-4 px-4 flex flex-col gap-4">
-      <Label className="font-heading font-bold">Upload Content</Label>
+      <RequiredLabel>Content</RequiredLabel>
       <FileUploader
         value={files.filter((file) => file instanceof File)}
         maxSize={8 * 1024 * 1024}

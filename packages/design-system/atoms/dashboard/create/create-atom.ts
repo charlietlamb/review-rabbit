@@ -7,9 +7,12 @@ import {
   providerDataById,
 } from '@ff/design-system/lib/providers'
 import { Media } from '@ff/database/schema/media'
+import { CreateFile } from 'components/dashboard/create/form/types/create-form-types'
 
 export const createTypeAtom = atom<CreateOptionData | null>(null)
-export const createFilesAtom = atom<(File | Media | string)[]>([])
+
+export const createFilesAtom = atom<CreateFile[]>([])
+export const createAudioFilesAtom = atom<CreateFile[]>([])
 
 export const createSelectedMediaAtom = atom<Media[]>([])
 

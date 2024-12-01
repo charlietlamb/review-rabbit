@@ -5,7 +5,8 @@ import {
   createSelectedConnectsAtom,
 } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { MultiSelect } from '@ff/design-system/components/misc/account-multi-select'
-import { Label } from '@ff/design-system/components/ui/label'
+import RequiredLabel from '@ff/design-system/components/misc/required-label'
+
 export default function AccountMultiSelect() {
   const [selectedConnects, setSelectedConnects] = useAtom(
     createSelectedConnectsAtom
@@ -14,7 +15,7 @@ export default function AccountMultiSelect() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <Label className="font-heading font-bold">Accounts</Label>
+      <RequiredLabel>Accounts</RequiredLabel>
       <MultiSelect
         options={connects}
         onValueChange={(value) =>

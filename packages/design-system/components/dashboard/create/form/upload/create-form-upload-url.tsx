@@ -17,10 +17,12 @@ export default function CreateFormUploadUrl({
   files,
   setFiles,
   disabled,
+  placeholder = `https://example.com/file`,
 }: {
   files: CreateFile[]
   setFiles: (files: CreateFile[]) => void
   disabled: boolean
+  placeholder?: string
 }) {
   const [open, setOpen] = useState(false)
   const [url, setUrl] = useState('')
@@ -48,7 +50,7 @@ export default function CreateFormUploadUrl({
           mediaTypes={createType?.acceptedMimeTypes || []}
           valid={valid}
           setValid={setValid}
-          placeholder={`https://example.com/${createType?.id}.file`}
+          placeholder={placeholder}
         />
         <p className="text-sm text-muted-foreground">
           Feedflow will automatically try to access and validate your resource.

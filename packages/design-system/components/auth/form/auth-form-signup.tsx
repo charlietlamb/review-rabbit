@@ -40,28 +40,26 @@ export default function AuthFormSignup({ className }: { className?: string }) {
     onSubmit: async ({ value }) => {
       const { name, email, password } = value
       setIsLoading(true)
-      const response = await authClient.signUp.email({
+      const { data, error } = await authClient.signUp.email({
         name,
         email,
         password,
         imageUploaded: false,
         plan: 'free',
       })
-      if ('error' in response && response.error) {
-        toast.error(response.error.message, {
-          description: 'Something went wrong',
+      console.log(data)
+      if (error) {
+        toast.error('Something went wrong', {
+          description: 'Make sure you email is correct and try again.',
         })
       } else {
         toast.success('Welcome!', {
           description: 'You have been signed up successfully',
           icon: <UserCheck />,
         })
-
-        if ('user' in response) {
-          setUser(response.user as User)
-          router.push('/dashboard')
-        }
+        router.push('/dashboard')
       }
+      router.push('/dashboard')
       setIsLoading(false)
     },
     validatorAdapter: zodValidator(),

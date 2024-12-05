@@ -62,7 +62,7 @@ export const auth = betterAuth({
         getVerifyEmail(user.name, url)
       )
     },
-    sendOnSignUp: true,
+    sendOnSignUp: false,
   },
   trustedOrigins: [env.NEXT_PUBLIC_WEB],
   account: {

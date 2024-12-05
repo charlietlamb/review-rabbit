@@ -14,13 +14,19 @@ export const config: NextConfig = withVercelToolbar()({
       },
       {
         protocol: 'https',
-        hostname: env.NEXT_PUBLIC_AWS_S3_URL,
+        hostname: env.NEXT_PUBLIC_AWS_S3_URL.split('/')[2],
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL,
+        hostname: env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL.split('/')[2],
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd1xwrryt2q5y73.cloudfront.net',
         port: '',
         pathname: '/**',
       },

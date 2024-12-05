@@ -9,7 +9,7 @@ import {
 } from '@remio/design-system/components/ui/card'
 import { PricingTier } from './pricing-data'
 import { Button } from '@remio/design-system/components/ui/button'
-import { Check, Gift } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { checkout } from '@remio/design-system/actions/stripe/checkout'
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
@@ -39,7 +39,8 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
         <Button
           size="lg"
           variant="expandIcon"
-          Icon={Gift}
+          colors="primary"
+          Icon={ArrowRight}
           iconPlacement="right"
           className="w-full"
           onClick={() => checkout(tier.priceId, tier.plan)}

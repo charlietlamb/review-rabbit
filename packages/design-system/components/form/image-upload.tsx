@@ -19,7 +19,7 @@ import {
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import { MAX_IMAGE_SIZE } from '@ff/design-system/lib/constants'
+import { MAX_FILE_SIZE } from '@ff/design-system/lib/constants'
 
 export default function ImageUpload({
   previewUrl: initPreviewUrl,
@@ -55,7 +55,7 @@ export default function ImageUpload({
       const file = event.target.files?.[0]
       if (file) {
         setFileName(file.name)
-        setFileTooLarge(file.size > MAX_IMAGE_SIZE)
+        setFileTooLarge(file.size > MAX_FILE_SIZE)
         const url = URL.createObjectURL(file)
         setPreviewUrl(url)
         field?.handleChange(file)

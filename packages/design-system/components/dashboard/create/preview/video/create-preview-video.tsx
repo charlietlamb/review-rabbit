@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { Button } from '@ff/design-system/components/ui/button'
 import { Slider } from '@ff/design-system/components/ui/slider'
 import { Play, Pause } from 'lucide-react'
@@ -13,22 +13,20 @@ import {
   createPreviewUrlsAtom,
   createThumbnailTimeAtom,
 } from '@ff/design-system/atoms/dashboard/create/create-atom'
-import { AspectRatio } from '@ff/design-system/components/ui/aspect-ratio'
 import { getPresignedUrl } from '@ff/design-system/actions/s3/upload/get-presigned-url'
-import CreateFormAudioPreview from '../form/audio/create-form-audio-preview'
-import CreateFormPreviewDelete from './create-form-preview-delete'
-import debounce from 'lodash/debounce'
-import CreateFormPreviewThumbnail from './create-form-preview-thumbnail'
+import CreateFormAudioPreview from '../../form/audio/create-form-audio-preview'
+import CreateFormPreviewDelete from '../delete/create-form-preview-delete'
+import CreateFormPreviewThumbnail from '../thumbnail/create-form-preview-thumbnail'
 
-interface CreatePreviewShortsProps {
+interface CreatePreviewVideoProps {
   media?: File | Media | null
   className?: string
 }
 
-export function CreatePreviewShorts({
+export function CreatePreviewVideo({
   media: propMedia,
   className,
-}: CreatePreviewShortsProps) {
+}: CreatePreviewVideoProps) {
   const [files, setFiles] = useAtom(createFilesAtom)
   const playerRef = useRef<ReactPlayer>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -36,6 +34,7 @@ export function CreatePreviewShorts({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isReady, setIsReady] = useState(false)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
   const [createPreviewUrls, setCreatePreviewUrls] = useAtom(
     createPreviewUrlsAtom
   )
@@ -104,66 +103,85 @@ export function CreatePreviewShorts({
   const handleDelete = () => {
     setFiles([])
     setCreateThumbnailTime(0)
-
     setCreatePreviewUrls([])
+  }
+
+  const handleReady = () => {
+    setIsReady(true)
+    // Get video dimensions from player
+    const player = playerRef.current?.getInternalPlayer() as HTMLVideoElement
+    if (player) {
+      setDimensions({
+        width: player.videoWidth,
+        height: player.videoHeight,
+      })
+    }
   }
 
   if (!createPreviewUrls.length) {
     return (
       <div className="w-full flex justify-center">
-        <AspectRatio
-          ratio={9 / 16}
-          className={cn('relative w-full bg-muted rounded-lg', className)}
+        <div
+          className={cn(
+            'relative w-full bg-muted rounded-lg min-h-[300px]',
+            className
+          )}
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <p className="text-muted-foreground">No video selected</p>
           </div>
           <CreateFormAudioPreview />
-        </AspectRatio>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="w-full flex justify-center group">
-      <AspectRatio
-        ratio={9 / 16}
+    <div className="w-full flex justify-center group flex-col gap-2">
+      <div
         ref={containerRef}
-        className={cn('relative w-full', className)}
+        className={cn(
+          'relative w-full rounded-lg overflow-hidden bg-black',
+          className
+        )}
+        style={{
+          maxWidth: '100%',
+          aspectRatio:
+            dimensions.width && dimensions.height
+              ? `${dimensions.width} / ${dimensions.height}`
+              : 'auto',
+        }}
       >
-        <div className="absolute inset-0 rounded-lg overflow-hidden bg-black">
-          <ReactPlayer
-            ref={playerRef}
-            url={createPreviewUrls[0]}
-            width="100%"
-            height="100%"
-            playing={isPlaying}
-            onProgress={handleProgress}
-            onDuration={handleDuration}
-            onEnded={handleEnded}
-            onReady={() => setIsReady(true)}
-            playsinline
-            pip={false}
-            controls={false}
-            config={{
-              file: {
-                attributes: {
-                  style: {
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%',
-                  },
+        <ReactPlayer
+          ref={playerRef}
+          url={createPreviewUrls[0]}
+          width="100%"
+          height="100%"
+          playing={isPlaying}
+          onProgress={handleProgress}
+          onDuration={handleDuration}
+          onEnded={handleEnded}
+          onReady={handleReady}
+          playsinline
+          pip={false}
+          controls={false}
+          config={{
+            file: {
+              attributes: {
+                style: {
+                  objectFit: 'contain',
+                  width: '100%',
+                  height: '100%',
                 },
               },
-            }}
-          />
-        </div>
+            },
+          }}
+        />
 
         {isReady && (
           <>
             <CreateFormAudioPreview />
             <CreateFormPreviewDelete handleDelete={handleDelete} />
-            <CreateFormPreviewThumbnail url={createPreviewUrls[0]} />
             <div className="absolute inset-0 flex items-center justify-center">
               <Button
                 variant="ghost"
@@ -198,7 +216,11 @@ export function CreatePreviewShorts({
             </div>
           </>
         )}
-      </AspectRatio>
+      </div>
+      <CreateFormPreviewThumbnail
+        url={createPreviewUrls[0]}
+        className="relative"
+      />
     </div>
   )
 }

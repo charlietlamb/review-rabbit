@@ -21,7 +21,6 @@ export default function CreateFormUpload() {
       <RequiredLabel>Content</RequiredLabel>
       <FileUploader
         value={files.filter((file) => file instanceof File)}
-        maxSize={8 * 1024 * 1024}
         onValueChange={setFiles}
         setOpen={() => {}}
         accept={createOption.acceptedFileTypes}

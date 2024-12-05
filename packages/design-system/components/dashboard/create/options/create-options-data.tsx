@@ -1,7 +1,11 @@
 import { DropzoneProps } from 'react-dropzone'
-import { CreatePreviewShorts } from '../preview/create-preview-shorts'
+import { CreatePreviewShorts } from '../preview/shorts/create-preview-shorts'
 import { Provider, providerDataById } from '@ff/design-system/lib/providers'
 import { AcceptedMimeType } from 'data/file-types'
+import { CreatePreviewVideo } from '../preview/video/create-preview-video'
+import { CreatePreviewStory } from '../preview/story/create-preview-story'
+import { CreatePreviewImage } from '../preview/image/create-preview-image'
+import { CreatePreviewCarousel } from '../preview/carousel/create-form-carousel'
 
 export type CreateOptionData = {
   id: string
@@ -14,6 +18,16 @@ export type CreateOptionData = {
   preview?: React.ReactNode
   providers?: Provider[]
 }
+
+export const createOptionTypes = [
+  'image',
+  'video',
+  'short',
+  'story',
+  'carousel',
+  'text',
+] as const
+export type CreateOptionType = (typeof createOptionTypes)[number]
 
 const shortProviders = ['youtube', 'instagram', 'tiktok', 'snapchat']
 const textProviders = ['youtube', 'x']
@@ -65,6 +79,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       acceptedMimeTypes: ['image', 'video'],
       single: false,
       description: 'A carousel of images or videos.',
+      preview: <CreatePreviewCarousel />,
       providers: carouselProviders,
       providerIcons: carouselProviders.map((provider) => ({
         icon: providerDataById[provider].colorIcon,
@@ -81,6 +96,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       acceptedMimeTypes: ['video'],
       single: true,
       description: 'A single video.',
+      preview: <CreatePreviewVideo />,
       providers: videoProviders,
       providerIcons: videoProviders.map((provider) => ({
         icon: providerDataById[provider].colorIcon,
@@ -97,6 +113,7 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       acceptedMimeTypes: ['image'],
       single: true,
       description: 'A single image.',
+      preview: <CreatePreviewImage />,
       providers: imageProviders,
       providerIcons: imageProviders.map((provider) => ({
         icon: providerDataById[provider].colorIcon,
@@ -111,7 +128,9 @@ export const createOptionsMap = new Map<string, CreateOptionData>([
       name: 'Story',
       acceptedFileTypes: { 'video/*': [], 'image/*': [] },
       acceptedMimeTypes: ['video', 'image'],
+      single: true,
       description: 'A story of images or videos.',
+      preview: <CreatePreviewStory />,
       providers: storyProviders,
       providerIcons: storyProviders.map((provider) => ({
         icon: providerDataById[provider].colorIcon,

@@ -3,66 +3,70 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { createThumbnailTimeAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
-import { Button } from '@ff/design-system/components/ui/button'
 import { Slider } from '@ff/design-system/components/ui/slider'
-import { Play, Pause } from 'lucide-react'
 import { AspectRatio } from '@ff/design-system/components/ui/aspect-ratio'
-import { cn } from '@ff/design-system/lib/utils'
+import { Label } from '@ff/design-system/components/ui/label'
+import { Dispatch, SetStateAction } from 'react'
 
-interface CreateFormPreviewThumbnailSelectProps {
-  url: string
+interface VideoAspectRatio {
+  width: number
+  height: number
 }
 
 export default function CreateFormPreviewThumbnailSelect({
   url,
-}: CreateFormPreviewThumbnailSelectProps) {
+  time,
+  setTime,
+  mobile = false,
+}: {
+  url: string
+  time: number
+  setTime: Dispatch<SetStateAction<number>>
+  mobile?: boolean
+}) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const previewRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
   const [thumbnailTime, setThumbnailTime] = useAtom(createThumbnailTimeAtom)
-
-  useEffect(() => {
-    if (!videoRef.current || !previewRef.current) return
-    videoRef.current.currentTime = thumbnailTime
-    previewRef.current.currentTime = thumbnailTime
-  }, [thumbnailTime])
+  const [aspectRatio, setAspectRatio] = useState<VideoAspectRatio>({
+    width: 16,
+    height: 9,
+  })
 
   const handleLoadedMetadata = () => {
     if (!videoRef.current) return
     setDuration(videoRef.current.duration)
-    // Set initial thumbnail time to 0
-    setThumbnailTime(0)
-  }
 
-  const handlePlayPause = () => {
-    if (!videoRef.current) return
-    if (isPlaying) {
-      videoRef.current.pause()
+    if (!mobile) {
+      // Use actual video dimensions for non-shorts
+      setAspectRatio({
+        width: videoRef.current.videoWidth,
+        height: videoRef.current.videoHeight,
+      })
     } else {
-      videoRef.current.play()
+      // Force 9:16 ratio for mobile
+      setAspectRatio({ width: 9, height: 16 })
     }
-    setIsPlaying(!isPlaying)
   }
 
   const handleTimeUpdate = () => {
-    if (!videoRef.current || !previewRef.current) return
-    if (isPlaying) {
-      setThumbnailTime(videoRef.current.currentTime)
-      previewRef.current.currentTime = videoRef.current.currentTime
-    }
+    if (!videoRef.current) return
+    setTime(videoRef.current.currentTime)
   }
 
   const handleSliderChange = (value: number[]) => {
     const time = value[0]
-    setThumbnailTime(time)
     if (videoRef.current) {
       videoRef.current.currentTime = time
     }
-    if (previewRef.current) {
-      previewRef.current.currentTime = time
-    }
   }
+
+  useEffect(() => {
+    if (previewRef.current) {
+      previewRef.current.currentTime = thumbnailTime
+    }
+  }, [thumbnailTime])
 
   const handleVideoEnded = () => {
     setIsPlaying(false)
@@ -71,10 +75,10 @@ export default function CreateFormPreviewThumbnailSelect({
   return (
     <div className="w-full space-y-4">
       <div className="grid grid-cols-2 gap-4">
-        {/* Video Player */}
-        <div className="relative">
+        <div className="relative flex flex-col gap-2">
+          <Label>Video Preview</Label>
           <AspectRatio
-            ratio={9 / 16}
+            ratio={aspectRatio.width / aspectRatio.height}
             className="bg-black rounded-lg overflow-hidden"
           >
             <video
@@ -86,28 +90,15 @@ export default function CreateFormPreviewThumbnailSelect({
               onEnded={handleVideoEnded}
               playsInline
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
-                onClick={handlePlayPause}
-              >
-                {isPlaying ? (
-                  <Pause className="h-6 w-6" />
-                ) : (
-                  <Play className="h-6 w-6 ml-1" />
-                )}
-              </Button>
-            </div>
           </AspectRatio>
         </div>
 
-        {/* Thumbnail Preview */}
         <div className="flex flex-col">
-          <p className="text-sm font-medium mb-2">Preview Thumbnail</p>
+          <div className="flex justify-between items-center mb-2">
+            <Label>Selected Thumbnail</Label>
+          </div>
           <AspectRatio
-            ratio={9 / 16}
+            ratio={aspectRatio.width / aspectRatio.height}
             className="bg-black rounded-lg overflow-hidden"
           >
             <video
@@ -120,19 +111,21 @@ export default function CreateFormPreviewThumbnailSelect({
         </div>
       </div>
 
-      {/* Time Slider */}
       <div className="space-y-2">
-        <p className="text-xs text-muted-foreground">Select Thumbnail Time</p>
+        <p className="text-xs text-muted-foreground">
+          Change the slider position to select the thumbnail
+        </p>
         <Slider
-          value={[thumbnailTime]}
+          value={[time]}
           min={0}
           max={duration}
           step={0.001}
           onValueChange={handleSliderChange}
-          className="w-full"
+          className="w-full border rounded-full cursor-pointer"
+          thumbClassName="hidden"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
-          <span>{formatTime(thumbnailTime)}</span>
+          <span>{formatTime(time)}</span>
           <span>{formatTime(duration)}</span>
         </div>
       </div>

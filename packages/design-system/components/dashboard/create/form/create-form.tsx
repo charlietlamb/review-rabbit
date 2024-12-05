@@ -42,12 +42,31 @@ export default function CreateForm({
   }, [createOption, setCreateType, connects])
 
   return (
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel
-        defaultSize={60}
-        minSize={20}
-        className="divide-y flex flex-col relative"
-      >
+    <>
+      <div className="hidden md:flex overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="flex-grow">
+          <ResizablePanel
+            defaultSize={60}
+            minSize={20}
+            className="divide-y flex flex-col relative"
+          >
+            <CreateFormHeader />
+            <div className="overflow-y-auto divide-y flex flex-col">
+              <CreateFormText />
+              <CreateFormUpload />
+              <CreateFormAccounts />
+              <CreateFormSchedule />
+              <CreateFormAudio />
+            </div>
+            <CreateFormSubmit />
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel defaultSize={40} minSize={20}>
+            <CreateFormPreview />
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+      <div className="flex md:hidden flex-col divide-y overflow-hidden">
         <CreateFormHeader />
         <div className="overflow-y-auto divide-y flex flex-col">
           <CreateFormText />
@@ -55,13 +74,10 @@ export default function CreateForm({
           <CreateFormAccounts />
           <CreateFormSchedule />
           <CreateFormAudio />
+          <CreateFormPreview />
         </div>
         <CreateFormSubmit />
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={40} minSize={20}>
-        <CreateFormPreview />
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </div>
+    </>
   )
 }

@@ -7,13 +7,18 @@ import { useAtomValue } from 'jotai'
 import {
   createCaptionAtom,
   createCaptionPlatformAtom,
-  createConnectsAtom,
   createSelectedConnectsAtom,
 } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { Skeleton } from '@ff/design-system/components/ui/skeleton'
-import { PREVIEW_INTERVAL } from './create-form-preview-data'
+import { PREVIEW_INTERVAL } from '../create-form-preview-data'
 
-export function CreateFormPreviewText({ className }: { className?: string }) {
+export function CreateFormPreviewText({
+  skeleton = true,
+  className,
+}: {
+  skeleton?: boolean
+  className?: string
+}) {
   const accounts = useAtomValue(createSelectedConnectsAtom)
   const mainCaption = useAtomValue(createCaptionAtom)
   const platformCaptions = useAtomValue(createCaptionPlatformAtom)
@@ -23,42 +28,25 @@ export function CreateFormPreviewText({ className }: { className?: string }) {
   useEffect(() => {
     if (accounts.length <= 1) return
 
+    const updateCaption = () => {
+      const platform = accounts[currentIndex]?.providerId
+      const platformCaption = platform && platformCaptions.get(platform)
+      setCurrentCaption(platformCaption?.length ? platformCaption : mainCaption)
+    }
+
+    updateCaption()
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % accounts.length)
     }, PREVIEW_INTERVAL)
 
     return () => clearInterval(interval)
-  }, [accounts.length])
-
-  useEffect(() => {
-    const platform = accounts[currentIndex]?.providerId
-    console.log(platformCaptions, platform)
-    if (
-      platform &&
-      platformCaptions.has(platform) &&
-      platformCaptions.get(platform)?.length
-    ) {
-      setCurrentCaption(platformCaptions.get(platform) || mainCaption)
-    } else {
-      setCurrentCaption(mainCaption)
-    }
-  }, [platformCaptions, currentIndex, mainCaption])
+  }, [accounts.length, currentIndex, platformCaptions, mainCaption])
 
   if (
     !mainCaption.length &&
     !Array.from(platformCaptions.values()).some((caption) => caption.length)
-  ) {
-    return (
-      <div className={cn('space-y-1.5', className)}>
-        <Skeleton className="h-2 w-[95%]" />
-        <Skeleton className="h-2 w-[90%]" />
-        <Skeleton className="h-2 w-full" />
-        <Skeleton className="h-2 w-[85%]" />
-        <Skeleton className="h-2 w-[88%]" />
-        <Skeleton className="h-2 w-[70%]" />
-      </div>
-    )
-  }
+  )
+    return skeleton && <CaptionSkeleton className={className} />
 
   return (
     <div className={cn('relative', className)}>
@@ -77,6 +65,19 @@ export function CreateFormPreviewText({ className }: { className?: string }) {
           </div>
         </motion.div>
       </AnimatePresence>
+    </div>
+  )
+}
+
+function CaptionSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn('space-y-1.5', className)}>
+      <Skeleton className="h-2 w-[95%]" />
+      <Skeleton className="h-2 w-[90%]" />
+      <Skeleton className="h-2 w-full" />
+      <Skeleton className="h-2 w-[85%]" />
+      <Skeleton className="h-2 w-[88%]" />
+      <Skeleton className="h-2 w-[70%]" />
     </div>
   )
 }

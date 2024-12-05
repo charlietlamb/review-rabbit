@@ -8,12 +8,13 @@ import { cn } from '@ff/design-system/lib/utils'
 interface SliderProps
   extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
   thumbClassName?: string
+  trackClassName?: string
 }
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, thumbClassName, ...props }, ref) => (
+>(({ className, thumbClassName, trackClassName, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -22,7 +23,12 @@ const Slider = React.forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-background">
+    <SliderPrimitive.Track
+      className={cn(
+        'relative h-2 w-full grow overflow-hidden rounded-full bg-background',
+        trackClassName
+      )}
+    >
       <SliderPrimitive.Range className="absolute h-full bg-foreground" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb

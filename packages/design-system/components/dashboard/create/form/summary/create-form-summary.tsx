@@ -2,7 +2,6 @@ import { useAtomValue } from 'jotai'
 import {
   createScheduleAtom,
   createSelectedProvidersAtom,
-  createTypeAtom,
 } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { format } from 'date-fns'
 
@@ -13,7 +12,7 @@ export default function CreateFormSummary() {
   return (
     <div className="grid">
       <div className="inline-flex items-center gap-2">
-        Scheduled on
+        Scheduled for
         <span className="font-bold font-heading">
           {format(schedule, 'MMM d, yyyy')}
         </span>

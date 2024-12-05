@@ -14,6 +14,7 @@ import FileCard from './file-card'
 import FileUpload from './file-upload'
 import { isFileWithPreview } from './is-file-with-preview'
 import { getFileDuration } from '@ff/design-system/lib/misc/get-file-duration'
+import { MAX_FILE_SIZE } from '@ff/design-system/lib/constants'
 
 export function FileUploader(props: FileUploaderProps) {
   const {
@@ -24,7 +25,7 @@ export function FileUploader(props: FileUploaderProps) {
     accept = {
       '*': [],
     },
-    maxSize = 1024 * 1024 * 2,
+    maxSize = MAX_FILE_SIZE,
     maxFileCount = 1,
     multiple = false,
     disabled = false,

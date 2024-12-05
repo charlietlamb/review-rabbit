@@ -4,7 +4,6 @@ import {
   OAuthTokens,
   ProviderOptions,
 } from '../types'
-import { BetterAuthError } from 'better-auth'
 
 export interface InstagramProfile extends BaseProfile {
   id: string
@@ -41,7 +40,7 @@ export function instagram(
     const response = await fetch(url.toString())
 
     if (!response.ok) {
-      throw new BetterAuthError(
+      throw new Error(
         `Failed to exchange for long-lived token: ${response.status}`
       )
     }
@@ -88,7 +87,7 @@ export function instagram(
 
       if (!response.ok) {
         const error = await response.text()
-        throw new BetterAuthError(
+        throw new Error(
           `Instagram token validation failed: ${response.status} - ${error}`
         )
       }
@@ -108,9 +107,7 @@ export function instagram(
       const response = await fetch(url.toString())
 
       if (!response.ok) {
-        throw new BetterAuthError(
-          `Failed to refresh Instagram token: ${response.status}`
-        )
+        throw new Error(`Failed to refresh Instagram token: ${response.status}`)
       }
 
       const data = await response.json()
@@ -132,7 +129,7 @@ export function instagram(
       )
 
       if (!response.ok) {
-        throw new BetterAuthError(
+        throw new Error(
           `Failed to fetch Instagram user profile: ${response.status}`
         )
       }
@@ -147,6 +144,10 @@ export function instagram(
         account_type: profile.account_type,
         media_count: profile.media_count,
       }
+    },
+
+    async uploadVideo(): Promise<never> {
+      throw new Error('Video upload not supported for Instagram')
     },
   }
 }

@@ -27,9 +27,6 @@ const server = {
   STRIPE_SECRET_KEY: z.string().min(1).startsWith('sk_'),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).startsWith('whsec_'),
 
-  // ElevenLabs
-  ELEVENLABS_API_KEY: z.string().min(1).startsWith('sk_'),
-
   // Bundle Analyzer
   ANALYZE: z.string().optional().default('false'),
 
@@ -105,9 +102,6 @@ if (!databaseOnly) {
       // Stripe
       STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
       STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
-
-      // ElevenLabs
-      ELEVENLABS_API_KEY: process.env.ELEVENLABS_API_KEY,
 
       // Bundle Analyzer
       ANALYZE: process.env.ANALYZE,

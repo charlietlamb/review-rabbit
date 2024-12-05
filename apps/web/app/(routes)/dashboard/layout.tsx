@@ -4,7 +4,7 @@ import SessionProvider from '@ff/design-system/components/providers/session-prov
 import { SidebarProvider } from '@ff/design-system/components/ui/sidebar'
 import useAuth from '@ff/design-system/hooks/use-auth'
 import useIsUser from '@ff/design-system/hooks/use-is-user'
-import { ThemeProvider } from 'next-themes'
+import ThemeProvider from '@ff/design-system/components/providers/theme-provider'
 
 export default async function layout({
   children,
@@ -14,7 +14,7 @@ export default async function layout({
   const user = await useAuth()
   useIsUser(user)
   return (
-    <ThemeProvider attribute="class" defaultTheme="system">
+    <ThemeProvider attribute="class" defaultTheme="light">
       <SidebarProvider className="flex w-full flex-grow">
         <SessionProvider user={user}>
           <DashboardSidebar />

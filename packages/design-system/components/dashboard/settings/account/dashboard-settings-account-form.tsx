@@ -15,7 +15,7 @@ import Spinner from '@ff/design-system/components/misc/spinner'
 import { toast } from 'sonner'
 import UpdatePassword from '@ff/design-system/components/auth/update-password/update-password'
 import { useState } from 'react'
-import { MAX_IMAGE_SIZE_STRING } from '@ff/design-system/data/max-image-size'
+import { MAX_FILE_SIZE_STRING } from '@ff/design-system/data/max-image-size'
 import { updateUser } from '@ff/design-system/actions/auth/user/update-user'
 import { uploadProfilePictureClient } from '@ff/design-system/actions/s3/upload/upload-profile-picture-client'
 import { User } from '@ff/database/schema/users'
@@ -97,7 +97,7 @@ export default function DashboadSettingsAccountForm() {
           className="w-full mt-2"
         >
           {fileTooLarge ? (
-            `File too large, max size is ${MAX_IMAGE_SIZE_STRING}`
+            `File too large, max size is ${MAX_FILE_SIZE_STRING}`
           ) : form.state.isSubmitting ? (
             <Spinner />
           ) : (

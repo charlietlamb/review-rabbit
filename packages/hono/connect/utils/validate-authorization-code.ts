@@ -1,5 +1,4 @@
 import { OAuthTokens } from '../types'
-import { BetterAuthError } from 'better-auth'
 
 export async function validateAuthorizationCode(params: {
   code: string
@@ -28,7 +27,7 @@ export async function validateAuthorizationCode(params: {
 
     if (!response.ok) {
       console.error('Token endpoint error:', data)
-      throw new BetterAuthError(
+      throw new Error(
         `Token endpoint error: ${data.error || response.statusText}`
       )
     }
@@ -43,9 +42,9 @@ export async function validateAuthorizationCode(params: {
     }
   } catch (error) {
     console.error('Token validation error:', error)
-    throw error instanceof BetterAuthError
+    throw error instanceof Error
       ? error
-      : new BetterAuthError(
+      : new Error(
           `Failed to validate code: ${
             error instanceof Error ? error.message : 'Unknown error'
           }`

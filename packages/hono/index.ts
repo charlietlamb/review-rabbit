@@ -5,9 +5,9 @@ import users from '@ff/hono/routes/user/user.index'
 import s3 from '@ff/hono/routes/s3/s3.index'
 import media from '@ff/hono/routes/media/media.index'
 import connect from '@ff/hono/routes/connect/connect.index'
-
+import schedule from '@ff/hono/routes/schedule/schedule.index'
 const app = createApp()
-const routes = [index, users, s3, media, connect] as const
+const routes = [index, users, s3, media, connect, schedule] as const
 
 configure(app)
 

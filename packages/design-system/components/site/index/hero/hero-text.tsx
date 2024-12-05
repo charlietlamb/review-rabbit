@@ -10,7 +10,7 @@ export function HeroText() {
         <ArrowRight size={16} className="text-foreground" />
       </div>
       <h1 className="max-w-2xl font-heading text-4xl font-semibold sm:text-5xl tracking-tight text-foreground text-center ">
-        Social media scheduling that just works
+        Social media scheduling from the future
       </h1>
       <p className="max-w-lg text-center text-lg text-muted-foreground sm:text-xl">
         Create custom workflows that make social media scheduling a breeze.

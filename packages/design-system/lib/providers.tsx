@@ -95,6 +95,14 @@ export const providerData = [
   },
 ] as ProviderData[]
 
+export const providerIds = [
+  'youtube',
+  'instagram',
+  'tiktok',
+  'x',
+  'snapchat',
+] as const
+
 export const providerDataById = providerData.reduce((acc, platform) => {
   acc[platform.id] = platform
   return acc

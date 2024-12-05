@@ -11,8 +11,18 @@ import { CreateFile } from 'components/dashboard/create/form/types/create-form-t
 
 export const createTypeAtom = atom<CreateOptionData | null>(null)
 
-export const createFilesAtom = atom<CreateFile[]>([])
 export const createAudioFilesAtom = atom<CreateFile[]>([])
+export const createFilesAtom = atom<CreateFile[]>([])
+export const createFilesUrlAtom = atom<string[]>((get) => {
+  const files = get(createFilesAtom)
+  return files.map((file) =>
+    file instanceof File
+      ? URL.createObjectURL(file)
+      : typeof file === 'string'
+      ? file
+      : file.url
+  )
+})
 
 export const createSelectedMediaAtom = atom<Media[]>([])
 

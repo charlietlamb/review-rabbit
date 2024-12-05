@@ -1,5 +1,4 @@
-import { OAuthTokens } from '../types'
-import { BetterAuthError } from 'better-auth'
+import { OAuthTokens } from '../../types'
 
 export async function refreshTokens(params: {
   refreshToken: string
@@ -21,7 +20,7 @@ export async function refreshTokens(params: {
   })
 
   if (!response.ok) {
-    throw new BetterAuthError(`Failed to refresh tokens: ${response.status}`)
+    throw new Error(`Failed to refresh tokens: ${response.status}`)
   }
 
   const data = await response.json()

@@ -1,16 +1,14 @@
 import { createTypeAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useAtomValue } from 'jotai'
-import { CreateFormPreviewAccounts } from './create-form-preview-account'
-import { CreateFormPreviewText } from './create-form-preview-text'
+import { CreateFormPreviewText } from './text/create-form-preview-text'
+import { CreateFormPreviewAccounts } from './account/create-form-preview-account'
 
 export default function CreateFormPreview() {
   const createOption = useAtomValue(createTypeAtom)
   if (!createOption) return null
   return (
-    <div className="flex flex-col p-4 mx-auto gap-4 max-w-[440px]">
+    <div className="flex flex-col p-4 md:mx-auto gap-4 md:max-w-[440px]">
       {createOption.preview}
-      <CreateFormPreviewAccounts />
-      <CreateFormPreviewText />
     </div>
   )
 }

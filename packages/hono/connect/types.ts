@@ -39,6 +39,47 @@ export interface BaseProfile {
   sub?: string
 }
 
+export interface UploadVideoParams {
+  accessToken: string
+  file: File | Blob | string
+  title: string
+  description: string
+  privacyStatus?: 'private' | 'unlisted' | 'public'
+  isShort?: boolean
+  publishAt?: Date
+}
+
+export interface UploadVideoResult {
+  videoId: string
+  url: string
+  scheduledTime?: string
+}
+
+export interface ScheduleContent {
+  mediaUrl: string
+  caption?: string
+  scheduledTime: string
+  accessToken: string
+}
+
+export type ScheduleFunction = (
+  data: ScheduleContent
+) => Promise<UploadVideoResult>
+
+export interface ScheduleHandlers {
+  image: ScheduleFunction
+  video: ScheduleFunction
+  short: ScheduleFunction
+  story: ScheduleFunction
+}
+export interface ProviderWithSchedule extends OAuthProvider {
+  scheduleContent: (
+    type: keyof ScheduleHandlers,
+    data: ScheduleContent
+  ) => Promise<boolean>
+  scheduleHandlers: ScheduleHandlers
+}
+
 export interface OAuthProvider<TProfile extends BaseProfile = BaseProfile> {
   /**
    * Create the authorization URL for the OAuth flow
@@ -63,4 +104,9 @@ export interface OAuthProvider<TProfile extends BaseProfile = BaseProfile> {
    * Get user information using the access token
    */
   getUserProfile(accessToken: string): Promise<TProfile>
+
+  /**
+   * Upload a video to the provider
+   */
+  uploadVideo(params: UploadVideoParams): Promise<UploadVideoResult>
 }

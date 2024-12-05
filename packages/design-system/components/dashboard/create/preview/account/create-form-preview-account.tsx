@@ -12,11 +12,13 @@ import { cn } from '@ff/design-system/lib/utils'
 import { providerDataById } from '@ff/design-system/lib/providers'
 import { createSelectedConnectsAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import { useAtomValue } from 'jotai'
-import { PREVIEW_INTERVAL } from './create-form-preview-data'
+import { PREVIEW_INTERVAL } from '../create-form-preview-data'
 
 export function CreateFormPreviewAccounts({
+  skeleton = true,
   className,
 }: {
+  skeleton?: boolean
   className?: string
 }) {
   const accounts = useAtomValue(createSelectedConnectsAtom)
@@ -34,18 +36,20 @@ export function CreateFormPreviewAccounts({
 
   if (accounts.length === 0) {
     return (
-      <div className={cn('flex items-center gap-3', className)}>
-        <Skeleton className="h-10 w-10 rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[150px]" />
-          <Skeleton className="h-4 w-[100px]" />
+      skeleton && (
+        <div className={cn('flex items-center gap-3 h-[40px]', className)}>
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[150px]" />
+            <Skeleton className="h-4 w-[100px]" />
+          </div>
         </div>
-      </div>
+      )
     )
   }
   if (!accounts[currentIndex]) return null
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative h-[40px] overflow-hidden', className)}>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -53,9 +57,9 @@ export function CreateFormPreviewAccounts({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 absolute w-full"
         >
-          <Avatar className="h-10 w-10">
+          <Avatar className="h-10 w-10 shrink-0">
             <AvatarImage
               src={accounts[currentIndex].profileImageUrl ?? undefined}
               alt={accounts[currentIndex].username ?? ''}
@@ -64,11 +68,11 @@ export function CreateFormPreviewAccounts({
               {accounts[currentIndex].username?.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <p className="text-sm font-medium leading-none">
+          <div className="flex flex-col min-w-0">
+            <p className="text-sm font-medium leading-none truncate">
               {accounts[currentIndex].username}
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground truncate">
               {providerDataById[accounts[currentIndex].providerId].name}
             </p>
           </div>

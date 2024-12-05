@@ -36,7 +36,10 @@ export default function UploadCard({
           'hover:shadow-lg hover:cursor-pointer hover:border-foreground transition-all duration-300 flex overflow-hidden',
           onSelect && selected && 'border-foreground'
         )}
-        onClick={onSelect}
+        onClick={() => {
+          onSelect && onSelect()
+          setSelected(!selected)
+        }}
       >
         <div className="aspect-square w-20 min-w-[5rem] relative flex items-center justify-center border-r border-border">
           {video || image ? (

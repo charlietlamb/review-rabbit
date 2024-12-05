@@ -19,6 +19,8 @@ import Spinner from '@ff/design-system/components/misc/spinner'
 import { createSelectedMediaAtom } from '@ff/design-system/atoms/dashboard/create/create-atom'
 import Uploads from '@ff/design-system/components/dashboard/upload/uploads'
 import { CreateFile } from '../types/create-form-types'
+import { getPresignedUrl } from '@ff/design-system/actions/s3/upload/get-presigned-url'
+import { Media } from '@ff/database/schema/media'
 
 export default function CreateFormUploads({
   files,
@@ -90,9 +92,20 @@ export default function CreateFormUploads({
             colors="none"
             className="font-heading w-full"
             disabled={loading || selectedMedia.length === 0}
-            onClick={() => {
+            onClick={async () => {
               setLoading(true)
-              setFiles([...files, ...selectedMedia])
+              const selectedMediaWithUrls = await Promise.all(
+                selectedMedia.map(async (media) => ({
+                  ...media,
+                  url: await getPresignedUrl(
+                    `media/${media.id}.${media.extension}`
+                  ),
+                }))
+              )
+              const validFiles = selectedMediaWithUrls.filter(
+                (file): file is Media & { url: string } => file.url !== null
+              ) as (Media & { url: string })[]
+              setFiles([...files, ...validFiles])
               setSelectedMedia([])
               setOpen(false)
               setLoading(false)

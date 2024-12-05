@@ -1,9 +1,9 @@
-import { db } from '@ff/database'
+import { db } from '@remio/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { env } from '@ff/env'
-import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@ff/email'
-import * as schema from '@ff/database/schema'
+import { env } from '@remio/env'
+import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@remio/email'
+import * as schema from '@remio/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 
 export const auth = betterAuth({
@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'ff',
+    cookiePrefix: 'remio',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
       enabled: env.NODE_ENV === 'production' ? true : false,

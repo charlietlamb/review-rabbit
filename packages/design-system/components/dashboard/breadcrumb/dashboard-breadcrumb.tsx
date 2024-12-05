@@ -7,10 +7,10 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
-} from '@ff/design-system/components/ui/breadcrumb'
+} from '@remio/design-system/components/ui/breadcrumb'
 import React from 'react'
-import { useIsMobile } from '@ff/design-system/hooks/use-mobile'
-import { cn } from '@ff/design-system/lib/utils'
+import { useIsMobile } from '@remio/design-system/hooks/use-mobile'
+import { cn } from '@remio/design-system/lib/utils'
 
 export default function DashboardBreadcrumb() {
   const pathname = usePathname()

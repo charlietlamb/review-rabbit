@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { Label } from '@ff/design-system/components/ui/label'
-import { Input } from '@ff/design-system/components/ui/input'
-import { cn } from '@ff/design-system/lib/utils'
+import { Label } from '@remio/design-system/components/ui/label'
+import { Input } from '@remio/design-system/components/ui/input'
+import { cn } from '@remio/design-system/lib/utils'
 import { Eye, EyeOff } from 'lucide-react'
-import FieldInfo from '@ff/design-system/components/form/field-info'
+import FieldInfo from '@remio/design-system/components/form/field-info'
 import { useState } from 'react'
 
 export default function Password({ form }: { form: TanstackForm<any> }) {

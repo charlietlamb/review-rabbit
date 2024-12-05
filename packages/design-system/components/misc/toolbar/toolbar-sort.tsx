@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ff/design-system/components/ui/select'
+} from '@remio/design-system/components/ui/select'
 import { useToolbarContext } from './toolbar-context'
 
 export default function ToolbarSort() {

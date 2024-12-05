@@ -1,4 +1,4 @@
-import { createRouter } from '@ff/hono/lib/create-app'
+import { createRouter } from '@remio/hono/lib/create-app'
 import { createRoute, z } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
 import * as HttpStatusCodes from 'stoker/http-status-codes'

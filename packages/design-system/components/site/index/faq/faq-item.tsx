@@ -2,7 +2,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@ff/design-system/components/ui/accordion'
+} from '@remio/design-system/components/ui/accordion'
 
 type FaqItemProps = {
   value: string

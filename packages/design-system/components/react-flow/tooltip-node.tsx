@@ -7,7 +7,7 @@ import {
   Handle,
   Position,
 } from '@xyflow/react'
-import { BaseNode } from '@ff/design-system/components/react-flow/base-node'
+import { BaseNode } from '@remio/design-system/components/react-flow/base-node'
 
 export type TooltipNodeType = Node<{
   label: string

@@ -1,6 +1,6 @@
-import Auth from '@ff/design-system/components/auth/auth'
-import SiteLayout from '@ff/design-system/components/site/site-layout'
-import { auth } from '@ff/auth'
+import Auth from '@remio/design-system/components/auth/auth'
+import SiteLayout from '@remio/design-system/components/site/site-layout'
+import { auth } from '@remio/auth'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 

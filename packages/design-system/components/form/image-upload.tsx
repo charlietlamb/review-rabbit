@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import { CircleUserRound } from 'lucide-react'
 import Image from 'next/image'
 import React, {
@@ -15,11 +15,11 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-} from '@ff/design-system/components/ui/dialog'
+} from '@remio/design-system/components/ui/dialog'
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import { MAX_FILE_SIZE } from '@ff/design-system/lib/constants'
+import { MAX_FILE_SIZE } from '@remio/design-system/lib/constants'
 
 export default function ImageUpload({
   previewUrl: initPreviewUrl,

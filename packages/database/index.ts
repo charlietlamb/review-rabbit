@@ -1,2 +1,2 @@
-export * from '@ff/database/schema/index'
-export { db } from '@ff/database/postgres'
+export * from '@remio/database/schema/index'
+export { db } from '@remio/database/postgres'

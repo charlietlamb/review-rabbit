@@ -1,9 +1,9 @@
 import { createRoute, z } from '@hono/zod-openapi'
-import { HttpStatusCodes } from '@ff/http'
+import { HttpStatusCodes } from '@remio/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { updateUserSchema } from './user.schema'
-import { selectUserSchema } from '@ff/database/schema/users'
-import { unauthorizedSchema } from '@ff/hono/lib/configure-auth'
+import { selectUserSchema } from '@remio/database/schema/users'
+import { unauthorizedSchema } from '@remio/hono/lib/configure-auth'
 
 const tags = ['Users']
 

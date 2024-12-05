@@ -1,5 +1,5 @@
-import { Contact } from '@ff/design-system/components/site/contact/contact'
-import SiteLayout from '@ff/design-system/components/site/site-layout'
+import { Contact } from '@remio/design-system/components/site/contact/contact'
+import SiteLayout from '@remio/design-system/components/site/site-layout'
 
 export default function ContactPage() {
   return (

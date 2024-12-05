@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { env } from '@ff/env'
+import { env } from '@remio/env'
 import { AppOpenAPI, stripeMetaDataSchema } from './types'
 
 export default async function configureStripe(app: AppOpenAPI) {

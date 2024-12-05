@@ -1,8 +1,8 @@
 'use client'
 
-import { CLOUDFRONT_URL } from '@ff/design-system/lib/constants'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { env } from '@remio/env'
 
 export default function HeroImage() {
   return (
@@ -20,7 +20,7 @@ export default function HeroImage() {
       >
         <Image
           alt="Hero Image"
-          src={`${CLOUDFRONT_URL}/public/hero-future.webp`}
+          src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/hero.webp`}
           layout="fill"
           objectFit="cover"
           priority

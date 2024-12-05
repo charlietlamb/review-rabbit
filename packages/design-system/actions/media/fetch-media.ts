@@ -1,9 +1,9 @@
 'use server'
 
-import { Media } from '@ff/database/schema/media'
-import client from '@ff/design-system/lib/client'
-import { PAGE_SIZE } from '@ff/design-system/data/page-size'
-import { headersWithCookies } from '@ff/design-system/lib/header-with-cookies'
+import { Media } from '@remio/database/schema/media'
+import client from '@remio/design-system/lib/client'
+import { PAGE_SIZE } from '@remio/design-system/data/page-size'
+import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 
 export async function fetchMedia(
   source: string,

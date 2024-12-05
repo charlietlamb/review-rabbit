@@ -1,4 +1,4 @@
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import { RiGithubFill, RiGoogleFill, RiTwitterXFill } from '@remixicon/react'
 
 export default function OAuth() {

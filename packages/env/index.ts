@@ -13,7 +13,6 @@ const server = {
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
   // AWS Configuration
-  AWS_S3_URL: z.string().min(1).url(),
   AWS_ACCESS_KEY_ID: z.string().min(1),
   AWS_SECRET_ACCESS_KEY: z.string().min(1),
   AWS_S3_BUCKET_NAME: z.string().min(1),
@@ -29,13 +28,6 @@ const server = {
 
   // Bundle Analyzer
   ANALYZE: z.string().optional().default('false'),
-
-  // Oauth
-  GOOGLE_CLIENT_SECRET: z.string().min(1),
-  INSTAGRAM_APP_SECRET: z.string().min(1),
-  TIKTOK_CLIENT_SECRET: z.string().min(1),
-  SNAPCHAT_CLIENT_SECRET: z.string().min(1),
-  X_CLIENT_SECRET: z.string().min(1),
 } as const
 
 const client = {
@@ -44,6 +36,7 @@ const client = {
   NEXT_PUBLIC_WEB: z.string().min(1).url(),
   NEXT_PUBLIC_API: z.string().min(1).url(),
   NEXT_PUBLIC_AWS_S3_URL: z.string().min(1).url(),
+  NEXT_PUBLIC_AWS_CLOUDFRONT_URL: z.string().min(1).url(),
 
   // Stripe Public Keys
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).startsWith('pk_'),
@@ -54,13 +47,6 @@ const client = {
   // PostHog
   NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
   NEXT_PUBLIC_POSTHOG_HOST: z.string().min(1).url(),
-
-  // Oauth
-  NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string().min(1),
-  NEXT_PUBLIC_INSTAGRAM_APP_ID: z.string().min(1),
-  NEXT_PUBLIC_TIKTOK_CLIENT_KEY: z.string().min(1),
-  NEXT_PUBLIC_SNAPCHAT_CLIENT_ID: z.string().min(1),
-  NEXT_PUBLIC_X_CLIENT_ID: z.string().min(1),
 } as const
 
 const dbOnlyEnv = createEnv({
@@ -89,7 +75,6 @@ if (!databaseOnly) {
       NODE_ENV: process.env.NODE_ENV,
 
       // AWS
-      AWS_S3_URL: process.env.AWS_S3_URL,
       AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
       AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
       AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
@@ -106,18 +91,13 @@ if (!databaseOnly) {
       // Bundle Analyzer
       ANALYZE: process.env.ANALYZE,
 
-      // Oauth
-      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-      INSTAGRAM_APP_SECRET: process.env.INSTAGRAM_APP_SECRET,
-      TIKTOK_CLIENT_SECRET: process.env.TIKTOK_CLIENT_SECRET,
-      SNAPCHAT_CLIENT_SECRET: process.env.SNAPCHAT_CLIENT_SECRET,
-      X_CLIENT_SECRET: process.env.X_CLIENT_SECRET,
-
       // Client
       NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
       NEXT_PUBLIC_WEB: process.env.NEXT_PUBLIC_WEB,
       NEXT_PUBLIC_API: process.env.NEXT_PUBLIC_API,
       NEXT_PUBLIC_AWS_S3_URL: process.env.NEXT_PUBLIC_AWS_S3_URL,
+      NEXT_PUBLIC_AWS_CLOUDFRONT_URL:
+        process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL,
       NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
       NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID:
@@ -128,14 +108,6 @@ if (!databaseOnly) {
         process.env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
       NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
       NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-
-      // Oauth
-      NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      NEXT_PUBLIC_INSTAGRAM_APP_ID: process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID,
-      NEXT_PUBLIC_TIKTOK_CLIENT_KEY: process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY,
-      NEXT_PUBLIC_SNAPCHAT_CLIENT_ID:
-        process.env.NEXT_PUBLIC_SNAPCHAT_CLIENT_ID,
-      NEXT_PUBLIC_X_CLIENT_ID: process.env.NEXT_PUBLIC_X_CLIENT_ID,
     },
   })
 }

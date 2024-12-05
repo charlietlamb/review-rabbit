@@ -1,11 +1,11 @@
 {
-  "extends": "@ff/typescript-config/react-library.json",
+  "extends": "@remio/typescript-config/react-library.json",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@ff/hono/*": ["./*"]
+      "@remio/hono/*": ["./*"]
     }
   },
   "include": ["./*.ts", "./*.tsx"],

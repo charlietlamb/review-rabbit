@@ -9,19 +9,19 @@
     "stripe": "stripe listen --forward-to localhost:8000/webhooks/stripe"
   },
   "dependencies": {
-    "@ff/analytics": "workspace:*",
-    "@ff/auth": "workspace:*",
-    "@ff/database": "workspace:*",
-    "@ff/design-system": "workspace:*",
-    "@ff/env": "workspace:*",
-    "@ff/next-config": "workspace:*",
+    "@remio/analytics": "workspace:*",
+    "@remio/auth": "workspace:*",
+    "@remio/database": "workspace:*",
+    "@remio/design-system": "workspace:*",
+    "@remio/env": "workspace:*",
+    "@remio/next-config": "workspace:*",
     "next": "15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "svix": "^1.40.0"
   },
   "devDependencies": {
-    "@ff/typescript-config": "workspace:*",
+    "@remio/typescript-config": "workspace:*",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",

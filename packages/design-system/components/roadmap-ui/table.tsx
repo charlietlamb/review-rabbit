@@ -1,10 +1,10 @@
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@ff/design-system/components/ui/dropdown-menu'
+} from '@remio/design-system/components/ui/dropdown-menu'
 import {
   TableBody as TableBodyRaw,
   TableCell as TableCellRaw,
@@ -12,8 +12,8 @@ import {
   TableHeader as TableHeaderRaw,
   Table as TableRaw,
   TableRow as TableRowRaw,
-} from '@ff/design-system/components/ui/table'
-import { cn } from '@ff/design-system/lib/utils'
+} from '@remio/design-system/components/ui/table'
+import { cn } from '@remio/design-system/lib/utils'
 import type {
   Cell,
   Column,

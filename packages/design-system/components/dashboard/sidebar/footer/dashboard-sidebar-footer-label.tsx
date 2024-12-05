@@ -2,9 +2,9 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@ff/design-system/components/ui/avatar'
-import { DropdownMenuLabel } from '@ff/design-system/components/ui/dropdown-menu'
-import useUser from '@ff/design-system/hooks/use-user'
+} from '@remio/design-system/components/ui/avatar'
+import { DropdownMenuLabel } from '@remio/design-system/components/ui/dropdown-menu'
+import useUser from '@remio/design-system/hooks/use-user'
 
 export default function DashboardSidebarFooterLabel() {
   const user = useUser()

@@ -1,9 +1,9 @@
-import { authClient } from '@ff/design-system/lib/authClient'
+import { authClient } from '@remio/design-system/lib/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@ff/design-system/components/ui/dropdown-menu'
+} from '@remio/design-system/components/ui/dropdown-menu'
 import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 

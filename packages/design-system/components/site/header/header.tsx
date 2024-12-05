@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Logo } from './logo'
 import { DesktopNav } from './nav/desktop-nav'
 import { MobileNav } from './nav/mobile-nav'
-import { cn } from '@ff/design-system/lib/utils'
+import { cn } from '@remio/design-system/lib/utils'
 
 export function Header() {
   const [hasBackground, setHasBackground] = useState(false)

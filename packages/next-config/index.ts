@@ -1,8 +1,7 @@
-import { env } from '@ff/env'
+import { env } from '@remio/env'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withVercelToolbar from '@vercel/toolbar/plugins/next'
 import type { NextConfig } from 'next'
-import { createSecureHeaders } from 'next-secure-headers'
 
 export const config: NextConfig = withVercelToolbar()({
   images: {
@@ -15,19 +14,13 @@ export const config: NextConfig = withVercelToolbar()({
       },
       {
         protocol: 'https',
-        hostname: 'charlie-lamb-dev-bucket.s3.eu-west-2.amazonaws.com',
+        hostname: env.NEXT_PUBLIC_AWS_S3_URL,
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'charlie-lamb-dev-bucket.s3.amazonaws.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'd1xwrryt2q5y73.cloudfront.net',
+        hostname: env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL,
         port: '',
         pathname: '/**',
       },
@@ -41,7 +34,7 @@ export const config: NextConfig = withVercelToolbar()({
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: '100mb',
+      bodySizeLimit: '10mb',
     },
   },
 

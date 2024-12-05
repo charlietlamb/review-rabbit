@@ -3,8 +3,12 @@ import {
   SidebarContent,
   SidebarMenu,
   SidebarRail,
-} from '@ff/design-system/components/ui/sidebar'
-import { dashboardSidebarItems } from './data/dashboard-sidebar-items'
+  SidebarSeparator,
+} from '@remio/design-system/components/ui/sidebar'
+import {
+  dashboardSidebarItems,
+  dashboardSidebarItemsTop,
+} from './data/dashboard-sidebar-items'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import DashboardSidebarHeader from './header/dashboard-sidebar-header'
@@ -15,10 +19,13 @@ export default function DashboardSidebar() {
       <DashboardSidebarHeader />
       <SidebarContent>
         <SidebarMenu>
+          {dashboardSidebarItemsTop.map((item) => (
+            <DashboardSidebarMenuItem key={item.title} item={item} />
+          ))}
+          <SidebarSeparator className="my-2" />
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
-          {/* <DashboardSidebarSettings /> */}
         </SidebarMenu>
       </SidebarContent>
       <DashboardSidebarFooter />

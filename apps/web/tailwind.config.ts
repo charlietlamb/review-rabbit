@@ -1,1 +1,1 @@
-export { config as default } from '@ff/tailwind-config/config'
+export { config as default } from '@remio/tailwind-config/config'

@@ -1,7 +1,7 @@
 import { LoaderCircle, Check, X, AudioLines, Search } from 'lucide-react'
-import { Input } from '@ff/design-system/components/ui/input'
+import { Input } from '@remio/design-system/components/ui/input'
 import { useState, useEffect } from 'react'
-import validateUrl from '@ff/design-system/lib/misc/validate-url'
+import validateUrl from '@remio/design-system/lib/misc/validate-url'
 import { AcceptedMimeType } from 'data/file-types'
 
 export default function UrlInput({

@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@ff/design-system/components/ui/input'
+import { Input } from '@remio/design-system/components/ui/input'
 import { LoaderCircle, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ToolbarPopover } from './toolbar-popover'

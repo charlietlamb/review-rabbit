@@ -1,7 +1,7 @@
 import React from 'react'
-import { Footer } from '@ff/design-system/components/site/footer/footer'
-import { Header } from '@ff/design-system/components/site/header/header'
-import { cn } from '@ff/design-system/lib/utils'
+import { Footer } from '@remio/design-system/components/site/footer/footer'
+import { Header } from '@remio/design-system/components/site/header/header'
+import { cn } from '@remio/design-system/lib/utils'
 
 export default function SiteLayout({
   home,

@@ -62,7 +62,7 @@ export const featuresData = [
   {
     icon: CodeXml,
     title: 'Built for developers',
-    description: 'ff is built by developers for developers.',
+    description: 'remio is built by developers for developers.',
     position: 'bottom' as const,
     className: 'lg:border-r',
   },

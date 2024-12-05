@@ -1,20 +1,24 @@
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import {
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@ff/design-system/components/ui/dialog'
+} from '@remio/design-system/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import { useRouter } from 'next/navigation'
 import { useSetAtom } from 'jotai'
-import { isAudio, isImage, isVideo } from '@ff/design-system/lib/misc/is-video'
-import AudioPlayer from '@ff/design-system/components/misc/audio-player'
-import VideoPlayer from '@ff/design-system/components/misc/video-player'
-import { Media } from '@ff/database/schema/media'
-import { ImagePreview } from '@ff/design-system/components/misc/image-preview'
-import OtherFilePreview from '@ff/design-system/components/misc/other-file-preview'
+import {
+  isAudio,
+  isImage,
+  isVideo,
+} from '@remio/design-system/lib/misc/is-video'
+import AudioPlayer from '@remio/design-system/components/misc/audio-player'
+import VideoPlayer from '@remio/design-system/components/misc/video-player'
+import { Media } from '@remio/database/schema/media'
+import { ImagePreview } from '@remio/design-system/components/misc/image-preview'
+import OtherFilePreview from '@remio/design-system/components/misc/other-file-preview'
 
 export default function UploadCardDialogContent({
   upload,

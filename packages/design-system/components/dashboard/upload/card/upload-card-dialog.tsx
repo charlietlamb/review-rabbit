@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import UploadCard from './upload-card'
-import { Dialog } from '@ff/design-system/components/ui/dialog'
-import { DialogTrigger } from '@ff/design-system/components/ui/dialog'
+import { Dialog } from '@remio/design-system/components/ui/dialog'
+import { DialogTrigger } from '@remio/design-system/components/ui/dialog'
 import UploadCardDialogContent from './upload-card-dialog-content'
-import { Media } from '@ff/database/schema/media'
+import { Media } from '@remio/database/schema/media'
 
 export default function UploadCardDialog({ upload }: { upload: Media }) {
   const [open, setOpen] = useState(false)

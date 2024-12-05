@@ -1,8 +1,8 @@
-import { formatBytes } from '@ff/design-system/lib/misc/format-bytes'
+import { formatBytes } from '@remio/design-system/lib/misc/format-bytes'
 import { FileCardProps } from './types'
-import { Progress } from '@ff/design-system/components/ui/progress'
+import { Progress } from '@remio/design-system/components/ui/progress'
 import FilePreview from './file-preview'
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import { X } from 'lucide-react'
 import { isFileWithPreview } from './is-file-with-preview'
 

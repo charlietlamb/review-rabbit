@@ -1,9 +1,9 @@
 {
-  "extends": "@ff/typescript-config/react-library.json",
+  "extends": "@remio/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ff/database/*": ["./*"]
+      "@remio/database/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

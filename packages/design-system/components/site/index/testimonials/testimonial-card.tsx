@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Card, CardContent } from '@ff/design-system/components/ui/card'
+import { Card, CardContent } from '@remio/design-system/components/ui/card'
 
 type TestimonialCardProps = {
   quote: string

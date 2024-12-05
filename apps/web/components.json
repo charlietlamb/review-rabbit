@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@ff/design-system/components",
-    "utils": "@ff/design-system/lib/utils",
-    "ui": "@ff/design-system/components/ui",
-    "lib": "@ff/design-system/lib",
-    "hooks": "@ff/design-system/hooks"
+    "components": "@remio/design-system/components",
+    "utils": "@remio/design-system/lib/utils",
+    "ui": "@remio/design-system/components/ui",
+    "lib": "@remio/design-system/lib",
+    "hooks": "@remio/design-system/hooks"
   }
 }

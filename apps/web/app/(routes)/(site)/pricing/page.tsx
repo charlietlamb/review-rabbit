@@ -1,5 +1,5 @@
-import { Pricing } from '@ff/design-system/components/site/pricing/pricing'
-import SiteLayout from '@ff/design-system/components/site/site-layout'
+import { Pricing } from '@remio/design-system/components/site/pricing/pricing'
+import SiteLayout from '@remio/design-system/components/site/site-layout'
 
 export default function PricingPage() {
   return (

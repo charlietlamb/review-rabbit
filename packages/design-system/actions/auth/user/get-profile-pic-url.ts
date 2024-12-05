@@ -1,4 +1,4 @@
-import client from '@ff/design-system/lib/client'
+import client from '@remio/design-system/lib/client'
 
 export async function getProfilePicUrl(userId: string): Promise<string> {
   const response = await client.s3.get['profile-image'][':userId'].$get({

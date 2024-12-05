@@ -4,16 +4,20 @@ import {
   CardHeader,
   CardContent,
   CardTitle,
-} from '@ff/design-system/components/ui/card'
-import { durationToTime } from '@ff/design-system/lib/misc/duration-to-time'
+} from '@remio/design-system/components/ui/card'
+import { durationToTime } from '@remio/design-system/lib/misc/duration-to-time'
 import { fileToIcon } from './file-to-icon'
-import { numberToSize } from '@ff/design-system/lib/misc/number-to-size'
+import { numberToSize } from '@remio/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
-import { cn } from '@ff/design-system/lib/utils'
-import { env } from '@ff/env'
+import { cn } from '@remio/design-system/lib/utils'
+import { env } from '@remio/env'
 import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
-import { isAudio, isImage, isVideo } from '@ff/design-system/lib/misc/is-video'
-import { Media } from '@ff/database/schema/media'
+import {
+  isAudio,
+  isImage,
+  isVideo,
+} from '@remio/design-system/lib/misc/is-video'
+import { Media } from '@remio/database/schema/media'
 
 export default function UploadCard({
   upload,

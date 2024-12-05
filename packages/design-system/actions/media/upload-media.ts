@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { getUploadPresignedUrl } from '@ff/design-system/actions/s3/upload/get-upload-presigned-url'
+import { getUploadPresignedUrl } from '@remio/design-system/actions/s3/upload/get-upload-presigned-url'
 import { storeMedia } from './store-media'
 import { createThumbnail } from './create-thumbnail'
 import { Dispatch, SetStateAction } from 'react'

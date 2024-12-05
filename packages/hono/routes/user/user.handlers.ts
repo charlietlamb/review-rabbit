@@ -2,16 +2,16 @@ import {
   GetUserRoute,
   ResetPasswordRoute,
   UpdateUserRoute,
-} from '@ff/hono/routes/user/user.routes'
-import { AppRouteHandler } from '@ff/hono/lib/types'
-import { db } from '@ff/database'
+} from '@remio/hono/routes/user/user.routes'
+import { AppRouteHandler } from '@remio/hono/lib/types'
+import { db } from '@remio/database'
 import { eq } from 'drizzle-orm'
-import { users } from '@ff/database/schema/users'
-import { updateUserSchema } from '@ff/hono/routes/user/user.schema'
-import { HttpStatusCodes } from '@ff/http'
-import { verifications } from '@ff/database/schema/verifications'
-import { hashPassword } from '@ff/hono/lib/password'
-import { accounts } from '@ff/database/schema'
+import { users } from '@remio/database/schema/users'
+import { updateUserSchema } from '@remio/hono/routes/user/user.schema'
+import { HttpStatusCodes } from '@remio/http'
+import { verifications } from '@remio/database/schema/verifications'
+import { hashPassword } from '@remio/hono/lib/password'
+import { accounts } from '@remio/database/schema'
 
 export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   const userId = c.req.param('userId')

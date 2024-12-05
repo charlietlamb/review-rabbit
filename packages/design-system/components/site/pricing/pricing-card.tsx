@@ -6,11 +6,11 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
-} from '@ff/design-system/components/ui/card'
+} from '@remio/design-system/components/ui/card'
 import { PricingTier } from './pricing-data'
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import { Check, Gift } from 'lucide-react'
-import { checkout } from '@ff/design-system/actions/stripe/checkout'
+import { checkout } from '@remio/design-system/actions/stripe/checkout'
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
   return (

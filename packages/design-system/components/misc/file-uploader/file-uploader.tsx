@@ -5,16 +5,16 @@ import { Upload } from 'lucide-react'
 import Dropzone, { type FileRejection } from 'react-dropzone'
 import { toast } from 'sonner'
 
-import { cn } from '@ff/design-system/lib/utils'
-import { formatBytes } from '@ff/design-system/lib/misc/format-bytes'
-import { ScrollArea } from '@ff/design-system/components/ui/scroll-area'
-import { useControllableState } from '@ff/design-system/hooks/use-controllable-state'
+import { cn } from '@remio/design-system/lib/utils'
+import { formatBytes } from '@remio/design-system/lib/misc/format-bytes'
+import { ScrollArea } from '@remio/design-system/components/ui/scroll-area'
+import { useControllableState } from '@remio/design-system/hooks/use-controllable-state'
 import { FileUploaderProps } from './types'
 import FileCard from './file-card'
 import FileUpload from './file-upload'
 import { isFileWithPreview } from './is-file-with-preview'
-import { getFileDuration } from '@ff/design-system/lib/misc/get-file-duration'
-import { MAX_FILE_SIZE } from '@ff/design-system/lib/constants'
+import { getFileDuration } from '@remio/design-system/lib/misc/get-file-duration'
+import { MAX_FILE_SIZE } from '@remio/design-system/lib/constants'
 
 export function FileUploader(props: FileUploaderProps) {
   const {

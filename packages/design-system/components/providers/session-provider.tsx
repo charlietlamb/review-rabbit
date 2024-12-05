@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
-import { userAtom } from '@ff/design-system/atoms/user/user-atom'
+import { userAtom } from '@remio/design-system/atoms/user/user-atom'
 import { useRouter } from 'next/navigation'
 
 export default function SessionProvider({

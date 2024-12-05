@@ -1,6 +1,6 @@
-import { authClient } from '@ff/design-system/lib/authClient'
-import { Button } from '@ff/design-system/components/ui/button'
-import useUser from '@ff/design-system/hooks/use-user'
+import { authClient } from '@remio/design-system/lib/authClient'
+import { Button } from '@remio/design-system/components/ui/button'
+import useUser from '@remio/design-system/hooks/use-user'
 import { useState } from 'react'
 import { toast } from 'sonner'
 

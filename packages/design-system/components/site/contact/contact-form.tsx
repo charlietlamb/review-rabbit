@@ -1,13 +1,13 @@
 'use client'
 
-import { Button } from '@ff/design-system/components/ui/button'
-import { Input } from '@ff/design-system/components/ui/input'
-import { Textarea } from '@ff/design-system/components/ui/textarea'
+import { Button } from '@remio/design-system/components/ui/button'
+import { Input } from '@remio/design-system/components/ui/input'
+import { Textarea } from '@remio/design-system/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import Name from '@ff/design-system/components/auth/form/name'
-import Email from '@ff/design-system/components/auth/form/email'
+import Name from '@remio/design-system/components/auth/form/name'
+import Email from '@remio/design-system/components/auth/form/email'
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),

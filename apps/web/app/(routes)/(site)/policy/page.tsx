@@ -1,5 +1,5 @@
-import { PrivacyPolicy } from '@ff/design-system/components/site/policy/privacy-policy'
-import SiteLayout from '@ff/design-system/components/site/site-layout'
+import { PrivacyPolicy } from '@remio/design-system/components/site/policy/privacy-policy'
+import SiteLayout from '@remio/design-system/components/site/site-layout'
 
 export default function PolicyPage() {
   return (

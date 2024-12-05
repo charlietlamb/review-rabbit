@@ -1,5 +1,5 @@
-import Cancel from '@ff/design-system/components/payments/cancel'
-import SiteLayout from '@ff/design-system/components/site/site-layout'
+import Cancel from '@remio/design-system/components/payments/cancel'
+import SiteLayout from '@remio/design-system/components/site/site-layout'
 import React from 'react'
 
 export default function page() {

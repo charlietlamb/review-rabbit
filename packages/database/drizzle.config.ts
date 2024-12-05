@@ -1,5 +1,5 @@
 import { defineConfig } from 'drizzle-kit'
-import { env } from '@ff/env'
+import { env } from '@remio/env'
 
 export default defineConfig({
   dialect: 'postgresql',

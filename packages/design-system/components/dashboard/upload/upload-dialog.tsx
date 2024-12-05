@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@ff/design-system/components/ui/dialog'
+} from '@remio/design-system/components/ui/dialog'
 import { useState } from 'react'
-import { FileUploader } from '@ff/design-system/components/misc/file-uploader/file-uploader'
+import { FileUploader } from '@remio/design-system/components/misc/file-uploader/file-uploader'
 export function UploadDialog() {
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)

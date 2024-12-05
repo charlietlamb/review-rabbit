@@ -1,10 +1,10 @@
-import DashboardHeader from '@ff/design-system/components/dashboard/header/dashboard-header'
-import DashboardSidebar from '@ff/design-system/components/dashboard/sidebar/dashboard-sidebar'
-import SessionProvider from '@ff/design-system/components/providers/session-provider'
-import { SidebarProvider } from '@ff/design-system/components/ui/sidebar'
-import useAuth from '@ff/design-system/hooks/use-auth'
-import useIsUser from '@ff/design-system/hooks/use-is-user'
-import ThemeProvider from '@ff/design-system/components/providers/theme-provider'
+import DashboardHeader from '@remio/design-system/components/dashboard/header/dashboard-header'
+import DashboardSidebar from '@remio/design-system/components/dashboard/sidebar/dashboard-sidebar'
+import SessionProvider from '@remio/design-system/components/providers/session-provider'
+import { SidebarProvider } from '@remio/design-system/components/ui/sidebar'
+import useAuth from '@remio/design-system/hooks/use-auth'
+import useIsUser from '@remio/design-system/hooks/use-is-user'
+import ThemeProvider from '@remio/design-system/components/providers/theme-provider'
 
 export default async function layout({
   children,

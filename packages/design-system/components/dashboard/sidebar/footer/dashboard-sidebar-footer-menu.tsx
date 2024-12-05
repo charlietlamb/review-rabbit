@@ -1,4 +1,4 @@
-import { DropdownMenuContent } from '@ff/design-system/components/ui/dropdown-menu'
+import { DropdownMenuContent } from '@remio/design-system/components/ui/dropdown-menu'
 import React from 'react'
 import DashboardSidebarFooterDropdown from './dashboard-sidebar-footer-dropdown'
 

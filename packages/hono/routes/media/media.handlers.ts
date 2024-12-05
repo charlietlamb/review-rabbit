@@ -1,14 +1,14 @@
-import { AppRouteHandler } from '@ff/hono/lib/types'
-import { HttpStatusCodes } from '@ff/http'
+import { AppRouteHandler } from '@remio/hono/lib/types'
+import { HttpStatusCodes } from '@remio/http'
 import {
   FetchMediaBatchRoute,
   FetchMediaRoute,
   StoreMediaRoute,
 } from './media.routes'
-import { db } from '@ff/database'
-import { media } from '@ff/database'
+import { db } from '@remio/database'
+import { media } from '@remio/database'
 import { and, eq, desc, inArray } from 'drizzle-orm'
-import { env } from '@ff/env'
+import { env } from '@remio/env'
 
 export const storeMedia: AppRouteHandler<StoreMediaRoute> = async (c) => {
   const user = c.get('user')
@@ -20,7 +20,7 @@ export const storeMedia: AppRouteHandler<StoreMediaRoute> = async (c) => {
     await db.insert(media).values({
       ...body,
       id: body.path,
-      url: `${env.AWS_S3_URL}${env.AWS_S3_BUCKET_NAME}/media/${body.path}.${body.extension}`,
+      url: `${env.NEXT_PUBLIC_AWS_S3_URL}${env.AWS_S3_BUCKET_NAME}/media/${body.path}.${body.extension}`,
       userId: user.id,
     })
     return c.json({ id: body.path }, HttpStatusCodes.OK)

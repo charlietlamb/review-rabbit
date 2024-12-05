@@ -7,8 +7,8 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { useSidebar } from '@ff/design-system/components/ui/sidebar'
-import { cn } from '@ff/design-system/lib/utils'
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
+import { cn } from '@remio/design-system/lib/utils'
 
 const penVariants: Variants = {
   normal: {

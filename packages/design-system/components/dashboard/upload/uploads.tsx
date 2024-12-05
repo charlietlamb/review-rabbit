@@ -1,21 +1,21 @@
-import { fetchMedia } from '@ff/design-system/actions/media/fetch-media'
+import { fetchMedia } from '@remio/design-system/actions/media/fetch-media'
 import {
   uploadPagesAtom,
   uploadsAtom,
   uploadsLastUpdatedAtom,
   uploadsLayoutAtom,
-} from '@ff/design-system/atoms/dashboard/upload/uploads-atom'
+} from '@remio/design-system/atoms/dashboard/upload/uploads-atom'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useRef } from 'react'
 import UploadCard from './card/upload-card'
-import PageLoading from '@ff/design-system/components/misc/page-loading'
-import PageError from '@ff/design-system/components/misc/page-error'
-import { cn } from '@ff/design-system/lib/utils'
-import InfiniteScroll from '@ff/design-system/components/misc/infinite-scroll'
+import PageLoading from '@remio/design-system/components/misc/page-loading'
+import PageError from '@remio/design-system/components/misc/page-error'
+import { cn } from '@remio/design-system/lib/utils'
+import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
 import UploadsPageEmpty from './uploads-page-empty'
 import UploadCardDialog from './card/upload-card-dialog'
-import { Media } from '@ff/database/schema/media'
+import { Media } from '@remio/database/schema/media'
 import { Dispatch, SetStateAction } from 'react'
 export default function Uploads({
   select = false,

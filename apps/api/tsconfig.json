@@ -1,10 +1,10 @@
 {
-  "extends": "@ff/typescript-config/nextjs.json",
+  "extends": "@remio/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@ff/*": ["../../packages/*"]
+      "@remio/*": ["../../packages/*"]
     }
   },
   "include": [

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Button } from '@ff/design-system/components/ui/button'
+import { Button } from '@remio/design-system/components/ui/button'
 
 export function CtaSection() {
   return (

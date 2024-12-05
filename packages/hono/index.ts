@@ -1,13 +1,11 @@
-import createApp from '@ff/hono/lib/create-app'
-import configure from '@ff/hono/lib/configure'
-import index from '@ff/hono/routes/index.route'
-import users from '@ff/hono/routes/user/user.index'
-import s3 from '@ff/hono/routes/s3/s3.index'
-import media from '@ff/hono/routes/media/media.index'
-import connect from '@ff/hono/routes/connect/connect.index'
-import schedule from '@ff/hono/routes/schedule/schedule.index'
+import createApp from '@remio/hono/lib/create-app'
+import configure from '@remio/hono/lib/configure'
+import index from '@remio/hono/routes/index.route'
+import users from '@remio/hono/routes/user/user.index'
+import s3 from '@remio/hono/routes/s3/s3.index'
+import media from '@remio/hono/routes/media/media.index'
 const app = createApp()
-const routes = [index, users, s3, media, connect, schedule] as const
+const routes = [index, users, s3, media] as const
 
 configure(app)
 

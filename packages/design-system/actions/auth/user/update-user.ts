@@ -1,7 +1,7 @@
 'use server'
 
-import client from '@ff/design-system/lib/client'
-import { headersWithCookies } from '@ff/design-system/lib/header-with-cookies'
+import client from '@remio/design-system/lib/client'
+import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 
 export async function updateUser(form: {
   name: string

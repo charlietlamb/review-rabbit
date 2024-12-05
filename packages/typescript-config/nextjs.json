@@ -11,7 +11,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "@ff/*": ["../../packages/*"]
+      "@remio/*": ["../../packages/*"]
     }
   },
   "exclude": ["node_modules"]

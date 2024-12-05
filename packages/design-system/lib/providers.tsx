@@ -11,7 +11,7 @@ import {
   TikTokIcon,
   XIcon,
   SnapchatIcon,
-} from '@ff/design-system/components/dashboard/connect/provider/provider-icons'
+} from '@remio/design-system/components/dashboard/connect/provider/provider-icons'
 
 export const providerData = [
   {

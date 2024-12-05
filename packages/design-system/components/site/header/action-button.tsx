@@ -1,7 +1,7 @@
 'use client'
 
-import { authClient } from '@ff/design-system/lib/authClient'
-import { Button } from '@ff/design-system/components/ui/button'
+import { authClient } from '@remio/design-system/lib/authClient'
+import { Button } from '@remio/design-system/components/ui/button'
 import { useRouter } from 'next/navigation'
 type GetStartedButtonProps = {
   className?: string

@@ -1,13 +1,13 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@ff/design-system/components/ui/radio-group'
-import { Label } from '@ff/design-system/components/ui/label'
+} from '@remio/design-system/components/ui/radio-group'
+import { Label } from '@remio/design-system/components/ui/label'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@ff/design-system/components/ui/popover'
+} from '@remio/design-system/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
 import { useToolbarContext } from './toolbar-context'
 

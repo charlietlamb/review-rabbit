@@ -1,6 +1,6 @@
-import { createRouter } from '@ff/hono/lib/create-app'
-import * as handlers from '@ff/hono/routes/media/media.handlers'
-import * as routes from '@ff/hono/routes/media/media.routes'
+import { createRouter } from '@remio/hono/lib/create-app'
+import * as handlers from '@remio/hono/routes/media/media.handlers'
+import * as routes from '@remio/hono/routes/media/media.routes'
 
 const router = createRouter()
   .openapi(routes.storeMedia, handlers.storeMedia)

@@ -1,5 +1,5 @@
 {
-  "name": "@ff/tailwind-config",
+  "name": "@remio/tailwind-config",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@ff/typescript-config": "workspace:*",
+    "@remio/typescript-config": "workspace:*",
     "tailwindcss": "^3.4.15"
   }
 }

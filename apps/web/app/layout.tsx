@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Bricolage_Grotesque } from 'next/font/google'
-import { DesignSystemProvider } from '@ff/design-system'
-import '@ff/design-system/styles/globals.css'
+import { DesignSystemProvider } from '@remio/design-system'
+import '@remio/design-system/styles/globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -17,8 +17,8 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: 'ff',
-  description: 'ff',
+  title: 'remio',
+  description: 'remio',
 }
 
 export default async function RootLayout({

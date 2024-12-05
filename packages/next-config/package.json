@@ -1,10 +1,10 @@
 {
-  "name": "@ff/next-config",
+  "name": "@remio/next-config",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@ff/env": "workspace:*",
-    "@ff/typescript-config": "workspace:*",
+    "@remio/env": "workspace:*",
+    "@remio/typescript-config": "workspace:*",
     "next": "15.0.3"
   },
   "dependencies": {

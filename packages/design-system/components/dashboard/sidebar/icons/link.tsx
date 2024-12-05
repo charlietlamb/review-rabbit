@@ -2,11 +2,11 @@
 
 import type { Variants } from 'motion/react'
 import { motion, useAnimation } from 'motion/react'
-import { cn } from '@ff/design-system/lib/utils'
+import { cn } from '@remio/design-system/lib/utils'
 import { iconWrapClassName } from './class-names'
 import { iconClassName } from './class-names'
 import { iconTextClassName } from './class-names'
-import { useSidebar } from '@ff/design-system/components/ui/sidebar'
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
 
 const pathVariants: Variants = {
   initial: { pathLength: 1, pathOffset: 0, rotate: 0 },

@@ -1,5 +1,5 @@
 {
-  "name": "@ff/database",
+  "name": "@remio/database",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

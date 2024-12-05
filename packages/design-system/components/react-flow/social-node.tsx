@@ -1,13 +1,13 @@
 import { Node, NodeProps, Handle, Position } from '@xyflow/react'
-import { BaseNode } from '@ff/design-system/components/react-flow/base-node'
-import { ProviderData } from '@ff/design-system/lib/providers'
-import { cn } from '@ff/design-system/lib/utils'
+import { BaseNode } from '@remio/design-system/components/react-flow/base-node'
+import { ProviderData } from '@remio/design-system/lib/providers'
+import { cn } from '@remio/design-system/lib/utils'
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from '@ff/design-system/components/ui/sheet'
+} from '@remio/design-system/components/ui/sheet'
 export type SocialNodeType = Node<{
   platform: ProviderData
 }>

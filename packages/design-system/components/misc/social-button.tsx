@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '@ff/design-system/lib/utils'
+import { cn } from '@remio/design-system/lib/utils'
 import { ProviderData } from '../../lib/providers'
 import Spinner from './spinner'
 

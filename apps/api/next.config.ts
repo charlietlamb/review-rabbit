@@ -1,5 +1,5 @@
-import { env } from '@ff/env'
-import { config, withAnalyzer } from '@ff/next-config'
+import { env } from '@remio/env'
+import { config, withAnalyzer } from '@remio/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = { ...config }

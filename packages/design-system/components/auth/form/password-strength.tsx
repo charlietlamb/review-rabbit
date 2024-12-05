@@ -1,12 +1,12 @@
 'use client'
 
-import { Input } from '@ff/design-system/components/ui/input'
-import { Label } from '@ff/design-system/components/ui/label'
+import { Input } from '@remio/design-system/components/ui/input'
+import { Label } from '@remio/design-system/components/ui/label'
 import { Check, Eye, EyeOff, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import FieldInfo from '@ff/design-system/components/form/field-info'
+import FieldInfo from '@remio/design-system/components/form/field-info'
 import { z } from 'zod'
-import { cn } from '@ff/design-system/lib/utils'
+import { cn } from '@remio/design-system/lib/utils'
 
 export default function PasswordStrength({
   form,

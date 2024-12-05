@@ -1,6 +1,6 @@
 import { handle } from 'hono/vercel'
-import app from '@ff/hono'
-import { env } from '@ff/env'
+import app from '@remio/hono'
+import { env } from '@remio/env'
 
 export const runtime = 'nodejs'
 

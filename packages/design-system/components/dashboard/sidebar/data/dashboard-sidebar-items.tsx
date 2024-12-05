@@ -1,22 +1,25 @@
-import { WorkflowIcon } from '@ff/design-system/components/dashboard/sidebar/icons/workflow'
-import { HomeIcon } from '@ff/design-system/components/dashboard/sidebar/icons/home'
-import { LinkIcon } from '@ff/design-system/components/dashboard/sidebar/icons/link'
-import { SparklesIcon } from '@ff/design-system/components/dashboard/sidebar/icons/sparkles'
-import { SquarePenIcon } from '@ff/design-system/components/dashboard/sidebar/icons/square-pen'
+import { WorkflowIcon } from '@remio/design-system/components/dashboard/sidebar/icons/workflow'
+import { HomeIcon } from '@remio/design-system/components/dashboard/sidebar/icons/home'
+import { LinkIcon } from '@remio/design-system/components/dashboard/sidebar/icons/link'
+import { SparklesIcon } from '@remio/design-system/components/dashboard/sidebar/icons/sparkles'
+import { SquarePenIcon } from '@remio/design-system/components/dashboard/sidebar/icons/square-pen'
 
-export const dashboardSidebarItems = [
+export const dashboardSidebarItemsTop = [
   {
-    title: 'Home',
+    title: 'Dashboard',
     icon: <HomeIcon />,
     href: '/dashboard',
-    key: 'home',
+    key: 'dashboard',
   },
   {
-    title: 'Create',
+    title: 'New Matter',
     icon: <SquarePenIcon />,
-    href: '/dashboard/create',
-    key: 'create',
+    href: '/dashboard/new',
+    key: 'new',
   },
+]
+
+export const dashboardSidebarItems = [
   {
     title: 'Flow',
     icon: <WorkflowIcon />,

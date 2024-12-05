@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { authClient } from '@ff/design-system/lib/authClient'
+import { authClient } from '@remio/design-system/lib/authClient'
 
 export default function OneTapProvider({
   children,

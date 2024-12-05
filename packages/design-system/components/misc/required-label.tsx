@@ -1,10 +1,10 @@
-import { Label } from '@ff/design-system/components/ui/label'
-import { cn } from '@ff/design-system/lib/utils'
+import { Label } from '@remio/design-system/components/ui/label'
+import { cn } from '@remio/design-system/lib/utils'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@ff/design-system/components/ui/tooltip'
+} from '@remio/design-system/components/ui/tooltip'
 
 export default function RequiredLabel({
   className,

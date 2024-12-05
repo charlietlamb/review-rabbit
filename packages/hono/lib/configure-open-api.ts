@@ -1,13 +1,13 @@
-import { AppOpenAPI } from '@ff/hono/lib/types'
+import { AppOpenAPI } from '@remio/hono/lib/types'
 import { apiReference } from '@scalar/hono-api-reference'
-import { env } from '@ff/env'
+import { env } from '@remio/env'
 
 export default function configureOpenAPI(app: AppOpenAPI) {
   if (env.NODE_ENV === 'development') {
     app.doc('/doc', {
       openapi: '3.0.0',
       info: {
-        title: 'ff API',
+        title: 'remio API',
         version: '0.0.1',
       },
     })

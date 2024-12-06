@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -59,7 +60,7 @@ export default function AuthFormForgotPassword() {
         <Button
           variant="linkHover2"
           colors="none"
-          className="w-fit mx-auto hover:bg-transparent text-white"
+          className="w-fit mx-auto hover:bg-transparent text-foreground"
         >
           Forgot password?
         </Button>
@@ -78,10 +79,15 @@ export default function AuthFormForgotPassword() {
               Forgot password
             </DialogTitle>
           </DialogHeader>
+          <DialogDescription>
+            Enter your email below and we&apos;ll send you a link to reset your
+            password.
+          </DialogDescription>
           <Email form={form} />
           <DialogFooter>
             <Button
               variant="expandIcon"
+              colors="primary"
               Icon={ArrowRight}
               iconPlacement="right"
               onClick={(e) => {

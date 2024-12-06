@@ -3,6 +3,9 @@ import { HomeIcon } from '@remio/design-system/components/dashboard/sidebar/icon
 import { LinkIcon } from '@remio/design-system/components/dashboard/sidebar/icons/link'
 import { SparklesIcon } from '@remio/design-system/components/dashboard/sidebar/icons/sparkles'
 import { SquarePenIcon } from '@remio/design-system/components/dashboard/sidebar/icons/square-pen'
+import { CircleDollarSignIcon } from '../icons/dollar'
+import { FileStackIcon } from '../icons/files'
+import { UsersIcon } from '../icons/users'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -21,22 +24,22 @@ export const dashboardSidebarItemsTop = [
 
 export const dashboardSidebarItems = [
   {
-    title: 'Flow',
-    icon: <WorkflowIcon />,
-    href: '/dashboard/flow',
-    key: 'flow',
+    title: 'Clients',
+    icon: <UsersIcon />,
+    href: '/dashboard/clients',
+    key: 'clients',
   },
   {
-    title: 'Upload',
-    icon: <SparklesIcon />,
-    href: '/dashboard/upload',
-    key: 'upload',
+    title: 'Files',
+    icon: <FileStackIcon />,
+    href: '/dashboard/files',
+    key: 'files',
   },
   {
-    title: 'Connect',
-    icon: <LinkIcon />,
-    href: '/dashboard/connect',
-    key: 'connect',
+    title: 'Payments',
+    icon: <CircleDollarSignIcon />,
+    href: '/dashboard/payments',
+    key: 'payments',
   },
 ]
 

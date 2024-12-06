@@ -32,7 +32,6 @@ export async function uploadMedia(
       const presignedUrl = await getUploadPresignedUrl(
         `media/${uuid}.${extension}`
       )
-      console.log('presignedUrl', presignedUrl)
       if (!presignedUrl) {
         console.error('Failed to get presigned URL')
         return null

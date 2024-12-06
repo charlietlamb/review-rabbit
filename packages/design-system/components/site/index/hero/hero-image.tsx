@@ -25,10 +25,10 @@ export default function HeroImage() {
           objectFit="cover"
           priority
         /> */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent to-black opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
       </motion.div>
-      <div className="absolute inset-0 z-10" />
-      <div className="absolute inset-x-0 bottom-0 h-[100px] bg-gradient-to-t from-black to-transparent z-20 opacity-50" />
+      {/* <div className="absolute inset-0 z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-[100px] bg-gradient-to-t from-background to-transparent z-20" /> */}
     </div>
   )
 }

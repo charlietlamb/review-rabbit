@@ -37,7 +37,9 @@ export const connectGet = createRoute({
   tags,
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      selectStripeConnectSchema.optional(),
+      z.object({
+        account: selectStripeConnectSchema.optional(),
+      }),
       'Stripe connected.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(

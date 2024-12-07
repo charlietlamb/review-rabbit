@@ -18,7 +18,6 @@ import Name from './name'
 import Email from './email'
 import OAuth from '../oauth/oauth'
 import OrLabel from './or-label'
-import { User } from '@remio/database'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),

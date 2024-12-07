@@ -1,4 +1,4 @@
-import { pgTable, text } from 'drizzle-orm/pg-core'
+import { pgTable, text, boolean } from 'drizzle-orm/pg-core'
 import { users } from './users'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
@@ -8,6 +8,7 @@ export const stripeConnects = pgTable('stripe_connects', {
   userId: text('userId')
     .references(() => users.id)
     .notNull(),
+  onboardingCompleted: boolean('onboardingCompleted').notNull().default(false),
 })
 
 export const selectStripeConnectSchema = createSelectSchema(stripeConnects)

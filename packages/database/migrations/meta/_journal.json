@@ -8,6 +8,20 @@
       "when": 1733427052122,
       "tag": "0000_organic_nextwave",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1733565511613,
+      "tag": "0001_bitter_kabuki",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733566719373,
+      "tag": "0002_steep_scalphunter",
+      "breakpoints": true
     }
   ]
 }

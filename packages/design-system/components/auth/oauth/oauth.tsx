@@ -1,5 +1,6 @@
 import { Button } from '@remio/design-system/components/ui/button'
-import { RiGithubFill, RiGoogleFill, RiTwitterXFill } from '@remixicon/react'
+import { RiGoogleFill } from '@remixicon/react'
+import { authClient } from '@remio/design-system/lib/authClient'
 
 export default function OAuth() {
   return (
@@ -9,36 +10,14 @@ export default function OAuth() {
         colors="outline"
         aria-label="Login with Google"
         size="icon"
+        onClick={() => authClient.signIn.social('google')}
       >
         <RiGoogleFill
           size={16}
           aria-hidden="true"
           className="text-foreground"
         />
-      </Button>
-      <Button
-        className="flex-1"
-        colors="outline"
-        aria-label="Login with X"
-        size="icon"
-      >
-        <RiTwitterXFill
-          className="text-[#14171a] text-foreground"
-          size={16}
-          aria-hidden="true"
-        />
-      </Button>
-      <Button
-        className="flex-1"
-        colors="outline"
-        aria-label="Login with GitHub"
-        size="icon"
-      >
-        <RiGithubFill
-          className="text-black text-foreground"
-          size={16}
-          aria-hidden="true"
-        />
+        Sign In with Google
       </Button>
     </div>
   )

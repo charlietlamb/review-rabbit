@@ -12,7 +12,10 @@ export const accounts = pgTable('accounts', {
     .notNull()
     .references(() => users.id),
   accessToken: text('accessToken'),
+  accessTokenExpiresAt: timestamp('accessTokenExpiresAt'),
   refreshToken: text('refreshToken'),
+  refreshTokenExpiresAt: timestamp('refreshTokenExpiresAt'),
+  scope: text('scope'),
   idToken: text('idToken'),
   expiresAt: timestamp('expiresAt'),
   password: text('password'),

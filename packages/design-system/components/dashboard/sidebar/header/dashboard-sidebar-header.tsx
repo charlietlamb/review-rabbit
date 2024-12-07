@@ -17,7 +17,7 @@ export default function DashboardSidebarHeader() {
         !open && 'justify-center'
       )}
     >
-      <Link href="/">{open ? 'remio' : 'remio'}</Link>
+      <Link href="/">{open ? 'remio' : 'r'}</Link>
       <DashboardSidebarThemeToggle />
     </SidebarHeader>
   )

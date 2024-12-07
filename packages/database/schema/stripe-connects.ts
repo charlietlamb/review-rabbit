@@ -13,6 +13,4 @@ export const stripeConnects = pgTable('stripe_connects', {
 
 export const selectStripeConnectSchema = createSelectSchema(stripeConnects)
 export const insertStripeConnectSchema = createInsertSchema(stripeConnects)
-export type SelectStripeConnectSchema = z.infer<
-  typeof selectStripeConnectSchema
->
+export type StripeConnect = z.infer<typeof selectStripeConnectSchema>

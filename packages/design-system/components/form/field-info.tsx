@@ -6,6 +6,7 @@ export default function FieldInfo({
 }: {
   field: FieldApi<any, any, any, any>
 }) {
+  if (!field.state.meta.errors.length) return null
   return (
     <span
       className={cn(

@@ -9,6 +9,4 @@ declare global {
   type Session = typeof auth.$Infer.Session.session
   type Media = MediaType
   type Plan = (typeof plans)[number]
-  type TanstackForm<T> = FormApi<T, ZodValidator> &
-    ReactFormApi<T, ZodValidator>
 }

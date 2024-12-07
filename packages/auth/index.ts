@@ -75,6 +75,7 @@ export const auth = betterAuth({
     google: {
       clientId: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      redirectURI: `${env.NEXT_PUBLIC_API}/api/auth/callback/google`,
     },
   },
 })

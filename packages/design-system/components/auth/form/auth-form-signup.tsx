@@ -11,8 +11,6 @@ import { zodValidator } from '@tanstack/zod-form-adapter'
 import { authClient } from '@remio/design-system/lib/authClient'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { useSetAtom } from 'jotai'
-import { userAtom } from '@remio/design-system/atoms/user/user-atom'
 import PasswordStrength from './password-strength'
 import Name from './name'
 import Email from './email'
@@ -29,7 +27,6 @@ export type SignUpFormData = z.infer<typeof userAuthSignupSchema>
 
 export default function AuthFormSignup({ className }: { className?: string }) {
   const router = useRouter()
-  const setUser = useSetAtom(userAtom)
   const form = useForm({
     defaultValues: {
       name: '',

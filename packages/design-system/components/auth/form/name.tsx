@@ -4,6 +4,7 @@ import { Input } from '@remio/design-system/components/ui/input'
 import { cn } from '@remio/design-system/lib/utils'
 import { User } from 'lucide-react'
 import FieldInfo from '@remio/design-system/components/form/field-info'
+import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 
 export default function Name({ form }: { form: TanstackForm<any> }) {
   return (

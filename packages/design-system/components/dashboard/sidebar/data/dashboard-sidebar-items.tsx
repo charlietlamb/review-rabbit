@@ -29,17 +29,18 @@ export const dashboardSidebarItems = [
     href: '/dashboard/clients',
     key: 'clients',
   },
-  {
-    title: 'Files',
-    icon: <FileStackIcon />,
-    href: '/dashboard/files',
-    key: 'files',
-  },
+  ,
   {
     title: 'Payments',
     icon: <CircleDollarSignIcon />,
     href: '/dashboard/payments',
     key: 'payments',
+  },
+  {
+    title: 'Files',
+    icon: <FileStackIcon />,
+    href: '/dashboard/files',
+    key: 'files',
   },
 ]
 

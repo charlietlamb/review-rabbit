@@ -1,8 +1,12 @@
 import client from '@remio/design-system/lib/client'
-import StripeSettings from '@remio/design-system/components/dashboard/settings/stripe/StripeSettings'
+import StripeSettings from '@remio/design-system/components/dashboard/settings/stripe/stripe-settings'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 
-export default async function StripeSettingsPage() {
+export default async function StripeSettingsPage({
+  searchParams,
+}: {
+  searchParams: { success?: string }
+}) {
   const response = await client.stripe.connect.get.$get(
     {},
     await headersWithCookies()
@@ -16,9 +20,12 @@ export default async function StripeSettingsPage() {
         : 'Unknown error getting Stripe Connect account'
     )
 
+  const { success } = await searchParams
+
   return (
     <StripeSettings
       stripeAccount={'account' in json ? json.account : undefined}
+      success={success}
     />
   )
 }

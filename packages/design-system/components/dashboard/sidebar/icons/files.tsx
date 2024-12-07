@@ -7,10 +7,11 @@ import {
   iconWrapClassName,
 } from './class-names'
 import { cn } from '@remio/design-system/lib/utils'
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
 
 const FileStackIcon = () => {
   const controls = useAnimation()
-
+  const { open } = useSidebar()
   return (
     <div
       className={iconWrapClassName}

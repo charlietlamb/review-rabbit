@@ -8,7 +8,7 @@ import {
   iconWrapClassName,
 } from './class-names'
 import { cn } from '@remio/design-system/lib/utils'
-
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
 const dollarMainVariants: Variants = {
   normal: {
     opacity: 1,
@@ -53,6 +53,7 @@ const dollarSecondaryVariants: Variants = {
 
 const CircleDollarSignIcon = () => {
   const controls = useAnimation()
+  const { open } = useSidebar()
 
   return (
     <div

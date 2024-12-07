@@ -4,6 +4,7 @@ import { Button } from '@remio/design-system/components/ui/button'
 import { useState } from 'react'
 import { connectStripe } from '@remio/design-system/actions/stripe/connect-stripe'
 import { toast } from 'sonner'
+import { HttpStatusCodes } from '@remio/http'
 
 export default function StripeSettingsConnect() {
   const [loading, setLoading] = useState(false)
@@ -12,7 +13,7 @@ export default function StripeSettingsConnect() {
     setLoading(true)
     const status = await connectStripe()
     setLoading(false)
-    if (status !== 200) {
+    if (status !== HttpStatusCodes.OK) {
       toast.error('Failed to connect to Stripe', {
         description: 'Please try again later',
       })

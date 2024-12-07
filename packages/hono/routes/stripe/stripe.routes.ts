@@ -14,7 +14,7 @@ export const connect = createRoute({
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({
-        success: z.boolean(),
+        redirectUrl: z.string(),
       }),
       'Stripe connected.'
     ),
@@ -29,6 +29,58 @@ export const connect = createRoute({
 })
 
 export type ConnectRoute = typeof connect
+
+export const connectRefresh = createRoute({
+  path: '/stripe/connect/refresh/:accountId',
+  method: 'get',
+  summary: 'Refresh Stripe Connect account',
+  tags,
+  responses: {
+    [HttpStatusCodes.MOVED_TEMPORARILY]: {
+      description: 'Redirect to dashboard',
+    },
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Account ID is required'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to create Stripe Connect account'
+    ),
+  },
+})
+
+export type ConnectRefreshRoute = typeof connectRefresh
+
+export const connectReturn = createRoute({
+  path: '/stripe/connect/return/:accountId',
+  method: 'get',
+  summary: 'Return Stripe Connect account',
+  tags,
+  responses: {
+    [HttpStatusCodes.MOVED_TEMPORARILY]: {
+      description: 'Redirect to dashboard',
+    },
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Account ID is required'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to complete onboarding'
+    ),
+  },
+})
+
+export type ConnectReturnRoute = typeof connectReturn
 
 export const connectGet = createRoute({
   path: '/stripe/connect/get',

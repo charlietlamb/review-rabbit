@@ -8,6 +8,7 @@ import {
   iconWrapClassName,
 } from './class-names'
 import { cn } from '@remio/design-system/lib/utils'
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
 
 const pathVariants: Variants = {
   normal: {
@@ -31,6 +32,7 @@ const pathVariants: Variants = {
 
 const UsersIcon = () => {
   const controls = useAnimation()
+  const { open } = useSidebar()
 
   return (
     <div

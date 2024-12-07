@@ -1,1 +1,0 @@
-ALTER TABLE "stripe_connects" ADD COLUMN "onboardingCompleted" boolean DEFAULT false NOT NULL;

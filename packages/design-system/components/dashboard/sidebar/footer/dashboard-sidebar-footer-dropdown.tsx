@@ -4,7 +4,14 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@remio/design-system/components/ui/dropdown-menu'
-import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
+import {
+  Sparkles,
+  BadgeCheck,
+  CreditCard,
+  Bell,
+  LogOut,
+  Wallet,
+} from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function DashboardSidebarFooterDropdown() {
@@ -12,7 +19,10 @@ export default function DashboardSidebarFooterDropdown() {
   return (
     <>
       <DropdownMenuGroup>
-        <DropdownMenuItem onClick={() => router.push('/pricing')}>
+        <DropdownMenuItem
+          onClick={() => router.push('/pricing')}
+          className="cursor-pointer"
+        >
           <Sparkles />
           Upgrade to Pro
         </DropdownMenuItem>
@@ -21,15 +31,29 @@ export default function DashboardSidebarFooterDropdown() {
       <DropdownMenuGroup>
         <DropdownMenuItem
           onClick={() => router.push('/dashboard/settings/account')}
+          className="cursor-pointer"
         >
           <BadgeCheck />
           Account
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push('/dashboard/settings/stripe')}
+          className="cursor-pointer"
+        >
+          <Wallet />
+          Stripe
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push('/dashboard/settings/billing')}
+          className="cursor-pointer"
+        >
           <CreditCard />
           Billing
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push('/dashboard/settings/notifications')}
+          className="cursor-pointer"
+        >
           <Bell />
           Notifications
         </DropdownMenuItem>
@@ -43,6 +67,7 @@ export default function DashboardSidebarFooterDropdown() {
             },
           })
         }}
+        className="cursor-pointer"
       >
         <LogOut />
         Log out

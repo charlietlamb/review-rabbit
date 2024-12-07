@@ -1,13 +1,9 @@
 'use server'
 
-import { Stripe } from 'stripe'
 import { env } from '@remio/env'
 import { redirect } from 'next/navigation'
 import { Plan } from '@remio/hono/lib/types'
-
-const apiKey = env.STRIPE_SECRET_KEY
-
-const stripe = new Stripe(apiKey)
+import { stripe } from '@remio/stripe'
 
 export const postStripeSession = async ({
   priceId,

@@ -44,7 +44,6 @@ export const update: AppRouteHandler<UpdateUserRoute> = async (c) => {
     .update(users)
     .set({
       ...data.form,
-      emailVerified: data.form.email === authUser.email,
     })
     .where(eq(users.id, authUser.id))
     .returning()

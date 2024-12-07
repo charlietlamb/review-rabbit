@@ -38,6 +38,7 @@
     "@remio/analytics": "workspace:*",
     "@remio/auth": "workspace:*",
     "@remio/env": "workspace:*",
+    "@remio/stripe": "workspace:*",
     "@tanstack/react-table": "^8.20.5",
     "@types/lodash.throttle": "^4.1.9",
     "@uidotdev/usehooks": "^2.4.1",

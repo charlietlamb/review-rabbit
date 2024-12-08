@@ -59,7 +59,7 @@ export default function UploadCardDialogContent({
             router.push('/dashboard/create')
           }}
         >
-          Create a post
+          Download
         </Button>
         <UploadCardDeleteDialog upload={upload} setOpen={setOpen} />
       </DialogFooter>

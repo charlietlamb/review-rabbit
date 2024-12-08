@@ -1,7 +1,4 @@
-import { WorkflowIcon } from '@remio/design-system/components/dashboard/sidebar/icons/workflow'
 import { HomeIcon } from '@remio/design-system/components/dashboard/sidebar/icons/home'
-import { LinkIcon } from '@remio/design-system/components/dashboard/sidebar/icons/link'
-import { SparklesIcon } from '@remio/design-system/components/dashboard/sidebar/icons/sparkles'
 import { SquarePenIcon } from '@remio/design-system/components/dashboard/sidebar/icons/square-pen'
 import { CircleDollarSignIcon } from '../icons/dollar'
 import { FileStackIcon } from '../icons/files'
@@ -11,7 +8,7 @@ export const dashboardSidebarItemsTop = [
   {
     title: 'Dashboard',
     icon: <HomeIcon />,
-    href: '/dashboard',
+    href: '/dashboard/overview',
     key: 'dashboard',
   },
   {

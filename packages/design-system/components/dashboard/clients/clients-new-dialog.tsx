@@ -15,7 +15,9 @@ export default function ClientsNewDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="shine">Add New Client</Button>
+        <Button variant="shine" className="w-full">
+          Add New Client
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

@@ -25,20 +25,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@remio/design-system/components/ui/select'
-import { ClientsChart as ClientsChartType } from './client-types'
+import { InvoicesChart } from './invoice-types'
 
 const chartConfig = {
-  clients: {
-    label: 'Clients',
+  invoices: {
+    label: 'Invoices',
     color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig
 
-export default function ClientsChart({
+export default function PaymentsChart({
   chartData,
   className,
 }: {
-  chartData: ClientsChartType
+  chartData: InvoicesChart
   className?: string
 }) {
   const [timeRange, setTimeRange] = React.useState('90d')
@@ -61,9 +61,9 @@ export default function ClientsChart({
     <Card className={className}>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle className="text-lg">Client Activity</CardTitle>
+          <CardTitle className="text-lg">Payment Activity</CardTitle>
           <CardDescription>
-            Showing total clients for the last 3 months
+            Showing total invoices for the last 3 months
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -93,15 +93,15 @@ export default function ClientsChart({
         >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillClients" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillInvoices" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-clients)"
+                  stopColor="var(--color-invoices)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-clients)"
+                  stopColor="var(--color-invoices)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -148,10 +148,10 @@ export default function ClientsChart({
               }
             />
             <Area
-              dataKey="clients"
+              dataKey="invoices"
               type="natural"
-              fill="url(#fillClients)"
-              stroke="var(--color-clients)"
+              fill="url(#fillInvoices)"
+              stroke="var(--color-invoices)"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />

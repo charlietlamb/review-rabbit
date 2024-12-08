@@ -24,6 +24,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
 import { useEffect } from 'react'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
+import InvoiceCreateDialog from './invoice-create-dialog'
 
 export default function ClientsTable() {
   const [clients, setClients] = useAtom(clientsAtoms)
@@ -78,7 +79,12 @@ export default function ClientsTable() {
     {
       accessorKey: 'edit',
       header: () => null,
-      cell: ({ row }) => <ClientsEditDialog client={row.original} />,
+      cell: ({ row }) => (
+        <div className="flex gap-2 items-center">
+          <ClientsEditDialog client={row.original} />
+          <InvoiceCreateDialog client={row.original} />
+        </div>
+      ),
     },
   ]
 
@@ -130,7 +136,7 @@ export default function ClientsTable() {
             </TableProvider>
           </InfiniteScroll>
           <Separator />
-          <div className="flex p-2">
+          <div className="flex p-4">
             <ClientsNewDialog />
           </div>
         </>

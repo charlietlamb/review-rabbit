@@ -4,11 +4,12 @@ import DashboardContentHeader from '../header/dashboard-content-header'
 import ClientCardCreate from './client-card-create'
 import ClientsChart from './clients-chart'
 import ClientsManageCard from './clients-manage-card'
+import { ClientsChart as ClientsChartType } from './client-types'
 
 export default function Clients({
   chartData,
 }: {
-  chartData: { date: string; clients: number }[]
+  chartData: ClientsChartType
 }) {
   return (
     <div className="flex flex-col divide-y">

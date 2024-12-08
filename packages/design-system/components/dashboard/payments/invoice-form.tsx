@@ -1,9 +1,7 @@
 import { useForm } from '@tanstack/react-form'
-import { ClientFormData } from './client-schema'
 import { toast } from 'sonner'
 import { Mail, User, UserCheck } from 'lucide-react'
 import { useState } from 'react'
-import { clientValidationSchema } from './client-schema'
 import { addClient } from '@remio/design-system/actions/clients/add-client'
 import { updateClient } from '@remio/design-system/actions/clients/update-client'
 import { deleteClient } from '@remio/design-system/actions/clients/delete-client'
@@ -14,13 +12,19 @@ import Spinner from '@remio/design-system/components/misc/spinner'
 import { FormContext } from '@remio/design-system/components/form/form-context'
 import PhoneNumberInput from '@remio/design-system/components/form/phone-number-input'
 import { useRouter } from 'next/navigation'
-import { Client } from '@remio/database'
+import { Client, Invoice } from '@remio/database'
+import { InvoiceFormData, invoiceValidationSchema } from './invoice-schema'
+import { updateInvoice } from '@remio/design-system/actions/invoices/update-invoice'
+import { addInvoice } from '@remio/design-system/actions/invoices/add-invoice'
+import { deleteInvoice } from '@remio/design-system/actions/invoices/delete-invoice'
 
-export default function ClientsForm({
+export default function InvoiceForm({
+  invoice,
   client,
   setIsOpen,
   onSuccess,
 }: {
+  invoice?: Invoice
   client?: Client
   setIsOpen?: (isOpen: boolean) => void
   onSuccess?: () => void
@@ -32,25 +36,25 @@ export default function ClientsForm({
 
   const form = useForm({
     defaultValues: {
-      name: client?.name || '',
-      email: client?.email || '',
-      phoneNumber: client?.phoneNumber || '',
-    } as ClientFormData,
+      clientId: client?.id || '',
+      amount: invoice?.amount || 0,
+      dueDate: invoice?.dueDate || new Date(),
+    } as InvoiceFormData,
     onSubmit: async ({ value }) => {
       setIsLoading(true)
       setAttemptSubmitted(true)
-      const success = client
-        ? await updateClient(value, client.id)
-        : await addClient(value)
+      const success = invoice
+        ? await updateInvoice(value, invoice.id)
+        : await addInvoice(value)
       if (!success) {
         toast.error('Something went wrong.', {
           description: 'Please try again later.',
         })
       } else {
         toast.success(
-          client
-            ? 'Client updated successfully.'
-            : 'Client added successfully.',
+          invoice
+            ? 'Invoice updated successfully.'
+            : 'Invoice added successfully.',
           {
             description: 'You can now create invoices, payments and more.',
             icon: <UserCheck />,
@@ -64,7 +68,7 @@ export default function ClientsForm({
     },
     validatorAdapter: zodValidator(),
     validators: {
-      onChange: clientValidationSchema,
+      onChange: invoiceValidationSchema,
     },
   })
   return (
@@ -105,16 +109,16 @@ export default function ClientsForm({
           />
         </div>
         <div className="flex gap-2">
-          {client && (
+          {invoice && (
             <Button
               className="w-full font-heading font-bold"
               disabled={isDeleting}
               colors="destructive"
               onClick={async () => {
                 setIsDeleting(true)
-                const success = await deleteClient(client.id)
+                const success = await deleteInvoice(invoice.id)
                 if (success) {
-                  toast.success('Client deleted successfully.', {
+                  toast.success('Invoice deleted successfully.', {
                     description: 'You can always add them back later.',
                   })
                   router.refresh()
@@ -127,7 +131,7 @@ export default function ClientsForm({
                 setIsDeleting(false)
               }}
             >
-              {isDeleting ? <Spinner /> : 'Delete Client'}
+              {isDeleting ? <Spinner /> : 'Delete Invoice'}
             </Button>
           )}
           <Button
@@ -136,7 +140,13 @@ export default function ClientsForm({
             variant="shine"
             colors="none"
           >
-            {isLoading ? <Spinner /> : client ? 'Update Client' : 'Add Client'}
+            {isLoading ? (
+              <Spinner />
+            ) : invoice ? (
+              'Update Invoice'
+            ) : (
+              'Add Invoice'
+            )}
           </Button>
         </div>
       </form>

@@ -10,13 +10,15 @@ import { Button } from '@remio/design-system/components/ui/button'
 import ClientsNewForm from './clients-form'
 import { useState } from 'react'
 
-export default function ClientsNewDialog() {
+export default function ClientsNewDialog({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="shine">Add New Client</Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Client</DialogTitle>

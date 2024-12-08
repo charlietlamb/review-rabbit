@@ -20,13 +20,13 @@ import {
 import { useAtomValue, useSetAtom } from 'jotai'
 import { Client } from '@remio/database/schema/clients'
 import ClientsNewDialog from './clients-new-dialog'
-import ClientsEditDialog from './clients-edit-dialog'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
 import { useEffect } from 'react'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
-import InvoiceCreateDialog from './invoice-create-dialog'
 import { Users } from 'lucide-react'
+import ClientsTableDropdown from './clients-table-dropdown'
+import { Button } from '@remio/design-system/components/ui/button'
 
 export default function ClientsTable() {
   const clients = useAtomValue(clientsTableAtoms)
@@ -83,12 +83,7 @@ export default function ClientsTable() {
     {
       accessorKey: 'edit',
       header: () => null,
-      cell: ({ row }) => (
-        <div className="flex gap-2 items-center">
-          <ClientsEditDialog client={row.original} />
-          <InvoiceCreateDialog client={row.original} />
-        </div>
-      ),
+      cell: ({ row }) => <ClientsTableDropdown client={row.original} />,
     },
   ]
 
@@ -150,7 +145,9 @@ export default function ClientsTable() {
           <p className="font-heading">
             We couldn't find any connected clients...
           </p>
-          <ClientsNewDialog />
+          <ClientsNewDialog>
+            <Button variant="shine">Add New Client</Button>
+          </ClientsNewDialog>
         </div>
       )}
     </>

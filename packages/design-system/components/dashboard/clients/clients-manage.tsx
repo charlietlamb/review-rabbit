@@ -8,6 +8,7 @@ import ClientsTable from './clients-table'
 import DashboardContentHeader from '../header/dashboard-content-header'
 import ClientsTableSearch from './clients-table-search'
 import ClientsNewDialog from './clients-new-dialog'
+import { Button } from '@remio/design-system/components/ui/button'
 
 export default function ClientsManage({
   initialClients,
@@ -26,7 +27,9 @@ export default function ClientsManage({
       />
       <div className="flex items-center justify-between p-4 gap-4">
         <ClientsTableSearch />
-        <ClientsNewDialog />
+        <ClientsNewDialog>
+          <Button variant="shine">Add New Client</Button>
+        </ClientsNewDialog>
       </div>
       <div className="p-4 overflow-y-auto flex-grow">
         <ClientsTable />

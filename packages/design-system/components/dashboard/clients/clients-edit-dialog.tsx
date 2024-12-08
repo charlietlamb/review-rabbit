@@ -12,15 +12,17 @@ import { Client } from '@remio/database'
 import { useState } from 'react'
 import { Pencil } from 'lucide-react'
 
-export default function ClientsEditDialog({ client }: { client: Client }) {
+export default function ClientsEditDialog({
+  client,
+  children,
+}: {
+  client: Client
+  children: React.ReactNode
+}) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Pencil className="text-muted-foreground" size={16} />
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Client</DialogTitle>

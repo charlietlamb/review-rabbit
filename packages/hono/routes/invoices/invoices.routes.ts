@@ -3,7 +3,10 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { unauthorizedSchema } from '@remio/hono/lib/configure-auth'
 import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
-import { invoiceSchema } from '@remio/database/schema/invoices'
+import {
+  invoiceSchema,
+  invoiceWithClientSchema,
+} from '@remio/database/schema/invoices'
 import { invoiceValidationSchema } from '@remio/design-system/components/dashboard/payments/invoice-schema'
 import { invoicesChartSchema } from '@remio/design-system/components/dashboard/payments/invoice-types'
 
@@ -154,3 +157,38 @@ export const getInvoicesChart = createRoute({
 })
 
 export type GetInvoicesChartRoute = typeof getInvoicesChart
+
+export const getRecentPayments = createRoute({
+  path: '/invoices/payments',
+  method: 'post',
+  summary: 'Get recent payments',
+  tags,
+  request: {
+    body: {
+      description: 'Pagination parameters',
+      content: {
+        'application/json': {
+          schema: z.object({
+            offset: z.number(),
+            limit: z.number(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(invoiceWithClientSchema),
+      'Recent payments fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch recent payments'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetRecentPaymentsRoute = typeof getRecentPayments

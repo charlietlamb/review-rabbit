@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@remio/http'
-import { db } from '@remio/database'
+import { db, InvoiceWithClient } from '@remio/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetInvoicesRoute,
@@ -7,9 +7,10 @@ import {
   UpdateInvoiceRoute,
   DeleteInvoiceRoute,
   GetInvoicesChartRoute,
+  GetRecentPaymentsRoute,
 } from './invoices.routes'
 
-import { eq, sql } from 'drizzle-orm'
+import { eq, sql, desc, and } from 'drizzle-orm'
 import { invoices } from '@remio/database'
 import { InvoicesChart } from '@remio/design-system/components/dashboard/payments/invoice-types'
 
@@ -126,6 +127,38 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
     return c.json(
       {
         error: 'Failed to fetch invoices chart',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getRecentPayments: AppRouteHandler<
+  GetRecentPaymentsRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { offset, limit } = await c.req.json()
+
+  try {
+    const results: InvoiceWithClient[] = await db.query.invoices.findMany({
+      where: and(eq(invoices.userId, user.id), eq(invoices.paid, true)),
+      with: {
+        client: true,
+      },
+      orderBy: desc(invoices.paidAt),
+      offset,
+      limit,
+    })
+    return c.json(results, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching recent payments:', error)
+    return c.json(
+      {
+        error: 'Failed to fetch recent payments',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR

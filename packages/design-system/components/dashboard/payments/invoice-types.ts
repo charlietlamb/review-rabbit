@@ -8,5 +8,4 @@ export const invoicesChartSchema = z.array(
     amount: z.number(),
   })
 )
-
 export type InvoicesChart = z.infer<typeof invoicesChartSchema>

@@ -13,10 +13,11 @@ import {
 import type { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@remio/design-system/lib/utils'
 import { format } from 'date-fns'
-import { Plus, Users } from 'lucide-react'
-import { Separator } from '@remio/design-system/components/ui/separator'
-import { clientsAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
-import { useAtom } from 'jotai'
+import {
+  clientsAtoms,
+  clientsTableAtoms,
+} from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { Client } from '@remio/database/schema/clients'
 import ClientsNewDialog from './clients-new-dialog'
 import ClientsEditDialog from './clients-edit-dialog'
@@ -25,9 +26,12 @@ import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients
 import { useEffect } from 'react'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
 import InvoiceCreateDialog from './invoice-create-dialog'
+import { Users } from 'lucide-react'
 
 export default function ClientsTable() {
-  const [clients, setClients] = useAtom(clientsAtoms)
+  const clients = useAtomValue(clientsTableAtoms)
+  const setClients = useSetAtom(clientsAtoms)
+
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage, refetch } =
     useInfiniteQuery({
       queryKey: ['clients'],
@@ -97,7 +101,11 @@ export default function ClientsTable() {
             isFetchingNextPage={isFetchingNextPage}
             fetchNextPage={fetchNextPage}
           >
-            <TableProvider columns={columns} data={clients}>
+            <TableProvider
+              columns={columns}
+              data={clients}
+              className="border overflow-y-auto"
+            >
               <TableHeader>
                 {({ headerGroup }) => (
                   <TableHeaderGroup
@@ -135,13 +143,9 @@ export default function ClientsTable() {
               </TableBody>
             </TableProvider>
           </InfiniteScroll>
-          <Separator />
-          <div className="flex p-4">
-            <ClientsNewDialog />
-          </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center gap-4 flex-grow">
+        <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <Users />
           <p className="font-heading">
             We couldn't find any connected clients...

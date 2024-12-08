@@ -49,9 +49,10 @@ export default function OverviewChart({
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Bar Chart - Interactive</CardTitle>
+          <CardTitle>{chartConfig[activeChart].label}</CardTitle>
           <CardDescription>
-            Showing total visitors for the last 3 months
+            Showing total {chartConfig[activeChart].label.toLowerCase()} for the
+            last 3 months
           </CardDescription>
         </div>
         <div className="flex">
@@ -68,6 +69,7 @@ export default function OverviewChart({
                   {chartConfig[chart].label}
                 </span>
                 <span className="text-lg font-bold leading-none sm:text-3xl">
+                  {key === 'revenue' ? '£' : ''}
                   {total[key as keyof typeof total].toLocaleString()}
                 </span>
               </button>

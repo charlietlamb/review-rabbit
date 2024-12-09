@@ -7,8 +7,8 @@ import {
   invoiceSchema,
   invoiceWithClientSchema,
 } from '@remio/database/schema/invoices'
-import { invoiceValidationSchema } from '@remio/design-system/components/dashboard/payments/invoice-schema'
-import { invoicesChartSchema } from '@remio/design-system/components/dashboard/payments/invoice-types'
+import { invoiceValidationSchema } from '@remio/design-system/components/dashboard/invoices/invoice-schema'
+import { invoicesChartSchema } from '@remio/design-system/components/dashboard/invoices/invoice-types'
 
 const tags = ['Invoices']
 

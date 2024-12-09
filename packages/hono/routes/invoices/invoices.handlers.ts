@@ -12,7 +12,6 @@ import {
 
 import { eq, sql, desc, and } from 'drizzle-orm'
 import { invoices } from '@remio/database'
-import { InvoicesChart } from '@remio/design-system/components/dashboard/payments/invoice-types'
 
 export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
   const user = c.get('user')

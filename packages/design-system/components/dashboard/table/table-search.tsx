@@ -3,11 +3,14 @@
 import { Input } from '@remio/design-system/components/ui/input'
 import { LoaderCircle, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useAtom } from 'jotai'
-import { clientsSearchAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
 
-export default function ClientsTableSearch() {
-  const [search, setSearch] = useAtom(clientsSearchAtoms)
+export default function TableSearch({
+  search,
+  setSearch,
+}: {
+  search: string
+  setSearch: (search: string) => void
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {

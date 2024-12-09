@@ -9,13 +9,10 @@ import {
 } from '@remio/design-system/components/ui/dropdown-menu'
 import { Button } from '@remio/design-system/components/ui/button'
 import { MoreHorizontal, Pencil, FileText, Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { Client } from '@remio/database/schema/clients'
 import InvoiceCreateDialog from './invoice-create-dialog'
 
 export default function ClientsTableDropdown({ client }: { client: Client }) {
-  const router = useRouter()
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -8,7 +8,7 @@ import {
 } from '@remio/design-system/components/ui/dialog'
 import { Client } from '@remio/database'
 import { useState } from 'react'
-import InvoiceForm from '../payments/invoice-form'
+import InvoiceForm from '../invoices/invoice-form'
 import { useRouter } from 'next/navigation'
 
 export default function InvoiceCreateDialog({

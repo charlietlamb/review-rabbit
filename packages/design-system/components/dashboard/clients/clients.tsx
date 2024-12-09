@@ -1,7 +1,7 @@
 'use client'
 
 import DashboardContentHeader from '../header/dashboard-content-header'
-import ClientCardCreate from './client-card-create'
+import ClientCardCreate from './client-create-card'
 import ClientsChart from './clients-chart'
 import ClientsManageCard from './clients-manage-card'
 import { ClientsChart as ClientsChartType } from './client-types'

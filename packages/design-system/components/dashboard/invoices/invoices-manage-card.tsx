@@ -16,27 +16,49 @@ import {
 } from '@remio/design-system/data/card-class-names'
 import { useRouter } from 'next/navigation'
 
-const pathVariants: Variants = {
+const dollarMainVariants: Variants = {
   normal: {
-    translateX: 0,
+    opacity: 1,
+    pathLength: 1,
     transition: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 13,
+      duration: 0.4,
+      opacity: { duration: 0.1 },
     },
   },
   animate: {
-    translateX: [-6, 0],
+    opacity: [0, 1],
+    pathLength: [0, 1],
     transition: {
-      delay: 0.1,
-      type: 'spring',
-      stiffness: 200,
-      damping: 13,
+      duration: 0.6,
+      opacity: { duration: 0.1 },
     },
   },
 }
 
-export default function ClientsManageCard() {
+const dollarSecondaryVariants: Variants = {
+  normal: {
+    opacity: 1,
+    pathLength: 1,
+    pathOffset: 0,
+    transition: {
+      delay: 0.3,
+      duration: 0.3,
+      opacity: { duration: 0.1, delay: 0.3 },
+    },
+  },
+  animate: {
+    opacity: [0, 1],
+    pathLength: [0, 1],
+    pathOffset: [1, 0],
+    transition: {
+      delay: 0.5,
+      duration: 0.4,
+      opacity: { duration: 0.1, delay: 0.5 },
+    },
+  },
+}
+
+export default function InvoicesManageCard() {
   const controls = useAnimation()
   const router = useRouter()
   return (
@@ -44,7 +66,7 @@ export default function ClientsManageCard() {
       className={cardClassName}
       onMouseEnter={() => controls.start('animate')}
       onMouseLeave={() => controls.start('normal')}
-      onClick={() => router.push('/dashboard/clients/manage')}
+      onClick={() => router.push('/dashboard/payments/manage')}
     >
       <CardHeader className={cardHeaderClassName}>
         <svg
@@ -59,24 +81,25 @@ export default function ClientsManageCard() {
           strokeLinejoin="round"
           className={cardIconClassName}
         >
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
+          <circle cx="12" cy="12" r="10" />
           <motion.path
-            d="M22 21v-2a4 4 0 0 0-3-3.87"
-            variants={pathVariants}
+            d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"
+            initial="normal"
             animate={controls}
+            variants={dollarMainVariants}
           />
           <motion.path
-            d="M16 3.13a4 4 0 0 1 0 7.75"
-            variants={pathVariants}
+            d="M12 18V6"
+            initial="normal"
             animate={controls}
+            variants={dollarSecondaryVariants}
           />
         </svg>
       </CardHeader>
       <CardContent className={cardContentClassName}>
-        <CardTitle className={cardTitleClassName}>Manage Clients</CardTitle>
+        <CardTitle className={cardTitleClassName}>Manage Invoices</CardTitle>
         <CardDescription className={cardDescriptionClassName}>
-          Add, edit or remove clients from your account.
+          View previous invoices and create new ones.
         </CardDescription>
       </CardContent>
     </Card>

@@ -6,16 +6,18 @@ import { useEffect } from 'react'
 import { clientsAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
 import ClientsTable from './clients-table'
 import DashboardContentHeader from '../header/dashboard-content-header'
-import ClientsTableSearch from './clients-table-search'
 import ClientsNewDialog from './clients-new-dialog'
 import { Button } from '@remio/design-system/components/ui/button'
-
+import { useAtom } from 'jotai'
+import { clientsSearchAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+import TableSearch from '../table/table-search'
 export default function ClientsManage({
   initialClients,
 }: {
   initialClients: Client[]
 }) {
   const setClients = useSetAtom(clientsAtoms)
+  const [search, setSearch] = useAtom(clientsSearchAtoms)
   useEffect(() => {
     setClients(initialClients)
   }, [])
@@ -26,7 +28,7 @@ export default function ClientsManage({
         subtitle="View and manage your clients"
       />
       <div className="flex items-center justify-between p-4 gap-4">
-        <ClientsTableSearch />
+        <TableSearch search={search} setSearch={setSearch} />
         <ClientsNewDialog>
           <Button variant="shine">Add New Client</Button>
         </ClientsNewDialog>

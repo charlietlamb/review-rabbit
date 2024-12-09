@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@remio/design-system/components/ui/select'
-import { InvoicesChart } from './invoice-types'
+import { InvoicesChart as InvoicesChartType } from './invoice-types'
 
 const chartConfig = {
   invoices: {
@@ -34,11 +34,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function PaymentsChart({
+export default function InvoicesChart({
   chartData,
   className,
 }: {
-  chartData: InvoicesChart
+  chartData: InvoicesChartType
   className?: string
 }) {
   const [timeRange, setTimeRange] = React.useState('90d')

@@ -13,7 +13,7 @@ import {
   cardHeaderClassName,
   cardIconClassName,
   cardTitleClassName,
-} from './client-card-class-names'
+} from '@remio/design-system/data/card-class-names'
 import {
   Dialog,
   DialogTrigger,
@@ -39,7 +39,7 @@ const penVariants: Variants = {
   },
 }
 
-export default function ClientsManageCard() {
+export default function ClientCreateCard() {
   const controls = useAnimation()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const router = useRouter()

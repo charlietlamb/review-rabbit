@@ -8,7 +8,6 @@ import {
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import { useRouter } from 'next/navigation'
-import { useSetAtom } from 'jotai'
 import {
   isAudio,
   isImage,
@@ -19,6 +18,7 @@ import VideoPlayer from '@remio/design-system/components/misc/video-player'
 import { Media } from '@remio/database/schema/media'
 import { ImagePreview } from '@remio/design-system/components/misc/image-preview'
 import OtherFilePreview from '@remio/design-system/components/misc/other-file-preview'
+import { downloadMedia } from '@remio/design-system/lib/media/download-media'
 
 export default function UploadCardDialogContent({
   upload,
@@ -27,7 +27,6 @@ export default function UploadCardDialogContent({
   upload: Media
   setOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const router = useRouter()
   const video = isVideo(upload.extension)
   const audio = isAudio(upload.extension)
   const image = isImage(upload.extension)
@@ -56,7 +55,7 @@ export default function UploadCardDialogContent({
           className="font-heading text-base"
           onClick={() => {
             setOpen(false)
-            router.push('/dashboard/create')
+            downloadMedia(upload)
           }}
         >
           Download

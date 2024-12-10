@@ -3,13 +3,16 @@
 import { Client } from '@remio/database/schema/clients'
 import { useSetAtom } from 'jotai'
 import { useEffect } from 'react'
-import { clientsAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+import {
+  clientsAtoms,
+  clientsSearchAtom,
+} from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
 import ClientsTable from './clients-table'
 import DashboardContentHeader from '../header/dashboard-content-header'
 import ClientsNewDialog from './clients-new-dialog'
 import { Button } from '@remio/design-system/components/ui/button'
 import { useAtom } from 'jotai'
-import { clientsSearchAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+
 import TableSearch from '../table/table-search'
 export default function ClientsManage({
   initialClients,
@@ -17,7 +20,7 @@ export default function ClientsManage({
   initialClients: Client[]
 }) {
   const setClients = useSetAtom(clientsAtoms)
-  const [search, setSearch] = useAtom(clientsSearchAtoms)
+  const [search, setSearch] = useAtom(clientsSearchAtom)
   useEffect(() => {
     setClients(initialClients)
   }, [])

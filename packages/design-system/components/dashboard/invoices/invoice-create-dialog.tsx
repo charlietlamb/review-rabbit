@@ -8,7 +8,7 @@ import {
 } from '@remio/design-system/components/ui/dialog'
 import { Client } from '@remio/database'
 import { useState } from 'react'
-import InvoiceForm from '../invoices/invoice-form'
+import InvoiceForm from './invoice-form'
 import { useRouter } from 'next/navigation'
 
 export default function InvoiceCreateDialog({
@@ -16,7 +16,7 @@ export default function InvoiceCreateDialog({
   route = false,
   children,
 }: {
-  client: Client
+  client?: Client
   route?: boolean
   children: React.ReactNode
 }) {
@@ -29,9 +29,7 @@ export default function InvoiceCreateDialog({
         <DialogHeader>
           <DialogTitle>Create Invoice</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          Create an invoice for {client.name}.
-        </DialogDescription>
+        <DialogDescription>Create an invoice for a client.</DialogDescription>
         <InvoiceForm
           client={client}
           setIsOpen={setIsOpen}

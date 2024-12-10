@@ -15,35 +15,45 @@ import { cn } from '@remio/design-system/lib/utils'
 import { format } from 'date-fns'
 import {
   clientsAtoms,
-  clientsTableAtoms,
+  clientsSearchAtom,
 } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
-import { useAtomValue, useSetAtom } from 'jotai'
 import { Client } from '@remio/database/schema/clients'
 import ClientsNewDialog from './clients-new-dialog'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
 import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
-import { useEffect } from 'react'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
 import { Users } from 'lucide-react'
 import ClientsTableDropdown from './clients-table-dropdown'
 import { Button } from '@remio/design-system/components/ui/button'
+import { useAtom } from 'jotai'
+import { useDebounce } from '@remio/design-system/hooks/use-debounce'
+import Spinner from '@remio/design-system/components/misc/spinner'
 
 export default function ClientsTable() {
-  const clients = useAtomValue(clientsTableAtoms)
-  const setClients = useSetAtom(clientsAtoms)
+  const {
+    items: clients,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    isFetching,
+  } = useInfiniteQueryWithAtom({
+    queryKey: 'clients',
+    fetchFn: fetchClients,
+    atom: clientsAtoms,
+    searchAtom: clientsSearchAtom,
+    filterFn: (client, search) =>
+      client.name.toLowerCase().includes(search.toLowerCase()) ||
+      (client.email?.toLowerCase().includes(search.toLowerCase()) ?? false),
+  })
 
-  const { data, isFetchingNextPage, hasNextPage, fetchNextPage, refetch } =
-    useInfiniteQuery({
-      queryKey: ['clients'],
-      queryFn: ({ pageParam }) => fetchClients(pageParam),
-      initialPageParam: 0,
-      getNextPageParam: (lastPage, pages) =>
-        lastPage.length ? pages.length : undefined,
-    })
-
-  useEffect(() => {
-    setClients(data?.pages.flatMap((page) => page) ?? [])
-  }, [data, setClients])
+  if (isLoading && !clients.length) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Spinner />
+      </div>
+    )
+  }
 
   const columns: ColumnDef<Client>[] = [
     {
@@ -90,55 +100,53 @@ export default function ClientsTable() {
   return (
     <>
       {clients.length > 0 ? (
-        <>
-          <InfiniteScroll
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            fetchNextPage={fetchNextPage}
+        <InfiniteScroll
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
+        >
+          <TableProvider
+            columns={columns}
+            data={clients}
+            className="border overflow-y-auto"
           >
-            <TableProvider
-              columns={columns}
-              data={clients}
-              className="border overflow-y-auto"
-            >
-              <TableHeader>
-                {({ headerGroup }) => (
-                  <TableHeaderGroup
-                    key={headerGroup.id}
-                    headerGroup={headerGroup}
-                  >
-                    {({ header }) => (
-                      <TableHead
-                        key={header.id}
-                        header={header}
-                        className={cn(
-                          header.column.id === 'disconnectButton' &&
-                            'justify-end flex items-center'
-                        )}
-                      />
-                    )}
-                  </TableHeaderGroup>
-                )}
-              </TableHeader>
-              <TableBody>
-                {({ row }) => (
-                  <TableRow key={row.id} row={row}>
-                    {({ cell }) => (
-                      <TableCell
-                        key={cell.id}
-                        cell={cell}
-                        className={cn(
-                          cell.column.id === 'disconnectButton' &&
-                            'justify-end flex items-center'
-                        )}
-                      />
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </TableProvider>
-          </InfiniteScroll>
-        </>
+            <TableHeader>
+              {({ headerGroup }) => (
+                <TableHeaderGroup
+                  key={headerGroup.id}
+                  headerGroup={headerGroup}
+                >
+                  {({ header }) => (
+                    <TableHead
+                      key={header.id}
+                      header={header}
+                      className={cn(
+                        header.column.id === 'disconnectButton' &&
+                          'justify-end flex items-center'
+                      )}
+                    />
+                  )}
+                </TableHeaderGroup>
+              )}
+            </TableHeader>
+            <TableBody>
+              {({ row }) => (
+                <TableRow key={row.id} row={row}>
+                  {({ cell }) => (
+                    <TableCell
+                      key={cell.id}
+                      cell={cell}
+                      className={cn(
+                        cell.column.id === 'disconnectButton' &&
+                          'justify-end flex items-center'
+                      )}
+                    />
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </TableProvider>
+        </InfiniteScroll>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <Users />

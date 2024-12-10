@@ -8,7 +8,7 @@ import {
   DeleteClientRoute,
   GetClientsChartRoute,
 } from './clients.routes'
-import { eq, sql } from 'drizzle-orm'
+import { eq, sql, and, or } from 'drizzle-orm'
 import { clients } from '@remio/database'
 
 export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
@@ -16,11 +16,17 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit } = await c.req.json()
+  const { offset, limit, search } = await c.req.json()
 
   try {
     const results = await db.query.clients.findMany({
-      where: eq(clients.userId, user.id),
+      where: and(
+        eq(clients.userId, user.id),
+        or(
+          sql`LOWER(${clients.name}) LIKE ${`%${search?.toLowerCase()}%`}`,
+          sql`LOWER(${clients.email}) LIKE ${`%${search?.toLowerCase()}%`}`
+        )
+      ),
       offset,
       limit,
     })
@@ -28,10 +34,7 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   } catch (error) {
     console.error('Error fetching clients:', error)
     return c.json(
-      {
-        error: 'Failed to fetch clients',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Failed to fetch clients' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

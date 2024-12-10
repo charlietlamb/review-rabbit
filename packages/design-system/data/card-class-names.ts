@@ -4,7 +4,7 @@ export const cardClassName =
 export const cardHeaderClassName =
   'flex flex-row justify-evenly items-center gap-2'
 
-export const cardContentClassName = 'bg-card py-4'
+export const cardContentClassName = 'bg-card py-4 flex-grow'
 
 export const cardTitleClassName = 'text-lg'
 

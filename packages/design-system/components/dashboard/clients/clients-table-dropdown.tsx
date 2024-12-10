@@ -8,9 +8,9 @@ import {
   DropdownMenuTrigger,
 } from '@remio/design-system/components/ui/dropdown-menu'
 import { Button } from '@remio/design-system/components/ui/button'
-import { MoreHorizontal, Pencil, FileText, Trash } from 'lucide-react'
+import { MoreHorizontal, Pencil, FileText } from 'lucide-react'
 import { Client } from '@remio/database/schema/clients'
-import InvoiceCreateDialog from './invoice-create-dialog'
+import InvoiceCreateDialog from '../invoices/invoice-create-dialog'
 
 export default function ClientsTableDropdown({ client }: { client: Client }) {
   return (

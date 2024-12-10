@@ -5,10 +5,17 @@ import client from '@remio/design-system/lib/client'
 import { PAGE_SIZE } from '@remio/design-system/data/page-size'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 
-export async function fetchClients(page: number): Promise<Client[]> {
+export async function fetchClients(
+  page: number,
+  search?: string
+): Promise<Client[]> {
   const response = await client.clients.$post(
     {
-      json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE },
+      json: {
+        offset: page * PAGE_SIZE,
+        limit: PAGE_SIZE,
+        search,
+      },
     },
     await headersWithCookies()
   )

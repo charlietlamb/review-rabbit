@@ -17,6 +17,9 @@ import { InvoiceFormData, invoiceValidationSchema } from './invoice-schema'
 import { updateInvoice } from '@remio/design-system/actions/invoices/update-invoice'
 import { addInvoice } from '@remio/design-system/actions/invoices/add-invoice'
 import { deleteInvoice } from '@remio/design-system/actions/invoices/delete-invoice'
+import ClientSelect from '../clients/client-select'
+import { clientsAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+import { useAtom } from 'jotai'
 
 export default function InvoiceForm({
   invoice,
@@ -32,6 +35,10 @@ export default function InvoiceForm({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
+  const [clients, setClients] = useAtom(clientsAtoms)
+  const [selectedClient, setSelectedClient] = useState<Client | null>(
+    client || null
+  )
   const router = useRouter()
 
   const form = useForm({
@@ -82,6 +89,11 @@ export default function InvoiceForm({
         }}
       >
         <div className="grid grid-cols-2 gap-4">
+          <ClientSelect
+            selectedClient={selectedClient}
+            setSelectedClient={setSelectedClient}
+            className="col-span-2"
+          />
           <InputWithIcon
             form={form}
             name="name"

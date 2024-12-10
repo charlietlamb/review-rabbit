@@ -8,6 +8,7 @@ import { Button } from '@remio/design-system/components/ui/button'
 import { InvoiceWithClient } from '@remio/database'
 import TableSearch from '../table/table-search'
 import { invoicesSearchAtoms } from '@remio/design-system/atoms/dashboard/invoices/invoices-atoms'
+import InvoiceCreateDialog from './invoice-create-dialog'
 
 export default function InvoicesManage({
   initialInvoices,
@@ -28,9 +29,9 @@ export default function InvoicesManage({
       />
       <div className="flex items-center justify-between p-4 gap-4">
         <TableSearch search={search} setSearch={setSearch} />
-        {/* <InvoicesNewDialog>
+        <InvoiceCreateDialog>
           <Button variant="shine">Add New Invoice</Button>
-        </InvoicesNewDialog> */}
+        </InvoiceCreateDialog>
       </div>
       {/* <div className="p-4 overflow-y-auto flex-grow">
         <InvoicesTable />

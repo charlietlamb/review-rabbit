@@ -1,25 +1,21 @@
 import { useForm } from '@tanstack/react-form'
 import { toast } from 'sonner'
-import { Mail, User, UserCheck } from 'lucide-react'
+import { UserCheck } from 'lucide-react'
 import { useState } from 'react'
-import { addClient } from '@remio/design-system/actions/clients/add-client'
-import { updateClient } from '@remio/design-system/actions/clients/update-client'
-import { deleteClient } from '@remio/design-system/actions/clients/delete-client'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
 import { Button } from '@remio/design-system/components/ui/button'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import { FormContext } from '@remio/design-system/components/form/form-context'
-import PhoneNumberInput from '@remio/design-system/components/form/phone-number-input'
 import { useRouter } from 'next/navigation'
 import { Client, Invoice } from '@remio/database'
 import { InvoiceFormData, invoiceValidationSchema } from './invoice-schema'
 import { updateInvoice } from '@remio/design-system/actions/invoices/update-invoice'
 import { addInvoice } from '@remio/design-system/actions/invoices/add-invoice'
 import { deleteInvoice } from '@remio/design-system/actions/invoices/delete-invoice'
-import ClientSelect from '../clients/client-select'
-import { clientsAtoms } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
-import { useAtom } from 'jotai'
+import ClientSelect from '../../form/client-select'
+import TextareaFormInput from '@remio/design-system/components/form/textarea-form-input'
+import MoneyInput from '@remio/design-system/components/form/money-input'
+import DatePicker from '@remio/design-system/components/form/date-picker'
 
 export default function InvoiceForm({
   invoice,
@@ -35,7 +31,6 @@ export default function InvoiceForm({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
-  const [clients, setClients] = useAtom(clientsAtoms)
   const [selectedClient, setSelectedClient] = useState<Client | null>(
     client || null
   )
@@ -46,6 +41,7 @@ export default function InvoiceForm({
       clientId: client?.id || '',
       amount: invoice?.amount || 0,
       dueDate: invoice?.dueDate || new Date(),
+      reference: invoice?.reference || '',
     } as InvoiceFormData,
     onSubmit: async ({ value }) => {
       setIsLoading(true)
@@ -68,10 +64,10 @@ export default function InvoiceForm({
           }
         )
         router.refresh()
-        if (onSuccess) onSuccess()
+        onSuccess?.()
       }
       setIsLoading(false)
-      if (setIsOpen) setIsOpen(false)
+      setIsOpen?.(false)
     },
     validatorAdapter: zodValidator(),
     validators: {
@@ -83,6 +79,8 @@ export default function InvoiceForm({
       <form
         className="flex flex-col gap-4 w-full max-w-2xl mx-auto"
         onSubmit={(e) => {
+          console.log('submitted')
+          setAttemptSubmitted(true)
           e.preventDefault()
           e.stopPropagation()
           form.handleSubmit()
@@ -90,33 +88,30 @@ export default function InvoiceForm({
       >
         <div className="grid grid-cols-2 gap-4">
           <ClientSelect
+            form={form}
             selectedClient={selectedClient}
             setSelectedClient={setSelectedClient}
             className="col-span-2"
           />
-          <InputWithIcon
+          <MoneyInput
             form={form}
-            name="name"
-            icon={<User />}
-            label="Name"
-            placeholder="Name"
-            type="text"
+            name="amount"
+            label="Amount"
+            placeholder="Amount"
             required
           />
-          <InputWithIcon
+          <DatePicker
             form={form}
-            name="email"
-            icon={<Mail />}
-            label="Email"
-            placeholder="Email"
-            type="email"
+            name="dueDate"
+            label="Due Date"
+            placeholder="Due Date"
             required
           />
-          <PhoneNumberInput
+          <TextareaFormInput
             form={form}
-            name="phoneNumber"
-            label="Phone Number"
-            placeholder="Phone Number"
+            name="reference"
+            label="Reference"
+            placeholder="Reference"
             className="col-span-2"
           />
         </div>

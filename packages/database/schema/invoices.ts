@@ -21,8 +21,8 @@ export const invoices = pgTable('invoices', {
   amount: decimal('amount', { precision: 10, scale: 2 }).notNull(),
   currency: text('currency').notNull().default('GBP'),
   dueDate: timestamp('due_date').notNull(),
-  issueDate: timestamp('issue_date').notNull(),
   paidAt: timestamp('paid_at'),
+  reference: text('reference'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })

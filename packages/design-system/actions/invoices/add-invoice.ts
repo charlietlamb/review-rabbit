@@ -7,12 +7,18 @@ import { InvoiceFormData } from 'components/dashboard/invoices/invoice-schema'
 export async function addInvoice(
   newInvoice: InvoiceFormData
 ): Promise<boolean> {
+  console.log(newInvoice)
   const response = await client.invoices.add.$post(
-    { json: newInvoice },
+    {
+      json: newInvoice,
+    },
     await headersWithCookies()
   )
-  if (!response.ok) {
-    throw new Error('Failed to add invoice')
-  }
+  if (!response.ok)
+    console.error(
+      'Failed to add invoice: ',
+      response.statusText,
+      response.status
+    )
   return response.ok
 }

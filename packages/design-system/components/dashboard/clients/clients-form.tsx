@@ -57,10 +57,10 @@ export default function ClientsForm({
           }
         )
         router.refresh()
-        if (onSuccess) onSuccess()
+        onSuccess?.()
       }
       setIsLoading(false)
-      if (setIsOpen) setIsOpen(false)
+      setIsOpen?.(false)
     },
     validatorAdapter: zodValidator(),
     validators: {

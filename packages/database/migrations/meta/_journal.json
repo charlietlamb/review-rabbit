@@ -8,6 +8,20 @@
       "when": 1733651347034,
       "tag": "0000_clammy_warpath",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1733946684024,
+      "tag": "0001_yellow_gabe_jones",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733949215288,
+      "tag": "0002_sweet_warhawk",
+      "breakpoints": true
     }
   ]
 }

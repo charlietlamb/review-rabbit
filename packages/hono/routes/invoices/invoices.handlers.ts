@@ -45,9 +45,13 @@ export const addInvoice: AppRouteHandler<AddInvoiceRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const newInvoice = await c.req.json()
-
+  console.log(newInvoice)
   try {
-    await db.insert(invoices).values({ ...newInvoice, userId: user.id })
+    await db.insert(invoices).values({
+      ...newInvoice,
+      dueDate: new Date(newInvoice.dueDate),
+      userId: user.id,
+    })
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error adding invoice:', error)

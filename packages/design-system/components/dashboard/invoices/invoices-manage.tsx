@@ -7,8 +7,9 @@ import DashboardContentHeader from '../header/dashboard-content-header'
 import { Button } from '@remio/design-system/components/ui/button'
 import { InvoiceWithClient } from '@remio/database'
 import TableSearch from '../table/table-search'
-import { invoicesSearchAtoms } from '@remio/design-system/atoms/dashboard/invoices/invoices-atoms'
-import InvoiceCreateDialog from './invoice-create-dialog'
+import InvoiceCreateDialog from './invoice-edit-dialog'
+import InvoicesTable from './invoices-table'
+import { invoicesSearchAtom } from '@remio/design-system/atoms/dashboard/invoices/invoices-atoms'
 
 export default function InvoicesManage({
   initialInvoices,
@@ -16,7 +17,7 @@ export default function InvoicesManage({
   initialInvoices: InvoiceWithClient[]
 }) {
   const setInvoices = useSetAtom(invoicesAtoms)
-  const [search, setSearch] = useAtom(invoicesSearchAtoms)
+  const [search, setSearch] = useAtom(invoicesSearchAtom)
   useEffect(() => {
     setInvoices(initialInvoices)
   }, [])
@@ -33,9 +34,9 @@ export default function InvoicesManage({
           <Button variant="shine">Add New Invoice</Button>
         </InvoiceCreateDialog>
       </div>
-      {/* <div className="p-4 overflow-y-auto flex-grow">
+      <div className="p-4 overflow-y-auto flex-grow">
         <InvoicesTable />
-      </div> */}
+      </div>
     </div>
   )
 }

@@ -47,6 +47,41 @@ export const getInvoices = createRoute({
 
 export type GetInvoicesRoute = typeof getInvoices
 
+export const getInvoicesWithClient = createRoute({
+  path: '/invoices-with-client',
+  method: 'post',
+  summary: 'Get invoices with client',
+  tags,
+  request: {
+    body: {
+      description: 'Pagination parameters',
+      content: {
+        'application/json': {
+          schema: z.object({
+            offset: z.number(),
+            limit: z.number(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(invoiceWithClientSchema),
+      'Invoices with client fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch invoices'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetInvoicesWithClientRoute = typeof getInvoicesWithClient
+
 export const addInvoice = createRoute({
   path: '/invoices/add',
   method: 'post',

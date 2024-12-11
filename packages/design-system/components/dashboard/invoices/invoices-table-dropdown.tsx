@@ -1,18 +1,20 @@
-import ClientsEditDialog from './clients-edit-dialog'
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@remio/design-system/components/ui/dropdown-menu'
 import { Button } from '@remio/design-system/components/ui/button'
-import { MoreHorizontal, Pencil, FileText } from 'lucide-react'
-import { Client } from '@remio/database/schema/clients'
-import InvoiceCreateDialog from '../invoices/invoice-edit-dialog'
+import { MoreHorizontal, Pencil } from 'lucide-react'
+import InvoiceCreateDialog from './invoice-edit-dialog'
+import InvoiceEditDialog from './invoice-edit-dialog'
+import { InvoiceWithClient } from '@remio/database'
 
-export default function ClientsTableDropdown({ client }: { client: Client }) {
+export default function InvoicesTableDropdown({
+  invoice,
+}: {
+  invoice: InvoiceWithClient
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,22 +25,22 @@ export default function ClientsTableDropdown({ client }: { client: Client }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px] p-0">
         <DropdownMenuItem className="cursor-pointer" asChild>
-          <ClientsEditDialog client={client}>
+          <InvoiceEditDialog invoice={invoice} client={invoice.client}>
             <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-border transition-colors">
               <Pencil className="mr-2 h-4 w-4" />
               Edit
             </div>
-          </ClientsEditDialog>
+          </InvoiceEditDialog>
         </DropdownMenuItem>
-        <DropdownMenuSeparator className="bg-border m-0" />
+        {/* <DropdownMenuSeparator className="bg-border m-0" />
         <DropdownMenuItem asChild>
-          <InvoiceCreateDialog client={client}>
+          <InvoiceRemindDialog invoice={invoice}>
             <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-border transition-colors">
               <FileText className="mr-2 h-4 w-4" />
               New Invoice
             </div>
-          </InvoiceCreateDialog>
-        </DropdownMenuItem>
+          </InvoiceRemindDialog>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   )

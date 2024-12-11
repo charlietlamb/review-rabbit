@@ -8,6 +8,7 @@ import {
   DeleteInvoiceRoute,
   GetInvoicesChartRoute,
   GetRecentPaymentsRoute,
+  GetInvoicesWithClientRoute,
 } from './invoices.routes'
 
 import { eq, sql, desc, and } from 'drizzle-orm'
@@ -25,6 +26,37 @@ export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
       where: eq(invoices.userId, user.id),
       offset,
       limit,
+    })
+    return c.json(results, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching invoices:', error)
+    return c.json(
+      {
+        error: 'Failed to fetch invoices',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getInvoicesWithClient: AppRouteHandler<
+  GetInvoicesWithClientRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { offset, limit } = await c.req.json()
+
+  try {
+    const results = await db.query.invoices.findMany({
+      where: eq(invoices.userId, user.id),
+      offset,
+      limit,
+      with: {
+        client: true,
+      },
     })
     return c.json(results, HttpStatusCodes.OK)
   } catch (error) {

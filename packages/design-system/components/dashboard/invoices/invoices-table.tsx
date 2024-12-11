@@ -13,38 +13,39 @@ import {
 import type { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@remio/design-system/lib/utils'
 import { format } from 'date-fns'
-import {
-  clientsAtoms,
-  clientsTableAtoms,
-} from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { Client } from '@remio/database/schema/clients'
-import InvoiceCreateDialog from './invoice-create-dialog'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
-import { useEffect } from 'react'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
-import { Users } from 'lucide-react'
+import { FileText, Users } from 'lucide-react'
 import { Button } from '@remio/design-system/components/ui/button'
+import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
+import {
+  invoicesAtoms,
+  invoicesSearchAtom,
+} from '@remio/design-system/atoms/dashboard/invoices/invoices-atoms'
+import InvoiceCreateDialog from './invoice-edit-dialog'
+import { InvoiceWithClient } from '@remio/database'
+import { fetchInvoicesWithClient } from '@remio/design-system/actions/invoices/fetch-invoices-with-client'
+import InvoicesTableDropdown from './invoices-table-dropdown'
 
 export default function InvoicesTable() {
-  const clients = useAtomValue(clientsTableAtoms)
-  const setClients = useSetAtom(clientsAtoms)
+  const {
+    items: invoices,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    isFetching,
+  } = useInfiniteQueryWithAtom({
+    queryKey: 'invoices',
+    fetchFn: fetchInvoicesWithClient,
+    atom: invoicesAtoms,
+    searchAtom: invoicesSearchAtom,
+    filterFn: (invoice, search) =>
+      invoice.client.name.toLowerCase().includes(search.toLowerCase()) ||
+      (invoice.client.email?.toLowerCase().includes(search.toLowerCase()) ??
+        false),
+  })
 
-  const { data, isFetchingNextPage, hasNextPage, fetchNextPage, refetch } =
-    useInfiniteQuery({
-      queryKey: ['clients'],
-      queryFn: ({ pageParam }) => fetchClients(pageParam),
-      initialPageParam: 0,
-      getNextPageParam: (lastPage, pages) =>
-        lastPage.length ? pages.length : undefined,
-    })
-
-  useEffect(() => {
-    setClients(data?.pages.flatMap((page) => page) ?? [])
-  }, [data, setClients])
-
-  const columns: ColumnDef<Client>[] = [
+  const columns: ColumnDef<InvoiceWithClient>[] = [
     {
       accessorKey: 'details',
       header: ({ column }) => (
@@ -52,9 +53,11 @@ export default function InvoicesTable() {
       ),
       cell: ({ row }) => (
         <div>
-          <span className="font-medium font-heading">{row.original.name}</span>
+          <span className="font-medium font-heading">
+            {row.original.client.name}
+          </span>
           <div className="flex items-center gap-1 text-muted-foreground text-xs">
-            <span>{row.original.email}</span>
+            <span>{row.original.client.email}</span>
           </div>
         </div>
       ),
@@ -65,7 +68,9 @@ export default function InvoicesTable() {
         <TableColumnHeader column={column} title="Phone Number" />
       ),
       cell: ({ row }) => (
-        <p className="text-muted-foreground">{row.original.phoneNumber}</p>
+        <p className="text-muted-foreground">
+          {row.original.client.phoneNumber}
+        </p>
       ),
     },
     {
@@ -82,13 +87,13 @@ export default function InvoicesTable() {
     {
       accessorKey: 'edit',
       header: () => null,
-      cell: ({ row }) => <ClientsTableDropdown client={row.original} />,
+      cell: ({ row }) => <InvoicesTableDropdown invoice={row.original} />,
     },
   ]
 
   return (
     <>
-      {clients.length > 0 ? (
+      {invoices.length > 0 ? (
         <>
           <InfiniteScroll
             hasNextPage={hasNextPage}
@@ -97,7 +102,7 @@ export default function InvoicesTable() {
           >
             <TableProvider
               columns={columns}
-              data={clients}
+              data={invoices}
               className="border overflow-y-auto"
             >
               <TableHeader>
@@ -140,13 +145,11 @@ export default function InvoicesTable() {
         </>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
-          <Users />
-          <p className="font-heading">
-            We couldn't find any connected clients...
-          </p>
-          <ClientsNewDialog>
-            <Button variant="shine">Add New Client</Button>
-          </ClientsNewDialog>
+          <FileText />
+          <p className="font-heading">We couldn't find any invoices...</p>
+          <InvoiceCreateDialog>
+            <Button variant="shine">Add New Invoice</Button>
+          </InvoiceCreateDialog>
         </div>
       )}
     </>

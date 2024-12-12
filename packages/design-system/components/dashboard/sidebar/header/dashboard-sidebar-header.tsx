@@ -18,7 +18,6 @@ export default function DashboardSidebarHeader() {
       )}
     >
       <Link href="/">{open ? 'remio' : 'r'}</Link>
-      <DashboardSidebarThemeToggle />
     </SidebarHeader>
   )
 }

@@ -12,10 +12,10 @@ import { authClient } from '@remio/design-system/lib/authClient'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import PasswordStrength from './password-strength'
-import Name from './name'
-import Email from './email'
 import OAuth from '../oauth/oauth'
 import OrLabel from './or-label'
+import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import { Mail, User } from 'lucide-react'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -80,8 +80,24 @@ export default function AuthFormSignup({ className }: { className?: string }) {
           form.handleSubmit()
         }}
       >
-        <Name form={form} />
-        <Email form={form} />
+        <InputWithIcon
+          icon={<User />}
+          placeholder="Name"
+          name="name"
+          form={form}
+          label="Name"
+          type="text"
+          required
+        />
+        <InputWithIcon
+          icon={<Mail />}
+          placeholder="Email"
+          name="email"
+          form={form}
+          label="Email"
+          type="email"
+          required
+        />
         <PasswordStrength form={form} />
         <Button
           className="w-full"

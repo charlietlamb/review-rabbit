@@ -3,6 +3,7 @@ import { SquarePenIcon } from '@remio/design-system/components/dashboard/sidebar
 import { CircleDollarSignIcon } from '../icons/dollar'
 import { FileStackIcon } from '../icons/files'
 import { UsersIcon } from '../icons/users'
+import { ClockIcon } from '../icons/clock'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -38,6 +39,12 @@ export const dashboardSidebarItems = [
     icon: <FileStackIcon />,
     href: '/dashboard/files',
     key: 'files',
+  },
+  {
+    title: 'Schedule',
+    icon: <ClockIcon />,
+    href: '/dashboard/schedule',
+    key: 'schedule',
   },
 ]
 

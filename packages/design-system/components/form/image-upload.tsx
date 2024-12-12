@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@remio/design-system/components/ui/button'
-import { CircleUserRound } from 'lucide-react'
+import { CircleUserRound, X } from 'lucide-react'
 import Image from 'next/image'
 import React, {
   Dispatch,
@@ -11,14 +11,8 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@remio/design-system/components/ui/dialog'
 import { FieldApi } from '@tanstack/react-form'
 import { AspectRatio } from '../ui/aspect-ratio'
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { MAX_FILE_SIZE } from '@remio/design-system/lib/constants'
 
 export default function ImageUpload({
@@ -35,13 +29,12 @@ export default function ImageUpload({
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     initPreviewUrl ?? null
   )
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     setPreviewUrl(initPreviewUrl ?? null)
   }, [initPreviewUrl])
 
-  const handleButtonClick = useCallback(
+  const handleThumbnailClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       e.stopPropagation()
@@ -74,90 +67,62 @@ export default function ImageUpload({
 
   return (
     <div>
-      <div className="gap-x-2 flex flex-col">
-        <div className="flex items-center gap-2">
-          <div
-            className="size-9 shrink-0 border-input relative flex items-center justify-center overflow-hidden border rounded-lg"
-            role="img"
-            aria-label={
-              previewUrl ? 'Preview of uploaded image' : 'Default user avatar'
-            }
-          >
-            {previewUrl ? (
-              <img
-                className="object-cover w-full h-full cursor-pointer"
+      <div className="relative inline-flex">
+        <Button
+          variant="outline"
+          className="relative size-16 overflow-hidden p-0"
+          onClick={handleThumbnailClick}
+          aria-label={previewUrl ? 'Change image' : 'Upload image'}
+        >
+          {previewUrl ? (
+            <AspectRatio ratio={1}>
+              <Image
+                className="h-full w-full object-cover"
                 src={previewUrl}
                 alt="Preview of uploaded image"
-                width={32}
-                height={32}
-                onClick={() => setIsModalOpen(true)}
+                width={40}
+                height={40}
+                style={{ objectFit: 'cover' }}
               />
-            ) : (
-              <div aria-hidden="true">
-                <CircleUserRound
-                  className="opacity-60"
-                  size={16}
-                  strokeWidth={2}
-                />
-              </div>
-            )}
-          </div>
-          <div className="relative inline-block">
-            <Button onClick={handleButtonClick} aria-haspopup="dialog">
-              {fileName ? 'Change image' : 'Upload image'}
-            </Button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-              accept="image/*"
-              aria-label="Upload image file"
-            />
-          </div>
-        </div>
+            </AspectRatio>
+          ) : (
+            <div aria-hidden="true">
+              <CircleUserRound
+                className="opacity-60"
+                size={16}
+                strokeWidth={2}
+              />
+            </div>
+          )}
+        </Button>
+        {previewUrl && (
+          <Button
+            onClick={handleRemove}
+            size="icon"
+            variant="destructive"
+            className="absolute -right-2 -top-2 size-6 rounded-full border-2 border-background"
+            aria-label="Remove image"
+          >
+            <X size={16} />
+          </Button>
+        )}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+          accept="image/*"
+          aria-label="Upload image file"
+        />
       </div>
       {fileName && (
-        <div className="inline-flex gap-2 mt-2 text-xs">
-          <p className="text-muted-foreground truncate" aria-live="polite">
-            {fileName}
-          </p>{' '}
-          <button
-            onClick={handleRemove}
-            className="hover:underline font-medium text-red-500"
-            aria-label={`Remove ${fileName}`}
-          >
-            Remove
-          </button>
-        </div>
+        <p className="mt-2 text-xs text-muted-foreground">{fileName}</p>
       )}
       <div className="sr-only" aria-live="polite" role="status">
         {previewUrl
           ? 'Image uploaded and preview available'
           : 'No image uploaded'}
       </div>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        {previewUrl && (
-          <>
-            <VisuallyHidden>
-              <DialogTitle>Preview of uploaded image</DialogTitle>
-            </VisuallyHidden>
-            <DialogContent className="max-w-[50vw] max-h-[50vh] p-0 bg-transparent border-none">
-              <AspectRatio
-                ratio={1}
-                className="flex items-center justify-center w-full h-full overflow-hidden"
-              >
-                <Image
-                  src={previewUrl}
-                  alt="Preview of uploaded image"
-                  fill
-                  className="object-cover"
-                />
-              </AspectRatio>
-            </DialogContent>
-          </>
-        )}
-      </Dialog>
     </div>
   )
 }

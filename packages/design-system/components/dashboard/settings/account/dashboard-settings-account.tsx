@@ -1,5 +1,7 @@
 import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 import DashboardContentHeader from '../../header/dashboard-content-header'
+import DashboardSettingsAccountContent from './dashboard-settings-account-content'
+import DashboardSettingsAccountTheme from './dashboard-settings-account-theme'
 
 export default function DashboardSettingsAccount() {
   return (
@@ -9,6 +11,8 @@ export default function DashboardSettingsAccount() {
         subtitle="Manage your account settings"
       />
       <DashboadSettingsAccountForm />
+      <DashboardSettingsAccountContent />
+      <DashboardSettingsAccountTheme />
     </div>
   )
 }

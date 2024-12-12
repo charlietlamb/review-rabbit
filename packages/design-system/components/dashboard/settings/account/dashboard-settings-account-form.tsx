@@ -9,8 +9,6 @@ import ImageForm from '@remio/design-system/components/auth/form/image'
 import useUser from '@remio/design-system/hooks/use-user'
 import { useRouter } from 'next/navigation'
 import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
-import Name from '@remio/design-system/components/auth/form/name'
-import Email from '@remio/design-system/components/auth/form/email'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import { toast } from 'sonner'
 import UpdatePassword from '@remio/design-system/components/auth/update-password/update-password'
@@ -19,6 +17,9 @@ import { MAX_FILE_SIZE_STRING } from '@remio/design-system/data/max-image-size'
 import { updateUser } from '@remio/design-system/actions/auth/user/update-user'
 import { uploadProfilePictureClient } from '@remio/design-system/actions/s3/upload/upload-profile-picture-client'
 import { User } from '@remio/database/schema/users'
+import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import { Mail, User as UserIcon } from 'lucide-react'
+import { FormContext } from '@remio/design-system/components/form/form-context'
 
 const userFormSchema = z.object({
   name: z.string().min(1),
@@ -68,43 +69,60 @@ export default function DashboadSettingsAccountForm() {
     },
   })
   const [fileTooLarge, setFileTooLarge] = useState(false)
+  const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
 
   if (!user) return null
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        form.handleSubmit()
-      }}
-      className="p-4"
-    >
-      <div>
-        <Name form={form} />
-        <Email form={form} />
-        <DashboardSettingsAccountEmailVerification />
-        <div className="md:grid-cols-2 grid grid-cols-1 gap-2">
+    <FormContext.Provider value={{ attemptSubmitted }}>
+      <form
+        onSubmit={(e) => {
+          setAttemptSubmitted(true)
+          e.preventDefault()
+          e.stopPropagation()
+          form.handleSubmit()
+        }}
+        className="p-4"
+      >
+        <div className="grid grid-cols-1 gap-4">
+          <InputWithIcon
+            form={form}
+            name="name"
+            icon={<UserIcon />}
+            label="Name"
+            placeholder="Name"
+            type="text"
+            required
+          />
+          <InputWithIcon
+            form={form}
+            name="email"
+            icon={<Mail />}
+            label="Email"
+            placeholder="Email"
+            type="text"
+            required
+          />
           <ImageForm
             form={form}
             previewUrl={user.image ?? undefined}
             setFileTooLarge={setFileTooLarge}
           />
-          <UpdatePassword />
+          <Button
+            variant="shine"
+            type="submit"
+            disabled={form.state.isSubmitting || fileTooLarge}
+            className="w-full mt-2"
+          >
+            {fileTooLarge ? (
+              `File too large, max size is ${MAX_FILE_SIZE_STRING}`
+            ) : form.state.isSubmitting ? (
+              <Spinner />
+            ) : (
+              'Save Changes'
+            )}
+          </Button>
         </div>
-        <Button
-          type="submit"
-          disabled={form.state.isSubmitting || fileTooLarge}
-          className="w-full mt-2"
-        >
-          {fileTooLarge ? (
-            `File too large, max size is ${MAX_FILE_SIZE_STRING}`
-          ) : form.state.isSubmitting ? (
-            <Spinner />
-          ) : (
-            'Save Changes'
-          )}
-        </Button>
-      </div>
-    </form>
+      </form>
+    </FormContext.Provider>
   )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { authClient } from '@remio/design-system/lib/authClient'
 import { Button } from '@remio/design-system/components/ui/button'
 import useUser from '@remio/design-system/hooks/use-user'
@@ -8,13 +10,10 @@ export default function DashboardSettingsAccountEmailVerification() {
   const user = useUser()
   const [sent, setSent] = useState(false)
   if (!user) return null
-  return user?.emailVerified ? (
-    <span className="font-heading text-green-400">Email verified</span>
-  ) : (
+  return user?.emailVerified ? null : (
     <Button
-      variant="linkHover2"
-      colors="none"
-      className="font-heading after:bg-red-400 px-0 text-red-400"
+      variant="outline"
+      className="font-heading after:bg-red-400 px-0 text-red-400 w-full"
       onClick={async (e) => {
         e.preventDefault()
         e.stopPropagation()

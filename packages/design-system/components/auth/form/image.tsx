@@ -4,6 +4,7 @@ import FieldInfo from '@remio/design-system/components/form/field-info'
 import { zfd } from 'zod-form-data'
 import { SetStateAction } from 'react'
 import { Dispatch } from 'react'
+import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 
 export default function Image({
   form,

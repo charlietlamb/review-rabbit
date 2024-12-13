@@ -7,11 +7,10 @@ import {
   UpdateInvoiceRoute,
   DeleteInvoiceRoute,
   GetInvoicesChartRoute,
-  GetRecentPaymentsRoute,
   GetInvoicesWithClientRoute,
 } from './invoices.routes'
 
-import { eq, sql, desc, and } from 'drizzle-orm'
+import { eq, sql, and } from 'drizzle-orm'
 import { invoices } from '@remio/database'
 
 export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
@@ -19,11 +18,16 @@ export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit } = await c.req.json()
+  const { offset, limit, paid } = await c.req.json()
 
   try {
+    const whereConditions = [eq(invoices.userId, user.id)]
+    if (typeof paid === 'boolean') {
+      whereConditions.push(eq(invoices.paid, paid))
+    }
+
     const results = await db.query.invoices.findMany({
-      where: eq(invoices.userId, user.id),
+      where: and(...whereConditions),
       offset,
       limit,
     })
@@ -47,11 +51,16 @@ export const getInvoicesWithClient: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit } = await c.req.json()
+  const { offset, limit, paid } = await c.req.json()
 
   try {
+    const whereConditions = [eq(invoices.userId, user.id)]
+    if (typeof paid === 'boolean') {
+      whereConditions.push(eq(invoices.paid, paid))
+    }
+
     const results = await db.query.invoices.findMany({
-      where: eq(invoices.userId, user.id),
+      where: and(...whereConditions),
       offset,
       limit,
       with: {
@@ -137,20 +146,25 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-
+  const { startDate, endDate } = await c.req.valid('json')
+  console.log(startDate, endDate)
   try {
     const chartData = await db
       .select({
         date: sql<string>`to_char(DATE(${invoices.createdAt}), 'YYYY-MM-DD')`,
-        invoices: sql<number>`count(${invoices.id})`,
-        amount: sql<number>`sum(CASE WHEN ${invoices.paid} = true THEN ${invoices.amount}::numeric ELSE 0 END)`,
-        payments: sql<number>`count(case when ${invoices.paid} = true then 1 end)`,
+        amount: sql<number>`COALESCE(sum(CASE WHEN ${invoices.paid} = true THEN ${invoices.amount} ELSE 0 END), 0)`,
       })
       .from(invoices)
-      .where(eq(invoices.userId, user.id))
+      .where(
+        and(
+          eq(invoices.userId, user.id),
+          eq(invoices.paid, true),
+          sql`DATE(${invoices.createdAt}) >= DATE(${startDate})`,
+          sql`DATE(${invoices.createdAt}) <= DATE(${endDate})`
+        )
+      )
       .groupBy(sql`DATE(${invoices.createdAt})`)
       .orderBy(sql`DATE(${invoices.createdAt})`)
-      .limit(90)
 
     if (!chartData || chartData.length === 0) {
       return c.json([], HttpStatusCodes.OK)
@@ -162,38 +176,6 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
     return c.json(
       {
         error: 'Failed to fetch invoices chart',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-}
-
-export const getRecentPayments: AppRouteHandler<
-  GetRecentPaymentsRoute
-> = async (c) => {
-  const user = c.get('user')
-  if (!user) {
-    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
-  }
-  const { offset, limit } = await c.req.json()
-
-  try {
-    const results: InvoiceWithClient[] = await db.query.invoices.findMany({
-      where: and(eq(invoices.userId, user.id), eq(invoices.paid, true)),
-      with: {
-        client: true,
-      },
-      orderBy: desc(invoices.paidAt),
-      offset,
-      limit,
-    })
-    return c.json(results, HttpStatusCodes.OK)
-  } catch (error) {
-    console.error('Error fetching recent payments:', error)
-    return c.json(
-      {
-        error: 'Failed to fetch recent payments',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR

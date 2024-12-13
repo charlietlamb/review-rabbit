@@ -4,7 +4,7 @@ import AuthFormSignup from './form/auth-form-signup'
 
 export default function Auth({ login }: { login: boolean }) {
   return (
-    <div className="flex flex-col gap-8 padding-main">
+    <div className="flex flex-col gap-4 padding-main">
       <AuthHeader login={login} />
       {login ? <AuthFormLogin /> : <AuthFormSignup />}
     </div>

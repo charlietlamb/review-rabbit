@@ -7,6 +7,8 @@ import { useMemo, useState } from 'react'
 import FieldInfo from '@remio/design-system/components/form/field-info'
 import { z } from 'zod'
 import { cn } from '@remio/design-system/lib/utils'
+import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
+import { useFormContext } from '@remio/design-system/components/form/form-context'
 
 export default function PasswordStrength({
   form,
@@ -19,6 +21,7 @@ export default function PasswordStrength({
 }) {
   const [password, setPassword] = useState('')
   const [isVisible, setIsVisible] = useState<boolean>(false)
+  const { attemptSubmitted } = useFormContext()
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState)
 
@@ -82,7 +85,8 @@ export default function PasswordStrength({
                 type={isVisible ? 'text' : 'password'}
                 className={cn(
                   '',
-                  field.state.meta.errors.some((error) => error) &&
+                  attemptSubmitted &&
+                    field.state.meta.errors.some((error) => error) &&
                     'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
                 )}
               />
@@ -102,7 +106,7 @@ export default function PasswordStrength({
               </button>
             </div>
 
-            <FieldInfo field={field} />
+            {attemptSubmitted && <FieldInfo field={field} />}
           </div>
         )}
       </form.Field>

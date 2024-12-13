@@ -10,14 +10,16 @@ import { cn } from '@remio/design-system/lib/utils'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import * as React from 'react'
-import { useAtom } from 'jotai'
-import { overviewDateRange } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import { DateRange } from 'react-day-picker'
 
 export function DateRangePicker({
+  date,
+  setDate,
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = useAtom(overviewDateRange)
-
+}: React.HTMLAttributes<HTMLDivElement> & {
+  date: DateRange | undefined
+  setDate: (date: DateRange | undefined) => void
+}) {
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>
@@ -51,7 +53,7 @@ export function DateRangePicker({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={(range) => range && setDate(range)}
+            onSelect={setDate}
             numberOfMonths={2}
           />
         </PopoverContent>

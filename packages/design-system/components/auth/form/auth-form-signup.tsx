@@ -16,6 +16,8 @@ import OAuth from '../oauth/oauth'
 import OrLabel from './or-label'
 import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
 import { Mail, User } from 'lucide-react'
+import { FormProvider } from '@remio/design-system/components/form/form-context'
+import { useState } from 'react'
 
 export const userAuthSignupSchema = z.object({
   name: z.string().min(1),
@@ -63,54 +65,61 @@ export default function AuthFormSignup({ className }: { className?: string }) {
       onChange: userAuthSignupSchema,
     },
   })
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
 
   return (
-    <div
-      className={cn('flex flex-col gap-4 w-full max-w-2xl mx-auto', className)}
-    >
-      <form
+    <FormProvider value={{ attemptSubmitted }}>
+      <div
         className={cn(
-          'flex flex-col gap-2 w-full max-w-2xl mx-auto',
+          'flex flex-col gap-4 w-full max-w-2xl mx-auto',
           className
         )}
-        onSubmit={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          form.handleSubmit()
-        }}
       >
-        <InputWithIcon
-          icon={<User />}
-          placeholder="Name"
-          name="name"
-          form={form}
-          label="Name"
-          type="text"
-          required
-        />
-        <InputWithIcon
-          icon={<Mail />}
-          placeholder="Email"
-          name="email"
-          form={form}
-          label="Email"
-          type="email"
-          required
-        />
-        <PasswordStrength form={form} />
-        <Button
-          className="w-full"
-          disabled={isLoading}
-          variant="shine"
-          colors="none"
+        <form
+          className={cn(
+            'flex flex-col gap-2 w-full max-w-2xl mx-auto',
+            className
+          )}
+          onSubmit={(e) => {
+            setAttemptSubmitted(true)
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
         >
-          {isLoading && <Spinner />}
-          Sign Up
-        </Button>
-      </form>
-      <OrLabel />
-      <OAuth />
-    </div>
+          <InputWithIcon
+            icon={<User />}
+            placeholder="Name"
+            name="name"
+            form={form}
+            label="Name"
+            type="text"
+            required
+          />
+          <InputWithIcon
+            icon={<Mail />}
+            placeholder="Email"
+            name="email"
+            form={form}
+            label="Email"
+            type="email"
+            required
+          />
+          <PasswordStrength form={form} />
+          <Button
+            className="w-full"
+            disabled={isLoading}
+            variant="shine"
+            colors="none"
+          >
+            {isLoading && <Spinner />}
+            Sign Up
+          </Button>
+        </form>
+        <OrLabel />
+        <OAuth />
+      </div>
+    </FormProvider>
   )
 }

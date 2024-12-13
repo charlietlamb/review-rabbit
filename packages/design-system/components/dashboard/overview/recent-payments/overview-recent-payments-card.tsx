@@ -6,13 +6,23 @@ import {
   CardContent,
 } from '@remio/design-system/components/ui/card'
 import { OverviewRecentPayments } from './overview-recent-payments'
+import { useAtomValue } from 'jotai'
+import { recentPaymentsAtom } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
 
 export default function OverviewRecentPaymentsCard() {
+  const recentPayments = useAtomValue(recentPaymentsAtom)
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>Recent Sales</CardTitle>
-        <CardDescription>You made 265 sales this month.</CardDescription>
+        <CardTitle>Recent Payments</CardTitle>
+        <CardDescription>
+          You made £
+          {recentPayments.reduce(
+            (acc, payment) => acc + Number(payment.amount),
+            0
+          )}{' '}
+          in the last 30 days
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <OverviewRecentPayments />

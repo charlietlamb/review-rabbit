@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function HeroImage() {
   return (
-    <div className="absolute left-0 right-0 -top-[300px] -bottom-20 overflow-hidden">
+    <div className="absolute left-0 right-0 -top-[300px] -bottom-20 overflow-hidden pointer-events-none">
       <motion.div
         className="relative w-full h-full -z-20"
         style={{

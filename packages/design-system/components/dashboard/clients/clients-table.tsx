@@ -28,6 +28,7 @@ import { Button } from '@remio/design-system/components/ui/button'
 import { useAtom } from 'jotai'
 import { useDebounce } from '@remio/design-system/hooks/use-debounce'
 import Spinner from '@remio/design-system/components/misc/spinner'
+import ClientAvatar from './client-avatar'
 
 export default function ClientsTable() {
   const {
@@ -62,10 +63,16 @@ export default function ClientsTable() {
         <TableColumnHeader column={column} title="Details" />
       ),
       cell: ({ row }) => (
-        <div>
-          <span className="font-medium font-heading">{row.original.name}</span>
-          <div className="flex items-center gap-1 text-muted-foreground text-xs">
-            <span>{row.original.email}</span>
+        <div className="flex items-center gap-2">
+          <ClientAvatar client={row.original} />
+          <div className="flex flex-col"></div>
+          <div>
+            <span className="font-medium font-heading">
+              {row.original.name}
+            </span>
+            <div className="flex items-center gap-1 text-muted-foreground text-xs">
+              <span>{row.original.email}</span>
+            </div>
           </div>
         </div>
       ),

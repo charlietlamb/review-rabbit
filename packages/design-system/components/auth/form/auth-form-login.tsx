@@ -12,10 +12,13 @@ import AuthFormForgotPassword from './auth-form-forgot-password'
 import { authClient } from '@remio/design-system/lib/authClient'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import Email from './email'
 import Password from './password'
 import OrLabel from './or-label'
 import OAuth from '../oauth/oauth'
+import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import { MailIcon } from 'lucide-react'
+import { FormProvider } from '@remio/design-system/components/form/form-context'
+import { useState } from 'react'
 
 export const userAuthSchema = z.object({
   email: z.string().email(),
@@ -57,37 +60,53 @@ export default function AuthFormLogin({ className }: { className?: string }) {
       onChange: userAuthSchema,
     },
   })
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
   return (
-    <div
-      className={cn('flex flex-col gap-4 w-full max-w-2xl mx-auto', className)}
-    >
-      <form
+    <FormProvider value={{ attemptSubmitted }}>
+      <div
         className={cn(
-          'flex flex-col gap-2 w-full max-w-2xl mx-auto',
+          'flex flex-col gap-4 w-full max-w-2xl mx-auto',
           className
         )}
-        onSubmit={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          form.handleSubmit()
-        }}
       >
-        <Email form={form} />
-        <Password form={form} />
-        <Button
-          className="w-full"
-          disabled={isLoading}
-          variant="shine"
-          colors="none"
+        <form
+          className={cn(
+            'flex flex-col gap-2 w-full max-w-2xl mx-auto',
+            className
+          )}
+          onSubmit={(e) => {
+            setAttemptSubmitted(true)
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
         >
-          {isLoading && <Spinner />}
-          Sign In
-        </Button>
-      </form>
-      <OrLabel />
-      <OAuth />
-      <AuthFormForgotPassword />
-    </div>
+          <InputWithIcon
+            form={form}
+            name="email"
+            placeholder="Email"
+            icon={<MailIcon />}
+            required
+            type="email"
+            label="Email"
+          />
+          <Password form={form} />
+          <Button
+            className="w-full"
+            disabled={isLoading}
+            variant="shine"
+            colors="none"
+          >
+            {isLoading && <Spinner />}
+            Sign In
+          </Button>
+        </form>
+        <OrLabel />
+        <OAuth />
+        <AuthFormForgotPassword />
+      </div>
+    </FormProvider>
   )
 }

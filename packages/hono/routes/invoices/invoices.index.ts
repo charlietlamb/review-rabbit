@@ -9,6 +9,5 @@ const router = createRouter()
   .openapi(routes.updateInvoice, handlers.updateInvoice)
   .openapi(routes.deleteInvoice, handlers.deleteInvoice)
   .openapi(routes.getInvoicesChart, handlers.getInvoicesChart)
-  .openapi(routes.getRecentPayments, handlers.getRecentPayments)
 
 export default router

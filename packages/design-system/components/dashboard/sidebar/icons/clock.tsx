@@ -8,6 +8,7 @@ import {
   iconClassName,
   iconTextClassName,
 } from './class-names'
+import { useSidebar } from '@remio/design-system/components/ui/sidebar'
 
 const handTransition: Transition = {
   duration: 0.6,
@@ -43,6 +44,7 @@ const minuteHandVariants: Variants = {
 
 const ClockIcon = () => {
   const controls = useAnimation()
+  const { open } = useSidebar()
 
   return (
     <div

@@ -4,26 +4,71 @@ import OverviewHeader from './overview-header'
 import OverviewCards from './overview-cards'
 import OverviewChart from './overview-chart'
 import { DashboardData } from './overview-types'
-import { getDashboardCombinedData } from '@remio/design-system/lib/dashboard/get-dashboard-combined-data'
 import { useEffect } from 'react'
-import { useSetAtom } from 'jotai'
-import { recentPaymentsAtom } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import {
+  dashboardDataAtom,
+  overviewCompareDataAtom,
+  recentPaymentsAtom,
+} from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
 import OverviewRecentPaymentsCard from './recent-payments/overview-recent-payments-card'
+import { InvoiceWithClient } from '@remio/database'
+import { fetchDashboardData } from '@remio/design-system/actions/dashboard/fetch-dashboard-data'
+import {
+  overviewCompareDateRange,
+  overviewDateRange,
+} from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
 
-export default function Overview({ data }: { data: DashboardData }) {
-  const combinedData = getDashboardCombinedData(data)
+export default function Overview({
+  data,
+  compareData,
+  recentPayments,
+}: {
+  data: DashboardData
+  compareData: DashboardData
+  recentPayments: InvoiceWithClient[]
+}) {
+  const setDashboardData = useSetAtom(dashboardDataAtom)
+  const setCompareDashboardData = useSetAtom(overviewCompareDataAtom)
   const setRecentPayments = useSetAtom(recentPaymentsAtom)
+  const dateRange = useAtomValue(overviewDateRange)
+  const compareDateRange = useAtomValue(overviewCompareDateRange)
 
   useEffect(() => {
-    setRecentPayments(data.recentPayments)
-  }, [data.recentPayments])
+    setDashboardData(data)
+  }, [data])
+
+  useEffect(() => {
+    setCompareDashboardData(compareData)
+  }, [compareData])
+
+  useEffect(() => {
+    setRecentPayments(recentPayments)
+  }, [recentPayments])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!dateRange || !compareDateRange) return
+      const newDashboardData = await fetchDashboardData(
+        dateRange.from ?? new Date(),
+        dateRange.to ?? new Date()
+      )
+      const compareDashboardData = await fetchDashboardData(
+        compareDateRange.from ?? new Date(),
+        compareDateRange.to ?? new Date()
+      )
+      setDashboardData(newDashboardData)
+      setCompareDashboardData(compareDashboardData)
+    }
+    fetchData()
+  }, [dateRange])
 
   return (
     <div className="flex flex-col divide-y">
       <OverviewHeader />
       <OverviewCards />
       <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <OverviewChart chartData={combinedData} />
+        <OverviewChart />
         <OverviewRecentPaymentsCard />
       </div>
     </div>

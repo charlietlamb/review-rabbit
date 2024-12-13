@@ -5,7 +5,10 @@ import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
 import { clientSchema } from '@remio/database'
 import { clientValidationSchema } from '@remio/design-system/components/dashboard/clients/client-schema'
-import { clientsChartSchema } from '@remio/design-system/components/dashboard/clients/client-types'
+import {
+  clientChartsRequestSchema,
+  clientsChartSchema,
+} from '@remio/design-system/components/dashboard/clients/client-types'
 
 const tags = ['Clients']
 
@@ -45,6 +48,40 @@ export const getClients = createRoute({
 
 export type GetClientsRoute = typeof getClients
 
+export const getClientById = createRoute({
+  path: '/clients/get-by-id',
+  method: 'post',
+  summary: 'Get client by id',
+  tags,
+  request: {
+    body: {
+      description: 'Client ID',
+      content: {
+        'application/json': {
+          schema: z.object({ id: z.string() }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(clientSchema, 'Client fetched.'),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Client not found'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch client'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetClientByIdRoute = typeof getClientById
 export const addClient = createRoute({
   path: '/clients/add',
   method: 'post',
@@ -137,9 +174,19 @@ export type DeleteClientRoute = typeof deleteClient
 
 export const getClientsChart = createRoute({
   path: '/clients/chart',
-  method: 'get',
+  method: 'post',
   summary: 'Get clients chart',
   tags,
+  request: {
+    body: {
+      description: 'Client charts request',
+      content: {
+        'application/json': {
+          schema: clientChartsRequestSchema,
+        },
+      },
+    },
+  },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       clientsChartSchema,

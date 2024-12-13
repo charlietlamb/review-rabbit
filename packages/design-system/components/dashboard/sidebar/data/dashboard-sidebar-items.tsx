@@ -10,7 +10,7 @@ export const dashboardSidebarItemsTop = [
     title: 'Dashboard',
     icon: <HomeIcon />,
     href: '/dashboard/overview',
-    key: 'dashboard',
+    key: 'overview',
   },
   {
     title: 'New Matter',
@@ -27,7 +27,6 @@ export const dashboardSidebarItems = [
     href: '/dashboard/clients',
     key: 'clients',
   },
-  ,
   {
     title: 'Payments',
     icon: <CircleDollarSignIcon />,

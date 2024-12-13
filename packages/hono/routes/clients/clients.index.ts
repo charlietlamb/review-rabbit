@@ -4,6 +4,7 @@ import * as handlers from '@remio/hono/routes/clients/clients.handlers'
 
 const router = createRouter()
   .openapi(routes.getClients, handlers.getClients)
+  .openapi(routes.getClientById, handlers.getClientById)
   .openapi(routes.addClient, handlers.addClient)
   .openapi(routes.updateClient, handlers.updateClient)
   .openapi(routes.deleteClient, handlers.deleteClient)

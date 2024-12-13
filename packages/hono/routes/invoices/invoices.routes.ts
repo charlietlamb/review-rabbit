@@ -8,7 +8,10 @@ import {
   invoiceWithClientSchema,
 } from '@remio/database/schema/invoices'
 import { invoiceValidationSchema } from '@remio/design-system/components/dashboard/invoices/invoice-schema'
-import { invoicesChartSchema } from '@remio/design-system/components/dashboard/invoices/invoice-types'
+import {
+  invoicesChartRequestSchema,
+  invoicesChartSchema,
+} from '@remio/design-system/components/dashboard/invoices/invoice-types'
 
 const tags = ['Invoices']
 
@@ -25,6 +28,7 @@ export const getInvoices = createRoute({
           schema: z.object({
             offset: z.number(),
             limit: z.number(),
+            paid: z.boolean().optional(),
           }),
         },
       },
@@ -60,6 +64,7 @@ export const getInvoicesWithClient = createRoute({
           schema: z.object({
             offset: z.number(),
             limit: z.number(),
+            paid: z.boolean().optional(),
           }),
         },
       },
@@ -173,9 +178,19 @@ export type DeleteInvoiceRoute = typeof deleteInvoice
 
 export const getInvoicesChart = createRoute({
   path: '/invoices/chart',
-  method: 'get',
+  method: 'post',
   summary: 'Get invoices chart',
   tags,
+  request: {
+    body: {
+      description: 'Invoices chart request',
+      content: {
+        'application/json': {
+          schema: invoicesChartRequestSchema,
+        },
+      },
+    },
+  },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       invoicesChartSchema,
@@ -192,38 +207,3 @@ export const getInvoicesChart = createRoute({
 })
 
 export type GetInvoicesChartRoute = typeof getInvoicesChart
-
-export const getRecentPayments = createRoute({
-  path: '/invoices/payments',
-  method: 'post',
-  summary: 'Get recent payments',
-  tags,
-  request: {
-    body: {
-      description: 'Pagination parameters',
-      content: {
-        'application/json': {
-          schema: z.object({
-            offset: z.number(),
-            limit: z.number(),
-          }),
-        },
-      },
-    },
-  },
-  responses: {
-    [HttpStatusCodes.OK]: jsonContent(
-      z.array(invoiceWithClientSchema),
-      'Recent payments fetched.'
-    ),
-    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to fetch recent payments'
-    ),
-    ...unauthorizedSchema,
-  },
-})
-
-export type GetRecentPaymentsRoute = typeof getRecentPayments

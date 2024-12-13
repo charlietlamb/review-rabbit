@@ -15,7 +15,7 @@ export function Pricing() {
       <p className="text-muted-foreground mb-8 text-center">
         Choose the plan that best suits your needs.
       </p>
-      <div className="md:grid-cols-3 grid grid-cols-1 gap-8">
+      <div className="md:grid-cols-3 grid grid-cols-1 gap-8 py-8">
         {pricingTiers.map((tier, index) => (
           <PricingCard key={index} tier={tier} />
         ))}

@@ -15,7 +15,9 @@ import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { authClient } from '@remio/design-system/lib/authClient'
 import { toast } from 'sonner'
-import Email from './email'
+import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import { MailIcon } from 'lucide-react'
+import { FormProvider } from '@remio/design-system/components/form/form-context'
 
 export const resetPasswordSchema = z.object({
   email: z.string().email(),
@@ -54,6 +56,8 @@ export default function AuthFormForgotPassword() {
     }
     setOpen(false)
   }
+  const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -66,40 +70,51 @@ export default function AuthFormForgotPassword() {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <form
-          className="flex flex-col gap-2 w-full max-w-2xl mx-auto"
-          onSubmit={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            form.handleSubmit()
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle className="font-heading text-xl">
-              Forgot password
-            </DialogTitle>
-          </DialogHeader>
-          <DialogDescription>
-            Enter your email below and we&apos;ll send you a link to reset your
-            password.
-          </DialogDescription>
-          <Email form={form} />
-          <DialogFooter>
-            <Button
-              variant="expandIcon"
-              colors="primary"
-              Icon={ArrowRight}
-              iconPlacement="right"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                handleSubmit()
-              }}
-            >
-              Send reset email
-            </Button>
-          </DialogFooter>
-        </form>
+        <FormProvider value={{ attemptSubmitted }}>
+          <form
+            className="flex flex-col gap-2 w-full max-w-2xl mx-auto"
+            onSubmit={(e) => {
+              setAttemptSubmitted(true)
+              e.preventDefault()
+              e.stopPropagation()
+              form.handleSubmit()
+            }}
+          >
+            <DialogHeader>
+              <DialogTitle className="font-heading text-xl">
+                Forgot password
+              </DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              Enter your email below and we&apos;ll send you a link to reset
+              your password.
+            </DialogDescription>
+            <InputWithIcon
+              form={form}
+              name="email"
+              placeholder="Email"
+              icon={<MailIcon />}
+              required
+              type="email"
+              label="Email"
+            />
+            <DialogFooter>
+              <Button
+                variant="expandIcon"
+                colors="primary"
+                Icon={ArrowRight}
+                iconPlacement="right"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  handleSubmit()
+                }}
+              >
+                Send reset email
+              </Button>
+            </DialogFooter>
+          </form>
+        </FormProvider>
       </DialogContent>
     </Dialog>
   )

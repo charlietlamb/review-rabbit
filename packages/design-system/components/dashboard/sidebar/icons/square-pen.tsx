@@ -57,7 +57,7 @@ const SquarePenIcon = () => {
           }}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Create</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>New Matter</p>
     </div>
   )
 }

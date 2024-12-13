@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 
 import {
@@ -18,14 +17,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@remio/design-system/components/ui/chart'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@remio/design-system/components/ui/select'
-import { ClientsChart as ClientsChartType } from './client-types'
+import { useAtom } from 'jotai'
+import { clientsDateRange } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
+import { DateRangePicker } from '@remio/design-system/components/misc/date-range-picker'
+import { useAtomValue } from 'jotai'
+import { clientsChartData } from '@remio/design-system/atoms/dashboard/clients/clients-atoms'
 
 const chartConfig = {
   clients: {
@@ -34,29 +30,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function ClientsChart({
-  chartData,
-  className,
-}: {
-  chartData: ClientsChartType
-  className?: string
-}) {
-  const [timeRange, setTimeRange] = React.useState('90d')
-
-  const filteredData = chartData.filter((item) => {
-    const date = new Date(item.date)
-    const referenceDate = new Date('2024-06-30')
-    let daysToSubtract = 90
-    if (timeRange === '30d') {
-      daysToSubtract = 30
-    } else if (timeRange === '7d') {
-      daysToSubtract = 7
-    }
-    const startDate = new Date(referenceDate)
-    startDate.setDate(startDate.getDate() - daysToSubtract)
-    return date >= startDate
-  })
-
+export default function ClientsChart({ className }: { className?: string }) {
+  const [dateRange, setDateRange] = useAtom(clientsDateRange)
+  const chartData = useAtomValue(clientsChartData)
   return (
     <Card className={className}>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -66,32 +42,14 @@ export default function ClientsChart({
             Showing total clients for the last 3 months
           </CardDescription>
         </div>
-        <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger
-            className="w-[160px] rounded-lg sm:ml-auto"
-            aria-label="Select a value"
-          >
-            <SelectValue placeholder="Last 3 months" />
-          </SelectTrigger>
-          <SelectContent className="rounded-xl">
-            <SelectItem value="90d" className="rounded-lg">
-              Last 3 months
-            </SelectItem>
-            <SelectItem value="30d" className="rounded-lg">
-              Last 30 days
-            </SelectItem>
-            <SelectItem value="7d" className="rounded-lg">
-              Last 7 days
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <DateRangePicker date={dateRange} setDate={setDateRange} />
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
-          <AreaChart data={filteredData}>
+          <AreaChart data={chartData}>
             <defs>
               <linearGradient id="fillClients" x1="0" y1="0" x2="0" y2="1">
                 <stop

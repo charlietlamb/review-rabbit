@@ -19,7 +19,7 @@ export default function AuthHeader({ login }: { login: boolean }) {
         <h1 className="text-xl font-bold font-heading text-foreground">
           {login ? 'Sign in to remio' : 'Create your remio account'}
         </h1>
-        <p className="text-muted-foreground text-center">
+        <p className="text-muted-foreground text-center text-sm">
           {login
             ? 'Welcome back! Please enter your details.'
             : 'Welcome to remio! Please enter your details.'}

@@ -27,7 +27,7 @@ export default function OverviewRecentPayment({
         </p>
         <p className="text-sm text-muted-foreground">{payment.client.email}</p>
       </div>
-      <div className="ml-auto font-medium">£{payment.amount}</div>
+      <div className="ml-auto font-bold">+£{payment.amount}</div>
     </div>
   )
 }

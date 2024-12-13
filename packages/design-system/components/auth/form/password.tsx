@@ -5,9 +5,12 @@ import { cn } from '@remio/design-system/lib/utils'
 import { Eye, EyeOff } from 'lucide-react'
 import FieldInfo from '@remio/design-system/components/form/field-info'
 import { useState } from 'react'
+import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
+import { useFormContext } from '@remio/design-system/components/form/form-context'
 
 export default function Password({ form }: { form: TanstackForm<any> }) {
   const [isVisible, setIsVisible] = useState(false)
+  const { attemptSubmitted } = useFormContext()
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState)
 
@@ -32,7 +35,8 @@ export default function Password({ form }: { form: TanstackForm<any> }) {
               type={isVisible ? 'text' : 'password'}
               className={cn(
                 '',
-                field.state.meta.errors.some((error) => error) &&
+                attemptSubmitted &&
+                  field.state.meta.errors.some((error) => error) &&
                   'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
               )}
             />
@@ -51,7 +55,7 @@ export default function Password({ form }: { form: TanstackForm<any> }) {
               )}
             </button>
           </div>
-          <FieldInfo field={field} />
+          {attemptSubmitted && <FieldInfo field={field} />}
         </div>
       )}
     </form.Field>

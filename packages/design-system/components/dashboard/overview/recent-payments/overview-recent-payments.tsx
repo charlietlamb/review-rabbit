@@ -7,7 +7,7 @@ export function OverviewRecentPayments() {
   return (
     <div className="flex flex-col gap-8">
       {recentPayments.map((payment) => (
-        <OverviewRecentPayment payment={payment} />
+        <OverviewRecentPayment payment={payment} key={payment.id} />
       ))}
     </div>
   )

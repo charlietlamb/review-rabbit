@@ -7,6 +7,7 @@ import {
   UpdateClientRoute,
   DeleteClientRoute,
   GetClientsChartRoute,
+  GetClientByIdRoute,
 } from './clients.routes'
 import { eq, sql, and, or } from 'drizzle-orm'
 import { clients } from '@remio/database'
@@ -35,6 +36,29 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
     console.error('Error fetching clients:', error)
     return c.json(
       { error: 'Failed to fetch clients' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getClientById: AppRouteHandler<GetClientByIdRoute> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { id } = await c.req.json()
+  try {
+    const client = await db.query.clients.findFirst({
+      where: and(eq(clients.id, id), eq(clients.userId, user.id)),
+    })
+    if (!client) {
+      return c.json({ error: 'Client not found' }, HttpStatusCodes.NOT_FOUND)
+    }
+    return c.json(client, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching client:', error)
+    return c.json(
+      { error: 'Failed to fetch client' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }
@@ -103,6 +127,8 @@ export const getClientsChart: AppRouteHandler<GetClientsChartRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
+  const { startDate, endDate } = await c.req.json()
+
   try {
     const chartData = await db
       .select({
@@ -110,10 +136,15 @@ export const getClientsChart: AppRouteHandler<GetClientsChartRoute> = async (
         clients: sql<number>`count(${clients.id})`,
       })
       .from(clients)
-      .where(eq(clients.userId, user.id))
+      .where(
+        and(
+          eq(clients.userId, user.id),
+          sql`${clients.createdAt} >= ${startDate}`,
+          sql`${clients.createdAt} <= ${endDate}`
+        )
+      )
       .groupBy(sql`DATE(${clients.createdAt})`)
       .orderBy(sql`DATE(${clients.createdAt})`)
-      .limit(90)
 
     if (!chartData || chartData.length === 0) {
       return c.json([], HttpStatusCodes.OK)

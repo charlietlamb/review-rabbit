@@ -14,7 +14,7 @@ export default async function layout({
   const user = await useAuth()
   useIsUser(user)
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider attribute="class" defaultTheme="system">
       <SidebarProvider className="flex w-full flex-grow">
         <SessionProvider user={user}>
           <DashboardSidebar />

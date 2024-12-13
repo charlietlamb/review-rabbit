@@ -14,7 +14,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@remio/design-system/lib/utils'
 import { format } from 'date-fns'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
-import { FileText, Users } from 'lucide-react'
+import { FileText } from 'lucide-react'
 import { Button } from '@remio/design-system/components/ui/button'
 import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
 import {
@@ -25,6 +25,8 @@ import InvoiceCreateDialog from './invoice-edit-dialog'
 import { InvoiceWithClient } from '@remio/database'
 import { fetchInvoicesWithClient } from '@remio/design-system/actions/invoices/fetch-invoices-with-client'
 import InvoicesTableDropdown from './invoices-table-dropdown'
+import ClientAvatar from '../clients/client-avatar'
+import { Badge } from '@remio/design-system/components/ui/badge'
 
 export default function InvoicesTable() {
   const {
@@ -53,11 +55,16 @@ export default function InvoicesTable() {
       ),
       cell: ({ row }) => (
         <div>
-          <span className="font-medium font-heading">
-            {row.original.client.name}
-          </span>
-          <div className="flex items-center gap-1 text-muted-foreground text-xs">
-            <span>{row.original.client.email}</span>
+          <div className="flex items-center gap-2">
+            <ClientAvatar client={row.original.client} />
+            <div className="flex flex-col">
+              <span className="font-medium font-heading">
+                {row.original.client.name}
+              </span>
+              <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                <span>{row.original.client.email}</span>
+              </div>
+            </div>
           </div>
         </div>
       ),
@@ -82,6 +89,28 @@ export default function InvoicesTable() {
         <div className="flex items-center gap-1 text-muted-foreground">
           <span>{format(row.original.createdAt, 'dd/MM/yyyy')}</span>
         </div>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Status" />
+      ),
+      cell: ({ row }) => (
+        <Badge
+          variant="outline"
+          className="gap-1.5 text-muted-foreground font-medium"
+        >
+          <span
+            className={cn(
+              'size-1.5 rounded-full',
+              row.original.paid && 'bg-emerald-500',
+              !row.original.paid && 'bg-red-500'
+            )}
+            aria-hidden="true"
+          ></span>
+          {row.original.paid ? 'Paid' : 'Unpaid'}
+        </Badge>
       ),
     },
     {

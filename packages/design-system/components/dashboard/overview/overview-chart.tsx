@@ -1,8 +1,6 @@
 'use client'
 
-import * as React from 'react'
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
-
 import {
   Card,
   CardContent,
@@ -16,7 +14,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@remio/design-system/components/ui/chart'
-import { CombinedData } from '@remio/design-system/lib/dashboard/get-dashboard-combined-data'
+import { getDashboardCombinedData } from '@remio/design-system/lib/dashboard/get-dashboard-combined-data'
+import {
+  dashboardDataAtom,
+  overviewDateRange,
+} from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import { useAtomValue } from 'jotai'
+import { useMemo, useState } from 'react'
 
 const chartConfig = {
   revenue: {
@@ -29,22 +33,27 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function OverviewChart({
-  chartData,
-}: {
-  chartData: CombinedData[]
-}) {
+export default function OverviewChart() {
   const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>('revenue')
+    useState<keyof typeof chartConfig>('revenue')
 
-  const total = React.useMemo(
+  const dashboardData = useAtomValue(dashboardDataAtom)
+  const dateRange = useAtomValue(overviewDateRange)
+
+  const chartData = useMemo(
+    () => getDashboardCombinedData(dashboardData, dateRange),
+    [dashboardData, dateRange]
+  )
+
+  const total = useMemo(
     () => ({
       revenue: chartData.reduce((acc, curr) => acc + Number(curr.revenue), 0),
       clients: chartData.reduce((acc, curr) => acc + Number(curr.clients), 0),
     }),
     [chartData]
   )
-
+  console.log(dashboardData)
+  console.log(chartData)
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
@@ -52,7 +61,7 @@ export default function OverviewChart({
           <CardTitle>{chartConfig[activeChart].label}</CardTitle>
           <CardDescription>
             Showing total {chartConfig[activeChart].label.toLowerCase()} for the
-            last 3 months
+            selected date range
           </CardDescription>
         </div>
         <div className="flex">

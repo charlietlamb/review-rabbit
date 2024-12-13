@@ -19,7 +19,7 @@ export async function sendEmail(
   const emailHtml = await render(component)
 
   const params: SendEmailCommandInput = {
-    Source: 'no-reply@postpad.dev',
+    Source: 'no-reply@remio.xyz',
     Destination: {
       ToAddresses: [to],
     },
@@ -37,5 +37,6 @@ export async function sendEmail(
     },
   }
   const response = await ses.sendEmail(params)
+  console.log(response)
   return response.$metadata.httpStatusCode
 }

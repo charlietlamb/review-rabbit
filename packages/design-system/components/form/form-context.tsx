@@ -6,6 +6,8 @@ type FormContextType = {
 
 export const FormContext = createContext<FormContextType | undefined>(undefined)
 
+export const FormProvider = FormContext.Provider
+
 export function useFormContext() {
   const context = useContext(FormContext)
   if (!context) {

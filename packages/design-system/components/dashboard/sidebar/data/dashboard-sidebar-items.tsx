@@ -11,12 +11,14 @@ export const dashboardSidebarItemsTop = [
     icon: <HomeIcon />,
     href: '/dashboard/overview',
     key: 'overview',
+    match: ['overview'],
   },
   {
     title: 'New Matter',
     icon: <SquarePenIcon />,
     href: '/dashboard/new',
     key: 'new',
+    match: ['new'],
   },
 ]
 
@@ -26,24 +28,28 @@ export const dashboardSidebarItems = [
     icon: <UsersIcon />,
     href: '/dashboard/clients',
     key: 'clients',
+    match: ['clients', 'client'],
   },
   {
     title: 'Payments',
     icon: <CircleDollarSignIcon />,
     href: '/dashboard/payments',
     key: 'payments',
+    match: ['payments'],
   },
   {
     title: 'Files',
     icon: <FileStackIcon />,
     href: '/dashboard/files',
     key: 'files',
+    match: ['files'],
   },
   {
     title: 'Schedule',
     icon: <ClockIcon />,
     href: '/dashboard/schedule',
     key: 'schedule',
+    match: ['schedule'],
   },
 ]
 

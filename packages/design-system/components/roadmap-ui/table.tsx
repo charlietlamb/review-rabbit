@@ -208,11 +208,18 @@ export type TableRowProps = {
   row: Row<unknown>
   children: (props: { cell: Cell<unknown, unknown> }) => ReactNode
   className?: string
+  onClick?: () => void
 }
 
-export const TableRow = ({ row, children, className }: TableRowProps) => (
+export const TableRow = ({
+  row,
+  onClick,
+  children,
+  className,
+}: TableRowProps) => (
   <TableRowRaw
     key={row.id}
+    onClick={onClick}
     data-state={row.getIsSelected() && 'selected'}
     className={className}
   >

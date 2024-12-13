@@ -15,15 +15,21 @@ import { FormContext } from '@remio/design-system/components/form/form-context'
 import PhoneNumberInput from '@remio/design-system/components/form/phone-number-input'
 import { useRouter } from 'next/navigation'
 import { Client } from '@remio/database'
+import { cn } from '@remio/design-system/lib/utils'
+import DangerDialog from '@remio/design-system/components/misc/danger-dialog'
 
 export default function ClientsForm({
   client,
   setIsOpen,
   onSuccess,
+  onDelete,
+  className,
 }: {
   client?: Client
   setIsOpen?: (isOpen: boolean) => void
   onSuccess?: () => void
+  onDelete?: () => void
+  className?: string
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
@@ -70,7 +76,7 @@ export default function ClientsForm({
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
       <form
-        className="flex flex-col gap-4 w-full max-w-2xl mx-auto"
+        className={cn('flex flex-col gap-4 w-full mx-auto', className)}
         onSubmit={(e) => {
           e.preventDefault()
           e.stopPropagation()
@@ -106,10 +112,9 @@ export default function ClientsForm({
         </div>
         <div className="flex gap-2">
           {client && (
-            <Button
-              className="w-full font-heading font-bold"
-              disabled={isDeleting}
-              colors="destructive"
+            <DangerDialog
+              title="Delete Client"
+              description="Are you sure you want to delete this client? This action cannot be undone."
               onClick={async () => {
                 setIsDeleting(true)
                 const success = await deleteClient(client.id)
@@ -125,10 +130,17 @@ export default function ClientsForm({
                   })
                 }
                 setIsDeleting(false)
+                onDelete?.()
               }}
             >
-              {isDeleting ? <Spinner /> : 'Delete Client'}
-            </Button>
+              <Button
+                className="w-full font-heading font-bold"
+                disabled={isDeleting}
+                colors="destructive"
+              >
+                {isDeleting ? <Spinner /> : 'Delete Client'}
+              </Button>
+            </DangerDialog>
           )}
           <Button
             className="w-full"

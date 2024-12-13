@@ -25,11 +25,9 @@ import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll
 import { Users } from 'lucide-react'
 import ClientsTableDropdown from './clients-table-dropdown'
 import { Button } from '@remio/design-system/components/ui/button'
-import { useAtom } from 'jotai'
-import { useDebounce } from '@remio/design-system/hooks/use-debounce'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import ClientAvatar from './client-avatar'
-
+import { useRouter } from 'next/navigation'
 export default function ClientsTable() {
   const {
     items: clients,
@@ -47,6 +45,7 @@ export default function ClientsTable() {
       client.name.toLowerCase().includes(search.toLowerCase()) ||
       (client.email?.toLowerCase().includes(search.toLowerCase()) ?? false),
   })
+  const router = useRouter()
 
   if (isLoading && !clients.length) {
     return (
@@ -138,7 +137,16 @@ export default function ClientsTable() {
             </TableHeader>
             <TableBody>
               {({ row }) => (
-                <TableRow key={row.id} row={row}>
+                <TableRow
+                  key={row.id}
+                  row={row}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    router.push(
+                      `/dashboard/client/${(row.original as Client).id}`
+                    )
+                  }}
+                >
                   {({ cell }) => (
                     <TableCell
                       key={cell.id}

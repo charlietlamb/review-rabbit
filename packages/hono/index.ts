@@ -7,9 +7,19 @@ import media from '@remio/hono/routes/media/media.index'
 import stripe from '@remio/hono/routes/stripe/stripe.index'
 import clients from '@remio/hono/routes/clients/clients.index'
 import invoices from '@remio/hono/routes/invoices/invoices.index'
+import mediations from '@remio/hono/routes/mediations/mediations.index'
 
 const app = createApp()
-const routes = [index, users, s3, media, stripe, clients, invoices] as const
+const routes = [
+  index,
+  users,
+  s3,
+  media,
+  stripe,
+  clients,
+  invoices,
+  mediations,
+] as const
 
 configure(app)
 

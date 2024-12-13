@@ -82,6 +82,7 @@ export const getClientById = createRoute({
 })
 
 export type GetClientByIdRoute = typeof getClientById
+
 export const addClient = createRoute({
   path: '/clients/add',
   method: 'post',

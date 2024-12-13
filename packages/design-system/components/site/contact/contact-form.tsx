@@ -1,13 +1,13 @@
 'use client'
 
 import { Button } from '@remio/design-system/components/ui/button'
-import { Input } from '@remio/design-system/components/ui/input'
 import { Textarea } from '@remio/design-system/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import Name from '@remio/design-system/components/auth/form/name'
-import Email from '@remio/design-system/components/auth/form/email'
+import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import { UserIcon } from 'lucide-react'
+import { MailIcon } from 'lucide-react'
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -44,8 +44,24 @@ export function ContactForm() {
           form.handleSubmit()
         }}
       >
-        <Name form={form} />
-        <Email form={form} />
+        <InputWithIcon
+          icon={<UserIcon />}
+          placeholder="Name"
+          name="name"
+          form={form}
+          required
+          type="text"
+          label="Name"
+        />
+        <InputWithIcon
+          icon={<MailIcon />}
+          placeholder="Email"
+          name="email"
+          form={form}
+          required
+          type="email"
+          label="Email"
+        />
         <div>
           <form.Field name="message">
             {(field) => (

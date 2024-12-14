@@ -11,7 +11,7 @@ import { UserCheck } from 'lucide-react'
 import { Mediation } from '@remio/database'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
-import ClientSelects from '@remio/design-system/components/form/client-selects'
+import ClientsSelect from '@remio/design-system/components/form/clients-select'
 
 export default function NewMediationForm({
   mediation,
@@ -64,7 +64,7 @@ export default function NewMediationForm({
   })
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <ClientSelects form={form} />
+      <ClientsSelect form={form} />
     </FormProvider>
   )
 }

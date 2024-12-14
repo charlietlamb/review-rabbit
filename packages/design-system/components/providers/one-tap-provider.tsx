@@ -8,7 +8,6 @@ export default function OneTapProvider({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>
   const router = useRouter()
   const session = authClient.useSession()
   if (!session.data) {

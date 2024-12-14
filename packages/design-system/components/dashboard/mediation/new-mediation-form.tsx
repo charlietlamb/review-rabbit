@@ -12,6 +12,8 @@ import { Mediation } from '@remio/database'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
 import ClientsSelect from '@remio/design-system/components/form/clients-select'
+import DurationSelect from '@remio/design-system/components/form/duration-select'
+import DateTimePicker from '@remio/design-system/components/form/date-time-picker'
 
 export default function NewMediationForm({
   mediation,
@@ -64,7 +66,27 @@ export default function NewMediationForm({
   })
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <ClientsSelect form={form} />
+      <div className="flex flex-col divide-y">
+        <div className="md:grid-cols-2 grid grid-cols-1 gap-4 p-4">
+          <ClientsSelect form={form} className="w-full col-span-2" />
+          <DateTimePicker
+            form={form}
+            name="date"
+            label="Date"
+            required
+            className="w-full"
+          />
+          <DurationSelect
+            form={form}
+            name="duration"
+            label="Duration"
+            required
+            interval={15}
+            limit={240}
+          />
+        </div>
+        <div className="flex flex-col gap-4 p-4"></div>
+      </div>
     </FormProvider>
   )
 }

@@ -20,14 +20,14 @@ export default function DatePicker({
   form,
   name,
   label,
-  placeholder,
+  placeholder = 'Select a date',
   required,
   className,
 }: {
   form: TanstackForm<any>
   name: string
   label: string
-  placeholder: string
+  placeholder?: string
   required?: boolean
   className?: string
 }) {
@@ -35,12 +35,8 @@ export default function DatePicker({
   return (
     <form.Field name={name} validators={{ onChange: z.date() }}>
       {(field) => (
-        <div className={cn('flex flex-col gap-1', className)}>
-          <RequiredLabel
-            htmlFor={field.name}
-            className="font-heading text-base font-semibold text-foreground"
-            required={required}
-          >
+        <div className={cn('flex flex-col gap-2', className)}>
+          <RequiredLabel htmlFor={field.name} required={required}>
             {label}
           </RequiredLabel>
           <div className="relative">
@@ -57,7 +53,7 @@ export default function DatePicker({
                       'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
                   )}
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <CalendarIcon className="w-4 h-4 mr-2" />
                   {field.state.value ? (
                     format(field.state.value, 'PPP')
                   ) : (

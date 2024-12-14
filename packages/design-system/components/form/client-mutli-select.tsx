@@ -188,19 +188,19 @@ export default function ClientMultiSelect() {
                   <CommandItem
                     key={option.id}
                     onSelect={() => toggleOption(option)}
-                    className="flex items-center gap-2 cursor-pointer"
+                    className="flex items-center cursor-pointer"
                   >
                     <div
                       className={cn(
-                        'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                        'mr-2 flex h-4 w-4 items-center justify-center',
                         isSelected
-                          ? 'bg-primary text-primary-foreground'
+                          ? 'text-primary-foreground'
                           : 'opacity-50 [&_svg]:invisible'
                       )}
                     >
                       <CheckIcon className="w-4 h-4" />
                     </div>
-                    <ClientAvatar client={option} size="sm" />
+                    <ClientAvatar client={option} className="mr-2" size="sm" />
                     <span>{option.name}</span>
                     <span className="hidden">{option.id}</span>
                   </CommandItem>

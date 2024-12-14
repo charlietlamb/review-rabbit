@@ -20,9 +20,7 @@ export default function NewMediation({ clients }: { clients: Client[] }) {
         title="New Mediation"
         subtitle="Schedule a new mediation"
       />
-      <div className="p-4">
-        <NewMediationForm />
-      </div>
+      <NewMediationForm />
     </div>
   )
 }

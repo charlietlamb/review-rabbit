@@ -37,7 +37,9 @@ export const mediationWithDataSchema = mediationSchema.extend({
   data: z.array(
     z.object({
       client: clientSchema,
-      invoice: invoiceSchema,
+      invoice: invoiceSchema.nullable(),
     })
   ),
 })
+
+export type MediationWithData = z.infer<typeof mediationWithDataSchema>

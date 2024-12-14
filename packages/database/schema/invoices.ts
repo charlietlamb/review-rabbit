@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { pgTable, text, timestamp, decimal, boolean } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, decimal } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { clients, clientSchema } from './clients'
@@ -17,7 +17,6 @@ export const invoices = pgTable('invoices', {
   clientId: text('client_id')
     .notNull()
     .references(() => clients.id),
-  paid: boolean('paid').notNull().default(false),
   amount: decimal('amount', { precision: 10, scale: 2 }).notNull(),
   currency: text('currency').notNull().default('GBP'),
   dueDate: timestamp('due_date').notNull(),

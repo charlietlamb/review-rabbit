@@ -263,12 +263,33 @@ export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
       conditions.push(lte(mediations.createdAt, endDate))
     }
 
-    const results = await db.query.mediations.findMany({
+    const mediationsResults = await db.query.mediations.findMany({
       where: and(...conditions),
       offset,
       limit,
     })
-    return c.json(results, HttpStatusCodes.OK)
+
+    const mediationsWithData = await Promise.all(
+      mediationsResults.map(async (mediation) => {
+        const mediationClientsData = await db.query.mediationClients.findMany({
+          where: eq(mediationClients.mediationId, mediation.id),
+          with: {
+            client: true,
+            invoice: true,
+          },
+        })
+
+        return {
+          ...mediation,
+          data: mediationClientsData.map((mc) => ({
+            client: mc.client,
+            invoice: mc.invoice,
+          })),
+        }
+      })
+    )
+
+    return c.json(mediationsWithData, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error fetching mediations:', error)
     return c.json(
@@ -289,11 +310,35 @@ export const getMediation: AppRouteHandler<GetMediationRoute> = async (c) => {
     const mediation = await db.query.mediations.findFirst({
       where: and(eq(mediations.id, id), eq(mediations.userId, user.id)),
     })
-    return c.json(mediation, HttpStatusCodes.OK)
+
+    if (!mediation) {
+      return c.json({ error: 'Mediation not found' }, HttpStatusCodes.NOT_FOUND)
+    }
+
+    const mediationClientsData = await db.query.mediationClients.findMany({
+      where: eq(mediationClients.mediationId, mediation.id),
+      with: {
+        client: true,
+        invoice: true,
+      },
+    })
+
+    const mediationWithData = {
+      ...mediation,
+      data: mediationClientsData.map((mc) => ({
+        client: mc.client,
+        invoice: mc.invoice,
+      })),
+    }
+
+    return c.json(mediationWithData, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error fetching mediation:', error)
     return c.json(
-      { error: 'Failed to fetch mediation' },
+      {
+        error: 'Failed to fetch mediation',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@remio/http'
-import { db, InvoiceWithClient } from '@remio/database'
+import { db } from '@remio/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetInvoicesRoute,
@@ -18,12 +18,16 @@ export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, paid } = await c.req.json()
+  const { offset, limit, paid } = await c.req.valid('json')
 
   try {
     const whereConditions = [eq(invoices.userId, user.id)]
     if (typeof paid === 'boolean') {
-      whereConditions.push(eq(invoices.paid, paid))
+      if (paid) {
+        whereConditions.push(sql`${invoices.paidAt} IS NOT NULL`)
+      } else {
+        whereConditions.push(sql`${invoices.paidAt} IS NULL`)
+      }
     }
 
     const results = await db.query.invoices.findMany({
@@ -51,12 +55,16 @@ export const getInvoicesWithClient: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, paid } = await c.req.json()
+  const { offset, limit, paid } = await c.req.valid('json')
 
   try {
     const whereConditions = [eq(invoices.userId, user.id)]
     if (typeof paid === 'boolean') {
-      whereConditions.push(eq(invoices.paid, paid))
+      if (paid) {
+        whereConditions.push(sql`${invoices.paidAt} IS NOT NULL`)
+      } else {
+        whereConditions.push(sql`${invoices.paidAt} IS NULL`)
+      }
     }
 
     const results = await db.query.invoices.findMany({
@@ -152,13 +160,13 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
     const chartData = await db
       .select({
         date: sql<string>`to_char(DATE(${invoices.createdAt}), 'YYYY-MM-DD')`,
-        amount: sql<number>`COALESCE(sum(CASE WHEN ${invoices.paid} = true THEN ${invoices.amount} ELSE 0 END), 0)`,
+        amount: sql<number>`SUM(${invoices.amount})`,
       })
       .from(invoices)
       .where(
         and(
           eq(invoices.userId, user.id),
-          eq(invoices.paid, true),
+          sql`${invoices.paidAt} IS NOT NULL`,
           sql`DATE(${invoices.createdAt}) >= DATE(${startDate})`,
           sql`DATE(${invoices.createdAt}) <= DATE(${endDate})`
         )

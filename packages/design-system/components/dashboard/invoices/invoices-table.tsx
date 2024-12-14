@@ -104,12 +104,12 @@ export default function InvoicesTable() {
           <span
             className={cn(
               'size-1.5 rounded-full',
-              row.original.paid && 'bg-emerald-500',
-              !row.original.paid && 'bg-red-500'
+              row.original.paidAt && 'bg-emerald-500',
+              !row.original.paidAt && 'bg-red-500'
             )}
             aria-hidden="true"
           ></span>
-          {row.original.paid ? 'Paid' : 'Unpaid'}
+          {row.original.paidAt ? 'Paid' : 'Unpaid'}
         </Badge>
       ),
     },

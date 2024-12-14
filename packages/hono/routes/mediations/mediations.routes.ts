@@ -111,14 +111,14 @@ export const getMediations = createRoute({
       description: 'Mediation request',
       content: {
         'application/json': {
-          schema: z.array(mediationWithDataSchema),
+          schema: mediationsRequestSchema,
         },
       },
     },
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.array(mediationSchema),
+      z.array(mediationWithDataSchema),
       'Mediations fetched.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
@@ -143,18 +143,27 @@ export const getMediation = createRoute({
       description: 'Mediation request',
       content: {
         'application/json': {
-          schema: mediationWithDataSchema,
+          schema: mediationRequestSchema,
         },
       },
     },
   },
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(mediationSchema, 'Mediations fetched.'),
+    [HttpStatusCodes.OK]: jsonContent(
+      mediationWithDataSchema,
+      'Mediation fetched.'
+    ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
       'Failed to fetch mediations'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Mediation not found'
     ),
     ...unauthorizedSchema,
   },

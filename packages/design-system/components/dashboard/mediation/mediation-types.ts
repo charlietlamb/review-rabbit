@@ -1,4 +1,4 @@
-import { invoiceSchema } from '@remio/database'
+import { invoiceSchema } from '@remio/database/schema/invoices'
 import { z } from 'zod'
 
 export const mediationDataSchema = z.object({

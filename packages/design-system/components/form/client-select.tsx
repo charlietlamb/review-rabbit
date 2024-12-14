@@ -18,7 +18,6 @@ import {
 import ClientAvatar from '../dashboard/clients/client-avatar'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
-import { Label } from '@remio/design-system/components/ui/label'
 import {
   clientsSelectAtom,
   clientsSelectSearchAtom,
@@ -30,6 +29,8 @@ import { TanstackForm } from '@remio/design-system/components/form/tanstack-form
 import { useFormContext } from '@remio/design-system/components/form/form-context'
 import FieldInfo from '@remio/design-system/components/form/field-info'
 import { z } from 'zod'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
+
 interface ClientSelectProps {
   form: TanstackForm<any>
   selectedClient: Client | null
@@ -65,12 +66,12 @@ export default function ClientSelect({
     >
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
+          <RequiredLabel
             htmlFor="client-select"
             className="font-heading text-base font-semibold text-foreground"
           >
-            Client <span className="text-destructive">*</span>
-          </Label>
+            Client
+          </RequiredLabel>
           <Popover open={open} onOpenChange={setOpen} modal={true}>
             <PopoverTrigger asChild>
               <Button

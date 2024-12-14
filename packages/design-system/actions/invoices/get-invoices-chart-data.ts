@@ -1,7 +1,7 @@
 'use server'
 
 import client from '@remio/design-system/lib/client'
-import { InvoicesChart } from 'components/dashboard/invoices/invoice-types'
+import { InvoicesChart } from '@remio/design-system/components/dashboard/invoices/invoice-types'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 import { eachDayOfInterval, format } from 'date-fns'
 

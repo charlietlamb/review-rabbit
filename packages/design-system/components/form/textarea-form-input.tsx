@@ -5,6 +5,7 @@ import FieldInfo from '@remio/design-system/components/form/field-info'
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 import { useFormContext } from './form-context'
 import { Textarea } from '@remio/design-system/components/ui/textarea'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 export default function TextareaFormInput({
   form,
@@ -29,12 +30,7 @@ export default function TextareaFormInput({
     >
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
-            htmlFor={field.name}
-            className="font-heading text-base font-semibold text-foreground"
-          >
-            {label} {required && <span className="text-destructive">*</span>}
-          </Label>
+          <RequiredLabel>{label}</RequiredLabel>
           <Textarea
             id={field.name}
             name={field.name}

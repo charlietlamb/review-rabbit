@@ -1,10 +1,8 @@
 'use client'
 
-import * as React from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import { z } from 'zod'
-
 import { cn } from '@remio/design-system/lib/utils'
 import { Button } from '@remio/design-system/components/ui/button'
 import { Calendar } from '@remio/design-system/components/ui/calendar'
@@ -14,9 +12,9 @@ import {
   PopoverTrigger,
 } from '@remio/design-system/components/ui/popover'
 import { TanstackForm } from './tanstack-form'
-import { Label } from '@remio/design-system/components/ui/label'
 import FieldInfo from './field-info'
 import { useFormContext } from './form-context'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 export default function DatePicker({
   form,
@@ -38,12 +36,13 @@ export default function DatePicker({
     <form.Field name={name} validators={{ onChange: z.date() }}>
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
+          <RequiredLabel
             htmlFor={field.name}
             className="font-heading text-base font-semibold text-foreground"
+            required={required}
           >
-            {label} {required && <span className="text-destructive">*</span>}
-          </Label>
+            {label}
+          </RequiredLabel>
           <div className="relative">
             <Popover>
               <PopoverTrigger asChild>

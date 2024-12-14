@@ -7,6 +7,7 @@ import { TanstackForm } from './tanstack-form'
 import { z } from 'zod'
 import FieldInfo from './field-info'
 import { useFormContext } from './form-context'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 interface MoneyInputProps {
   form: TanstackForm<any>
@@ -38,12 +39,12 @@ export default function MoneyInput({
     >
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
+          <RequiredLabel
             htmlFor={field.name}
-            className="font-heading text-base font-semibold text-foreground"
+            className="font-heading text-foreground text-base font-semibold"
           >
-            {label} {required && <span className="text-destructive">*</span>}
-          </Label>
+            {label}
+          </RequiredLabel>
           <NumberField
             value={field.state.value}
             onChange={(value) => field.handleChange(value)}
@@ -70,18 +71,18 @@ export default function MoneyInput({
                   id={field.name}
                   name={field.name}
                   placeholder={placeholder}
-                  className="flex-1 bg-background px-3 py-2 tabular-nums text-foreground focus:outline-none"
+                  className="bg-background tabular-nums text-foreground focus:outline-none flex-1 px-3 py-2"
                 />
                 <div className="flex h-[calc(100%+2px)] flex-col">
                   <Button
                     slot="increment"
-                    className="-me-px flex h-1/2 w-6 flex-1 items-center justify-center border border-input bg-background text-sm text-muted-foreground/80 transition-shadow hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="-me-px h-1/2 border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center flex-1 w-6 text-sm transition-shadow border"
                   >
                     <ChevronUp size={12} strokeWidth={2} aria-hidden="true" />
                   </Button>
                   <Button
                     slot="decrement"
-                    className="-me-px -mt-px flex h-1/2 w-6 flex-1 items-center justify-center border border-input bg-background text-sm text-muted-foreground/80 transition-shadow hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="-me-px h-1/2 border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center flex-1 w-6 -mt-px text-sm transition-shadow border"
                   >
                     <ChevronDown size={12} strokeWidth={2} aria-hidden="true" />
                   </Button>

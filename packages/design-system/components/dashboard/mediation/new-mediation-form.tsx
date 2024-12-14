@@ -1,4 +1,6 @@
-import { FormProvider } from 'components/form/form-context'
+'use client'
+
+import { FormProvider } from '@remio/design-system/components/form/form-context'
 import { useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { MediationData, mediationDataSchema } from './mediation-types'
@@ -9,6 +11,7 @@ import { UserCheck } from 'lucide-react'
 import { Mediation } from '@remio/database'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
+import ClientSelects from '@remio/design-system/components/form/client-selects'
 
 export default function NewMediationForm({
   mediation,
@@ -24,7 +27,7 @@ export default function NewMediationForm({
   const router = useRouter()
   const form = useForm({
     defaultValues: {
-      clients: [],
+      data: [],
       date: new Date(),
       duration: 0,
     } as MediationData,
@@ -61,7 +64,7 @@ export default function NewMediationForm({
   })
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <div>NewForm</div>
+      <ClientSelects form={form} />
     </FormProvider>
   )
 }

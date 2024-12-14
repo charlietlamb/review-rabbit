@@ -9,13 +9,14 @@ import {
 export default function OverviewCards() {
   const dashboardData = useAtomValue(dashboardDataAtom)
   const compareDashboardData = useAtomValue(overviewCompareDataAtom)
+  console.log(dashboardData)
 
   const totalRevenue = dashboardData.invoiceData.reduce(
-    (acc, invoice) => acc + invoice.amount,
+    (acc, invoice) => acc + Number(invoice.amount),
     0
   )
   const totalRevenueCompare = compareDashboardData.invoiceData.reduce(
-    (acc, invoice) => acc + invoice.amount,
+    (acc, invoice) => acc + Number(invoice.amount),
     0
   )
   const revenueChange = totalRevenue - totalRevenueCompare
@@ -29,7 +30,7 @@ export default function OverviewCards() {
   }).format(totalRevenue)
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 p-4">
+    <div className="md:grid-cols-2 lg:grid-cols-4 grid grid-cols-1 gap-4 p-4">
       <OverviewCard
         title="Total Revenue"
         value={formattedRevenue}

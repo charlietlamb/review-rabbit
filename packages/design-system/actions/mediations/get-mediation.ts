@@ -30,13 +30,15 @@ export async function fetchMediations(id: string): Promise<MediationWithData> {
         createdAt: new Date(data.client.createdAt),
         updatedAt: new Date(data.client.updatedAt),
       },
-      invoice: {
-        ...data.invoice,
-        createdAt: new Date(data.invoice.createdAt),
-        updatedAt: new Date(data.invoice.updatedAt),
-        dueDate: new Date(data.invoice.dueDate),
-        paidAt: data.invoice.paidAt ? new Date(data.invoice.paidAt) : null,
-      },
+      invoice: data.invoice
+        ? {
+            ...data.invoice,
+            createdAt: new Date(data.invoice.createdAt),
+            updatedAt: new Date(data.invoice.updatedAt),
+            dueDate: new Date(data.invoice.dueDate),
+            paidAt: data.invoice.paidAt ? new Date(data.invoice.paidAt) : null,
+          }
+        : null,
     })),
   }
 }

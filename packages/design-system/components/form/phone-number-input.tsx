@@ -1,16 +1,15 @@
 'use client'
 
 import { Input } from '@remio/design-system/components/ui/input'
-import { Label } from '@remio/design-system/components/ui/label'
 import { cn } from '@remio/design-system/lib/utils'
 import { ChevronDown, Phone } from 'lucide-react'
 import React, { forwardRef } from 'react'
 import * as RPNInput from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
 import { TanstackForm } from './tanstack-form'
-import { z } from 'zod'
 import FieldInfo from './field-info'
 import { useFormContext } from './form-context'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 interface PhoneNumberInputProps {
   form: TanstackForm<any>
@@ -35,15 +34,15 @@ export default function PhoneNumberInput({
     <form.Field name={name}>
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
+          <RequiredLabel
             htmlFor={field.name}
-            className="font-heading text-base font-semibold text-foreground"
+            className="font-heading text-foreground text-base font-semibold"
           >
-            {label} {required && <span className="text-destructive">*</span>}
-          </Label>
+            {label}
+          </RequiredLabel>
           <div className="relative">
             <RPNInput.default
-              className="flex rounded-lg shadow-sm shadow-black/5"
+              className="shadow-black/5 flex rounded-lg shadow-sm"
               international
               flagComponent={FlagComponent}
               countrySelectComponent={CountrySelect}

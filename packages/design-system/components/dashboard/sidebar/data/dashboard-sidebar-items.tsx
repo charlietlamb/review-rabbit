@@ -16,7 +16,7 @@ export const dashboardSidebarItemsTop = [
   {
     title: 'New Matter',
     icon: <SquarePenIcon />,
-    href: '/dashboard/new',
+    href: '/dashboard/mediation/new',
     key: 'new',
     match: ['new'],
   },

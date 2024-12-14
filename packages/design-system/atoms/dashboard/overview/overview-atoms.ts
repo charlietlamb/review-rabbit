@@ -1,5 +1,5 @@
 import { InvoiceWithClient } from '@remio/database/schema/invoices'
-import { DashboardData } from 'components/dashboard/overview/overview-types'
+import { DashboardData } from '@remio/design-system/components/dashboard/overview/overview-types'
 import { addDays } from 'date-fns'
 import { atom } from 'jotai'
 import { DateRange } from 'react-day-picker'

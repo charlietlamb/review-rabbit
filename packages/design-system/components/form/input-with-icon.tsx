@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { Label } from '@remio/design-system/components/ui/label'
 import { Input } from '@remio/design-system/components/ui/input'
 import { cn } from '@remio/design-system/lib/utils'
 import FieldInfo from '@remio/design-system/components/form/field-info'
@@ -7,6 +6,7 @@ import { TanstackForm } from '@remio/design-system/components/form/tanstack-form
 import { FieldApi } from '@tanstack/react-form'
 import { cloneElement } from 'react'
 import { useFormContext } from './form-context'
+import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 export default function InputWithIcon({
   form,
@@ -44,12 +44,13 @@ export default function InputWithIcon({
     <form.Field name={name} validators={{ onChange: z.string().min(1) }}>
       {(field) => (
         <div className={cn('flex flex-col gap-1', className)}>
-          <Label
+          <RequiredLabel
             htmlFor={field.name}
-            className="font-heading text-base font-semibold text-foreground"
+            className="font-heading text-foreground text-base font-semibold"
+            required={required}
           >
-            {label} {required && <span className="text-destructive">*</span>}
-          </Label>
+            {label}
+          </RequiredLabel>
           <div className="relative">
             <Input
               id={field.name}
@@ -65,7 +66,7 @@ export default function InputWithIcon({
                   'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
               )}
             />
-            <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
+            <div className="end-0 pe-3 text-muted-foreground/80 peer-disabled:opacity-50 absolute inset-y-0 flex items-center justify-center pointer-events-none">
               {iconWithProps(field as unknown as FieldApi<any, any>)}
             </div>
           </div>

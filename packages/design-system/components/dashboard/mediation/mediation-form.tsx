@@ -14,8 +14,9 @@ import { updateMediation } from '@remio/design-system/actions/mediations/update-
 import ClientsSelect from '@remio/design-system/components/form/clients-select'
 import DurationSelect from '@remio/design-system/components/form/duration-select'
 import DateTimePicker from '@remio/design-system/components/form/date-time-picker'
+import MediationFormDetails from './mediation-form-details'
 
-export default function NewMediationForm({
+export default function MediationForm({
   mediation,
   onSuccess,
   setIsOpen,
@@ -85,7 +86,7 @@ export default function NewMediationForm({
             limit={240}
           />
         </div>
-        <div className="flex flex-col gap-4 p-4"></div>
+        <MediationFormDetails form={form} />
       </div>
     </FormProvider>
   )

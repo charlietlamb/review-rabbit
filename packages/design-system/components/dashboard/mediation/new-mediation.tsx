@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import DashboardContentHeader from '../header/dashboard-content-header'
-import NewMediationForm from './new-mediation-form'
+import MediationForm from './mediation-form'
 import { Client } from '@remio/database/schema/clients'
-import { clientsSelectOptionsAtom } from '@remio/design-system/atoms/dashboard/mediations/mediations'
+import { clientsSelectOptionsAtom } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useSetAtom } from 'jotai'
 
 export default function NewMediation({ clients }: { clients: Client[] }) {
@@ -20,7 +20,7 @@ export default function NewMediation({ clients }: { clients: Client[] }) {
         title="New Mediation"
         subtitle="Schedule a new mediation"
       />
-      <NewMediationForm />
+      <MediationForm />
     </div>
   )
 }

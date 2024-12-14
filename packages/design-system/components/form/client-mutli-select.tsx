@@ -32,7 +32,7 @@ import {
   clientsSelectOptionsAtom,
   clientsSelectSearchAtom,
   selectedClientsAtom,
-} from '@remio/design-system/atoms/dashboard/mediations/mediations'
+} from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'

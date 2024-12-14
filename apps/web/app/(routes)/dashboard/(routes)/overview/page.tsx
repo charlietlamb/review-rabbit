@@ -13,6 +13,7 @@ export default async function OverviewPage() {
     addDays(new Date(), -30)
   )
   const recentPayments = await fetchRecentInvoices(0, true)
+
   return (
     <Overview
       data={dashboardData}

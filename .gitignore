@@ -177,3 +177,6 @@ dist
 # Turbo cache
 .turbo
 .vercel
+
+# wrangler
+.dev.vars

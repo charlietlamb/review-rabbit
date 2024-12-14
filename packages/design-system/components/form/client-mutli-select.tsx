@@ -70,10 +70,6 @@ export default function ClientMultiSelect() {
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
 
   useEffect(() => {
-    console.log(options)
-  }, [options])
-
-  useEffect(() => {
     async function fetchData() {
       const clients = await fetchClients(0, search)
       setOptions(clients)

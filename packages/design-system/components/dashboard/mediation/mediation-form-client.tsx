@@ -1,5 +1,6 @@
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 import { Client } from '@remio/database/schema/clients'
+import MediationFormClientInvoice from './mediation-form-client-invoice'
 
 export default function MediationFormClient({
   form,
@@ -11,8 +12,9 @@ export default function MediationFormClient({
   return (
     <div className="flex flex-col gap-4 p-4">
       <h2 className="font-heading text-lg font-bold">
-        Editing details for {client ? client?.name : 'all clients'}
+        {client ? client?.name : 'All clients'}
       </h2>
+      <MediationFormClientInvoice form={form} client={client} />
     </div>
   )
 }

@@ -10,6 +10,7 @@ import {
 import { cn } from '@remio/design-system/lib/utils'
 import { selectedClientsAtom } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import MediationFormClient from './mediation-form-client'
+import { useEffect } from 'react'
 
 export default function MediationFormDetails({
   form,
@@ -18,6 +19,7 @@ export default function MediationFormDetails({
 }) {
   const [tab, setTab] = useAtom(mediationTabAtom)
   const selectedClients = useAtomValue(selectedClientsAtom)
+
   return (
     <Tabs
       value={tab}
@@ -42,10 +44,10 @@ export default function MediationFormDetails({
           Edit clients individually
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="single">
+      <TabsContent value="single" className="m-0">
         <MediationFormClient form={form} />
       </TabsContent>
-      <TabsContent value="multiple" className="flex flex-col divide-y">
+      <TabsContent value="multiple" className="flex flex-col m-0 divide-y">
         {selectedClients.map((client) => (
           <MediationFormClient form={form} client={client} key={client.id} />
         ))}

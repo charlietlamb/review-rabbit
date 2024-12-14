@@ -15,6 +15,7 @@ import ClientsSelect from '@remio/design-system/components/form/clients-select'
 import DurationSelect from '@remio/design-system/components/form/duration-select'
 import DateTimePicker from '@remio/design-system/components/form/date-time-picker'
 import MediationFormDetails from './mediation-form-details'
+import { Button } from '@remio/design-system/components/ui/button'
 
 export default function MediationForm({
   mediation,
@@ -87,6 +88,11 @@ export default function MediationForm({
           />
         </div>
         <MediationFormDetails form={form} />
+        <div className="p-4">
+          <Button variant="shine" className="w-full">
+            {mediation ? 'Update Mediation' : 'Add Mediation'}
+          </Button>
+        </div>
       </div>
     </FormProvider>
   )

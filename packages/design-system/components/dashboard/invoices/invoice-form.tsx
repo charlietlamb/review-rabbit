@@ -77,7 +77,7 @@ export default function InvoiceForm({
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
       <form
-        className="flex flex-col gap-4 w-full max-w-2xl mx-auto"
+        className="flex flex-col w-full max-w-2xl gap-4 mx-auto"
         onSubmit={(e) => {
           console.log('submitted')
           setAttemptSubmitted(true)
@@ -118,7 +118,7 @@ export default function InvoiceForm({
         <div className="flex gap-2">
           {invoice && (
             <Button
-              className="w-full font-heading font-bold"
+              className="font-heading w-full font-bold"
               disabled={isDeleting}
               colors="destructive"
               onClick={async () => {

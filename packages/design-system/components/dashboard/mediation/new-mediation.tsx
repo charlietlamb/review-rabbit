@@ -15,12 +15,14 @@ export default function NewMediation({ clients }: { clients: Client[] }) {
   }, [clients])
 
   return (
-    <div className="flex flex-col divide-y">
+    <div className="flex flex-col overflow-y-auto divide-y">
       <DashboardContentHeader
         title="New Mediation"
         subtitle="Schedule a new mediation"
       />
-      <MediationForm />
+      <div className="overflow-y-auto">
+        <MediationForm />
+      </div>
     </div>
   )
 }

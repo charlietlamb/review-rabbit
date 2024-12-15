@@ -11,8 +11,11 @@ import {
   CalendarProvider,
   CalendarYearPicker,
 } from '@remio/design-system/components/roadmap-ui/calendar'
+import { useAtomValue } from 'jotai'
+import { scheduleFeaturesAtom } from '@remio/design-system/atoms/dashboard/schedule/schedule-atoms'
 
 export default function ScheduleCalendar() {
+  const features = useAtomValue(scheduleFeaturesAtom)
   return (
     <CalendarProvider>
       <CalendarDate>
@@ -25,7 +28,7 @@ export default function ScheduleCalendar() {
         </div>
       </CalendarDate>
       <CalendarHeader />
-      <CalendarBody features={[]}>
+      <CalendarBody features={features}>
         {({ feature }) => <CalendarItem key={feature.id} feature={feature} />}
       </CalendarBody>
     </CalendarProvider>

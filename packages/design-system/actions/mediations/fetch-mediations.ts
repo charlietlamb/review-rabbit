@@ -1,20 +1,16 @@
 'use server'
 
 import client from '@remio/design-system/lib/client'
-import { PAGE_SIZE } from '@remio/design-system/data/page-size'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 import { MediationWithData } from '@remio/database/schema/mediations'
 
 export async function fetchMediations(
-  page: number,
   startDate: Date,
   endDate: Date
 ): Promise<MediationWithData[]> {
   const response = await client.mediations.get.$post(
     {
       json: {
-        offset: page * PAGE_SIZE,
-        limit: PAGE_SIZE,
         startDate,
         endDate,
       },

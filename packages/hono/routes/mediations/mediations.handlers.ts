@@ -251,23 +251,21 @@ export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, startDate, endDate } = await c.req.json()
+  const { startDate, endDate } = await c.req.valid('json')
 
   try {
     const conditions = [eq(mediations.userId, user.id)]
 
     if (startDate) {
-      conditions.push(gte(mediations.createdAt, startDate))
+      conditions.push(gte(mediations.createdAt, new Date(startDate)))
     }
 
     if (endDate) {
-      conditions.push(lte(mediations.createdAt, endDate))
+      conditions.push(lte(mediations.createdAt, new Date(endDate)))
     }
 
     const mediationsResults = await db.query.mediations.findMany({
       where: and(...conditions),
-      offset,
-      limit,
     })
 
     const mediationsWithData = await Promise.all(

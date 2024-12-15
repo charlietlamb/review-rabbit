@@ -2,7 +2,7 @@
   "name": "api",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8000 --turbopack",
+    "dev": "next dev -p 8000 --turbo",
     "build": "next build",
     "start": "next start",
     "analyze": "ANALYZE=true pnpm build",
@@ -18,7 +18,8 @@
     "next": "15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "svix": "^1.40.0"
+    "svix": "^1.40.0",
+    "wrangler": "^3.95.0"
   },
   "devDependencies": {
     "@remio/typescript-config": "workspace:*",

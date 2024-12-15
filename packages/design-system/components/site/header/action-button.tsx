@@ -3,6 +3,8 @@
 import { authClient } from '@remio/design-system/lib/authClient'
 import { Button } from '@remio/design-system/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { cn } from '@remio/design-system/lib/utils'
+
 type GetStartedButtonProps = {
   className?: string
   size?: 'default' | 'sm' | 'lg' | 'icon'
@@ -18,7 +20,7 @@ export function ActionButton({
   return (
     <Button
       size={size}
-      className={className}
+      className={cn(className, 'font-heading font-bold')}
       variant="gooeyLeft"
       onClick={() => router.push(user ? '/dashboard' : '/signup')}
     >

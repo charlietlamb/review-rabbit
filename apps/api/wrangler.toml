@@ -1,3 +1,0 @@
-name = "remio-api"
-compatibility_date = "2024-09-29"
-compatibility_flags = [ "nodejs_compat" ]

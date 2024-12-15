@@ -5,7 +5,7 @@ import { Textarea } from '@remio/design-system/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
 import { UserIcon } from 'lucide-react'
 import { MailIcon } from 'lucide-react'
 

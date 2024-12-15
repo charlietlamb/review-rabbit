@@ -6,9 +6,9 @@ import { ChevronDown, Phone } from 'lucide-react'
 import React, { forwardRef } from 'react'
 import * as RPNInput from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
-import { TanstackForm } from './tanstack-form'
-import FieldInfo from './field-info'
-import { useFormContext } from './form-context'
+import { TanstackForm } from '../tanstack-form'
+import FieldInfo from '../field-info'
+import { useFormContext } from '../form-context'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 interface PhoneNumberInputProps {

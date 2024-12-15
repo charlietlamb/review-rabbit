@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function OrLabel({
   text = 'Or continue with',
 }: {

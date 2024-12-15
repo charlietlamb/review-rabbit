@@ -5,7 +5,7 @@ import OverviewCards from './overview-cards'
 import OverviewChart from './overview-chart'
 import { DashboardData } from './overview-types'
 import { useEffect } from 'react'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import {
   dashboardDataAtom,
   overviewCompareDataAtom,

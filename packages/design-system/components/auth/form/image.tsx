@@ -1,4 +1,4 @@
-import ImageUpload from '@remio/design-system/components/form/image-upload'
+import ImageUpload from '@remio/design-system/components/form/image/image-upload'
 import { Label } from '@remio/design-system/components/ui/label'
 import FieldInfo from '@remio/design-system/components/form/field-info'
 import { zfd } from 'zod-form-data'

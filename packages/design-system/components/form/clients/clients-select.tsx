@@ -1,6 +1,6 @@
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
-import ClientMultiSelect from './client-mutli-select'
+import ClientMultiSelect from './client-multi-select'
 import { useAtomValue } from 'jotai'
 import { clientsSelectAtom } from '@remio/design-system/atoms/dashboard/clients/client-select-atoms'
 import { useEffect } from 'react'

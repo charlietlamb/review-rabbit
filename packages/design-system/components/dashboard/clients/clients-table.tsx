@@ -28,6 +28,7 @@ import { Button } from '@remio/design-system/components/ui/button'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import ClientAvatar from './client-avatar'
 import { useRouter } from 'next/navigation'
+
 export default function ClientsTable() {
   const {
     items: clients,

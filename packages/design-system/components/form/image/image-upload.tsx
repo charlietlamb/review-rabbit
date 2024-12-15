@@ -12,7 +12,7 @@ import React, {
   useState,
 } from 'react'
 import { FieldApi } from '@tanstack/react-form'
-import { AspectRatio } from '../ui/aspect-ratio'
+import { AspectRatio } from '@remio/design-system/components/ui/aspect-ratio'
 import { MAX_FILE_SIZE } from '@remio/design-system/lib/constants'
 
 export default function ImageUpload({

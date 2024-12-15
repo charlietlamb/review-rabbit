@@ -11,9 +11,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@remio/design-system/components/ui/popover'
-import { TanstackForm } from './tanstack-form'
-import FieldInfo from './field-info'
-import { useFormContext } from './form-context'
+import { TanstackForm } from '../tanstack-form'
+import FieldInfo from '../field-info'
+import { useFormContext } from '../form-context'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 export default function DatePicker({
@@ -44,7 +44,7 @@ export default function DatePicker({
               <PopoverTrigger asChild>
                 <Button
                   id={field.name}
-                  variant={'outline'}
+                  variant="outline"
                   className={cn(
                     'w-full justify-start text-left font-normal',
                     !field.state.value && 'text-muted-foreground',
@@ -53,7 +53,7 @@ export default function DatePicker({
                       'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
                   )}
                 >
-                  <CalendarIcon className="w-4 h-4 mr-2" />
+                  <CalendarIcon className="size-4 mr-2" />
                   {field.state.value ? (
                     format(field.state.value, 'PPP')
                   ) : (
@@ -65,7 +65,7 @@ export default function DatePicker({
                 <Calendar
                   mode="single"
                   selected={field.state.value}
-                  onSelect={(date) => field.handleChange(date)}
+                  onSelect={(date) => date && field.setValue(date)}
                   initialFocus
                 />
               </PopoverContent>

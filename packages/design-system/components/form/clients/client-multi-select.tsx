@@ -27,7 +27,7 @@ import ClientAvatar from '@remio/design-system/components/dashboard/clients/clie
 import { useState } from 'react'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
-import { useFormContext } from './form-context'
+import { useFormContext } from '../form-context'
 
 export default function ClientMultiSelect() {
   const [search, setSearch] = useAtom(clientsSelectSearchAtom)

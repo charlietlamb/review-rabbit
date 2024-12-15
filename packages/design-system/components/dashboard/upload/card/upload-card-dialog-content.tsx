@@ -7,7 +7,6 @@ import {
 } from '@remio/design-system/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
-import { useRouter } from 'next/navigation'
 import {
   isAudio,
   isImage,

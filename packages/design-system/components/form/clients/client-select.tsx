@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@remio/design-system/components/ui/popover'
-import ClientAvatar from '../dashboard/clients/client-avatar'
+import ClientAvatar from '@remio/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 import {

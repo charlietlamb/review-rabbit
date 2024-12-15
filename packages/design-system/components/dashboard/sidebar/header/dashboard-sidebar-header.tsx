@@ -5,7 +5,6 @@ import {
   useSidebar,
 } from '@remio/design-system/components/ui/sidebar'
 import Link from 'next/link'
-import DashboardSidebarThemeToggle from '../toggle/dashboard-sidebar-theme-toggle'
 import { cn } from '@remio/design-system/lib/utils'
 
 export default function DashboardSidebarHeader() {

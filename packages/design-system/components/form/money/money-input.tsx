@@ -1,12 +1,12 @@
 'use client'
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { Button, Group, Input, Label, NumberField } from 'react-aria-components'
+import { Button, Group, Input, NumberField } from 'react-aria-components'
 import { cn } from '@remio/design-system/lib/utils'
-import { TanstackForm } from './tanstack-form'
+import { TanstackForm } from '../tanstack-form'
 import { z } from 'zod'
-import FieldInfo from './field-info'
-import { useFormContext } from './form-context'
+import FieldInfo from '../field-info'
+import { useFormContext } from '../form-context'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
 interface MoneyInputProps {

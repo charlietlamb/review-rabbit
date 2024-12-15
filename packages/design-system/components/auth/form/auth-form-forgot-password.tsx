@@ -15,7 +15,7 @@ import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { authClient } from '@remio/design-system/lib/authClient'
 import { toast } from 'sonner'
-import InputWithIcon from '@remio/design-system/components/form/input-with-icon'
+import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
 import { MailIcon } from 'lucide-react'
 import { FormProvider } from '@remio/design-system/components/form/form-context'
 

@@ -6,11 +6,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@remio/design-system/components/ui/dialog'
-import { Button } from '@remio/design-system/components/ui/button'
 import ClientsNewForm from './clients-form'
 import { Client } from '@remio/database'
 import { useState } from 'react'
-import { Pencil } from 'lucide-react'
 
 export default function ClientsEditDialog({
   client,

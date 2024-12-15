@@ -1,13 +1,12 @@
 import { z } from 'zod'
-import { Label } from '@remio/design-system/components/ui/label'
 import { cn } from '@remio/design-system/lib/utils'
 import FieldInfo from '@remio/design-system/components/form/field-info'
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
-import { useFormContext } from './form-context'
+import { useFormContext } from '@remio/design-system/components/form/form-context'
 import { Textarea } from '@remio/design-system/components/ui/textarea'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
 
-export default function TextareaFormInput({
+export default function TextareaInput({
   form,
   name,
   label,

@@ -1,4 +1,3 @@
-import { Label } from '@remio/design-system/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -7,19 +6,11 @@ import {
   SelectValue,
 } from '@remio/design-system/components/ui/select'
 import { Clock } from 'lucide-react'
-import { useFormContext } from './form-context'
-import { TanstackForm } from './tanstack-form'
+import { TanstackForm } from '../tanstack-form'
 import RequiredLabel from '@remio/design-system/components/misc/required-label'
 import { useEffect, useState } from 'react'
-
-interface DurationSelectProps {
-  form: TanstackForm<any>
-  name: string
-  label: string
-  required: boolean
-  interval: number
-  limit: number
-}
+import { cn } from '@remio/design-system/lib/utils'
+import { useFormContext } from '../form-context'
 
 function formatMinutes(totalMinutes: number): string {
   const hours = Math.floor(totalMinutes / 60)
@@ -34,7 +25,16 @@ export default function DurationSelect({
   required,
   interval,
   limit,
-}: DurationSelectProps) {
+  className,
+}: {
+  form: TanstackForm<any>
+  name: string
+  label: string
+  required: boolean
+  interval: number
+  limit: number
+  className?: string
+}) {
   const { attemptSubmitted } = useFormContext()
 
   const options = Array.from(
@@ -51,7 +51,7 @@ export default function DurationSelect({
   }, [value])
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={cn('flex flex-col gap-2', className)}>
       <RequiredLabel htmlFor={`duration-select-${name}`} required={required}>
         {label}
       </RequiredLabel>

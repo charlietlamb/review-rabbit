@@ -2,20 +2,15 @@ import { TanstackForm } from '@remio/design-system/components/form/tanstack-form
 import { Client } from '@remio/database/schema/clients'
 import { useEffect, useState } from 'react'
 import { Button } from '@remio/design-system/components/ui/button'
-import MoneyInput from '@remio/design-system/components/form/money-input'
-import DatePicker from '@remio/design-system/components/form/date-picker'
-import TextareaFormInput from '@remio/design-system/components/form/textarea-form-input'
+import MoneyInput from '@remio/design-system/components/form/money/money-input-state'
+import DatePicker from '@remio/design-system/components/form/date/date-picker-state'
+import TextareaInput from '@remio/design-system/components/form/input/textarea-input-state'
 import { useAtom } from 'jotai'
 import {
   mediationAllClientsAtom,
   mediationClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
-import { useForm } from '@tanstack/react-form'
-import {
-  InvoiceFormData,
-  invoiceValidationSchema,
-} from '../invoices/invoice-schema'
-import { zodValidator } from '@tanstack/zod-form-adapter'
+import { InvoiceFormData } from '../invoices/invoice-schema'
 
 export default function MediationFormClientInvoice({
   form,
@@ -29,27 +24,12 @@ export default function MediationFormClientInvoice({
   )
   const [mediationClients, setMediationClients] = useAtom(mediationClientsAtom)
   const [hasInvoice, setHasInvoice] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const defaultInvoice = {
     amount: 0,
     dueDate: new Date(),
     reference: '',
     clientId: client?.id || '',
   }
-
-  const invoiceForm = useForm({
-    defaultValues: {
-      clientId: client?.id || '',
-      amount: 0,
-      dueDate: new Date(),
-      reference: '',
-    } as InvoiceFormData,
-    onSubmit: () => {},
-    validatorAdapter: zodValidator(),
-    validators: {
-      onChange: invoiceValidationSchema,
-    },
-  })
 
   useEffect(() => {
     if (client) {
@@ -70,15 +50,15 @@ export default function MediationFormClientInvoice({
     }
   }, [mediationAllClients, mediationClients, client])
 
-  useEffect(() => {
-    if (!mounted) {
-      setMounted(true)
-      return
-    }
-    const amount = invoiceForm.getFieldValue('amount')
-    const dueDate = invoiceForm.getFieldValue('dueDate')
-    const reference = invoiceForm.getFieldValue('reference')
+  const [dueDate, setDueDate] = useState(new Date())
+  const [amount, setAmount] = useState(0)
+  const [reference, setReference] = useState('')
 
+  useEffect(() => {
+    updateState({ amount, dueDate, reference, clientId: client?.id || '' })
+  }, [amount, dueDate, reference, client])
+
+  function updateState(values: InvoiceFormData) {
     if (client) {
       setMediationClients((prev) =>
         prev.map((mediationClient) =>
@@ -88,9 +68,9 @@ export default function MediationFormClientInvoice({
                 data: {
                   ...mediationClient.data,
                   invoice: {
-                    amount,
-                    dueDate,
-                    reference,
+                    amount: values.amount,
+                    dueDate: values.dueDate,
+                    reference: values.reference,
                     clientId: client.id,
                   },
                 },
@@ -101,10 +81,15 @@ export default function MediationFormClientInvoice({
     } else {
       setMediationAllClients((prev) => ({
         ...prev,
-        invoice: defaultInvoice,
+        invoice: {
+          amount: values.amount,
+          dueDate: values.dueDate,
+          reference: values.reference,
+          clientId: '',
+        },
       }))
     }
-  }, [invoiceForm, client, setMediationClients, setMediationAllClients])
+  }
 
   function handleAddInvoice() {
     if (client) {
@@ -173,21 +158,24 @@ export default function MediationFormClientInvoice({
       <h2 className="font-heading text-lg font-bold">Invoice</h2>
       <div className="grid grid-cols-2 gap-4">
         <MoneyInput
-          form={invoiceForm}
+          value={amount}
+          setValue={setAmount}
           name="amount"
           label="Amount"
           placeholder="Amount"
           required
         />
         <DatePicker
-          form={invoiceForm}
+          value={dueDate}
+          setValue={setDueDate}
           name="dueDate"
           label="Due Date"
           placeholder="Due Date"
           required
         />
-        <TextareaFormInput
-          form={invoiceForm}
+        <TextareaInput
+          value={reference}
+          setValue={setReference}
           name="reference"
           label="Reference"
           placeholder="Reference"

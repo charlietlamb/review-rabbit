@@ -11,9 +11,9 @@ import { UserCheck } from 'lucide-react'
 import { Mediation } from '@remio/database'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
-import ClientsSelect from '@remio/design-system/components/form/clients-select'
-import DurationSelect from '@remio/design-system/components/form/duration-select'
-import DateTimePicker from '@remio/design-system/components/form/date-time-picker'
+import ClientsSelect from '@remio/design-system/components/form/clients/clients-select'
+import DurationSelect from '@remio/design-system/components/form/date/duration-select'
+import DateTimePicker from '@remio/design-system/components/form/date/date-time-picker'
 import MediationFormDetails from './mediation-form-details'
 import { Button } from '@remio/design-system/components/ui/button'
 import Spinner from '@remio/design-system/components/misc/spinner'
@@ -24,7 +24,6 @@ import {
   selectedClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtomValue } from 'jotai'
-import { startOfDay } from 'date-fns'
 
 export default function MediationForm({
   mediation,
@@ -126,9 +125,11 @@ export default function MediationForm({
     const invalidInvoices = value.data
       .filter((d) => d.invoice)
       .some((d) => {
-        const dueDate = startOfDay(d.invoice?.dueDate ?? new Date())
-        return dueDate < now
+        console.log(d.invoice?.dueDate)
+        return d.invoice?.dueDate && d.invoice?.dueDate < now
       })
+    console.log(value.data)
+    console.log(invalidInvoices)
 
     if (invalidInvoices) {
       toast.error('Invoice due dates cannot be in the past')
@@ -183,6 +184,7 @@ export default function MediationForm({
             required
             interval={15}
             limit={240}
+            className="w-full"
           />
         </div>
         <MediationFormDetails form={form} />

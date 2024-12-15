@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@remio/design-system/components/ui/dialog'
-import { Button } from '@remio/design-system/components/ui/button'
 import ClientsNewForm from './clients-form'
 import { useState } from 'react'
 

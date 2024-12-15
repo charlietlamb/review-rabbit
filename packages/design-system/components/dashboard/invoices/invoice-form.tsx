@@ -12,10 +12,10 @@ import { InvoiceFormData, invoiceValidationSchema } from './invoice-schema'
 import { updateInvoice } from '@remio/design-system/actions/invoices/update-invoice'
 import { addInvoice } from '@remio/design-system/actions/invoices/add-invoice'
 import { deleteInvoice } from '@remio/design-system/actions/invoices/delete-invoice'
-import ClientSelect from '../../form/client-select'
-import TextareaFormInput from '@remio/design-system/components/form/textarea-form-input'
-import MoneyInput from '@remio/design-system/components/form/money-input'
-import DatePicker from '@remio/design-system/components/form/date-picker'
+import TextareaInput from '@remio/design-system/components/form/input/textarea-input'
+import DatePicker from '@remio/design-system/components/form/date/date-time-picker'
+import ClientSelect from '@remio/design-system/components/form/clients/client-select'
+import MoneyInput from '@remio/design-system/components/form/money/money-input'
 
 export default function InvoiceForm({
   invoice,
@@ -106,7 +106,7 @@ export default function InvoiceForm({
             placeholder="Due Date"
             required
           />
-          <TextareaFormInput
+          <TextareaInput
             form={form}
             name="reference"
             label="Reference"

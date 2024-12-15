@@ -6,7 +6,6 @@ import {
 } from '@remio/design-system/components/ui/dropdown-menu'
 import { Button } from '@remio/design-system/components/ui/button'
 import { MoreHorizontal, Pencil } from 'lucide-react'
-import InvoiceCreateDialog from './invoice-edit-dialog'
 import InvoiceEditDialog from './invoice-edit-dialog'
 import { InvoiceWithClient } from '@remio/database'
 

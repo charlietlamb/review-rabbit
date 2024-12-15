@@ -45,7 +45,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         imageUploaded: false,
         plan: 'free',
       })
-      console.log(data)
       if (error) {
         toast.error('Something went wrong', {
           description: 'Make sure you email is correct and try again.',

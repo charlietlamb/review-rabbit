@@ -1,5 +1,4 @@
 import { clientSchema } from '@remio/database/schema/clients'
-import { emailSchema } from '@remio/database/schema/email'
 import { z } from 'zod'
 import { invoiceValidationSchema } from '../invoices/invoice-schema'
 
@@ -7,10 +6,11 @@ export const mediationDataSchema = z.object({
   data: z.array(
     z.object({
       clientId: z.string(),
-      invoice: invoiceValidationSchema,
+      invoice: invoiceValidationSchema.nullable(),
+      email: z.boolean(),
     })
   ),
-  date: z.date(),
+  date: z.coerce.date(),
   duration: z.number(),
 })
 
@@ -33,7 +33,7 @@ export type MediationRequest = z.infer<typeof mediationRequestSchema>
 
 export const mediationDataFormSchema = z.object({
   invoice: invoiceValidationSchema.nullable(),
-  email: emailSchema.nullable(),
+  email: z.boolean(),
 })
 
 export type MediationDataForm = z.infer<typeof mediationDataFormSchema>

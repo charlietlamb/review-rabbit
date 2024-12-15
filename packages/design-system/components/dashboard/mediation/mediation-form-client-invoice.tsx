@@ -29,6 +29,13 @@ export default function MediationFormClientInvoice({
   )
   const [mediationClients, setMediationClients] = useAtom(mediationClientsAtom)
   const [hasInvoice, setHasInvoice] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const defaultInvoice = {
+    amount: 0,
+    dueDate: new Date(),
+    reference: '',
+    clientId: client?.id || '',
+  }
 
   const invoiceForm = useForm({
     defaultValues: {
@@ -37,7 +44,7 @@ export default function MediationFormClientInvoice({
       dueDate: new Date(),
       reference: '',
     } as InvoiceFormData,
-    onSubmit: ({ value }) => {},
+    onSubmit: () => {},
     validatorAdapter: zodValidator(),
     validators: {
       onChange: invoiceValidationSchema,
@@ -55,7 +62,7 @@ export default function MediationFormClientInvoice({
         setHasInvoice(false)
       }
     } else {
-      if (mediationAllClients.invoice !== null) {
+      if (mediationAllClients && mediationAllClients.invoice !== null) {
         setHasInvoice(true)
       } else {
         setHasInvoice(false)
@@ -64,6 +71,10 @@ export default function MediationFormClientInvoice({
   }, [mediationAllClients, mediationClients, client])
 
   useEffect(() => {
+    if (!mounted) {
+      setMounted(true)
+      return
+    }
     const amount = invoiceForm.getFieldValue('amount')
     const dueDate = invoiceForm.getFieldValue('dueDate')
     const reference = invoiceForm.getFieldValue('reference')
@@ -90,47 +101,35 @@ export default function MediationFormClientInvoice({
     } else {
       setMediationAllClients((prev) => ({
         ...prev,
-        invoice: {
-          amount,
-          dueDate,
-          reference,
-          clientId: 'all-clients',
-        },
+        invoice: defaultInvoice,
       }))
     }
   }, [invoiceForm, client, setMediationClients, setMediationAllClients])
 
   function handleAddInvoice() {
     if (client) {
-      const existingClient = mediationClients.find(
-        (mc) => mc.client.id === client.id
+      setMediationClients((prev) =>
+        prev.find((c) => c.client.id === client.id)
+          ? prev.map((c) =>
+              c.client.id === client.id
+                ? {
+                    ...c,
+                    data: {
+                      ...c.data,
+                      invoice: defaultInvoice,
+                    },
+                  }
+                : c
+            )
+          : [
+              ...prev,
+              { client, data: { email: false, invoice: defaultInvoice } },
+            ]
       )
-      if (!existingClient) {
-        setMediationClients((prev) => [
-          ...prev,
-          {
-            client,
-            data: {
-              invoice: {
-                amount: 0,
-                dueDate: new Date(),
-                reference: '',
-                clientId: client.id,
-              },
-              email: mediationAllClients.email,
-            },
-          },
-        ])
-      }
     } else {
       setMediationAllClients((prev) => ({
         ...prev,
-        invoice: {
-          amount: 0,
-          dueDate: new Date(),
-          reference: '',
-          clientId: 'all-clients',
-        },
+        invoice: defaultInvoice,
       }))
     }
   }
@@ -138,10 +137,23 @@ export default function MediationFormClientInvoice({
   function handleRemoveInvoice() {
     if (client) {
       setMediationClients((prev) =>
-        prev.filter((c) => c.client.id !== client.id)
+        prev.map((mediationClient) =>
+          mediationClient.client.id === client.id
+            ? {
+                ...mediationClient,
+                data: {
+                  ...mediationClient.data,
+                  invoice: null,
+                },
+              }
+            : mediationClient
+        )
       )
     } else {
-      setMediationAllClients({ email: null, invoice: null })
+      setMediationAllClients((prev) => ({
+        ...prev,
+        invoice: null,
+      }))
     }
   }
 

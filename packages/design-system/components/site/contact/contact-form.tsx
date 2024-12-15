@@ -22,9 +22,7 @@ export function ContactForm() {
       email: '',
       message: '',
     },
-    onSubmit: (values) => {
-      console.log('Form submitted:', values)
-    },
+    onSubmit: (values) => {},
     validatorAdapter: zodValidator(),
     validators: {
       onChange: contactFormSchema,

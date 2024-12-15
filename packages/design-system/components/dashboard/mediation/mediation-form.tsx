@@ -16,6 +16,15 @@ import DurationSelect from '@remio/design-system/components/form/duration-select
 import DateTimePicker from '@remio/design-system/components/form/date-time-picker'
 import MediationFormDetails from './mediation-form-details'
 import { Button } from '@remio/design-system/components/ui/button'
+import Spinner from '@remio/design-system/components/misc/spinner'
+import {
+  mediationAllClientsAtom,
+  mediationClientsAtom,
+  mediationTabAtom,
+  selectedClientsAtom,
+} from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
+import { useAtomValue } from 'jotai'
+import { startOfDay } from 'date-fns'
 
 export default function MediationForm({
   mediation,
@@ -36,39 +45,128 @@ export default function MediationForm({
       duration: 0,
     } as MediationData,
     onSubmit: async ({ value }) => {
-      setIsLoading(true)
-      setAttemptSubmitted(true)
-      const success = mediation
-        ? await updateMediation(value, mediation.id)
-        : await addMediation(value)
-      if (!success) {
-        toast.error('Something went wrong.', {
-          description: 'Please try again later.',
-        })
-      } else {
-        toast.success(
-          mediation
-            ? 'Mediation updated successfully.'
-            : 'Mediation added successfully.',
-          {
-            description: 'You can now create invoices, payments and more.',
-            icon: <UserCheck />,
-          }
-        )
-        router.refresh()
-        onSuccess?.()
-      }
-      setIsLoading(false)
-      setIsOpen?.(false)
+      handleSubmit(value)
     },
     validatorAdapter: zodValidator(),
     validators: {
       onChange: mediationDataSchema,
     },
   })
+
+  const mediationClients = useAtomValue(mediationClientsAtom)
+  const mediationAllClients = useAtomValue(mediationAllClientsAtom)
+  const mediationTab = useAtomValue(mediationTabAtom)
+  const selectedClients = useAtomValue(selectedClientsAtom)
+
+  async function handleSubmit(value: MediationData) {
+    setAttemptSubmitted(true)
+    value.duration = Number(value.duration)
+    const success = mediation
+      ? await updateMediation(value, mediation.id)
+      : await addMediation(value)
+    if (!success) {
+      toast.error('Something went wrong.', {
+        description: 'Please try again later.',
+      })
+    } else {
+      toast.success(
+        mediation
+          ? 'Mediation updated successfully.'
+          : 'Mediation added successfully.',
+        {
+          description: 'You can now create invoices, payments and more.',
+          icon: <UserCheck />,
+        }
+      )
+      router.refresh()
+      onSuccess?.()
+    }
+    setIsOpen?.(false)
+  }
+
+  function updateFromValues() {
+    const isSingle = mediationTab === 'single'
+    const formData = selectedClients.map((client) => ({
+      clientId: client.id,
+      ...(isSingle
+        ? {
+            ...mediationAllClients,
+            clientId: client.id,
+            invoice: mediationAllClients.invoice
+              ? {
+                  ...mediationAllClients.invoice,
+                  clientId: client.id,
+                }
+              : null,
+          }
+        : mediationClients.find((c) => c.client.id === client.id)?.data || {
+            clientId: client.id,
+            email: false,
+            invoice: null,
+          }),
+    }))
+    form.setFieldValue('data', formData)
+  }
+
+  function validateForm(value: MediationData) {
+    if (!value.data.length) {
+      toast.error('Please select at least one client', {
+        description: 'The select input is at the top of the form',
+      })
+      return false
+    }
+
+    const now = new Date()
+
+    if (value.date < now) {
+      toast.error('Mediation date cannot be in the past')
+      return false
+    }
+
+    const invalidInvoices = value.data
+      .filter((d) => d.invoice)
+      .some((d) => {
+        const dueDate = startOfDay(d.invoice?.dueDate ?? new Date())
+        return dueDate < now
+      })
+
+    if (invalidInvoices) {
+      toast.error('Invoice due dates cannot be in the past')
+      return false
+    }
+
+    const invalidInvoiceReferences = value.data
+      .filter((d) => d.invoice)
+      .some((d) => !d.invoice?.reference?.length)
+
+    if (invalidInvoiceReferences) {
+      toast.error('Invoice references are required')
+      return false
+    }
+
+    return true
+  }
+
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <div className="flex flex-col divide-y">
+      <form
+        className="flex flex-col divide-y"
+        onSubmit={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          setIsLoading(true)
+          updateFromValues()
+          const value = {
+            data: form.getFieldValue('data'),
+            date: form.getFieldValue('date'),
+            duration: form.getFieldValue('duration'),
+          }
+          if (validateForm(value)) {
+            handleSubmit(value)
+          }
+          setIsLoading(false)
+        }}
+      >
         <div className="md:grid-cols-2 grid grid-cols-1 gap-4 p-4">
           <ClientsSelect form={form} className="w-full col-span-2" />
           <DateTimePicker
@@ -90,10 +188,16 @@ export default function MediationForm({
         <MediationFormDetails form={form} />
         <div className="p-4">
           <Button variant="shine" className="w-full">
-            {mediation ? 'Update Mediation' : 'Add Mediation'}
+            {isLoading ? (
+              <Spinner />
+            ) : mediation ? (
+              'Update Mediation'
+            ) : (
+              'Add Mediation'
+            )}
           </Button>
         </div>
-      </div>
+      </form>
     </FormProvider>
   )
 }

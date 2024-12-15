@@ -3,6 +3,7 @@
 import { MediationData } from '@remio/design-system/components/dashboard/mediation/mediation-types'
 import client from '@remio/design-system/lib/client'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
+import { HttpStatusCodes } from '@remio/http'
 
 export async function addMediation(data: MediationData) {
   const response = await client.mediations.add.$post(
@@ -12,5 +13,5 @@ export async function addMediation(data: MediationData) {
     await headersWithCookies()
   )
 
-  return response.json()
+  return response.status === HttpStatusCodes.OK
 }

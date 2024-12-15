@@ -25,7 +25,7 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
         .insert(mediations)
         .values({
           userId: user.id,
-          date,
+          date: new Date(date),
           duration,
         })
         .returning()
@@ -35,18 +35,19 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
       }
 
       const invoiceResults = await Promise.all(
-        data.map((client) =>
-          tx
-            .insert(invoices)
-            .values({
-              userId: user.id,
-              clientId: client.clientId,
-              amount: client.invoice.amount,
-              currency: client.invoice.currency,
-              dueDate: client.invoice.dueDate,
-              reference: client.invoice.reference,
-            })
-            .returning()
+        data.map(
+          (client) =>
+            client.invoice &&
+            tx
+              .insert(invoices)
+              .values({
+                userId: user.id,
+                clientId: client.clientId,
+                amount: client.invoice.amount.toString(),
+                dueDate: client.invoice.dueDate,
+                reference: client.invoice.reference,
+              })
+              .returning()
         )
       )
 
@@ -57,7 +58,7 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
             .values({
               mediationId: mediationResult.id,
               clientId: client.clientId,
-              invoiceId: invoiceResults[index][0].id,
+              invoiceId: invoiceResults[index]?.[0]?.id || null,
             })
             .returning()
         )
@@ -92,7 +93,7 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
       const [updatedMediation] = await tx
         .update(mediations)
         .set({
-          date,
+          date: new Date(date),
           duration,
           updatedAt: new Date(),
         })
@@ -139,12 +140,11 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
       await Promise.all(
         clientsToUpdate.map(async (client) => {
           const existingMc = existingClientMap.get(client.clientId)!
-          if (existingMc.invoiceId) {
+          if (existingMc.invoiceId && client.invoice) {
             const [updatedInvoice] = await tx
               .update(invoices)
               .set({
-                amount: client.invoice.amount,
-                currency: client.invoice.currency,
+                amount: client.invoice.amount.toString(),
                 dueDate: client.invoice.dueDate,
                 reference: client.invoice.reference,
                 updatedAt: new Date(),
@@ -158,18 +158,19 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
       )
 
       const newInvoiceResults = await Promise.all(
-        clientsToAdd.map((client) =>
-          tx
-            .insert(invoices)
-            .values({
-              userId: user.id,
-              clientId: client.clientId,
-              amount: client.invoice.amount,
-              currency: client.invoice.currency,
-              dueDate: client.invoice.dueDate,
-              reference: client.invoice.reference,
-            })
-            .returning()
+        clientsToAdd.map(
+          (client) =>
+            client.invoice &&
+            tx
+              .insert(invoices)
+              .values({
+                userId: user.id,
+                clientId: client.clientId,
+                amount: client.invoice.amount.toString(),
+                dueDate: client.invoice.dueDate,
+                reference: client.invoice.reference,
+              })
+              .returning()
         )
       )
 
@@ -178,7 +179,7 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
           tx.insert(mediationClients).values({
             mediationId: id,
             clientId: client.clientId,
-            invoiceId: newInvoiceResults[index][0].id,
+            invoiceId: newInvoiceResults[index]?.[0]?.id || null,
           })
         )
       )

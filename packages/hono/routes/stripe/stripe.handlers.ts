@@ -19,9 +19,7 @@ export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   }
 
   try {
-    console.log('Creating Stripe Connect account')
     const account = await stripe.accounts.create({})
-    console.log(account)
     await db.insert(stripeConnects).values({
       id: account.id,
       userId: user.id,

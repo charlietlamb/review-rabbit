@@ -79,7 +79,6 @@ export default function InvoiceForm({
       <form
         className="flex flex-col w-full max-w-2xl gap-4 mx-auto"
         onSubmit={(e) => {
-          console.log('submitted')
           setAttemptSubmitted(true)
           e.preventDefault()
           e.stopPropagation()

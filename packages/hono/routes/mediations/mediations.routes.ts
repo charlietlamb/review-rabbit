@@ -8,7 +8,7 @@ import {
   mediationRequestSchema,
   mediationsRequestSchema,
 } from '@remio/design-system/components/dashboard/mediation/mediation-types'
-import { mediationSchema, mediationWithDataSchema } from '@remio/database'
+import { mediationWithDataSchema } from '@remio/database'
 
 const tags = ['Mediations']
 

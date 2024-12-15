@@ -10,7 +10,7 @@ export const clientsSelectSearchAtom = atom<string>('')
 export const clientsSelectOptionsAtom = atom<Client[]>([])
 export const mediationTabAtom = atom<'single' | 'multiple'>('single')
 export const mediationAllClientsAtom = atom<MediationDataForm>({
-  email: null,
   invoice: null,
+  email: false,
 })
 export const mediationClientsAtom = atom<MediationClientDataForm[]>([])

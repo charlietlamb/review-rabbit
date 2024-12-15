@@ -70,7 +70,6 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const newClient = await c.req.json()
-  console.log('newClient', newClient)
   try {
     await db.insert(clients).values({ ...newClient, userId: user.id })
     return c.json(true, HttpStatusCodes.OK)

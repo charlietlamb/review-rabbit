@@ -9,7 +9,6 @@ import {
 export default function OverviewCards() {
   const dashboardData = useAtomValue(dashboardDataAtom)
   const compareDashboardData = useAtomValue(overviewCompareDataAtom)
-  console.log(dashboardData)
 
   const totalRevenue = dashboardData.invoiceData.reduce(
     (acc, invoice) => acc + Number(invoice.amount),

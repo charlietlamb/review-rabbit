@@ -37,6 +37,5 @@ export async function sendEmail(
     },
   }
   const response = await ses.sendEmail(params)
-  console.log(response)
   return response.$metadata.httpStatusCode
 }

@@ -7,7 +7,6 @@ import { InvoiceFormData } from '@remio/design-system/components/dashboard/invoi
 export async function addInvoice(
   newInvoice: InvoiceFormData
 ): Promise<boolean> {
-  console.log(newInvoice)
   const response = await client.invoices.add.$post(
     {
       json: newInvoice,

@@ -52,8 +52,6 @@ export default function OverviewChart() {
     }),
     [chartData]
   )
-  console.log(dashboardData)
-  console.log(chartData)
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">

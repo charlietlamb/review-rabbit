@@ -1,6 +1,7 @@
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 import { Client } from '@remio/database/schema/clients'
 import MediationFormClientInvoice from './mediation-form-client-invoice'
+import MediationFormClientEmail from './mediation-form-client-email'
 
 export default function MediationFormClient({
   form,
@@ -15,6 +16,7 @@ export default function MediationFormClient({
         {client ? client?.name : 'All clients'}
       </h2>
       <MediationFormClientInvoice form={form} client={client} />
+      <MediationFormClientEmail form={form} client={client} />
     </div>
   )
 }

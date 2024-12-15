@@ -20,14 +20,14 @@ export default function AuthLayout({
         Login
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-zinc-900" />
+        <div className="absolute inset-0 bg-primary" />
         <Logo className="text-white z-50" />
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
+              &ldquo;Managing mediations has become seamless and efficient,
+              allowing our team to focus on delivering excellent service to our
+              clients.&rdquo;
             </p>
             <footer className="text-sm">Sofia Davis</footer>
           </blockquote>

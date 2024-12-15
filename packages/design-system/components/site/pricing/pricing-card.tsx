@@ -35,7 +35,7 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
     >
       <CardHeader className="relative z-10">
         {isPro && (
-          <span className="absolute top-12 right-6 rounded-full bg-primary/90 px-3 py-1 text-xs text-primary-foreground font-heading font-bold">
+          <span className="absolute top-12 right-6 rounded-full bg-primary/90 px-3 py-1 text-xs text-background font-heading font-bold z-50">
             Popular
           </span>
         )}

@@ -8,7 +8,6 @@ import { Button } from '@remio/design-system/components/ui/button'
 import ImageForm from '@remio/design-system/components/auth/form/image'
 import useUser from '@remio/design-system/hooks/use-user'
 import { useRouter } from 'next/navigation'
-import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
 import Spinner from '@remio/design-system/components/misc/spinner'
 import { toast } from 'sonner'
 import UpdatePassword from '@remio/design-system/components/auth/update-password/update-password'
@@ -108,10 +107,9 @@ export default function DashboadSettingsAccountForm() {
             setFileTooLarge={setFileTooLarge}
           />
           <Button
-            variant="shine"
             type="submit"
             disabled={form.state.isSubmitting || fileTooLarge}
-            className="w-full mt-2"
+            className="w-full mt-2 font-heading font-bold"
           >
             {fileTooLarge ? (
               `File too large, max size is ${MAX_FILE_SIZE_STRING}`

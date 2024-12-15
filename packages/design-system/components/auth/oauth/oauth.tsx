@@ -3,6 +3,7 @@ import { RiGoogleFill } from '@remixicon/react'
 import { authClient } from '@remio/design-system/lib/authClient'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import Spinner from '@remio/design-system/components/misc/spinner'
 
 export default function OAuth() {
   const [loading, setLoading] = useState(false)
@@ -15,7 +16,7 @@ export default function OAuth() {
         size="icon"
         onClick={() => {
           setLoading(true)
-          toast.loading('Signing in with Google...', {
+          toast('Signing in with Google...', {
             description: 'Redirecting to Google...',
           })
           authClient.signIn.social({ provider: 'google' })
@@ -27,7 +28,7 @@ export default function OAuth() {
           aria-hidden="true"
           className="text-foreground"
         />
-        Sign In with Google
+        {loading ? <Spinner /> : 'Sign In with Google'}
       </Button>
     </div>
   )

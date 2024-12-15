@@ -1,17 +1,5 @@
-// src/components/multi-select.tsx
-
-import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
-import {
-  CheckIcon,
-  XCircle,
-  ChevronDown,
-  XIcon,
-  WandSparkles,
-} from 'lucide-react'
-
+import { CheckIcon, ChevronDown, X } from 'lucide-react'
 import { cn } from '@remio/design-system/lib/utils'
-import { Separator } from '@remio/design-system/components/ui/separator'
 import { Button } from '@remio/design-system/components/ui/button'
 import { Badge } from '@remio/design-system/components/ui/badge'
 import {
@@ -26,7 +14,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@remio/design-system/components/ui/command'
 import {
   clientsSelectOptionsAtom,
@@ -34,48 +21,27 @@ import {
   selectedClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtom } from 'jotai'
-import { useEffect } from 'react'
 import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
 import { Client } from '@remio/database/schema/clients'
 import ClientAvatar from '@remio/design-system/components/dashboard/clients/client-avatar'
-
-/**
- * Variants for the multi-select component to handle different styles.
- * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
- */
-const multiSelectVariants = cva(
-  'm-1 transition ease-in-out delay-150 hover:scale-105 duration-300',
-  {
-    variants: {
-      variant: {
-        default:
-          'border-foreground/10 text-foreground bg-card hover:bg-card/80',
-        secondary:
-          'border-foreground/10 bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        destructive:
-          'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        inverted: 'inverted',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }
-)
+import { useState } from 'react'
+import Spinner from '@remio/design-system/components/misc/spinner'
+import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
 
 export default function ClientMultiSelect() {
   const [search, setSearch] = useAtom(clientsSelectSearchAtom)
-  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
-  const [options, setOptions] = useAtom(clientsSelectOptionsAtom)
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
 
-  useEffect(() => {
-    async function fetchData() {
-      const clients = await fetchClients(0, search)
-      setOptions(clients)
-    }
-    fetchData()
-  }, [search])
+  const { items: options, isFetching } = useInfiniteQueryWithAtom({
+    queryKey: 'clients',
+    fetchFn: fetchClients,
+    atom: clientsSelectOptionsAtom,
+    searchAtom: clientsSelectSearchAtom,
+    filterFn: (client, search) =>
+      client.name.toLowerCase().includes(search.toLowerCase()) ||
+      (client.email?.toLowerCase().includes(search.toLowerCase()) ?? false),
+  })
 
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -96,10 +62,6 @@ export default function ClientMultiSelect() {
     setSelectedClients(newSelectedValues)
   }
 
-  const handleClear = () => {
-    setSelectedClients([])
-  }
-
   const handleTogglePopover = () => {
     setIsPopoverOpen((prev) => !prev)
   }
@@ -113,42 +75,37 @@ export default function ClientMultiSelect() {
         >
           {selectedClients.length > 0 ? (
             <div className="flex items-center justify-between w-full">
-              <div className="flex flex-wrap items-center">
-                {selectedClients.map((client) => {
-                  return (
-                    <Badge
-                      key={client.id}
+              <div className="flex flex-wrap items-center gap-2 p-2">
+                {selectedClients.map((client) => (
+                  <Badge
+                    key={client.id}
+                    className={cn(
+                      'group flex items-center gap-2 px-2 py-1.5 rounded-md',
+                      'bg-background/50 hover:bg-background/80',
+                      'border border-border/50 hover:border-border/80',
+                      'text-foreground hover:text-foreground',
+                      'transition-all duration-200 ease-in-out',
+                      'backdrop-blur-sm'
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
+                  >
+                    <ClientAvatar client={client} size="xs" />
+                    <span className="text-sm font-medium">{client.name}</span>
+                    <X
                       className={cn(
-                        multiSelectVariants({ variant: 'default' }),
-                        'flex items-center gap-2'
+                        'w-3.5 h-3.5 cursor-pointer',
+                        'text-muted-foreground/50 hover:text-red-500',
+                        'transition-colors duration-200'
                       )}
-                    >
-                      <ClientAvatar client={client} size="xs" />
-                      {client.name}
-                      <XCircle
-                        className="w-4 h-4 ml-2 cursor-pointer"
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          toggleOption(client)
-                        }}
-                      />
-                    </Badge>
-                  )
-                })}
-              </div>
-              <div className="flex items-center justify-between">
-                <XIcon
-                  className="text-muted-foreground h-4 mx-2 cursor-pointer"
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    handleClear()
-                  }}
-                />
-                <Separator
-                  orientation="vertical"
-                  className="min-h-6 flex h-full"
-                />
-                <ChevronDown className="text-muted-foreground h-4 mx-2 cursor-pointer" />
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        toggleOption(client)
+                      }}
+                    />
+                  </Badge>
+                ))}
               </div>
             </div>
           ) : (
@@ -173,53 +130,47 @@ export default function ClientMultiSelect() {
             value={search}
             onValueChange={(value) => setSearch(value)}
           />
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selectedClients.some(
-                  (client) => client.id === option.id
-                )
-                return (
-                  <CommandItem
-                    key={option.id}
-                    onSelect={() => toggleOption(option)}
-                    className="flex items-center cursor-pointer"
-                  >
-                    <div
-                      className={cn(
-                        'mr-2 flex h-4 w-4 items-center justify-center',
-                        isSelected
-                          ? 'text-primary-foreground'
-                          : 'opacity-50 [&_svg]:invisible'
-                      )}
-                    >
-                      <CheckIcon className="w-4 h-4" />
-                    </div>
-                    <ClientAvatar client={option} className="mr-2" size="sm" />
-                    <span>{option.name}</span>
-                    <span className="hidden">{option.id}</span>
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
-
-            {selectedClients.length > 0 && (
-              <>
-                <CommandSeparator />
-                <CommandGroup>
-                  <div className="flex items-center justify-between">
+          {isFetching ? (
+            <div className="flex items-center justify-center p-4">
+              <Spinner />
+            </div>
+          ) : (
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup>
+                {options.map((option) => {
+                  const isSelected = selectedClients.some(
+                    (client) => client.id === option.id
+                  )
+                  return (
                     <CommandItem
-                      onSelect={handleClear}
-                      className="justify-center flex-1 cursor-pointer"
+                      key={option.id}
+                      onSelect={() => toggleOption(option)}
+                      className="flex items-center cursor-pointer"
                     >
-                      Clear
+                      <ClientAvatar
+                        client={option}
+                        className="mr-2"
+                        size="sm"
+                      />
+                      <span>{option.name}</span>
+                      <div
+                        className={cn(
+                          'ml-4 flex h-4 w-4 items-center justify-center',
+                          isSelected
+                            ? 'text-foreground'
+                            : 'opacity-50 [&_svg]:invisible'
+                        )}
+                      >
+                        <CheckIcon className="w-4 h-4" />
+                      </div>
+                      <span className="hidden">{option.id}</span>
                     </CommandItem>
-                  </div>
-                </CommandGroup>
-              </>
-            )}
-          </CommandList>
+                  )
+                })}
+              </CommandGroup>
+            </CommandList>
+          )}
         </Command>
       </PopoverContent>
     </Popover>

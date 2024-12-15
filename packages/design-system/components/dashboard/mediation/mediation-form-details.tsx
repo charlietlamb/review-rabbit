@@ -10,7 +10,6 @@ import {
 import { cn } from '@remio/design-system/lib/utils'
 import { selectedClientsAtom } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import MediationFormClient from './mediation-form-client'
-import { useEffect } from 'react'
 
 export default function MediationFormDetails({
   form,
@@ -30,7 +29,7 @@ export default function MediationFormDetails({
         <TabsTrigger
           value="single"
           className={cn(
-            'bg-transparent data-[state=active]:bg-foreground data-[state=active]:text-background'
+            'bg-transparent data-[state=active]:bg-primary data-[state=active]:text-background'
           )}
         >
           Edit all clients
@@ -38,7 +37,7 @@ export default function MediationFormDetails({
         <TabsTrigger
           value="multiple"
           className={cn(
-            'bg-transparent data-[state=active]:bg-foreground data-[state=active]:text-background'
+            'bg-transparent data-[state=active]:bg-primary data-[state=active]:text-background'
           )}
         >
           Edit clients individually

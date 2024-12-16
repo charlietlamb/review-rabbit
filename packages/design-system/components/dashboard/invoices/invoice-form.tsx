@@ -16,6 +16,7 @@ import TextareaInput from '@remio/design-system/components/form/input/textarea-i
 import DatePicker from '@remio/design-system/components/form/date/date-time-picker'
 import ClientSelect from '@remio/design-system/components/form/clients/client-select'
 import MoneyInput from '@remio/design-system/components/form/money/money-input'
+import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
 
 export default function InvoiceForm({
   invoice,
@@ -40,7 +41,7 @@ export default function InvoiceForm({
     defaultValues: {
       clientId: client?.id || '',
       amount: invoice?.amount || 0,
-      dueDate: invoice?.dueDate || new Date(),
+      dueDate: invoice?.dueDate || nearestDateValue(new Date()),
       reference: invoice?.reference || '',
     } as InvoiceFormData,
     onSubmit: async ({ value }) => {
@@ -98,6 +99,7 @@ export default function InvoiceForm({
             label="Amount"
             placeholder="Amount"
             required
+            currency="EUR"
           />
           <DatePicker
             form={form}

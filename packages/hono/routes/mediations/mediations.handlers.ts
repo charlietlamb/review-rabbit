@@ -17,7 +17,9 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { data, date, duration } = await c.req.valid('json')
+  const { data, date, duration, title, color, notes } = await c.req.valid(
+    'json'
+  )
 
   try {
     return await db.transaction(async (tx) => {
@@ -25,6 +27,9 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
         .insert(mediations)
         .values({
           userId: user.id,
+          title,
+          notes,
+          color,
           date: new Date(date),
           duration,
         })
@@ -86,7 +91,9 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { id, data, date, duration } = await c.req.valid('json')
+  const { id, data, date, duration, title, notes, color } = await c.req.valid(
+    'json'
+  )
 
   try {
     return await db.transaction(async (tx) => {
@@ -94,6 +101,9 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
         .update(mediations)
         .set({
           date: new Date(date),
+          title,
+          notes,
+          color,
           duration,
           updatedAt: new Date(),
         })

@@ -11,6 +11,7 @@ import {
   mediationClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { InvoiceFormData } from '../invoices/invoice-schema'
+import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
 
 export default function MediationFormClientInvoice({
   form,
@@ -26,7 +27,7 @@ export default function MediationFormClientInvoice({
   const [hasInvoice, setHasInvoice] = useState(false)
   const defaultInvoice = {
     amount: 0,
-    dueDate: new Date(),
+    dueDate: nearestDateValue(new Date()),
     reference: '',
     clientId: client?.id || '',
   }
@@ -164,6 +165,7 @@ export default function MediationFormClientInvoice({
           label="Amount"
           placeholder="Amount"
           required
+          currency="EUR"
         />
         <DatePicker
           value={dueDate}

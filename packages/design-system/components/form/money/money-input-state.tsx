@@ -17,7 +17,7 @@ interface MoneyInputProps {
   currency?: string
 }
 
-export default function MoneyInput({
+export default function MoneyInputState({
   value,
   setValue,
   name,
@@ -43,7 +43,9 @@ export default function MoneyInput({
         formatOptions={{
           style: 'currency',
           currency: currency,
-          currencySign: 'accounting',
+          currencySign: 'standard',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         }}
         minValue={0}
         isRequired={required}
@@ -59,8 +61,6 @@ export default function MoneyInput({
               name={name}
               placeholder={placeholder}
               className="bg-background tabular-nums text-foreground focus:outline-none flex-1 px-3 py-2"
-              value={value}
-              onChange={(e) => setValue(Number(e.target.value))}
             />
             <div className="flex h-[calc(100%+2px)] flex-col">
               <Button

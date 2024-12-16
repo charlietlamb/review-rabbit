@@ -11,13 +11,13 @@ export const scheduleFeaturesAtom = atom<Feature[]>((get) => {
   const mediations = get(scheduleMediationsAtom)
   return mediations.map((mediation) => ({
     id: mediation.id,
-    name: mediation.data[0]?.client?.name ?? '',
+    name: mediation.title,
     startAt: mediation.date,
     endAt: addMinutes(mediation.date, mediation.duration),
     status: {
       id: mediation.id,
-      name: 'Active',
-      color: 'green',
+      name: mediation.title,
+      color: mediation.color,
     } as Status,
   }))
 })

@@ -15,6 +15,9 @@ export const mediations = pgTable('mediations', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id),
+  title: text('title').notNull(),
+  notes: text('notes'),
+  color: text('color').notNull(),
   date: timestamp('date').notNull(),
   duration: integer('duration').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),

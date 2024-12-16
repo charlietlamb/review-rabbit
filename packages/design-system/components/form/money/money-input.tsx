@@ -26,7 +26,7 @@ export default function MoneyInput({
   placeholder = 'Enter amount',
   required,
   className,
-  currency = 'EUR',
+  currency = 'GBP',
 }: MoneyInputProps) {
   const { attemptSubmitted } = useFormContext()
 
@@ -52,7 +52,9 @@ export default function MoneyInput({
             formatOptions={{
               style: 'currency',
               currency: currency,
-              currencySign: 'accounting',
+              currencySign: 'standard',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
             }}
             minValue={0}
             isRequired={required}

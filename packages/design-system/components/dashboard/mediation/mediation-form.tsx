@@ -7,7 +7,7 @@ import { MediationData, mediationDataSchema } from './mediation-types'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { UserCheck } from 'lucide-react'
+import { FilePenLine, UserCheck } from 'lucide-react'
 import { Mediation } from '@remio/database'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
@@ -24,6 +24,9 @@ import {
   selectedClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtomValue } from 'jotai'
+import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
+import ColorPicker from '@remio/design-system/components/form/color/color-picker'
+import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
 
 export default function MediationForm({
   mediation,
@@ -40,7 +43,10 @@ export default function MediationForm({
   const form = useForm({
     defaultValues: {
       data: [],
-      date: new Date(),
+      title: '',
+      notes: null,
+      color: 'blue',
+      date: nearestDateValue(new Date()),
       duration: 0,
     } as MediationData,
     onSubmit: async ({ value }) => {
@@ -108,6 +114,10 @@ export default function MediationForm({
   }
 
   function validateForm(value: MediationData) {
+    if (!value.title.length) {
+      toast.error('Please enter a title')
+      return false
+    }
     if (!value.data.length) {
       toast.error('Please select at least one client', {
         description: 'The select input is at the top of the form',
@@ -128,8 +138,6 @@ export default function MediationForm({
         console.log(d.invoice?.dueDate)
         return d.invoice?.dueDate && d.invoice?.dueDate < now
       })
-    console.log(value.data)
-    console.log(invalidInvoices)
 
     if (invalidInvoices) {
       toast.error('Invoice due dates cannot be in the past')
@@ -159,6 +167,9 @@ export default function MediationForm({
           updateFromValues()
           const value = {
             data: form.getFieldValue('data'),
+            title: form.getFieldValue('title'),
+            notes: form.getFieldValue('notes'),
+            color: form.getFieldValue('color'),
             date: form.getFieldValue('date'),
             duration: form.getFieldValue('duration'),
           }
@@ -169,7 +180,24 @@ export default function MediationForm({
         }}
       >
         <div className="md:grid-cols-2 grid grid-cols-1 gap-4 p-4">
-          <ClientsSelect form={form} className="w-full col-span-2" />
+          <InputWithIcon
+            icon={<FilePenLine />}
+            form={form}
+            name="title"
+            label="Title"
+            placeholder="Title"
+            type="text"
+            required
+            className="w-full"
+          />
+          <ColorPicker
+            form={form}
+            name="color"
+            label="Color"
+            className="w-full"
+            innerClassName="md:mt-3"
+          />
+          <ClientsSelect form={form} className="w-full md:col-span-2" />
           <DateTimePicker
             form={form}
             name="date"

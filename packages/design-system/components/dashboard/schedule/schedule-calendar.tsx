@@ -13,7 +13,7 @@ import {
 } from '@remio/design-system/components/roadmap-ui/calendar'
 import { useAtomValue } from 'jotai'
 import { scheduleFeaturesAtom } from '@remio/design-system/atoms/dashboard/schedule/schedule-atoms'
-
+import ScheduleItemSheet from './schedule-item-sheet'
 export default function ScheduleCalendar() {
   const features = useAtomValue(scheduleFeaturesAtom)
   return (
@@ -29,7 +29,11 @@ export default function ScheduleCalendar() {
       </CalendarDate>
       <CalendarHeader />
       <CalendarBody features={features}>
-        {({ feature }) => <CalendarItem key={feature.id} feature={feature} />}
+        {({ feature }) => (
+          <ScheduleItemSheet key={feature.id}>
+            <CalendarItem feature={feature} />
+          </ScheduleItemSheet>
+        )}
       </CalendarBody>
     </CalendarProvider>
   )

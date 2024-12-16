@@ -409,14 +409,16 @@ export type CalendarItemProps = {
 }
 
 export const CalendarItem = ({ feature, className }: CalendarItemProps) => (
-  <div className={cn('flex items-center gap-2', className)} key={feature.id}>
+  <div className={cn('flex items-center gap-1', className)} key={feature.id}>
     <div
-      className="h-2 w-2 shrink-0 rounded-full"
-      style={{
-        backgroundColor: feature.status.color,
-      }}
+      className={cn(
+        'h-2 w-2 shrink-0 rounded-full lg:h-3 lg:w-3',
+        `bg-${feature.status.color}-500`
+      )}
     />
-    <span className="truncate">{feature.name}</span>
+    <span className="truncate font-heading text-foreground lg:text-base">
+      {feature.name}
+    </span>
   </div>
 )
 

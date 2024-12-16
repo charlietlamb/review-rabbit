@@ -10,6 +10,9 @@ export const mediationDataSchema = z.object({
       email: z.boolean(),
     })
   ),
+  title: z.string(),
+  notes: z.string().nullable(),
+  color: z.enum(['green', 'yellow', 'red', 'blue', 'purple', 'pink']),
   date: z.coerce.date(),
   duration: z.number(),
 })

@@ -1,6 +1,7 @@
 import { clientSchema } from '@remio/database/schema/clients'
 import { z } from 'zod'
 import { invoiceValidationSchema } from '../invoices/invoice-schema'
+import { colorSchema } from '@remio/design-system/components/form/color/color-picker'
 
 export const mediationDataSchema = z.object({
   data: z.array(
@@ -12,7 +13,7 @@ export const mediationDataSchema = z.object({
   ),
   title: z.string(),
   notes: z.string().nullable(),
-  color: z.enum(['green', 'yellow', 'red', 'blue', 'purple', 'pink']),
+  color: colorSchema,
   date: z.coerce.date(),
   duration: z.number(),
 })

@@ -4,7 +4,7 @@ import client from '@remio/design-system/lib/client'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 import { MediationWithData } from '@remio/database/schema/mediations'
 
-export async function fetchMediations(id: string): Promise<MediationWithData> {
+export async function getMediationById(id: string): Promise<MediationWithData> {
   const response = await client.mediations['get-by-id'].$post(
     {
       json: {

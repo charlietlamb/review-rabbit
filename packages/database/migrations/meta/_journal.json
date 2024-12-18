@@ -71,6 +71,13 @@
       "when": 1734551081086,
       "tag": "0009_watery_mentallo",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1734554686180,
+      "tag": "0010_bent_wiccan",
+      "breakpoints": true
     }
   ]
 }

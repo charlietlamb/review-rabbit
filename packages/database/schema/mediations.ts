@@ -41,6 +41,7 @@ export const mediationWithDataSchema = mediationSchema.extend({
     z.object({
       client: clientSchema,
       invoice: invoiceSchema.nullable(),
+      email: z.boolean(),
     })
   ),
 })

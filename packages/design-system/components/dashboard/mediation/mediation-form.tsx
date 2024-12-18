@@ -8,7 +8,7 @@ import { zodValidator } from '@tanstack/zod-form-adapter'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { FilePenLine, UserCheck } from 'lucide-react'
-import { Mediation } from '@remio/database'
+import { MediationWithData } from '@remio/database/schema/mediations'
 import { addMediation } from '@remio/design-system/actions/mediations/add-mediation'
 import { updateMediation } from '@remio/design-system/actions/mediations/update-mediation'
 import ClientsSelect from '@remio/design-system/components/form/clients/clients-select'
@@ -33,7 +33,7 @@ export default function MediationForm({
   onSuccess,
   setIsOpen,
 }: {
-  mediation?: Mediation
+  mediation?: MediationWithData
   onSuccess?: () => void
   setIsOpen?: (isOpen: boolean) => void
 }) {
@@ -42,12 +42,24 @@ export default function MediationForm({
   const router = useRouter()
   const form = useForm({
     defaultValues: {
-      data: [],
-      title: '',
-      notes: null,
-      color: 'blue',
-      date: nearestDateValue(new Date()),
-      duration: 0,
+      data:
+        mediation?.data.map((d) => ({
+          clientId: d.client.id,
+          email: false,
+          invoice: d.invoice
+            ? {
+                clientId: d.client.id,
+                amount: Number(d.invoice.amount),
+                dueDate: d.invoice.dueDate,
+                reference: d.invoice.reference || undefined,
+              }
+            : null,
+        })) || [],
+      title: mediation?.title || '',
+      notes: mediation?.notes || null,
+      color: mediation?.color || 'blue',
+      date: mediation?.date || nearestDateValue(new Date()),
+      duration: mediation?.duration || 0,
     } as MediationData,
     onSubmit: async ({ value }) => {
       handleSubmit(value)
@@ -195,7 +207,7 @@ export default function MediationForm({
             name="color"
             label="Color"
             className="w-full"
-            innerClassName="md:mt-3"
+            innerClassName="md:mt-1"
           />
           <ClientsSelect form={form} className="w-full md:col-span-2" />
           <DateTimePicker

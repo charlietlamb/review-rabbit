@@ -30,7 +30,7 @@ export default function ScheduleCalendar() {
       <CalendarHeader />
       <CalendarBody features={features}>
         {({ feature }) => (
-          <ScheduleItemSheet key={feature.id}>
+          <ScheduleItemSheet feature={feature} key={feature.id}>
             <CalendarItem feature={feature} />
           </ScheduleItemSheet>
         )}

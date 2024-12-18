@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { relations } from 'drizzle-orm'
@@ -19,6 +19,7 @@ export const mediationClients = pgTable('mediation_clients', {
     .notNull()
     .references(() => clients.id),
   invoiceId: text('invoice_id').references(() => invoices.id),
+  email: boolean('email').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })

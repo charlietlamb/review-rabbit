@@ -293,6 +293,7 @@ export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
           data: mediationClientsData.map((mc) => ({
             client: mc.client,
             invoice: mc.invoice,
+            email: mc.email,
           })),
         }
       })
@@ -337,6 +338,7 @@ export const getMediation: AppRouteHandler<GetMediationRoute> = async (c) => {
       data: mediationClientsData.map((mc) => ({
         client: mc.client,
         invoice: mc.invoice,
+        email: mc.email,
       })),
     }
 

@@ -1,6 +1,6 @@
 import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
 import { Client } from '@remio/database/schema/clients'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Button } from '@remio/design-system/components/ui/button'
 import MoneyInput from '@remio/design-system/components/form/money/money-input-state'
 import DatePicker from '@remio/design-system/components/form/date/date-picker-state'
@@ -25,11 +25,15 @@ export default function MediationFormClientInvoice({
   )
   const [mediationClients, setMediationClients] = useAtom(mediationClientsAtom)
   const [hasInvoice, setHasInvoice] = useState(false)
+  const [dueDate, setDueDate] = useState(new Date())
+  const [amount, setAmount] = useState(0)
+  const [reference, setReference] = useState('')
+
   const defaultInvoice = {
     amount: 0,
     dueDate: nearestDateValue(new Date()),
     reference: '',
-    clientId: client?.id || '',
+    clientId: '',
   }
 
   useEffect(() => {
@@ -37,29 +41,34 @@ export default function MediationFormClientInvoice({
       const mediationClient = mediationClients.find(
         (mediationClient) => mediationClient.client.id === client.id
       )
-      if (mediationClient && mediationClient.data.invoice !== null) {
+      if (mediationClient?.data.invoice) {
         setHasInvoice(true)
+        setDueDate(mediationClient.data.invoice.dueDate)
+        setAmount(mediationClient.data.invoice.amount)
+        setReference(mediationClient.data.invoice.reference ?? '')
       } else {
         setHasInvoice(false)
       }
+    } else if (mediationAllClients?.invoice) {
+      setHasInvoice(true)
+      setDueDate(mediationAllClients.invoice.dueDate)
+      setAmount(mediationAllClients.invoice.amount)
+      setReference(mediationAllClients.invoice.reference ?? '')
     } else {
-      if (mediationAllClients && mediationAllClients.invoice !== null) {
-        setHasInvoice(true)
-      } else {
-        setHasInvoice(false)
-      }
+      setHasInvoice(false)
     }
   }, [mediationAllClients, mediationClients, client])
 
-  const [dueDate, setDueDate] = useState(new Date())
-  const [amount, setAmount] = useState(0)
-  const [reference, setReference] = useState('')
+  const updateClientInvoice = useCallback(() => {
+    if (!hasInvoice) return
 
-  useEffect(() => {
-    updateState({ amount, dueDate, reference, clientId: client?.id || '' })
-  }, [amount, dueDate, reference, client])
+    const values = {
+      amount,
+      dueDate,
+      reference,
+      clientId: client?.id || '',
+    }
 
-  function updateState(values: InvoiceFormData) {
     if (client) {
       setMediationClients((prev) =>
         prev.map((mediationClient) =>
@@ -68,12 +77,7 @@ export default function MediationFormClientInvoice({
                 ...mediationClient,
                 data: {
                   ...mediationClient.data,
-                  invoice: {
-                    amount: values.amount,
-                    dueDate: values.dueDate,
-                    reference: values.reference,
-                    clientId: client.id,
-                  },
+                  invoice: values,
                 },
               }
             : mediationClient
@@ -82,15 +86,26 @@ export default function MediationFormClientInvoice({
     } else {
       setMediationAllClients((prev) => ({
         ...prev,
-        invoice: {
-          amount: values.amount,
-          dueDate: values.dueDate,
-          reference: values.reference,
-          clientId: '',
-        },
+        invoice: values,
       }))
     }
-  }
+  }, [
+    amount,
+    dueDate,
+    reference,
+    client,
+    hasInvoice,
+    setMediationClients,
+    setMediationAllClients,
+  ])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      updateClientInvoice()
+    }, 300)
+
+    return () => clearTimeout(timeoutId)
+  }, [updateClientInvoice])
 
   function handleAddInvoice() {
     if (client) {

@@ -105,3 +105,15 @@ export default function ColorPicker({
     </form.Field>
   )
 }
+
+export const colorSchema = z.enum([
+  'blue',
+  'indigo',
+  'pink',
+  'red',
+  'orange',
+  'amber',
+  'emerald',
+])
+
+export type ColorType = z.infer<typeof colorSchema>

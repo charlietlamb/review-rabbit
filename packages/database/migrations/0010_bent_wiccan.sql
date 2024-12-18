@@ -1,0 +1,1 @@
+ALTER TABLE "mediation_clients" ADD COLUMN "email" boolean DEFAULT false NOT NULL;

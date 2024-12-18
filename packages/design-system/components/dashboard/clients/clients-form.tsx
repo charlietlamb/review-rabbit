@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation'
 import { Client } from '@remio/database'
 import { cn } from '@remio/design-system/lib/utils'
 import DangerDialog from '@remio/design-system/components/misc/danger-dialog'
+import ColorPicker from '@remio/design-system/components/form/color/color-picker'
 
 export default function ClientsForm({
   client,
@@ -41,8 +42,10 @@ export default function ClientsForm({
       name: client?.name || '',
       email: client?.email || '',
       phoneNumber: client?.phoneNumber || '',
+      color: client?.color || 'blue',
     } as ClientFormData,
     onSubmit: async ({ value }) => {
+      console.log(value)
       setIsLoading(true)
       setAttemptSubmitted(true)
       const success = client
@@ -62,8 +65,8 @@ export default function ClientsForm({
             icon: <UserCheck />,
           }
         )
-        router.refresh()
         onSuccess?.()
+        router.refresh()
       }
       setIsLoading(false)
       setIsOpen?.(false)
@@ -75,14 +78,7 @@ export default function ClientsForm({
   })
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
-      <form
-        className={cn('flex flex-col gap-4 w-full mx-auto', className)}
-        onSubmit={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          form.handleSubmit()
-        }}
-      >
+      <form className={cn('flex flex-col gap-4 w-full mx-auto', className)}>
         <div className="grid grid-cols-2 gap-4">
           <InputWithIcon
             form={form}
@@ -109,6 +105,7 @@ export default function ClientsForm({
             placeholder="Phone Number"
             className="col-span-2"
           />
+          <ColorPicker form={form} name="color" label="Color" />
         </div>
         <div className="flex gap-2">
           {client && (
@@ -147,6 +144,11 @@ export default function ClientsForm({
             disabled={isLoading}
             variant="shine"
             colors="none"
+            onClick={() => {
+              console.log(form.getFieldValue('color'))
+              console.log(form.getFieldValue('name'))
+              form.handleSubmit()
+            }}
           >
             {isLoading ? <Spinner /> : client ? 'Update Client' : 'Add Client'}
           </Button>

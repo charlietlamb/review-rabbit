@@ -12,6 +12,7 @@ export const clients = pgTable('clients', {
   userId: text('user_id').notNull(),
   name: text('name').notNull(),
   email: text('email').notNull(),
+  color: text('color').notNull(),
   phoneNumber: text('phone_number'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),

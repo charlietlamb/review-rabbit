@@ -73,7 +73,11 @@ export default function ColorPicker({
     >
       {(field) => (
         <div className={cn('flex flex-col gap-2', className)}>
-          <RequiredLabel htmlFor={field.name} required={required}>
+          <RequiredLabel
+            className="text-base"
+            htmlFor={field.name}
+            required={required}
+          >
             {label}
           </RequiredLabel>
           <RadioGroup

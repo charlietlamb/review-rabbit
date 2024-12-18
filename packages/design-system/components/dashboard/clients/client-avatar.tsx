@@ -5,6 +5,7 @@ import {
 } from '@remio/design-system/components/ui/avatar'
 import { useIsMobile } from '@remio/design-system/hooks/use-mobile'
 import { cn } from '@remio/design-system/lib/utils'
+import { useTheme } from 'next-themes'
 
 export default function ClientAvatar({
   client,
@@ -27,8 +28,11 @@ export default function ClientAvatar({
 
   return (
     <Avatar className={cn(className, sizeClasses[size])}>
-      <AvatarFallback>
-        {client.name.split(' ')[0][0] + (client.name.split(' ')[1]?.[0] || '')}
+      <AvatarFallback
+        className={`bg-${client.color}-300 dark:bg-${client.color}-700`}
+      >
+        {client.name.split(' ')[0][0].toUpperCase()}
+        {client.name.split(' ')[1]?.[0].toUpperCase()}
       </AvatarFallback>
     </Avatar>
   )

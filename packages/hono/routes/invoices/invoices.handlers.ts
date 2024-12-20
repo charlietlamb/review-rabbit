@@ -8,6 +8,7 @@ import {
   DeleteInvoiceRoute,
   GetInvoicesChartRoute,
   GetInvoicesWithClientRoute,
+  GetInvoiceByIdRoute,
 } from './invoices.routes'
 
 import { eq, sql, and } from 'drizzle-orm'
@@ -184,6 +185,34 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
         error: 'Failed to fetch invoices chart',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getInvoiceById: AppRouteHandler<GetInvoiceByIdRoute> = async (
+  c
+) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { id } = await c.req.json()
+  try {
+    const invoice = await db.query.invoices.findFirst({
+      where: and(eq(invoices.id, id), eq(invoices.userId, user.id)),
+      with: {
+        client: true,
+      },
+    })
+    if (!invoice) {
+      return c.json({ error: 'Invoice not found' }, HttpStatusCodes.NOT_FOUND)
+    }
+    return c.json(invoice, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching invoice:', error)
+    return c.json(
+      { error: 'Failed to fetch invoice' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

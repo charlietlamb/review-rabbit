@@ -15,7 +15,7 @@ export default async function layout({
   useIsUser(user)
   return (
     <ThemeProvider attribute="class" defaultTheme="system">
-      <SidebarProvider className="flex w-full flex-grow">
+      <SidebarProvider className="flex w-full flex-grow bg-sidebar">
         <SessionProvider user={user}>
           <DashboardSidebar />
           <div className="w-full max-h-screen flex flex-col overflow-hidden bg-sidebar">

@@ -36,7 +36,6 @@ export default function ClientsTable() {
     hasNextPage,
     fetchNextPage,
     isLoading,
-    isFetching,
   } = useInfiniteQueryWithAtom({
     queryKey: 'clients',
     fetchFn: fetchClients,

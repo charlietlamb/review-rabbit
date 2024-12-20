@@ -17,17 +17,22 @@ import DatePicker from '@remio/design-system/components/form/date/date-time-pick
 import ClientSelect from '@remio/design-system/components/form/clients/client-select'
 import MoneyInput from '@remio/design-system/components/form/money/money-input'
 import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
+import { cn } from '@remio/design-system/lib/utils'
 
 export default function InvoiceForm({
   invoice,
   client,
   setIsOpen,
   onSuccess,
+  onDelete,
+  className,
 }: {
   invoice?: Invoice
   client?: Client
   setIsOpen?: (isOpen: boolean) => void
   onSuccess?: () => void
+  onDelete?: () => void
+  className?: string
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
@@ -78,7 +83,7 @@ export default function InvoiceForm({
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
       <form
-        className="flex flex-col w-full max-w-2xl gap-4 mx-auto"
+        className={cn(className, 'flex flex-col w-full gap-4 mx-auto')}
         onSubmit={(e) => {
           setAttemptSubmitted(true)
           e.preventDefault()
@@ -137,6 +142,7 @@ export default function InvoiceForm({
                   })
                 }
                 setIsDeleting(false)
+                onDelete?.()
               }}
             >
               {isDeleting ? <Spinner /> : 'Delete Invoice'}

@@ -17,7 +17,14 @@ export default function InvoicesTableDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" colors="ghost" size="iconSm">
+        <Button
+          variant="ghost"
+          colors="ghost"
+          size="iconSm"
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
           <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">Open menu</span>
         </Button>

@@ -29,7 +29,7 @@ export default function OverviewCards() {
   }).format(totalRevenue)
 
   return (
-    <div className="md:grid-cols-2 lg:grid-cols-4 grid grid-cols-1 gap-4 p-4">
+    <div className="md:grid-cols-2 lg:grid-cols-4 grid grid-cols-1 gap-4 p-4 pb-0">
       <OverviewCard
         title="Total Revenue"
         value={formattedRevenue}

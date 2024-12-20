@@ -1,7 +1,7 @@
 'use client'
 
 import { FormProvider } from '@remio/design-system/components/form/form-context'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { MediationData, mediationDataSchema } from './mediation-types'
 import { zodValidator } from '@tanstack/zod-form-adapter'
@@ -23,7 +23,7 @@ import {
   mediationTabAtom,
   selectedClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
 import ColorPicker from '@remio/design-system/components/form/color/color-picker'
 import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
@@ -37,6 +37,7 @@ export default function MediationForm({
   onSuccess?: () => void
   setIsOpen?: (isOpen: boolean) => void
 }) {
+  console.log(mediation)
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -59,7 +60,7 @@ export default function MediationForm({
       notes: mediation?.notes || null,
       color: mediation?.color || 'blue',
       date: mediation?.date || nearestDateValue(new Date()),
-      duration: mediation?.duration || 0,
+      duration: mediation?.duration || 60,
     } as MediationData,
     onSubmit: async ({ value }) => {
       handleSubmit(value)
@@ -70,10 +71,80 @@ export default function MediationForm({
     },
   })
 
-  const mediationClients = useAtomValue(mediationClientsAtom)
-  const mediationAllClients = useAtomValue(mediationAllClientsAtom)
-  const mediationTab = useAtomValue(mediationTabAtom)
-  const selectedClients = useAtomValue(selectedClientsAtom)
+  const [mediationClients, setMediationClients] = useAtom(mediationClientsAtom)
+  const [mediationAllClients, setMediationAllClients] = useAtom(
+    mediationAllClientsAtom
+  )
+  const [mediationTab, setMediationTab] = useAtom(mediationTabAtom)
+  const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
+
+  useEffect(() => {
+    if (!mediation) return
+    form.setFieldValue('duration', mediation.duration)
+    form.setFieldValue('date', mediation.date)
+    form.setFieldValue('title', mediation.title)
+    form.setFieldValue('notes', mediation.notes)
+    form.setFieldValue('color', mediation.color)
+    setSelectedClients(mediation.data.map((d) => d.client))
+    setTab()
+  }, [mediation])
+
+  function setTab() {
+    if (!mediation?.data.length) return
+
+    const firstClient = mediation.data[0]
+
+    const hasDifferentData = mediation.data.some((d, index) => {
+      if (index === 0) return false
+
+      const hasInvoiceDifference = !!d.invoice !== !!firstClient.invoice
+
+      if (hasInvoiceDifference) return true
+
+      if (d.invoice && firstClient.invoice) {
+        return (
+          d.invoice.amount !== firstClient.invoice.amount ||
+          d.invoice.dueDate.getTime() !==
+            firstClient.invoice.dueDate.getTime() ||
+          d.invoice.reference !== firstClient.invoice.reference
+        )
+      }
+
+      return d.email !== firstClient.email
+    })
+
+    setMediationTab(hasDifferentData ? 'multiple' : 'single')
+    if (hasDifferentData) {
+      setMediationClients(
+        mediation.data.map((d) => ({
+          client: d.client,
+          data: {
+            email: d.email,
+            invoice: d.invoice
+              ? {
+                  clientId: d.client.id,
+                  amount: Number(d.invoice.amount),
+                  dueDate: d.invoice.dueDate,
+                  reference: d.invoice.reference || undefined,
+                }
+              : null,
+          },
+        }))
+      )
+    } else {
+      setMediationAllClients({
+        email: mediation.data[0]?.email || false,
+        invoice: mediation.data[0]?.invoice
+          ? {
+              clientId: mediation.data[0].client.id,
+              amount: Number(mediation.data[0].invoice.amount),
+              dueDate: mediation.data[0].invoice.dueDate,
+              reference: mediation.data[0].invoice.reference || undefined,
+            }
+          : null,
+      })
+    }
+  }
 
   async function handleSubmit(value: MediationData) {
     setAttemptSubmitted(true)
@@ -137,24 +208,23 @@ export default function MediationForm({
       return false
     }
 
-    const now = new Date()
+    // const now = new Date()
+    // if (value.date < now) {
+    //   toast.error('Mediation date cannot be in the past')
+    //   return false
+    // }
 
-    if (value.date < now) {
-      toast.error('Mediation date cannot be in the past')
-      return false
-    }
+    // const invalidInvoices = value.data
+    //   .filter((d) => d.invoice)
+    //   .some((d) => {
+    //     console.log(d.invoice?.dueDate)
+    //     return d.invoice?.dueDate && d.invoice?.dueDate < now
+    //   })
 
-    const invalidInvoices = value.data
-      .filter((d) => d.invoice)
-      .some((d) => {
-        console.log(d.invoice?.dueDate)
-        return d.invoice?.dueDate && d.invoice?.dueDate < now
-      })
-
-    if (invalidInvoices) {
-      toast.error('Invoice due dates cannot be in the past')
-      return false
-    }
+    // if (invalidInvoices) {
+    //   toast.error('Invoice due dates cannot be in the past')
+    //   return false
+    // }
 
     const invalidInvoiceReferences = value.data
       .filter((d) => d.invoice)

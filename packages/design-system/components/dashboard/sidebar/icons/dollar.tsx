@@ -87,7 +87,7 @@ const CircleDollarSignIcon = () => {
           variants={dollarSecondaryVariants}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Payments</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>Invoices</p>
     </div>
   )
 }

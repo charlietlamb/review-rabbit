@@ -27,15 +27,15 @@ import { fetchInvoicesWithClient } from '@remio/design-system/actions/invoices/f
 import InvoicesTableDropdown from './invoices-table-dropdown'
 import ClientAvatar from '../clients/client-avatar'
 import { Badge } from '@remio/design-system/components/ui/badge'
+import { useRouter } from 'next/navigation'
 
 export default function InvoicesTable() {
+  const router = useRouter()
   const {
     items: invoices,
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-    isLoading,
-    isFetching,
   } = useInfiniteQueryWithAtom({
     queryKey: 'invoices',
     fetchFn: fetchInvoicesWithClient,
@@ -155,7 +155,17 @@ export default function InvoicesTable() {
               </TableHeader>
               <TableBody>
                 {({ row }) => (
-                  <TableRow key={row.id} row={row}>
+                  <TableRow
+                    key={row.id}
+                    row={row}
+                    onClick={() => {
+                      router.push(
+                        `/dashboard/invoice/${
+                          (row.original as InvoiceWithClient).id
+                        }`
+                      )
+                    }}
+                  >
                     {({ cell }) => (
                       <TableCell
                         key={cell.id}

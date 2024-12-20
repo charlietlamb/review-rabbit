@@ -1,23 +1,24 @@
 import { atom } from 'jotai'
 import { MediationWithData } from '@remio/database/schema/mediations'
-import {
-  Feature,
-  Status,
-} from '@remio/design-system/components/roadmap-ui/calendar'
 import { addMinutes } from 'date-fns'
+import { CalendarEvent } from '@remio/design-system/components/calendar/calendar-types'
 
 export const scheduleMediationsAtom = atom<MediationWithData[]>([])
-export const scheduleFeaturesAtom = atom<Feature[]>((get) => {
+export const scheduleEventsAtom = atom<CalendarEvent[]>((get) => {
   const mediations = get(scheduleMediationsAtom)
-  return mediations.map((mediation) => ({
-    id: mediation.id,
-    name: mediation.title,
-    startAt: mediation.date,
-    endAt: addMinutes(mediation.date, mediation.duration),
-    status: {
+  return mediations
+    .map((mediation) => ({
       id: mediation.id,
-      name: mediation.title,
+      title: mediation.title,
+      start: mediation.date,
+      end: addMinutes(mediation.date, mediation.duration),
       color: mediation.color,
-    } as Status,
-  }))
+    }))
+    .sort((a, b) => {
+      const dateComparison = a.start.getTime() - b.start.getTime()
+      if (dateComparison !== 0) return dateComparison
+      const aTime = a.start.getHours() * 60 + a.start.getMinutes()
+      const bTime = b.start.getHours() * 60 + b.start.getMinutes()
+      return aTime - bTime
+    })
 })

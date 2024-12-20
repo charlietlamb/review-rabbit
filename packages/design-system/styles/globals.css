@@ -18,8 +18,8 @@ body {
     --background: 0 0% 95.69%;
     --foreground: 0 0% 14.51%;
 
-    --card: 0 0% 91.37%;
-    --card-foreground: 0 0% 3.92%;
+    --card: var(--background);
+    --card-foreground: var(--foreground);
 
     --popover: 0 0% 91.37%;
     --popover-foreground: 0 0% 3.92%;

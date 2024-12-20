@@ -207,3 +207,41 @@ export const getInvoicesChart = createRoute({
 })
 
 export type GetInvoicesChartRoute = typeof getInvoicesChart
+
+export const getInvoiceById = createRoute({
+  path: '/invoices/get-by-id',
+  method: 'post',
+  summary: 'Get invoice by id',
+  tags,
+  request: {
+    body: {
+      description: 'Invoice ID',
+      content: {
+        'application/json': {
+          schema: z.object({ id: z.string() }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      invoiceWithClientSchema,
+      'Invoice fetched.'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Invoice not found'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch invoice'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetInvoiceByIdRoute = typeof getInvoiceById

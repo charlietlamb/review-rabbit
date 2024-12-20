@@ -2,29 +2,27 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
 } from '@remio/design-system/components/ui/card'
 import { OverviewRecentPayments } from './overview-recent-payments'
-import { useAtomValue } from 'jotai'
-import { recentPaymentsAtom } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import { Button } from '@remio/design-system/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function OverviewRecentPaymentsCard() {
-  const recentPayments = useAtomValue(recentPaymentsAtom)
+  const router = useRouter()
   return (
-    <Card className="">
-      <CardHeader>
+    <Card className="flex flex-col divide-y">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Recent Payments</CardTitle>
-        <CardDescription>
-          You made £
-          {recentPayments.reduce(
-            (acc, payment) => acc + Number(payment.amount),
-            0
-          )}{' '}
-          in the last 30 days
-        </CardDescription>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => router.push('/dashboard/invoices/manage')}
+        >
+          View All
+        </Button>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         <OverviewRecentPayments />
       </CardContent>
     </Card>

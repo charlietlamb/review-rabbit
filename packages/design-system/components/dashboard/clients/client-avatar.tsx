@@ -32,7 +32,7 @@ export default function ClientAvatar({
         className={`bg-${client.color}-300 dark:bg-${client.color}-700`}
       >
         {client.name.split(' ')[0][0].toUpperCase()}
-        {client.name.split(' ')[1]?.[0].toUpperCase()}
+        {client.name.split(' ')[1]?.[0]?.toUpperCase()}
       </AvatarFallback>
     </Avatar>
   )

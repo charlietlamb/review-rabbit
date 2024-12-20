@@ -19,11 +19,11 @@ export default function OverviewCard({
 }) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+      <CardHeader className="flex flex-row items-center space-y-0 pb-2 gap-1 text-muted-foreground">
         {icon}
+        <CardTitle className="font-heading text-base">{title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex items-center justify-between">
         <div className="text-2xl font-bold">{value}</div>
         <p
           className={cn(

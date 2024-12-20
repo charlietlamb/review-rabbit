@@ -41,8 +41,8 @@ export default function Invoices({
   return (
     <div className="flex flex-col divide-y">
       <DashboardContentHeader
-        title="Payments"
-        subtitle="View your payments, invoices and more."
+        title="Invoices"
+        subtitle="View your invoices, payments and more."
       />
       <div className="p-4 gap-4 grid grid-cols-2">
         <InvoicesChart className="col-span-2" />

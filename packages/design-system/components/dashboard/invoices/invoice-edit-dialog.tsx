@@ -41,7 +41,7 @@ export default function InvoiceEditDialog({
           invoice={invoice}
           setIsOpen={setIsOpen}
           onSuccess={
-            route ? () => router.push('/dashboard/payments/manage') : undefined
+            route ? () => router.push('/dashboard/invoices/manage') : undefined
           }
         />
       </DialogContent>

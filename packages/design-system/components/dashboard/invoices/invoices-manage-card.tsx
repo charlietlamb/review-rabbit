@@ -66,7 +66,7 @@ export default function InvoicesManageCard() {
       className={cardClassName}
       onMouseEnter={() => controls.start('animate')}
       onMouseLeave={() => controls.start('normal')}
-      onClick={() => router.push('/dashboard/payments/manage')}
+      onClick={() => router.push('/dashboard/invoices/manage')}
     >
       <CardHeader className={cardHeaderClassName}>
         <svg

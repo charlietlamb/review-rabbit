@@ -30,6 +30,7 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
       ),
       offset,
       limit,
+      orderBy: (clients, { desc }) => [desc(clients.createdAt)],
     })
     return c.json(results, HttpStatusCodes.OK)
   } catch (error) {
@@ -87,9 +88,16 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const client = await c.req.json()
+
   try {
-    await db.update(clients).set(client).where(eq(clients.id, client.id))
+    const data = await c.req.valid('json')
+    const { id, ...clientData } = data
+
+    await db
+      .update(clients)
+      .set(clientData)
+      .where(and(eq(clients.id, id), eq(clients.userId, user.id)))
+
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error updating client:', error)

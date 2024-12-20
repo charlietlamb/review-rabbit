@@ -17,12 +17,13 @@ import {
   selectedClientsAtom,
   mediationClientsAtom,
 } from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
+import { CalendarEvent } from 'components/calendar/calendar-types'
 
 export default function ScheduleItemSheet({
-  feature,
+  event,
   children,
 }: {
-  feature: Feature
+  event: CalendarEvent
   children: React.ReactNode
 }) {
   const [mediation, setMediation] = useState<MediationWithData | null>(null)
@@ -31,7 +32,7 @@ export default function ScheduleItemSheet({
 
   useEffect(() => {
     async function fetchMediation() {
-      const mediation = await getMediationById(feature.id)
+      const mediation = await getMediationById(event.id)
       setMediation(mediation)
       setSelectedClients(mediation?.data.map((d) => d.client) || [])
       setMediationClients(
@@ -52,7 +53,7 @@ export default function ScheduleItemSheet({
       )
     }
     fetchMediation()
-  }, [feature])
+  }, [event])
   return (
     <Sheet>
       <SheetTrigger className="cursor-pointer">{children}</SheetTrigger>

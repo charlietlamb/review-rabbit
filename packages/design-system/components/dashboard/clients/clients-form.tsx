@@ -18,7 +18,7 @@ import { Client } from '@remio/database'
 import { cn } from '@remio/design-system/lib/utils'
 import DangerDialog from '@remio/design-system/components/misc/danger-dialog'
 import ColorPicker from '@remio/design-system/components/form/color/color-picker'
-
+import { useQueryClient } from '@tanstack/react-query'
 export default function ClientsForm({
   client,
   setIsOpen,
@@ -36,7 +36,7 @@ export default function ClientsForm({
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
   const router = useRouter()
-
+  const queryClient = useQueryClient()
   const form = useForm({
     defaultValues: {
       name: client?.name || '',
@@ -45,7 +45,6 @@ export default function ClientsForm({
       color: client?.color || 'blue',
     } as ClientFormData,
     onSubmit: async ({ value }) => {
-      console.log(value)
       setIsLoading(true)
       setAttemptSubmitted(true)
       const success = client
@@ -66,6 +65,9 @@ export default function ClientsForm({
           }
         )
         onSuccess?.()
+        queryClient.invalidateQueries({
+          queryKey: ['clients'],
+        })
         router.refresh()
       }
       setIsLoading(false)
@@ -145,8 +147,6 @@ export default function ClientsForm({
             variant="shine"
             colors="none"
             onClick={() => {
-              console.log(form.getFieldValue('color'))
-              console.log(form.getFieldValue('name'))
               form.handleSubmit()
             }}
           >

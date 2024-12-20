@@ -31,11 +31,11 @@ export const dashboardSidebarItems = [
     match: ['clients', 'client'],
   },
   {
-    title: 'Payments',
+    title: 'Invoices',
     icon: <CircleDollarSignIcon />,
-    href: '/dashboard/payments',
-    key: 'payments',
-    match: ['payments'],
+    href: '/dashboard/invoices',
+    key: 'invoices',
+    match: ['invoices'],
   },
   {
     title: 'Files',

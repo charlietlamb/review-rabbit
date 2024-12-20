@@ -25,7 +25,7 @@ export const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-geist-mono)'],
         heading: ['var(--font-bricolage-grotesque)'],
       },
       colors: {

@@ -122,8 +122,7 @@ export const updateClient = createRoute({
       description: 'Client data',
       content: {
         'application/json': {
-          schema: z.object({
-            ...clientValidationSchema.shape,
+          schema: clientValidationSchema.extend({
             id: z.string(),
           }),
         },

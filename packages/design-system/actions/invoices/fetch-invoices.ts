@@ -1,14 +1,21 @@
 'use server'
 
-import { Invoice } from '@remio/database/schema/invoices'
+import { InvoiceWithClient } from '@remio/database/schema/invoices'
 import client from '@remio/design-system/lib/client'
 import { PAGE_SIZE } from '@remio/design-system/data/page-size'
 import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
 
-export async function fetchInvoices(page: number): Promise<Invoice[]> {
+export async function fetchInvoices(
+  page: number,
+  clientId?: string
+): Promise<InvoiceWithClient[]> {
   const response = await client.invoices.$post(
     {
-      json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE },
+      json: {
+        offset: page * PAGE_SIZE,
+        limit: PAGE_SIZE,
+        clientId,
+      },
     },
     await headersWithCookies()
   )
@@ -23,5 +30,10 @@ export async function fetchInvoices(page: number): Promise<Invoice[]> {
     updatedAt: new Date(invoice.updatedAt),
     dueDate: new Date(invoice.dueDate),
     paidAt: invoice.paidAt ? new Date(invoice.paidAt) : null,
+    client: {
+      ...invoice.client,
+      createdAt: new Date(invoice.client.createdAt),
+      updatedAt: new Date(invoice.client.updatedAt),
+    },
   }))
 }

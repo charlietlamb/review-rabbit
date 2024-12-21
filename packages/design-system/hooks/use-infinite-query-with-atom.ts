@@ -5,7 +5,7 @@ import { PrimitiveAtom } from 'jotai'
 import { useDebounce } from '@remio/design-system/hooks/use-debounce'
 
 interface UseInfiniteQueryProps<T, S> {
-  queryKey: string
+  queryKey: string | string[]
   fetchFn: (page: number, search?: string) => Promise<T[]>
   atom: PrimitiveAtom<T[]>
   searchAtom?: PrimitiveAtom<S>

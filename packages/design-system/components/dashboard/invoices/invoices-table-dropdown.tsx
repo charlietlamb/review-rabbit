@@ -2,18 +2,22 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@remio/design-system/components/ui/dropdown-menu'
 import { Button } from '@remio/design-system/components/ui/button'
-import { MoreHorizontal, Pencil } from 'lucide-react'
+import { Download, MoreHorizontal, Pencil } from 'lucide-react'
 import InvoiceEditDialog from './invoice-edit-dialog'
 import { InvoiceWithClient } from '@remio/database'
+import getInvoice from '@remio/design-system/lib/pdf/get-invoice'
+import useUser from '@remio/design-system/hooks/use-user'
 
 export default function InvoicesTableDropdown({
   invoice,
 }: {
   invoice: InvoiceWithClient
 }) {
+  const user = useUser()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,15 +42,17 @@ export default function InvoicesTableDropdown({
             </div>
           </InvoiceEditDialog>
         </DropdownMenuItem>
-        {/* <DropdownMenuSeparator className="bg-border m-0" />
-        <DropdownMenuItem asChild>
-          <InvoiceRemindDialog invoice={invoice}>
-            <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-border transition-colors">
-              <FileText className="mr-2 h-4 w-4" />
-              New Invoice
-            </div>
-          </InvoiceRemindDialog>
-        </DropdownMenuItem> */}
+        <DropdownMenuSeparator className="bg-border m-0" />
+        <div
+          className="flex items-center gap-2 p-2 cursor-pointer hover:bg-border transition-colors"
+          onClick={(e) => {
+            e.stopPropagation()
+            if (user) getInvoice(invoice, user)
+          }}
+        >
+          <Download className="mr-2 h-4 w-4" />
+          <span className="text-base">Download</span>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   )

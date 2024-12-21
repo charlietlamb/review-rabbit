@@ -4,7 +4,6 @@ import * as handlers from '@remio/hono/routes/invoices/invoices.handlers'
 
 const router = createRouter()
   .openapi(routes.getInvoices, handlers.getInvoices)
-  .openapi(routes.getInvoicesWithClient, handlers.getInvoicesWithClient)
   .openapi(routes.addInvoice, handlers.addInvoice)
   .openapi(routes.updateInvoice, handlers.updateInvoice)
   .openapi(routes.deleteInvoice, handlers.deleteInvoice)

@@ -82,15 +82,7 @@ export default function InvoiceForm({
   })
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
-      <form
-        className={cn(className, 'flex flex-col w-full gap-4 mx-auto')}
-        onSubmit={(e) => {
-          setAttemptSubmitted(true)
-          e.preventDefault()
-          e.stopPropagation()
-          form.handleSubmit()
-        }}
-      >
+      <form className={cn(className, 'flex flex-col w-full gap-4 mx-auto')}>
         <div className="grid grid-cols-2 gap-4">
           <ClientSelect
             form={form}
@@ -153,6 +145,12 @@ export default function InvoiceForm({
             disabled={isLoading}
             variant="shine"
             colors="none"
+            onClick={(e) => {
+              setAttemptSubmitted(true)
+              e.preventDefault()
+              e.stopPropagation()
+              form.handleSubmit()
+            }}
           >
             {isLoading ? (
               <Spinner />

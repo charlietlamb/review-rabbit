@@ -18,42 +18,6 @@ const tags = ['Invoices']
 export const getInvoices = createRoute({
   path: '/invoices',
   method: 'post',
-  summary: 'Get invoices',
-  tags,
-  request: {
-    body: {
-      description: 'Pagination parameters',
-      content: {
-        'application/json': {
-          schema: z.object({
-            offset: z.number(),
-            limit: z.number(),
-            paid: z.boolean().optional(),
-          }),
-        },
-      },
-    },
-  },
-  responses: {
-    [HttpStatusCodes.OK]: jsonContent(
-      z.array(invoiceSchema),
-      'Invoices fetched.'
-    ),
-    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Failed to fetch invoices'
-    ),
-    ...unauthorizedSchema,
-  },
-})
-
-export type GetInvoicesRoute = typeof getInvoices
-
-export const getInvoicesWithClient = createRoute({
-  path: '/invoices-with-client',
-  method: 'post',
   summary: 'Get invoices with client',
   tags,
   request: {
@@ -65,6 +29,7 @@ export const getInvoicesWithClient = createRoute({
             offset: z.number(),
             limit: z.number(),
             paid: z.boolean().optional(),
+            clientId: z.string().optional(),
           }),
         },
       },
@@ -85,7 +50,7 @@ export const getInvoicesWithClient = createRoute({
   },
 })
 
-export type GetInvoicesWithClientRoute = typeof getInvoicesWithClient
+export type GetInvoicesRoute = typeof getInvoices
 
 export const addInvoice = createRoute({
   path: '/invoices/add',

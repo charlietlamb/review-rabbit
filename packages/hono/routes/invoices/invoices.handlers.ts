@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@remio/http'
-import { db } from '@remio/database'
+import { clients, db } from '@remio/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetInvoicesRoute,
@@ -7,7 +7,6 @@ import {
   UpdateInvoiceRoute,
   DeleteInvoiceRoute,
   GetInvoicesChartRoute,
-  GetInvoicesWithClientRoute,
   GetInvoiceByIdRoute,
 } from './invoices.routes'
 
@@ -19,7 +18,7 @@ export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, paid } = await c.req.valid('json')
+  const { offset, limit, paid, clientId } = await c.req.valid('json')
 
   try {
     const whereConditions = [eq(invoices.userId, user.id)]
@@ -30,42 +29,8 @@ export const getInvoices: AppRouteHandler<GetInvoicesRoute> = async (c) => {
         whereConditions.push(sql`${invoices.paidAt} IS NULL`)
       }
     }
-
-    const results = await db.query.invoices.findMany({
-      where: and(...whereConditions),
-      offset,
-      limit,
-    })
-    return c.json(results, HttpStatusCodes.OK)
-  } catch (error) {
-    console.error('Error fetching invoices:', error)
-    return c.json(
-      {
-        error: 'Failed to fetch invoices',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-}
-
-export const getInvoicesWithClient: AppRouteHandler<
-  GetInvoicesWithClientRoute
-> = async (c) => {
-  const user = c.get('user')
-  if (!user) {
-    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
-  }
-  const { offset, limit, paid } = await c.req.valid('json')
-
-  try {
-    const whereConditions = [eq(invoices.userId, user.id)]
-    if (typeof paid === 'boolean') {
-      if (paid) {
-        whereConditions.push(sql`${invoices.paidAt} IS NOT NULL`)
-      } else {
-        whereConditions.push(sql`${invoices.paidAt} IS NULL`)
-      }
+    if (clientId) {
+      whereConditions.push(eq(invoices.clientId, clientId))
     }
 
     const results = await db.query.invoices.findMany({
@@ -101,6 +66,17 @@ export const addInvoice: AppRouteHandler<AddInvoiceRoute> = async (c) => {
       dueDate: new Date(newInvoice.dueDate),
       userId: user.id,
     })
+
+    const client = await db.query.clients.findFirst({
+      where: eq(clients.id, newInvoice.clientId),
+    })
+
+    if (!client) {
+      return c.json(
+        { error: 'Client not found' },
+        HttpStatusCodes.INTERNAL_SERVER_ERROR
+      )
+    }
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error adding invoice:', error)

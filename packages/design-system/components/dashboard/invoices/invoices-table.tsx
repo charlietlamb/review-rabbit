@@ -23,13 +23,13 @@ import {
 } from '@remio/design-system/atoms/dashboard/invoices/invoices-atoms'
 import InvoiceCreateDialog from './invoice-edit-dialog'
 import { InvoiceWithClient } from '@remio/database'
-import { fetchInvoicesWithClient } from '@remio/design-system/actions/invoices/fetch-invoices-with-client'
 import InvoicesTableDropdown from './invoices-table-dropdown'
 import ClientAvatar from '../clients/client-avatar'
 import { Badge } from '@remio/design-system/components/ui/badge'
 import { useRouter } from 'next/navigation'
+import { fetchInvoices } from '@remio/design-system/actions/invoices/fetch-invoices'
 
-export default function InvoicesTable() {
+export default function InvoicesTable({ clientId }: { clientId?: string }) {
   const router = useRouter()
   const {
     items: invoices,
@@ -37,14 +37,15 @@ export default function InvoicesTable() {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQueryWithAtom({
-    queryKey: 'invoices',
-    fetchFn: fetchInvoicesWithClient,
+    queryKey: ['invoices', clientId ?? ''],
+    fetchFn: (page) => fetchInvoices(page, clientId),
     atom: invoicesAtoms,
     searchAtom: invoicesSearchAtom,
     filterFn: (invoice, search) =>
       invoice.client.name.toLowerCase().includes(search.toLowerCase()) ||
-      (invoice.client.email?.toLowerCase().includes(search.toLowerCase()) ??
-        false),
+      ((invoice.client.email?.toLowerCase().includes(search.toLowerCase()) ??
+        false) &&
+        (clientId ? invoice.client.id === clientId : true)),
   })
 
   const columns: ColumnDef<InvoiceWithClient>[] = [
@@ -158,6 +159,7 @@ export default function InvoicesTable() {
                   <TableRow
                     key={row.id}
                     row={row}
+                    className="cursor-pointer"
                     onClick={() => {
                       router.push(
                         `/dashboard/invoice/${

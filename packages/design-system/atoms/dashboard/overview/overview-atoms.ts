@@ -38,6 +38,134 @@ export const overviewCompareDataAtom = atom<DashboardData>({
   invoiceData: [],
 })
 
+export const averageInvoiceAtom = atom((get) => {
+  const dateRange = get(overviewDateRange)
+  const dashboardData = get(dashboardDataAtom)
+
+  if (!dateRange?.from || !dateRange?.to) {
+    return [
+      {
+        month: new Date().toLocaleString('en-US', { month: 'short' }),
+        average: 0,
+      },
+    ]
+  }
+
+  const invoiceData = dashboardData.invoiceData.filter(
+    (invoice) => Number(invoice.amount) > 0
+  )
+
+  // Create a map of all months in the date range
+  const monthsMap: Record<
+    string,
+    { month: string; total: number; count: number; timestamp: number }
+  > = {}
+  let currentDate = new Date(dateRange.from)
+
+  while (currentDate <= dateRange.to) {
+    const yearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth()}`
+    const monthKey = currentDate.toLocaleString('en-US', { month: 'short' })
+
+    monthsMap[yearMonth] = {
+      month: monthKey,
+      total: 0,
+      count: 0,
+      timestamp: currentDate.getTime(),
+    }
+
+    currentDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    )
+  }
+
+  // Aggregate invoice data
+  invoiceData.forEach((invoice) => {
+    const date = new Date(invoice.date)
+    const yearMonth = `${date.getFullYear()}-${date.getMonth()}`
+
+    if (monthsMap[yearMonth]) {
+      monthsMap[yearMonth].total += Number(invoice.amount)
+      monthsMap[yearMonth].count += 1
+    }
+  })
+
+  return Object.entries(monthsMap)
+    .map(([yearMonth, data]) => ({
+      month: data.month,
+      average: data.count > 0 ? data.total / data.count : 0,
+      timestamp: data.timestamp,
+    }))
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .map(({ month, average }) => ({
+      month,
+      average,
+    }))
+})
+
+export const clientsPerMonthAtom = atom((get) => {
+  const dateRange = get(overviewDateRange)
+  const dashboardData = get(dashboardDataAtom)
+
+  if (!dateRange?.from || !dateRange?.to) {
+    return [
+      {
+        month: new Date().toLocaleString('en-US', { month: 'short' }),
+        clients: 0,
+      },
+    ]
+  }
+
+  const clientData = dashboardData.clientData
+
+  // Create a map of all months in the date range
+  const monthsMap: Record<
+    string,
+    { month: string; clients: number; timestamp: number }
+  > = {}
+  let currentDate = new Date(dateRange.from)
+
+  while (currentDate <= dateRange.to) {
+    const yearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth()}`
+    const monthKey = currentDate.toLocaleString('en-US', { month: 'short' })
+
+    monthsMap[yearMonth] = {
+      month: monthKey,
+      clients: 0,
+      timestamp: currentDate.getTime(),
+    }
+
+    currentDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    )
+  }
+
+  // Aggregate client data
+  clientData.forEach((client) => {
+    const date = new Date(client.date)
+    const yearMonth = `${date.getFullYear()}-${date.getMonth()}`
+
+    if (monthsMap[yearMonth]) {
+      monthsMap[yearMonth].clients += Number(client.clients)
+    }
+  })
+
+  return Object.entries(monthsMap)
+    .map(([yearMonth, data]) => ({
+      month: data.month,
+      clients: data.clients,
+      timestamp: data.timestamp,
+    }))
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .map(({ month, clients }) => ({
+      month,
+      clients,
+    }))
+})
+
 export const overviewScheduleClientAtom = atom<Client | undefined>(undefined)
 
 export const overviewScheduleDateAtom = atom<Date>(new Date())

@@ -69,9 +69,8 @@ export default function Overview({
       <OverviewHeader />
       <OverviewCards />
       <OverviewBento />
-      <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="p-4">
         <OverviewChart />
-        <OverviewRecentPaymentsCard />
       </div>
     </div>
   )

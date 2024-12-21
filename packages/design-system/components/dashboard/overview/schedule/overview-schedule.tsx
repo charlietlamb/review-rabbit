@@ -6,11 +6,62 @@ import OverviewScheduleMediations from './overview-schedule-mediations'
 import ClientSelectSlick from '@remio/design-system/components/dashboard/clients/client-select-slick'
 import { useAtom } from 'jotai'
 import { overviewScheduleClientAtom } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import { useEffect, useState, useCallback } from 'react'
 
-export default function OverviewSchedule() {
+interface Dimensions {
+  height: number | undefined
+  isXlBreakpoint: boolean
+}
+
+export default function OverviewSchedule({
+  sizeRef,
+}: {
+  sizeRef: React.RefObject<HTMLDivElement>
+}) {
   const [client, setClient] = useAtom(overviewScheduleClientAtom)
+  const [dimensions, setDimensions] = useState<Dimensions>({
+    height: undefined,
+    isXlBreakpoint: false,
+  })
+
+  const updateDimensions = useCallback(() => {
+    if (!sizeRef.current) return
+
+    const mediaQuery = window.matchMedia('(min-width: 1280px)')
+    const isXl = mediaQuery.matches
+
+    setDimensions({
+      height: isXl ? sizeRef.current.clientHeight : undefined,
+      isXlBreakpoint: isXl,
+    })
+  }, [sizeRef])
+
+  useEffect(() => {
+    if (!sizeRef.current) return
+
+    // Initial update
+    updateDimensions()
+
+    // Setup observers
+    const resizeObserver = new ResizeObserver(updateDimensions)
+    const mediaQuery = window.matchMedia('(min-width: 1280px)')
+
+    resizeObserver.observe(sizeRef.current)
+    mediaQuery.addEventListener('change', updateDimensions)
+
+    return () => {
+      resizeObserver.disconnect()
+      mediaQuery.removeEventListener('change', updateDimensions)
+    }
+  }, [updateDimensions])
+
   return (
-    <Card className="flex flex-col p-2 gap-2 h-[600px]">
+    <Card
+      className="flex flex-col p-2 gap-2 h-[600px] xl:h-auto"
+      style={{
+        height: dimensions.isXlBreakpoint ? dimensions.height : undefined,
+      }}
+    >
       <OverviewScheduleHeader />
       <OverviewScheduleMonthPicker />
       <OverviewScheduleDatePicker />

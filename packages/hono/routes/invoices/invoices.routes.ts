@@ -3,10 +3,7 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { unauthorizedSchema } from '@remio/hono/lib/configure-auth'
 import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
-import {
-  invoiceSchema,
-  invoiceWithClientSchema,
-} from '@remio/database/schema/invoices'
+import { invoiceWithClientSchema } from '@remio/database/schema/invoices'
 import { invoiceValidationSchema } from '@remio/design-system/components/dashboard/invoices/invoice-schema'
 import {
   invoicesChartRequestSchema,

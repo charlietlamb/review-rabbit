@@ -1,7 +1,7 @@
-import { Badge } from '@remio/design-system/components/ui/badge'
 import { CardHeader, CardTitle } from '@remio/design-system/components/ui/card'
 import { Calendar } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { Button } from '@remio/design-system/components/ui/button'
 
 export default function OverviewScheduleHeader() {
   const router = useRouter()
@@ -10,13 +10,13 @@ export default function OverviewScheduleHeader() {
       <CardTitle className="flex flex-row items-center gap-2 text-lg">
         <Calendar /> Schedule
       </CardTitle>
-      <Badge
+      <Button
         variant="outline"
-        onClick={() => router.push('/dashboard/schedule')}
-        className="cursor-pointer"
+        size="sm"
+        onClick={() => router.push('/dashboard/invoices/manage')}
       >
-        See all
-      </Badge>
+        View All
+      </Button>
     </CardHeader>
   )
 }

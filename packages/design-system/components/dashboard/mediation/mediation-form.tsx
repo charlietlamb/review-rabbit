@@ -27,6 +27,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
 import ColorPicker from '@remio/design-system/components/form/color/color-picker'
 import { nearestDateValue } from '@remio/design-system/lib/utils/nearest-date-value'
+import MediationNotes from './mediation-notes'
 
 export default function MediationForm({
   mediation,
@@ -298,6 +299,7 @@ export default function MediationForm({
           />
         </div>
         <MediationFormDetails form={form} />
+        <MediationNotes form={form} />
         <div className="p-4">
           <Button variant="shine" className="w-full">
             {isLoading ? (

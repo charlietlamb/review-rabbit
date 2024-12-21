@@ -23,6 +23,7 @@
     "apps/*"
   ],
   "dependencies": {
+    "@tiptap/pm": "^2.10.4",
     "turbo": "^2.3.0"
   }
 }

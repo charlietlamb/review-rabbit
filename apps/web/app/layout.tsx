@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Bricolage_Grotesque } from 'next/font/google'
 import { DesignSystemProvider } from '@remio/design-system'
 import '@remio/design-system/styles/globals.css'
-import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
 
 const bricolageGrotesque = Bricolage_Grotesque({
   weight: ['200', '300', '400', '500', '600', '700', '800'],
@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistMono.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative light:bg-background`}
+        className={`${GeistSans.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
       >
         <DesignSystemProvider>{children}</DesignSystemProvider>
       </body>

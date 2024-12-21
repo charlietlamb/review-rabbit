@@ -14,11 +14,13 @@ export const mediationClients = pgTable('mediation_clients', {
     .notNull(),
   mediationId: text('mediation_id')
     .notNull()
-    .references(() => mediations.id),
+    .references(() => mediations.id, { onDelete: 'cascade' }),
   clientId: text('client_id')
     .notNull()
-    .references(() => clients.id),
-  invoiceId: text('invoice_id').references(() => invoices.id),
+    .references(() => clients.id, { onDelete: 'cascade' }),
+  invoiceId: text('invoice_id').references(() => invoices.id, {
+    onDelete: 'set null',
+  }),
   email: boolean('email').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),

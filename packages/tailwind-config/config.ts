@@ -3,7 +3,6 @@ import type { Config } from 'tailwindcss'
 const {
   default: flattenColorPalette,
 } = require('tailwindcss/lib/util/flattenColorPalette')
-const colors = require('tailwindcss/colors')
 const svgToDataUri = require('mini-svg-data-uri')
 
 export const config: Config = {
@@ -25,7 +24,7 @@ export const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-geist-mono)'],
+        sans: ['var(--font-geist-sans)'],
         heading: ['var(--font-bricolage-grotesque)'],
       },
       colors: {

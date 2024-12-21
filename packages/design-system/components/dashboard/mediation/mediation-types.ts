@@ -22,6 +22,7 @@ export type MediationData = z.infer<typeof mediationDataSchema>
 export const mediationsRequestSchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
+  clientId: z.string().optional(),
 })
 
 export type MediationsRequest = z.infer<typeof mediationsRequestSchema>

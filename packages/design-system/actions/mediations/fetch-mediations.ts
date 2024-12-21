@@ -6,13 +6,15 @@ import { MediationWithData } from '@remio/database/schema/mediations'
 
 export async function fetchMediations(
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  clientId?: string
 ): Promise<MediationWithData[]> {
   const response = await client.mediations.get.$post(
     {
       json: {
         startDate,
         endDate,
+        clientId,
       },
     },
     await headersWithCookies()

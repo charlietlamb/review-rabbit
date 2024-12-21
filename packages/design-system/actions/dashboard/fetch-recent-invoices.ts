@@ -9,7 +9,7 @@ export async function fetchRecentInvoices(
   page: number,
   paid: boolean = false
 ): Promise<InvoiceWithClient[]> {
-  const response = await client['invoices-with-client'].$post(
+  const response = await client.invoices.$post(
     {
       json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE, paid },
     },

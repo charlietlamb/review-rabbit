@@ -1,8 +1,11 @@
 import { InvoiceWithClient } from '@remio/database/schema/invoices'
 import { DashboardData } from '@remio/design-system/components/dashboard/overview/overview-types'
-import { addDays } from 'date-fns'
+import { addDays, startOfDay, endOfDay } from 'date-fns'
 import { atom } from 'jotai'
+import { atomWithQuery } from 'jotai-tanstack-query'
 import { DateRange } from 'react-day-picker'
+import { fetchMediations } from '@remio/design-system/actions/mediations/fetch-mediations'
+import { Client, MediationWithData } from '@remio/database'
 
 export const overviewDateRange = atom<DateRange | undefined>({
   from: addDays(new Date(), -30),
@@ -34,3 +37,25 @@ export const overviewCompareDataAtom = atom<DashboardData>({
   clientData: [],
   invoiceData: [],
 })
+
+export const overviewScheduleClientAtom = atom<Client | undefined>(undefined)
+
+export const overviewScheduleDateAtom = atom<Date>(new Date())
+
+export const overviewScheduleMediationsAtom = atomWithQuery<
+  MediationWithData[]
+>((get) => ({
+  queryKey: [
+    'schedule-mediations',
+    get(overviewScheduleDateAtom).toISOString(),
+    get(overviewScheduleClientAtom),
+  ],
+  queryFn: async () => {
+    const date = get(overviewScheduleDateAtom)
+    let client = get(overviewScheduleClientAtom)
+    if (client?.id === 'all') {
+      client = undefined
+    }
+    return fetchMediations(startOfDay(date), endOfDay(date), client?.id)
+  },
+}))

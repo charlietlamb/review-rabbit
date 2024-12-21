@@ -66,8 +66,8 @@ body {
     --background: 0 0% 7.06%;
     --foreground: 0 0% 89.8%;
 
-    --card: 0 0% 11.37%;
-    --card-foreground: 0 0% 94.51%;
+    --card: var(--background);
+    --card-foreground: var(--foreground);
 
     --popover: 0 0% 11.37%;
     --popover-foreground: 0 0% 94.51%;

@@ -255,49 +255,46 @@ export const deleteMediation: AppRouteHandler<DeleteMediationRoute> = async (
   }
 }
 
-// add client and invoice data to the mediation
 export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
   const user = c.get('user')
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { startDate, endDate } = await c.req.valid('json')
+  const { startDate, endDate, clientId } = await c.req.valid('json')
 
   try {
-    const conditions = [eq(mediations.userId, user.id)]
-
-    if (startDate) {
-      conditions.push(gte(mediations.createdAt, new Date(startDate)))
-    }
-
-    if (endDate) {
-      conditions.push(lte(mediations.createdAt, new Date(endDate)))
-    }
-
-    const mediationsResults = await db.query.mediations.findMany({
-      where: and(...conditions),
-    })
-
-    const mediationsWithData = await Promise.all(
-      mediationsResults.map(async (mediation) => {
-        const mediationClientsData = await db.query.mediationClients.findMany({
-          where: eq(mediationClients.mediationId, mediation.id),
+    let query = db.query.mediations.findMany({
+      where: and(
+        eq(mediations.userId, user.id),
+        startDate ? gte(mediations.createdAt, new Date(startDate)) : undefined,
+        endDate ? lte(mediations.createdAt, new Date(endDate)) : undefined
+      ),
+      with: {
+        mediationClients: {
+          where: clientId ? eq(mediationClients.clientId, clientId) : undefined,
           with: {
             client: true,
             invoice: true,
           },
-        })
+        },
+      },
+    })
+    const mediationsResults = await query
+    console.log(mediationsResults)
 
-        return {
-          ...mediation,
-          data: mediationClientsData.map((mc) => ({
-            client: mc.client,
-            invoice: mc.invoice,
-            email: mc.email,
-          })),
-        }
-      })
-    )
+    // Filter out mediations that have no matching clients when clientId is specified
+    const filteredMediations = clientId
+      ? mediationsResults.filter((m) => m.mediationClients.length > 0)
+      : mediationsResults
+
+    const mediationsWithData = filteredMediations.map((mediation) => ({
+      ...mediation,
+      data: mediation.mediationClients.map((mc) => ({
+        client: mc.client,
+        invoice: mc.invoice,
+        email: mc.email,
+      })),
+    }))
 
     return c.json(mediationsWithData, HttpStatusCodes.OK)
   } catch (error) {

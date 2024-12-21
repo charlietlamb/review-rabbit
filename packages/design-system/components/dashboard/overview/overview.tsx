@@ -18,6 +18,7 @@ import {
   overviewCompareDateRange,
   overviewDateRange,
 } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
+import OverviewBento from './overview-bento'
 
 export default function Overview({
   data,
@@ -64,9 +65,10 @@ export default function Overview({
   }, [dateRange])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-y-auto">
       <OverviewHeader />
       <OverviewCards />
+      <OverviewBento />
       <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
         <OverviewChart />
         <OverviewRecentPaymentsCard />

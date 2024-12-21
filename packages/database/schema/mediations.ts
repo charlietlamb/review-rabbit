@@ -6,6 +6,7 @@ import { users } from './users'
 import { relations } from 'drizzle-orm'
 import { invoiceSchema } from './invoices'
 import { clientSchema } from './clients'
+import { mediationClients } from './mediation-clients'
 
 export const mediations = pgTable('mediations', {
   id: text('id')
@@ -24,11 +25,12 @@ export const mediations = pgTable('mediations', {
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
-export const mediationsRelations = relations(mediations, ({ one }) => ({
+export const mediationsRelations = relations(mediations, ({ one, many }) => ({
   user: one(users, {
     fields: [mediations.userId],
     references: [users.id],
   }),
+  mediationClients: many(mediationClients),
 }))
 
 export const mediationSchema = createSelectSchema(mediations)

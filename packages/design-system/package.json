@@ -57,6 +57,7 @@
     "hono": "^4.6.11",
     "input-otp": "^1.4.1",
     "jotai": "^2.10.3",
+    "jotai-tanstack-query": "^0.9.0",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.468.0",
     "mini-svg-data-uri": "^1.4.4",

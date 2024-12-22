@@ -141,12 +141,33 @@ export const config: Config = {
             'background-position': 'right center',
           },
         },
+        'bounce-slow': {
+          '0%, 100%': { transform: 'translateY(-5%)' },
+          '50%': { transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         shine: 'shine 8s ease-in-out infinite',
         'gradient-x': 'gradient-x 15s ease infinite',
+        'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
+        'fade-in': 'fade-in 0.5s ease-out forwards',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-radial-to-tr':
+          'radial-gradient(115% 90% at 0% 100%, var(--tw-gradient-stops))',
+        'gradient-radial-to-tl':
+          'radial-gradient(115% 90% at 100% 100%, var(--tw-gradient-stops))',
+        'gradient-radial-to-br':
+          'radial-gradient(90% 115% at 0% 0%, var(--tw-gradient-stops))',
+        'gradient-radial-to-bl':
+          'radial-gradient(90% 115% at 100% 0%, var(--tw-gradient-stops))',
       },
     },
   },

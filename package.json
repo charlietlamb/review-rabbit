@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "@tiptap/pm": "^2.10.4",
+    "remio": ".",
     "turbo": "^2.3.0"
   }
 }

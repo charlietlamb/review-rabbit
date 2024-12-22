@@ -112,7 +112,7 @@ export const averageClientsAtom = atom((get) => {
     return [
       {
         month: new Date().toLocaleString('en-US', { month: 'short' }),
-        average: 0,
+        clients: 0,
       },
     ]
   }
@@ -124,7 +124,7 @@ export const averageClientsAtom = atom((get) => {
   // Create a map of all months in the date range
   const monthsMap: Record<
     string,
-    { month: string; total: number; count: number; timestamp: number }
+    { month: string; total: number; timestamp: number }
   > = {}
   let currentDate = new Date(dateRange.from)
 
@@ -135,7 +135,6 @@ export const averageClientsAtom = atom((get) => {
     monthsMap[yearMonth] = {
       month: monthKey,
       total: 0,
-      count: 0,
       timestamp: currentDate.getTime(),
     }
 
@@ -146,27 +145,26 @@ export const averageClientsAtom = atom((get) => {
     )
   }
 
-  // Aggregate client data
+  // Aggregate client data - now just summing total clients
   clientData.forEach((client) => {
     const date = new Date(client.date)
     const yearMonth = `${date.getFullYear()}-${date.getMonth()}`
 
     if (monthsMap[yearMonth]) {
       monthsMap[yearMonth].total += Number(client.clients)
-      monthsMap[yearMonth].count += 1
     }
   })
 
   return Object.entries(monthsMap)
     .map(([yearMonth, data]) => ({
       month: data.month,
-      average: data.count > 0 ? data.total / data.count : 0,
+      clients: data.total,
       timestamp: data.timestamp,
     }))
     .sort((a, b) => a.timestamp - b.timestamp)
-    .map(({ month, average }) => ({
+    .map(({ month, clients }) => ({
       month,
-      average: Math.round(average * 100) / 100,
+      clients,
     }))
 })
 

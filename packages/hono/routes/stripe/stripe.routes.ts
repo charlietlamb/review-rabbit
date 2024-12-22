@@ -105,3 +105,44 @@ export const connectGet = createRoute({
 })
 
 export type ConnectGetRoute = typeof connectGet
+
+export const paymentSuccess = createRoute({
+  path: '/stripe/payment-success/:invoiceId',
+  method: 'get',
+  summary: 'Handle Stripe payment webhook and success redirect',
+  tags: ['Stripe'],
+  request: {
+    headers: z.object({
+      'stripe-signature': z
+        .string()
+        .optional()
+        .describe('Stripe webhook signature'),
+    }),
+    query: z.object({
+      session_id: z.string().optional(),
+    }),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.boolean(),
+      'Payment processed successfully.'
+    ),
+    [HttpStatusCodes.MOVED_TEMPORARILY]: {
+      description: 'Redirect to invoice page',
+    },
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Invalid request'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to process payment'
+    ),
+  },
+})
+
+export type PaymentSuccessRoute = typeof paymentSuccess

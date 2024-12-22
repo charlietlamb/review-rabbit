@@ -23,34 +23,33 @@ import {
 import { cn } from '@remio/design-system/lib/utils'
 
 const chartConfig = {
-  average: {
-    label: 'Average Clients',
+  clients: {
+    label: 'Total Clients',
     color: 'hsl(var(--chart-2))',
   },
 } satisfies ChartConfig
 
 export function OverviewClients() {
-  const averageClients = useAtomValue(averageClientsAtom)
+  const clientsData = useAtomValue(averageClientsAtom)
 
-  // Get current and previous month's averages
-  const currentAverage =
-    averageClients.findLast((item) => item.average > 0)?.average ?? 0
-  const previousAverage =
-    averageClients.slice(0, -1).findLast((item) => item.average > 0)?.average ??
-    0
+  // Get current and previous month's totals
+  const currentTotal =
+    clientsData.findLast((item) => item.clients > 0)?.clients ?? 0
+  const previousTotal =
+    clientsData.slice(0, -1).findLast((item) => item.clients > 0)?.clients ?? 0
 
   // Calculate gain
   const gain =
-    previousAverage === 0
-      ? currentAverage
-      : ((currentAverage - previousAverage) / previousAverage) * 100
+    previousTotal === 0
+      ? currentTotal
+      : ((currentTotal - previousTotal) / previousTotal) * 100
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Average Clients</CardTitle>
+        <CardTitle className="text-base">Total Clients</CardTitle>
         <div className="text-xl text-foreground font-bold flex items-center gap-2">
-          {currentAverage.toFixed(1)}
+          {currentTotal}
           <Tooltip>
             <TooltipTrigger asChild>
               <Badge
@@ -74,7 +73,7 @@ export function OverviewClients() {
         <ChartContainer config={chartConfig} className="overflow-visible">
           <LineChart
             accessibilityLayer
-            data={averageClients}
+            data={clientsData}
             margin={{
               left: 12,
               right: 12,
@@ -99,7 +98,7 @@ export function OverviewClients() {
                   labelFormatter={(value) => value}
                   formatter={(value) => (
                     <span className="font-mono font-medium text-foreground">
-                      {Number(value).toFixed(1)}
+                      {value}
                     </span>
                   )}
                   indicator="line"
@@ -108,14 +107,14 @@ export function OverviewClients() {
               }
             />
             <Line
-              dataKey="average"
+              dataKey="clients"
               type="natural"
-              stroke="var(--color-average)"
+              stroke="var(--color-clients)"
               strokeWidth={2}
               dot={false}
               activeDot={{
                 r: 4,
-                fill: 'var(--color-average)',
+                fill: 'var(--color-clients)',
                 stroke: 'var(--background)',
                 strokeWidth: 2,
               }}

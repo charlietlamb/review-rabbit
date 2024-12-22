@@ -25,8 +25,8 @@ export default async function getInvoicePaymentLink(
         },
       ],
       mode: 'payment',
-      success_url: `${env.NEXT_PUBLIC_WEB}/dashboard/invoice/${invoice.id}?payment_success=true`,
-      cancel_url: `${env.NEXT_PUBLIC_WEB}/dashboard/invoice/${invoice.id}?payment_canceled=true`,
+      success_url: `${env.NEXT_PUBLIC_API}/stripe/payment-success/${invoice.id}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${env.NEXT_PUBLIC_WEB}/dashboard/invoice/${invoice.id}?status=error&message=Payment%20canceled`,
       client_reference_id: invoice.id,
       customer_email: invoice.client.email,
       metadata: {

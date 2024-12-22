@@ -30,6 +30,9 @@ const server = {
 
   // Google OAuth
   GOOGLE_CLIENT_SECRET: z.string().min(1),
+
+  // Resend
+  RESEND_API_KEY: z.string().min(1),
 } as const
 
 const client = {
@@ -117,6 +120,9 @@ if (!databaseOnly) {
       NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
       NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
       NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+
+      // Resend
+      RESEND_API_KEY: process.env.RESEND_API_KEY,
     },
   })
 }

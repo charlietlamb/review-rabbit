@@ -11,6 +11,7 @@ export default function OverviewRecentPayment({
   payment: InvoiceWithClient
 }) {
   const router = useRouter()
+
   return (
     <div className="flex items-center min-w-0">
       <ClientAvatar client={payment.client} size="sm" />

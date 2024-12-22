@@ -54,7 +54,7 @@ export default function NotesTable({ mediationId }: { mediationId?: string }) {
       cell: ({ row }) => (
         <div>
           <div className="flex items-center gap-2">
-            <MediationAvatar mediation={row.original.mediation} />
+            <MediationAvatar mediation={row.original.mediation} size="md" />
             <div className="flex flex-col">
               <span className="font-medium font-heading">
                 {row.original.title}

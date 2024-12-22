@@ -14,7 +14,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@remio/design-system/lib/utils'
 import { format } from 'date-fns'
 import InfiniteScroll from '@remio/design-system/components/misc/infinite-scroll'
-import { FileText } from 'lucide-react'
+import { Copy, FileText, Link } from 'lucide-react'
 import { Button } from '@remio/design-system/components/ui/button'
 import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
 import {
@@ -28,6 +28,8 @@ import ClientAvatar from '../clients/client-avatar'
 import { Badge } from '@remio/design-system/components/ui/badge'
 import { useRouter } from 'next/navigation'
 import { fetchInvoices } from '@remio/design-system/actions/invoices/fetch-invoices'
+import InvoicePaymentLinkGo from './invoice-payment-link-go'
+import InvoicePaymentLinkCopy from './invoice-payment-link-copy'
 
 export default function InvoicesTable({ clientId }: { clientId?: string }) {
   const router = useRouter()
@@ -71,17 +73,6 @@ export default function InvoicesTable({ clientId }: { clientId?: string }) {
       ),
     },
     {
-      accessorKey: 'phoneNumber',
-      header: ({ column }) => (
-        <TableColumnHeader column={column} title="Phone Number" />
-      ),
-      cell: ({ row }) => (
-        <p className="text-muted-foreground">
-          {row.original.client.phoneNumber}
-        </p>
-      ),
-    },
-    {
       accessorKey: 'date-created',
       header: ({ column }) => (
         <TableColumnHeader column={column} title="Date Created" />
@@ -89,6 +80,18 @@ export default function InvoicesTable({ clientId }: { clientId?: string }) {
       cell: ({ row }) => (
         <div className="flex items-center gap-1 text-muted-foreground">
           <span>{format(row.original.createdAt, 'dd/MM/yyyy')}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'payment-link',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Payment Link" />
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <InvoicePaymentLinkGo invoice={row.original} />
+          <InvoicePaymentLinkCopy invoice={row.original} />
         </div>
       ),
     },
@@ -185,9 +188,13 @@ export default function InvoicesTable({ clientId }: { clientId?: string }) {
           </InfiniteScroll>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
+        <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full py-20">
           <FileText />
-          <p className="font-heading">We couldn't find any invoices...</p>
+          <p className="font-heading">
+            {clientId
+              ? "We couldn't find any invoices for this client."
+              : "We couldn't find any invoices..."}
+          </p>
           <InvoiceCreateDialog>
             <Button variant="shine">Add New Invoice</Button>
           </InvoiceCreateDialog>

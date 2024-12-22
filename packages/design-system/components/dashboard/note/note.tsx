@@ -7,16 +7,30 @@ import DashboardContentHeader from '../header/dashboard-content-header'
 import { Button } from '@remio/design-system/components/ui/button'
 import { updateNote } from '@remio/design-system/actions/notes/update-note'
 import Spinner from '@remio/design-system/components/misc/spinner'
+import { toast } from 'sonner'
+import { SaveAll } from 'lucide-react'
+import { useSetAtom } from 'jotai'
+import { breadcrumbOverrideAtom } from '@remio/design-system/atoms/dashboard/breadcrumb/breadcrumb-atom'
+import { useEffect } from 'react'
 
 export default function Note({ note }: { note: NoteWithMediation }) {
   const [content, setContent] = useState<string>(note.content)
   const [isSaving, setIsSaving] = useState(false)
+  const setBreadcrumb = useSetAtom(breadcrumbOverrideAtom)
 
   function handleSave() {
     setIsSaving(true)
     updateNote({ ...note, content }, note.id)
+    toast.success('Note updated successfully.', {
+      description: 'This has been saved.',
+      icon: <SaveAll />,
+    })
     setIsSaving(false)
   }
+
+  useEffect(() => {
+    setBreadcrumb(note.title)
+  }, [note.title])
 
   return (
     <div className="flex flex-col h-full flex-grow relative">

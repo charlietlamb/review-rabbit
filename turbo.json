@@ -15,7 +15,8 @@
     "STRIPE_SECRET_KEY",
     "STRIPE_WEBHOOK_SECRET",
     "ANALYZE",
-    "GOOGLE_CLIENT_SECRET"
+    "GOOGLE_CLIENT_SECRET",
+    "RESEND_API_KEY"
   ],
   "tasks": {
     "build": {

@@ -67,7 +67,7 @@ export default function NoteForm({
           }
         )
         router.refresh()
-        if (!note && redirect) router.push(`/dashboard/notes/${value.id}`)
+        if (!note && redirect) router.push(`/dashboard/note/${value.id}`)
       }
       setIsLoading(false)
       setIsOpen?.(false)

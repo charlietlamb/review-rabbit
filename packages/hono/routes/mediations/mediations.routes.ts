@@ -6,6 +6,7 @@ import { createRoute } from '@hono/zod-openapi'
 import {
   mediationDataSchema,
   mediationRequestSchema,
+  mediationRequestWithPageSchema,
   mediationsRequestSchema,
 } from '@remio/design-system/components/dashboard/mediation/mediation-types'
 import { mediationWithDataSchema } from '@remio/database'
@@ -170,3 +171,35 @@ export const getMediation = createRoute({
 })
 
 export type GetMediationRoute = typeof getMediation
+
+export const getMediationsByPage = createRoute({
+  path: '/mediations/get-by-page',
+  method: 'post',
+  summary: 'Get mediations by page',
+  tags,
+  request: {
+    body: {
+      description: 'Mediation request',
+      content: {
+        'application/json': {
+          schema: mediationRequestWithPageSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(mediationWithDataSchema),
+      'Mediations fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch mediations'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetMediationsByPageRoute = typeof getMediationsByPage

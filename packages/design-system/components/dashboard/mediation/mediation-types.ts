@@ -33,6 +33,16 @@ export const mediationRequestSchema = z.object({
 
 export type MediationRequest = z.infer<typeof mediationRequestSchema>
 
+export const mediationRequestWithPageSchema = z.object({
+  offset: z.number(),
+  limit: z.number(),
+  search: z.string().optional(),
+})
+
+export type MediationRequestWithPage = z.infer<
+  typeof mediationRequestWithPageSchema
+>
+
 export const mediationDataFormSchema = z.object({
   invoice: invoiceValidationSchema.nullable(),
   email: z.boolean(),

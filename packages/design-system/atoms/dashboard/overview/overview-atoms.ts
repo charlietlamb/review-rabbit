@@ -104,7 +104,7 @@ export const averageInvoiceAtom = atom((get) => {
     }))
 })
 
-export const clientsPerMonthAtom = atom((get) => {
+export const averageClientsAtom = atom((get) => {
   const dateRange = get(overviewDateRange)
   const dashboardData = get(dashboardDataAtom)
 
@@ -112,17 +112,19 @@ export const clientsPerMonthAtom = atom((get) => {
     return [
       {
         month: new Date().toLocaleString('en-US', { month: 'short' }),
-        clients: 0,
+        average: 0,
       },
     ]
   }
 
-  const clientData = dashboardData.clientData
+  const clientData = dashboardData.clientData.filter(
+    (client) => Number(client.clients) > 0
+  )
 
   // Create a map of all months in the date range
   const monthsMap: Record<
     string,
-    { month: string; clients: number; timestamp: number }
+    { month: string; total: number; count: number; timestamp: number }
   > = {}
   let currentDate = new Date(dateRange.from)
 
@@ -132,7 +134,8 @@ export const clientsPerMonthAtom = atom((get) => {
 
     monthsMap[yearMonth] = {
       month: monthKey,
-      clients: 0,
+      total: 0,
+      count: 0,
       timestamp: currentDate.getTime(),
     }
 
@@ -149,20 +152,21 @@ export const clientsPerMonthAtom = atom((get) => {
     const yearMonth = `${date.getFullYear()}-${date.getMonth()}`
 
     if (monthsMap[yearMonth]) {
-      monthsMap[yearMonth].clients += Number(client.clients)
+      monthsMap[yearMonth].total += Number(client.clients)
+      monthsMap[yearMonth].count += 1
     }
   })
 
   return Object.entries(monthsMap)
     .map(([yearMonth, data]) => ({
       month: data.month,
-      clients: data.clients,
+      average: data.count > 0 ? data.total / data.count : 0,
       timestamp: data.timestamp,
     }))
     .sort((a, b) => a.timestamp - b.timestamp)
-    .map(({ month, clients }) => ({
+    .map(({ month, average }) => ({
       month,
-      clients,
+      average: Math.round(average * 100) / 100,
     }))
 })
 

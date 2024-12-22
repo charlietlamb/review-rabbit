@@ -78,6 +78,20 @@
       "when": 1734554686180,
       "tag": "0010_bent_wiccan",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1734872003768,
+      "tag": "0011_flowery_umar",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1734872659291,
+      "tag": "0012_careful_shaman",
+      "breakpoints": true
     }
   ]
 }

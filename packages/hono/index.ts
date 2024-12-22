@@ -8,7 +8,7 @@ import stripe from '@remio/hono/routes/stripe/stripe.index'
 import clients from '@remio/hono/routes/clients/clients.index'
 import invoices from '@remio/hono/routes/invoices/invoices.index'
 import mediations from '@remio/hono/routes/mediations/mediations.index'
-
+import notes from '@remio/hono/routes/notes/notes.index'
 const app = createApp()
 const routes = [
   index,
@@ -19,6 +19,7 @@ const routes = [
   clients,
   invoices,
   mediations,
+  notes,
 ] as const
 
 configure(app)

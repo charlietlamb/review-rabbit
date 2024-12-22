@@ -7,8 +7,9 @@ import {
   UpdateMediationRoute,
   DeleteMediationRoute,
   GetMediationRoute,
+  GetMediationsByPageRoute,
 } from './mediations.routes'
-import { eq, and, lte, gte } from 'drizzle-orm'
+import { eq, and, lte, gte, ilike, sql } from 'drizzle-orm'
 import { mediations } from '@remio/database'
 
 export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
@@ -17,9 +18,8 @@ export const addMediation: AppRouteHandler<AddMediationRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { data, date, duration, title, color, notes } = await c.req.valid(
-    'json'
-  )
+  const { data, date, duration, title, color, notes } =
+    await c.req.valid('json')
 
   try {
     return await db.transaction(async (tx) => {
@@ -91,9 +91,8 @@ export const updateMediation: AppRouteHandler<UpdateMediationRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  const { id, data, date, duration, title, notes, color } = await c.req.valid(
-    'json'
-  )
+  const { id, data, date, duration, title, notes, color } =
+    await c.req.valid('json')
 
   try {
     return await db.transaction(async (tx) => {
@@ -345,6 +344,56 @@ export const getMediation: AppRouteHandler<GetMediationRoute> = async (c) => {
     return c.json(
       {
         error: 'Failed to fetch mediation',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getMediationsByPage: AppRouteHandler<
+  GetMediationsByPageRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { offset, limit, search } = await c.req.valid('json')
+
+  try {
+    const mediationsResults = await db.query.mediations.findMany({
+      where: and(
+        eq(mediations.userId, user.id),
+        search ? ilike(mediations.title, `%${search}%`) : undefined
+      ),
+      with: {
+        mediationClients: {
+          with: {
+            client: true,
+            invoice: true,
+          },
+        },
+      },
+      limit,
+      offset,
+      orderBy: (mediations, { desc }) => [desc(mediations.createdAt)],
+    })
+
+    const mediationsWithData = mediationsResults.map((mediation) => ({
+      ...mediation,
+      data: mediation.mediationClients.map((mc) => ({
+        client: mc.client,
+        invoice: mc.invoice,
+        email: mc.email,
+      })),
+    }))
+
+    return c.json(mediationsWithData, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching mediations:', error)
+    return c.json(
+      {
+        error: 'Failed to fetch mediations',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR

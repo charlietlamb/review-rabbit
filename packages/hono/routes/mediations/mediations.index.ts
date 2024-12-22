@@ -8,5 +8,6 @@ const router = createRouter()
   .openapi(routes.deleteMediation, handlers.deleteMediation)
   .openapi(routes.getMediations, handlers.getMediations)
   .openapi(routes.getMediation, handlers.getMediation)
+  .openapi(routes.getMediationsByPage, handlers.getMediationsByPage)
 
 export default router

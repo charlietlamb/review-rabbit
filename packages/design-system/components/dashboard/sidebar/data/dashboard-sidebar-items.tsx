@@ -4,6 +4,7 @@ import { CircleDollarSignIcon } from '../icons/dollar'
 import { FileStackIcon } from '../icons/files'
 import { UsersIcon } from '../icons/users'
 import { ClockIcon } from '../icons/clock'
+import { NotebookIcon } from '../icons/notebook'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -24,6 +25,20 @@ export const dashboardSidebarItemsTop = [
 
 export const dashboardSidebarItems = [
   {
+    title: 'Schedule',
+    icon: <ClockIcon />,
+    href: '/dashboard/schedule',
+    key: 'schedule',
+    match: ['schedule'],
+  },
+  {
+    title: 'Notes',
+    icon: <NotebookIcon />,
+    href: '/dashboard/notes',
+    key: 'notes',
+    match: ['note', 'notes'],
+  },
+  {
     title: 'Clients',
     icon: <UsersIcon />,
     href: '/dashboard/clients',
@@ -43,13 +58,6 @@ export const dashboardSidebarItems = [
     href: '/dashboard/files',
     key: 'files',
     match: ['files'],
-  },
-  {
-    title: 'Schedule',
-    icon: <ClockIcon />,
-    href: '/dashboard/schedule',
-    key: 'schedule',
-    match: ['schedule'],
   },
 ]
 

@@ -38,7 +38,6 @@ export default function MediationForm({
   onSuccess?: () => void
   setIsOpen?: (isOpen: boolean) => void
 }) {
-  console.log(mediation)
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()

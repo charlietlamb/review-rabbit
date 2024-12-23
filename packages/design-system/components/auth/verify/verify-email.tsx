@@ -1,6 +1,5 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@remio/design-system/components/ui/button'
-import { VerificationFeatures } from './verification-features'
 import Link from 'next/link'
 
 export function VerifyEmail() {
@@ -22,7 +21,6 @@ export function VerifyEmail() {
             <ArrowRight className="ml-2 h-6 w-6" />
           </Link>
         </Button>
-        <VerificationFeatures />
       </div>
     </div>
   )

@@ -8,44 +8,44 @@ type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec ultrices orci. Vivamus ante arcu, hendrerit.',
-    name: 'John',
-    handle: '@johndoe',
+      'The scheduling and client management features have transformed how I run my practice. I can focus more on mediation and less on administration.',
+    name: 'Sarah Chen',
+    handle: 'Family Mediator',
     imageUrl: '/images/testimonial-1.avif',
   },
   {
     quote:
-      'Mauris tincidunt porttitor risus, et posuere erat malesuada eu. Praesent volutpat ut ipsum ac congue. Vestibulum nec orci ornare, imperdiet metus vel.',
-    name: 'Max',
-    handle: '@maxcook',
+      'Being able to take digital notes during sessions and having them automatically organized by case has been a game-changer for my workflow.',
+    name: 'Michael Rodriguez',
+    handle: 'Commercial Mediator',
     imageUrl: '/images/testimonial-2.avif',
   },
   {
     quote:
-      'Curabitur at quam eget eros semper euismod vitae at neque. Ut ultrices ut tortor et feugiat. Etiam vitae nisi eleifend, blandit ligula quis, sodales neque.',
-    name: 'Bob',
-    handle: '@thisisbob',
+      'The automated invoicing and payment system has significantly reduced the time I spend on billing. My clients appreciate the professional experience.',
+    name: 'Emma Thompson',
+    handle: 'Workplace Mediator',
     imageUrl: '/images/testimonial-3.avif',
   },
   {
     quote:
-      'Suspendisse a velit elit. Curabitur augue libero, vulputate sed dui id, sodales venenatis sem. Suspendisse dapibus neque eu justo volutpat gravida.',
-    name: 'Emily',
-    handle: '@emilysmith',
+      'As a community mediator, I love how the platform helps me stay organized with multiple cases. The email notifications keep everyone in the loop.',
+    name: 'David Park',
+    handle: 'Community Mediator',
     imageUrl: '/images/testimonial-4.avif',
   },
   {
     quote:
-      'Vivamus dignissim porta orci, finibus tempus risus consectetur dapibus. Donec quis ornare elit. Curabitur tempor.',
-    name: 'Micheal',
-    handle: '@michael',
+      'The analytics dashboard gives me valuable insights into my practice. I can track my success rates and identify areas for growth.',
+    name: 'Rachel Foster',
+    handle: 'Civil Mediator',
     imageUrl: '/images/testimonial-5.avif',
   },
   {
     quote:
-      'Nullam non lorem vitae risus volutpat dictum non sed magna. Aliquam in venenatis quam. Morbi feugiat tristique leo, vel ultrices dolor varius non.',
-    name: 'Linda',
-    handle: '@thisislinda',
+      'The platform is intuitive and customizable to my needs. It has helped me scale my mediation practice while maintaining quality service.',
+    name: 'James Wilson',
+    handle: 'Elder Care Mediator',
     imageUrl: '/images/testimonial-6.avif',
   },
 ]

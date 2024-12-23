@@ -10,7 +10,14 @@ export default function DashboardSettingsAccountEmailVerification() {
   const user = useUser()
   const [sent, setSent] = useState(false)
   if (!user) return null
-  return user?.emailVerified ? null : (
+  return user?.emailVerified ? (
+    <Button
+      variant="outline"
+      className="font-heading after:bg-emerald-400 px-0 text-emerald-400 w-full cursor-default"
+    >
+      Email verified
+    </Button>
+  ) : (
     <Button
       variant="outline"
       className="font-heading after:bg-red-400 px-0 text-red-400 w-full"

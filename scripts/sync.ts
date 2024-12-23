@@ -5,11 +5,7 @@ const rootDir = process.cwd()
 const sourceEnvPath = join(rootDir, '.env')
 
 // Define target directories relative to root, excluding 'apps/api'
-const targetDirs = [
-  'apps/web',
-  'packages/database',
-  // Add other directories as needed
-]
+const targetDirs = ['apps/web', 'apps/api', 'packages/database']
 
 function syncEnvFiles() {
   if (!existsSync(sourceEnvPath)) {

@@ -143,7 +143,8 @@ export const getInvoicesChart: AppRouteHandler<GetInvoicesChartRoute> = async (
           eq(invoices.userId, user.id),
           sql`${invoices.paidAt} IS NOT NULL`,
           sql`DATE(${invoices.createdAt}) >= DATE(${startDate})`,
-          sql`DATE(${invoices.createdAt}) <= DATE(${endDate})`
+          sql`DATE(${invoices.createdAt}) <= DATE(${endDate})`,
+          sql`${invoices.amount} > 0`
         )
       )
       .groupBy(sql`DATE(${invoices.createdAt})`)

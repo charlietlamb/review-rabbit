@@ -1,32 +1,38 @@
 export const faqData = [
   {
     value: 'item-0',
-    question: 'How is remio different than tools like Framer or Webflow?',
+    question: 'How secure is my client data?',
     answer:
-      "remio is focused on developers and it's built on top of Next.js, Tailwind CSS and Shadcn UI, the most popular tech stack for building landing pages in the React ecosystem. This means that you can export your remio website to a Next.js project and continue building your app with the same tech stack.",
+      'We take data security seriously. All data is encrypted both in transit and at rest, and we comply with industry-standard security protocols. Our platform is designed with privacy in mind, ensuring your client information remains confidential and secure.',
   },
   {
     value: 'item-1',
-    question: 'What is the learning curve for remio?',
+    question: 'Can I handle multiple parties in a single mediation case?',
     answer:
-      "remio is built on top of popular technologies that most frontend developers are familiar with. You don't have to learn new mental models or frameworks. If you're familiar with HTML, React & Tailwind, building with remio will feel like writing code but visually.",
+      'Yes! Our platform is designed to handle complex mediation cases with multiple parties. You can add multiple clients to a single case, manage their individual information, send separate communications, and generate individual invoices while keeping everything organized.',
   },
   {
     value: 'item-2',
-    question: 'Is the generated code high quality?',
+    question: 'How does the scheduling system work?',
     answer:
-      "Yes, we care a lot about giving you code that you can easily mantain and customize. If you're familiar with Next.js and Tailwind, the code will be very familiar and you'll be able to customize it with no issues.",
+      'Our smart scheduling system allows you to set your availability, send invitations to all parties, and receive confirmations automatically. It includes conflict checking, automatic time zone conversion, and integration with popular calendar apps like Google Calendar and Outlook.',
   },
   {
     value: 'item-3',
-    question: 'Do you plan to add more sections and templates?',
+    question: 'What payment methods are supported?',
     answer:
-      "Yes! We're planning to add a lot more sections and templates for landing pages & marketing websites. If you have specific requests, feel free to ask in our Discord.",
+      'We support all major credit cards through our secure Stripe integration. You can set up automatic invoicing, recurring payments, and even split billing between multiple parties. All payments are processed securely and automatically reconciled in your dashboard.',
   },
   {
     value: 'item-4',
-    question: 'Will the exported website look exactly like the preview?',
+    question: 'Can I customize documents and forms?',
     answer:
-      'Yes, the exported website will look exactly like you see in the editor and in the preview.',
+      'Absolutely! You can customize all documents, including agreement templates, intake forms, and invoices. Add your branding, modify the content to match your practice needs, and save templates for future use.',
+  },
+  {
+    value: 'item-5',
+    question: 'Is training provided for new users?',
+    answer:
+      'Yes, we provide comprehensive onboarding support including video tutorials, documentation, and live training sessions. Our support team is also available to help you get the most out of the platform.',
   },
 ] as const

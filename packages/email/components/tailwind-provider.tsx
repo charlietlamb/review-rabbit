@@ -8,7 +8,9 @@ export default function TailwindProvider({
   return (
     <Tailwind
       config={{
-        theme: { extend: { colors: { brand: '#007291', primary: '#007291' } } },
+        theme: {
+          extend: { colors: { brand: '#00ace0', primary: '#00ace0' } },
+        },
       }}
     >
       {children}

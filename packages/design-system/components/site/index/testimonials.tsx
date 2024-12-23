@@ -9,12 +9,12 @@ export function Testimonials() {
           Testimonials
         </span>
         <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-balance text-center">
-          What our users say
+          Trusted by Mediators
         </h2>
       </div>
       <p className="text-lg text-muted-foreground text-balance max-w-lg text-center">
-        What developers and founders of top companies around the internet are
-        saying about remio.
+        Hear from professional mediators who have transformed their practice
+        with our platform.
       </p>
       <div className="columns-1 gap-7 md:columns-2 lg:columns-3">
         {testimonials.map((testimonial, index) => (

@@ -1,6 +1,3 @@
-import type { SendEmailCommandInput } from '@aws-sdk/client-ses'
-import { render } from '@react-email/components'
-import { SES } from '@aws-sdk/client-ses'
 import { env } from '@remio/env'
 import { Resend } from 'resend'
 
@@ -11,6 +8,7 @@ export async function sendEmail(
   subject: string,
   component: React.ReactElement
 ) {
+  console.log('Sending email to', to)
   const { data, error } = await resend.emails.send({
     from: 'Remio <no-reply@remio.xyz>',
     to: [to],

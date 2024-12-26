@@ -18,7 +18,7 @@ export function UploadDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="font-heading">
+        <Button variant="shine">
           Upload files {files.length > 0 && `(${files.length})`}
         </Button>
       </DialogTrigger>

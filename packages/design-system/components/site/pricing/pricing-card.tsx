@@ -9,12 +9,53 @@ import {
 } from '@remio/design-system/components/ui/card'
 import { PricingTier } from './pricing-data'
 import { Button } from '@remio/design-system/components/ui/button'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, X } from 'lucide-react'
 import { checkout } from '@remio/design-system/actions/stripe/checkout'
 import { cn } from '@remio/design-system/lib/utils'
 
-export function PricingCard({ tier }: { tier: PricingTier }) {
+function getFeaturesToShow(
+  currentTier: PricingTier,
+  pricingTiers: PricingTier[]
+): { feature: string; included: boolean }[] {
+  if (currentTier.title === 'Basic') {
+    // For Basic plan, show all features from Pro plan with included/not included status
+    const proTier = pricingTiers.find((tier) => tier.title === 'Pro')
+    if (!proTier) return []
+
+    // First show included features
+    const includedFeatures = currentTier.features.map((feature) => ({
+      feature,
+      included: true,
+    }))
+
+    // Then show missing features
+    const missingFeatures = proTier.features
+      .filter((feature) => !currentTier.features.includes(feature))
+      .map((feature) => ({
+        feature,
+        included: false,
+      }))
+
+    return [...includedFeatures, ...missingFeatures]
+  } else {
+    // For other plans, only show their included features
+    return currentTier.features.map((feature) => ({
+      feature,
+      included: true,
+    }))
+  }
+}
+
+export function PricingCard({
+  tier,
+  allTiers,
+}: {
+  tier: PricingTier
+  allTiers: PricingTier[]
+}) {
   const isPro = tier.title === 'Pro'
+  const isEnterprise = tier.title === 'Enterprise'
+  const features = getFeaturesToShow(tier, allTiers)
 
   return (
     <Card
@@ -41,22 +82,41 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
         )}
         <CardTitle className="font-heading text-2xl">{tier.title}</CardTitle>
         <div className="text-3xl font-bold">
-          ${tier.price}
-          <span className="text-sm font-normal text-muted-foreground/80">
-            / month
-          </span>
+          {isEnterprise ? (
+            <p className="text-muted-foreground font-normal">Custom Pricing</p>
+          ) : (
+            <>
+              ${tier.price}
+              <span className="text-sm font-normal text-muted-foreground/80">
+                / month
+              </span>
+            </>
+          )}
         </div>
       </CardHeader>
       <CardContent className="relative z-10 flex-grow">
         <p className="text-muted-foreground/80 mb-4">{tier.description}</p>
-        <ul className="space-y-2">
-          {tier.features.map((feature, index) => (
-            <li key={index} className="flex items-center">
-              <Check className="mr-2 h-4 w-4 text-primary" />
-              <span className="text-foreground/80">{feature}</span>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <h4 className="font-medium mb-2">Features:</h4>
+          <ul className="space-y-2">
+            {features.map(({ feature, included }, index) => (
+              <li key={index} className="flex items-center">
+                {included ? (
+                  <Check className="mr-2 h-4 w-4 text-primary" />
+                ) : (
+                  <X className="mr-2 h-4 w-4 text-muted-foreground/70" />
+                )}
+                <span
+                  className={cn(
+                    included ? 'text-foreground/80' : 'text-muted-foreground/70'
+                  )}
+                >
+                  {feature}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </CardContent>
       <CardFooter className="relative z-10 pb-6">
         <Button

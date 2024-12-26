@@ -17,7 +17,7 @@ export function Pricing() {
       </p>
       <div className="md:grid-cols-3 grid grid-cols-1 gap-8 py-8">
         {pricingTiers.map((tier, index) => (
-          <PricingCard key={index} tier={tier} />
+          <PricingCard key={index} tier={tier} allTiers={pricingTiers} />
         ))}
       </div>
       <Faq />

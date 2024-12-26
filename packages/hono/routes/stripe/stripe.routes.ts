@@ -146,3 +146,34 @@ export const paymentSuccess = createRoute({
 })
 
 export type PaymentSuccessRoute = typeof paymentSuccess
+
+export const subscriptionSuccess = createRoute({
+  path: '/stripe/subscription-success',
+  method: 'get',
+  summary: 'Handle Stripe subscription success',
+  tags: ['Stripe'],
+  request: {
+    query: z.object({
+      session_id: z.string(),
+    }),
+  },
+  responses: {
+    [HttpStatusCodes.MOVED_TEMPORARILY]: {
+      description: 'Redirect to welcome page',
+    },
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Invalid request'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to process subscription'
+    ),
+  },
+})
+
+export type SubscriptionSuccessRoute = typeof subscriptionSuccess

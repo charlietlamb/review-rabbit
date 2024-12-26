@@ -1,1 +1,0 @@
-ALTER TABLE "notes" ADD COLUMN "title" text NOT NULL;

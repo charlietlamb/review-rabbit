@@ -8,11 +8,14 @@ import {
   ConnectReturnRoute,
   ConnectRoute,
   PaymentSuccessRoute,
+  SubscriptionSuccessRoute,
 } from './stripe.routes'
 import { stripe } from '@remio/stripe'
 import { and, eq } from 'drizzle-orm'
 import { env } from '@remio/env'
 import { invoices } from '@remio/database'
+import { users } from '@remio/database'
+import { Plan } from '@remio/hono/lib/types'
 
 export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   const user = c.get('user')
@@ -232,4 +235,51 @@ export const paymentSuccess: AppRouteHandler<PaymentSuccessRoute> = async (
     { error: 'Invalid request - missing signature or session_id' },
     HttpStatusCodes.BAD_REQUEST
   )
+}
+
+export const subscriptionSuccess: AppRouteHandler<
+  SubscriptionSuccessRoute
+> = async (c) => {
+  const sessionId = c.req.query('session_id')
+  if (!sessionId) {
+    return c.json(
+      { error: 'Session ID is required' },
+      HttpStatusCodes.BAD_REQUEST
+    )
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    const user = c.get('user')
+
+    if (!user) {
+      return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+    }
+
+    if (session.payment_status === 'paid' && session.metadata?.plan) {
+      await db
+        .update(users)
+        .set({
+          plan: session.metadata.plan as Plan,
+          updatedAt: new Date(),
+        })
+        .where(eq(users.id, user.id))
+
+      return c.redirect(
+        `${env.NEXT_PUBLIC_WEB}/welcome?plan=${session.metadata.plan}`,
+        HttpStatusCodes.MOVED_TEMPORARILY
+      )
+    }
+
+    return c.redirect(
+      `${env.NEXT_PUBLIC_WEB}/failed?message=Subscription%20failed`,
+      HttpStatusCodes.MOVED_TEMPORARILY
+    )
+  } catch (error) {
+    console.error('Error processing subscription success:', error)
+    return c.redirect(
+      `${env.NEXT_PUBLIC_WEB}/failed?message=Subscription%20verification%20failed`,
+      HttpStatusCodes.MOVED_TEMPORARILY
+    )
+  }
 }

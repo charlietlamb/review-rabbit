@@ -13,9 +13,9 @@ export default function OverviewScheduleHeader() {
       <Button
         variant="outline"
         size="sm"
-        onClick={() => router.push('/dashboard/invoices/manage')}
+        onClick={() => router.push('/dashboard/schedule')}
       >
-        View All
+        View Calendar
       </Button>
     </CardHeader>
   )

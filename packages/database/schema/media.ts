@@ -1,7 +1,6 @@
-import { pgTable, text, integer } from 'drizzle-orm/pg-core'
+import { pgTable, text, integer, timestamp } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { users } from './users'
-import { timestamps } from './columns.helpers'
 import { sql } from 'drizzle-orm'
 
 export const media = pgTable('media', {
@@ -19,7 +18,8 @@ export const media = pgTable('media', {
   url: text('url').notNull(),
   source: text('source').notNull(),
   language: text('language'),
-  ...timestamps,
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
 export const selectMediaSchema = createSelectSchema(media)

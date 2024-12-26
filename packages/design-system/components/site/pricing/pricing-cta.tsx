@@ -1,5 +1,6 @@
+'use client'
+
 import { Button } from '@remio/design-system/components/ui/button'
-import { ArrowRight } from 'lucide-react'
 
 export default function PricingCta() {
   return (
@@ -11,12 +12,9 @@ export default function PricingCta() {
         Our team is here to help. Contact us for personalized assistance.
       </p>
       <Button
-        size="lg"
-        asChild
-        variant="expandIcon"
-        Icon={ArrowRight}
-        iconPlacement="right"
+        variant="shine"
         className="cursor-pointer border-border"
+        onClick={() => window.open('mailto:contact@remio.xyz', '_blank')}
       >
         Contact Sales
       </Button>

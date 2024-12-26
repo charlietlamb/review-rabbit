@@ -19,11 +19,11 @@ export const pricingTiers: PricingTier[] = [
     features: ['Analytic Reports', 'Email', 'Schedule Mediations'],
     buttonText: 'Get Started',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
-    plan: 'plan1',
+    plan: 'basic',
   },
   {
     title: 'Pro',
-    price: 29,
+    price: 50,
     description: 'Advanced features for mediations',
     features: [
       'Analytic Reports',
@@ -35,7 +35,7 @@ export const pricingTiers: PricingTier[] = [
     ],
     buttonText: 'Upgrade to Pro',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
-    plan: 'plan2',
+    plan: 'pro',
   },
   {
     title: 'Enterprise',
@@ -44,6 +44,6 @@ export const pricingTiers: PricingTier[] = [
     features: ['Custom Features'],
     buttonText: 'Contact Sales',
     priceId: env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
-    plan: 'plan3',
+    plan: 'enterprise',
   },
 ]

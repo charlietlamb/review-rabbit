@@ -1,1 +1,0 @@
-ALTER TABLE "mediations" ADD COLUMN "color" text NOT NULL;

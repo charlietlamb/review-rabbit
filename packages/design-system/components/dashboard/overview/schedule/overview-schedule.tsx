@@ -15,8 +15,12 @@ interface Dimensions {
 
 export default function OverviewSchedule({
   sizeRef,
+  dateOffset = 2,
+  mediationsClassName,
 }: {
-  sizeRef: React.RefObject<HTMLDivElement>
+  sizeRef?: React.RefObject<HTMLDivElement>
+  dateOffset?: number
+  mediationsClassName?: string
 }) {
   const [client, setClient] = useAtom(overviewScheduleClientAtom)
   const [dimensions, setDimensions] = useState<Dimensions>({
@@ -25,7 +29,7 @@ export default function OverviewSchedule({
   })
 
   const updateDimensions = useCallback(() => {
-    if (!sizeRef.current) return
+    if (!sizeRef?.current) return
 
     const mediaQuery = window.matchMedia('(min-width: 1280px)')
     const isXl = mediaQuery.matches
@@ -37,7 +41,7 @@ export default function OverviewSchedule({
   }, [sizeRef])
 
   useEffect(() => {
-    if (!sizeRef.current) return
+    if (!sizeRef?.current) return
 
     // Initial update
     updateDimensions()
@@ -64,9 +68,9 @@ export default function OverviewSchedule({
     >
       <OverviewScheduleHeader />
       <OverviewScheduleMonthPicker />
-      <OverviewScheduleDatePicker />
+      <OverviewScheduleDatePicker dateOffset={dateOffset} />
       <ClientSelectSlick value={client} setValue={setClient} className="mt-2" />
-      <OverviewScheduleMediations />
+      <OverviewScheduleMediations className={mediationsClassName} />
     </Card>
   )
 }

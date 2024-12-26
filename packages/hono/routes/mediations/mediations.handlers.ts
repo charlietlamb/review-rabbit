@@ -259,7 +259,8 @@ export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { startDate, endDate, clientId } = await c.req.valid('json')
+  const { startDate, endDate, clientId, mediationId } =
+    await c.req.valid('json')
 
   try {
     let query = db.query.mediations.findMany({
@@ -279,9 +280,7 @@ export const getMediations: AppRouteHandler<GetMediationsRoute> = async (c) => {
       },
     })
     const mediationsResults = await query
-    console.log(mediationsResults)
 
-    // Filter out mediations that have no matching clients when clientId is specified
     const filteredMediations = clientId
       ? mediationsResults.filter((m) => m.mediationClients.length > 0)
       : mediationsResults

@@ -8,12 +8,11 @@ import {
 } from '@remio/design-system/components/ui/dialog'
 import MediationForm from './mediation-form'
 
-export default function NewEventDialog({
+export default function NewMediationDialog({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // add event dialog...
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

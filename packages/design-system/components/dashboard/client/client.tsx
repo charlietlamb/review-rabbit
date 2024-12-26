@@ -61,6 +61,14 @@ export default function Client({
         className="w-full p-4"
         onDelete={() => router.push('/dashboard/clients')}
       />
+      <div className="p-4">
+        <p className="font-heading font-bold text-foreground">
+          Recent Invoices
+        </p>
+        <p className="text-muted-foreground text-sm">
+          View and manage invoices for {client.name}
+        </p>
+      </div>
       <div className="flex items-center justify-between p-4 gap-4">
         <TableSearch search={search} setSearch={setSearch} />
         <InvoiceEditDialog client={client}>

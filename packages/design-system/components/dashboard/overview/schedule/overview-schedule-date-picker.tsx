@@ -5,24 +5,30 @@ import { useAtom } from 'jotai'
 import { overviewScheduleDateAtom } from '@remio/design-system/atoms/dashboard/overview/overview-atoms'
 import { cn } from '@remio/design-system/lib/utils'
 
-export default function DateSlider() {
+export default function DateSlider({
+  dateOffset = 2,
+}: {
+  dateOffset?: number
+}) {
   const [selectedDate, setSelectedDate] = useAtom(overviewScheduleDateAtom)
 
-  // Generate array of 5 dates centered on selected date
-  const dates = [-2, -1, 0, 1, 2].map((offset) => addDays(selectedDate, offset))
+  // Generate array of dates centered on selected date
+  const dates = Array.from({ length: 2 * dateOffset + 1 }, (_, i) =>
+    addDays(selectedDate, i - dateOffset)
+  )
 
   return (
-    <div className="flex items-center justify-between w-full mx-auto">
+    <div className="flex items-center justify-between w-full mx-auto px-2">
       <Button
         variant="ghost"
         size="icon"
-        className="h-8 w-8"
+        className="h-8 w-8 shrink-0"
         onClick={() => setSelectedDate(subDays(selectedDate, 1))}
       >
         <ChevronLeft />
       </Button>
 
-      <div className="flex gap-1">
+      <div className="flex gap-1 justify-center flex-grow overflow-hidden">
         {dates.map((date) => {
           const isSelected = date.toDateString() === selectedDate.toDateString()
 
@@ -46,7 +52,7 @@ export default function DateSlider() {
       <Button
         variant="ghost"
         size="icon"
-        className="h-8 w-8"
+        className="h-8 w-8 shrink-0"
         onClick={() => setSelectedDate(addDays(selectedDate, 1))}
       >
         <ChevronRight />

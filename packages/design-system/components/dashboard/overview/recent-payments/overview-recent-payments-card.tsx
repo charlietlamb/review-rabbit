@@ -13,7 +13,7 @@ export default function OverviewRecentPaymentsCard() {
   const router = useRouter()
   return (
     <Card className="flex flex-col">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-row items-center justify-between pt-2">
         <CardTitle className="text-lg flex items-center gap-2">
           <Wallet /> Recent Payments
         </CardTitle>

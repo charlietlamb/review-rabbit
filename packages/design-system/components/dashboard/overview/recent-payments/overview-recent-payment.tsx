@@ -4,6 +4,11 @@ import { format } from 'date-fns'
 import { Button } from '@remio/design-system/components/ui/button'
 import { ChevronRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@remio/design-system/components/ui/tooltip'
 
 export default function OverviewRecentPayment({
   payment,
@@ -29,14 +34,19 @@ export default function OverviewRecentPayment({
           {format(payment.paidAt ?? payment.createdAt, 'dd MMM yyyy')}
         </p>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="ml-2 shrink-0"
-        onClick={() => router.push(`/dashboard/invoice/${payment.id}`)}
-      >
-        <ChevronRight className="h-4 w-4" />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="ml-2 shrink-0"
+            onClick={() => router.push(`/dashboard/invoice/${payment.id}`)}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>View Invoice</TooltipContent>
+      </Tooltip>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { Button } from '@remio/design-system/components/ui/button'
 export default function OverviewScheduleHeader() {
   const router = useRouter()
   return (
-    <CardHeader className="flex flex-row justify-between p-2 items-center">
+    <CardHeader className="flex flex-row justify-between p-2 items-center pt-0">
       <CardTitle className="flex flex-row items-center gap-2 text-lg">
         <Calendar /> Schedule
       </CardTitle>

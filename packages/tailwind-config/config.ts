@@ -26,7 +26,7 @@ export const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
-        heading: ['var(--font-bricolage-grotesque)'],
+        heading: ['var(--font-outfit)'],
       },
       colors: {
         background: 'hsl(var(--background))',

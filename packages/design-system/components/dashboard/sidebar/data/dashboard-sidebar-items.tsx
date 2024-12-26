@@ -5,6 +5,7 @@ import { FileStackIcon } from '../icons/files'
 import { UsersIcon } from '../icons/users'
 import { ClockIcon } from '../icons/clock'
 import { NotebookIcon } from '../icons/notebook'
+import { MessageCircleMoreIcon } from '../icons/message'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -24,6 +25,13 @@ export const dashboardSidebarItemsTop = [
 ]
 
 export const dashboardSidebarItems = [
+  {
+    title: 'Mediations',
+    icon: <MessageCircleMoreIcon />,
+    href: '/dashboard/mediations',
+    key: 'mediations',
+    match: ['mediations'],
+  },
   {
     title: 'Schedule',
     icon: <ClockIcon />,

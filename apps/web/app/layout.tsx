@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Bricolage_Grotesque } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import { DesignSystemProvider } from '@remio/design-system'
 import '@remio/design-system/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const outfit = Outfit({
   weight: ['200', '300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
-  variable: '--font-bricolage-grotesque',
+  variable: '--font-outfit',
 })
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.variable} ${bricolageGrotesque.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
+        className={`${GeistSans.variable} ${outfit.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
       >
         <DesignSystemProvider>{children}</DesignSystemProvider>
       </body>

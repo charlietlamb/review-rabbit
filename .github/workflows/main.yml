@@ -18,8 +18,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: |
-          cd packages/database
-          bun install
           cd ../..
+          npm config set "@tiptap-pro:registry" https://registry.tiptap.dev/
+          npm config set "//registry.tiptap.dev/:_authToken" ${{ secrets.TIPTAP_AUTH_TOKEN }}
+          cd apps/api
+          bun install
       - run: bun gen
       - run: bun migrate

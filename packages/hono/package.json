@@ -9,7 +9,6 @@
     "@hono/zod-openapi": "^0.18.0",
     "@remio/env": "workspace:*",
     "@remio/http": "workspace:*",
-    "@remio/pdf": "workspace:*",
     "@remio/stripe": "workspace:*",
     "@scalar/hono-api-reference": "^0.5.161",
     "drizzle-zod": "^0.5.1",

@@ -180,6 +180,3 @@ dist
 
 # wrangler
 .dev.vars
-
-# tiptap
-.npmrc

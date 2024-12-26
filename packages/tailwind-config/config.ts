@@ -12,7 +12,6 @@ export const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    '../../packages/tiptap/{components,extensions,hooks,lib,styles}/**/*.{ts,tsx}',
     '../../packages/design-system/**/*.{ts,tsx}',
   ],
   theme: {

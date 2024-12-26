@@ -44,8 +44,6 @@
     "@tanstack/react-query": "^5.62.7",
     "@tanstack/react-table": "^8.20.5",
     "@tanstack/zod-form-adapter": "^0.40.2",
-    "@tiptap/react": "^2.10.4",
-    "@tiptap/starter-kit": "^2.10.4",
     "@types/lodash.throttle": "^4.1.9",
     "@uidotdev/usehooks": "^2.4.1",
     "@vercel/toolbar": "^0.1.27",

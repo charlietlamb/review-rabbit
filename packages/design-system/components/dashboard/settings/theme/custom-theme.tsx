@@ -8,7 +8,7 @@ import { cn } from '@burse/design-system/lib/utils'
 import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import { useAtom } from 'jotai'
 import {
-  CustomTheme,
+  CustomTheme as CustomThemeType,
   customThemeAtom,
   customThemeOptions,
 } from '@burse/design-system/atoms/dashboard/theme/custom-theme-atom'
@@ -19,7 +19,7 @@ export default function CustomTheme() {
     <RadioGroup
       className="flex gap-1.5"
       value={theme}
-      onValueChange={(value) => setTheme(value as CustomTheme)}
+      onValueChange={(value) => setTheme(value as CustomThemeType)}
     >
       {customThemeOptions.map((color) => (
         <span className={color} key={color}>

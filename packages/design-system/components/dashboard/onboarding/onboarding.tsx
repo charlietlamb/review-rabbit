@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { ArrowRight, Wallet } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import OnboardingTheme from '../settings/theme/theme'
-import OnboardingStripe from './oboarding-stripe'
+import OnboardingStripe from './onboarding-stripe'
 
 const steps = [
   {
@@ -15,7 +15,7 @@ const steps = [
     description: "Let's get you set up with everything you need",
     content: () => (
       <div className="flex flex-col items-center gap-4">
-        <p className="text-center text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           We'll guide you through the setup process to get your account ready.
         </p>
       </div>

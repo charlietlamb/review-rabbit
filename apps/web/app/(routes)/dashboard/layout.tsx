@@ -16,23 +16,19 @@ export default async function layout({
   const user = await useAuth()
   useIsUser(user)
   return (
-    <ThemeProvider attribute="class" defaultTheme="system">
-      <CustomThemeProvider>
-        <SessionProvider user={user}>
-          <SidebarProvider className="flex w-full flex-grow">
-            <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
-              {user && !user.onboardingCompleted && <Onboarding user={user} />}
-              <DashboardHeader />
-              <div className="w-full flex-grow flex overflow-hidden divide-x relative">
-                <DashboardSidebar />
-                <div className="flex flex-col flex-grow overflow-y-auto bg-background">
-                  {children}
-                </div>
-              </div>
+    <SessionProvider user={user}>
+      <SidebarProvider className="flex w-full flex-grow">
+        <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
+          {user && !user.onboardingCompleted && <Onboarding user={user} />}
+          <DashboardHeader />
+          <div className="w-full flex-grow flex overflow-hidden divide-x relative">
+            <DashboardSidebar />
+            <div className="flex flex-col flex-grow overflow-y-auto bg-background">
+              {children}
             </div>
-          </SidebarProvider>
-        </SessionProvider>
-      </CustomThemeProvider>
-    </ThemeProvider>
+          </div>
+        </div>
+      </SidebarProvider>
+    </SessionProvider>
   )
 }

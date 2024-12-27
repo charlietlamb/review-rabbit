@@ -54,7 +54,7 @@ body {
     --chart-5: 27 87% 67%;
   }
   .dark,
-  .dark .blue {
+  .dark.blue {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -107,7 +107,7 @@ body {
     --chart-5: 27 87% 67%;
   }
 
-  .dark .red {
+  .dark.red {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -159,7 +159,7 @@ body {
     --chart-5: 27 87% 67%;
   }
 
-  .dark .orange {
+  .dark.orange {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
     --muted: 12 6.5% 15.1%;
@@ -212,7 +212,7 @@ body {
     --chart-5: 27 87% 67%;
   }
 
-  .dark .green {
+  .dark.green {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --muted: 0 0% 15%;
@@ -265,7 +265,7 @@ body {
     --chart-5: 27 87% 67%;
   }
 
-  .dark .yellow {
+  .dark.yellow {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
     --muted: 12 6.5% 15.1%;
@@ -318,7 +318,7 @@ body {
     --chart-5: 27 87% 67%;
   }
 
-  .dark .violet {
+  .dark.violet {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;

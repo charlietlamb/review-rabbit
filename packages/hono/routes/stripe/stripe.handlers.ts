@@ -1,6 +1,7 @@
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import { HttpStatusCodes } from '@burse/http'
 import { stripeConnects } from '@burse/database/schema/stripe-connects'
+import { stripeOAuthStates } from '@burse/database/schema/stripe-oauth-states'
 import { db } from '@burse/database'
 import {
   ConnectGetRoute,
@@ -11,15 +12,14 @@ import {
   SubscriptionSuccessRoute,
 } from './stripe.routes'
 import { stripe } from '@burse/stripe'
-import { and, eq } from 'drizzle-orm'
+import { and, eq, lt } from 'drizzle-orm'
 import { env } from '@burse/env'
 import { invoices } from '@burse/database'
 import { users } from '@burse/database'
 import { Plan } from '@burse/hono/lib/types'
 import crypto from 'crypto'
 
-// Store state in memory for demo - in production use Redis/DB
-const oauthStates = new Map<string, { userId: string; timestamp: number }>()
+const STATE_EXPIRY_MINUTES = 10
 
 export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   const user = c.get('user')
@@ -42,18 +42,19 @@ export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
 
     // Generate state for CSRF protection
     const state = crypto.randomBytes(32).toString('hex')
-    oauthStates.set(state, {
+    const expiresAt = new Date(Date.now() + STATE_EXPIRY_MINUTES * 60 * 1000)
+
+    // Store state in database
+    await db.insert(stripeOAuthStates).values({
+      state,
       userId: user.id,
-      timestamp: Date.now(),
+      expiresAt,
     })
 
-    // Clean up old states
-    for (const [key, value] of oauthStates.entries()) {
-      if (Date.now() - value.timestamp > 1000 * 60 * 10) {
-        // 10 minutes
-        oauthStates.delete(key)
-      }
-    }
+    // Clean up expired states
+    await db
+      .delete(stripeOAuthStates)
+      .where(lt(stripeOAuthStates.expiresAt, new Date()))
 
     const redirectUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${env.STRIPE_CLIENT_ID}&scope=read_write&state=${state}`
 
@@ -132,12 +133,21 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
     )
   }
 
-  const storedState = oauthStates.get(state)
+  // Get and verify the state from database
+  const storedState = await db.query.stripeOAuthStates.findFirst({
+    where: eq(stripeOAuthStates.state, state),
+  })
+
   if (!storedState) {
     return c.json(
-      { error: 'Invalid state parameter' },
+      { error: 'Invalid state: Not found' },
       HttpStatusCodes.BAD_REQUEST
     )
+  }
+
+  if (new Date() > storedState.expiresAt) {
+    await db.delete(stripeOAuthStates).where(eq(stripeOAuthStates.state, state))
+    return c.json({ error: 'State expired' }, HttpStatusCodes.BAD_REQUEST)
   }
 
   try {
@@ -189,8 +199,8 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
       await db.insert(stripeConnects).values(newConnect)
     }
 
-    // Clean up state
-    oauthStates.delete(state)
+    // Clean up used state
+    await db.delete(stripeOAuthStates).where(eq(stripeOAuthStates.state, state))
 
     return c.redirect(
       `${env.NEXT_PUBLIC_WEB}/dashboard/settings/stripe?success=true`,

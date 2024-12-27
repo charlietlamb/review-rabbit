@@ -1,5 +1,6 @@
 'use client'
 
+import AppThemeProvider from './app-theme-provider'
 import TanstackQueryProvider from './tanstack-query-provider'
 import { useEffect, useState } from 'react'
 
@@ -13,5 +14,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   if (!mounted) {
     return null
   }
-  return <TanstackQueryProvider>{children}</TanstackQueryProvider>
+  return (
+    <AppThemeProvider>
+      <TanstackQueryProvider>{children}</TanstackQueryProvider>
+    </AppThemeProvider>
+  )
 }

@@ -26,7 +26,7 @@ export default function OnboardingStripe() {
   return (
     <div className="flex flex-col items-center gap-4">
       <Wallet className="h-12 w-12 text-primary" />
-      <p className="text-center text-muted-foreground">
+      <p className="text-sm text-muted-foreground text-center">
         Connect your Stripe account to start accepting payments securely from
         your clients.
       </p>

@@ -8,6 +8,7 @@ import {
 } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
 import InfiniteScroll from '@burse/design-system/components/misc/infinite-scroll'
 import StripeConnect from './stripe-connect'
+import Spinner from '@burse/design-system/components/misc/spinner'
 
 export default function StripeConnects() {
   const {
@@ -22,8 +23,18 @@ export default function StripeConnects() {
     atom: stripeConnectsAtom,
     searchAtom: stripeConnectsSearchAtom,
   })
-  if (isLoading) return <div>Loading...</div>
-  if (stripeConnects.length === 0) return <div>No stripe connects found</div>
+  if (isLoading)
+    return (
+      <div className="py-4 flex items-center justify-center">
+        <Spinner />
+      </div>
+    )
+  if (stripeConnects.length === 0)
+    return (
+      <div className="flex items-center justify-center py-4">
+        No stripe connects found
+      </div>
+    )
   return (
     <InfiniteScroll
       hasNextPage={hasNextPage}

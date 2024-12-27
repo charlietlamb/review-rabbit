@@ -2,6 +2,7 @@ import { AppRouteHandler } from '@burse/hono/lib/types'
 import { HttpStatusCodes } from '@burse/http'
 import { stripeConnects } from '@burse/database/schema/stripe-connects'
 import { stripeOAuthStates } from '@burse/database/schema/stripe-oauth-states'
+import { users } from '@burse/database/schema/users'
 import { db } from '@burse/database'
 import {
   ConnectGetRoute,
@@ -156,51 +157,65 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
       code,
     })
 
-    if (!response.stripe_user_id) {
-      throw new Error('No stripe_user_id in response')
+    if (
+      !response.stripe_user_id ||
+      !response.access_token ||
+      !response.token_type ||
+      !response.scope
+    ) {
+      throw new Error('Missing required fields in Stripe response')
     }
 
-    // Check if account already exists
-    const existingConnect = await db.query.stripeConnects.findFirst({
-      where: eq(stripeConnects.userId, storedState.userId),
-    })
+    const stripeUserId = response.stripe_user_id
 
-    if (existingConnect) {
-      // Update existing account
-      await db
-        .update(stripeConnects)
-        .set({
-          accessToken: response.access_token,
-          refreshToken: response.refresh_token,
-          tokenType: response.token_type,
-          stripePublishableKey: response.stripe_publishable_key,
-          stripeUserId: response.stripe_user_id,
-          scope: response.scope,
-          onboardingCompleted: true,
-          updatedAt: new Date(),
-        })
-        .where(eq(stripeConnects.id, existingConnect.id))
-    } else {
-      // Create new account
-      const newConnect = {
-        id: response.stripe_user_id,
-        userId: storedState.userId,
+    // Start a transaction for all database operations
+    await db.transaction(async (tx) => {
+      // Check if account already exists
+      const existingConnect = await tx.query.stripeConnects.findFirst({
+        where: eq(stripeConnects.userId, storedState.userId),
+      })
+
+      const stripeData = {
         accessToken: response.access_token,
-        refreshToken: response.refresh_token,
+        refreshToken: response.refresh_token ?? null,
         tokenType: response.token_type,
-        stripePublishableKey: response.stripe_publishable_key,
-        stripeUserId: response.stripe_user_id,
+        stripePublishableKey: response.stripe_publishable_key ?? null,
+        stripeUserId,
         scope: response.scope,
         onboardingCompleted: true,
-        createdAt: new Date(),
         updatedAt: new Date(),
       }
 
-      await db.insert(stripeConnects).values(newConnect)
-    }
+      if (existingConnect) {
+        // Update existing account
+        await tx
+          .update(stripeConnects)
+          .set(stripeData)
+          .where(eq(stripeConnects.id, existingConnect.id))
+      } else {
+        // Create new account with required fields
+        const insertData: typeof stripeConnects.$inferInsert = {
+          id: stripeUserId,
+          userId: storedState.userId,
+          ...stripeData,
+        }
+        await tx.insert(stripeConnects).values(insertData)
+      }
 
-    // Clean up used state
-    await db.delete(stripeOAuthStates).where(eq(stripeOAuthStates.state, state))
+      // Update user's onboarding status
+      await tx
+        .update(users)
+        .set({
+          onboardingCompleted: true,
+          updatedAt: new Date(),
+        })
+        .where(eq(users.id, storedState.userId))
+
+      // Clean up used state
+      await tx
+        .delete(stripeOAuthStates)
+        .where(eq(stripeOAuthStates.state, state))
+    })
 
     return c.redirect(
       `${env.NEXT_PUBLIC_WEB}/dashboard?status=onboarding-completed`,

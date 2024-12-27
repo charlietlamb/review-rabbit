@@ -1,11 +1,11 @@
-import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import ClientMultiSelect from './client-multi-select'
 import { useAtomValue } from 'jotai'
-import { clientsSelectAtom } from '@remio/design-system/atoms/dashboard/clients/client-select-atoms'
+import { clientsSelectAtom } from '@burse/design-system/atoms/dashboard/clients/client-select-atoms'
 import { useEffect } from 'react'
-import { MediationData } from '@remio/design-system/components/dashboard/mediation/mediation-types'
-import { cn } from '@remio/design-system/lib/utils'
+import { MediationData } from '@burse/design-system/components/dashboard/mediation/mediation-types'
+import { cn } from '@burse/design-system/lib/utils'
 
 export default function ClientsSelect({
   form,

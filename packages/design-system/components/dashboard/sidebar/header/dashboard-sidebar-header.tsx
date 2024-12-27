@@ -3,9 +3,9 @@
 import {
   SidebarHeader,
   useSidebar,
-} from '@remio/design-system/components/ui/sidebar'
+} from '@burse/design-system/components/ui/sidebar'
 import Link from 'next/link'
-import { cn } from '@remio/design-system/lib/utils'
+import { cn } from '@burse/design-system/lib/utils'
 
 export default function DashboardSidebarHeader() {
   const { open } = useSidebar()
@@ -16,7 +16,7 @@ export default function DashboardSidebarHeader() {
         !open && 'justify-center'
       )}
     >
-      <Link href="/">{open ? 'remio' : 'r'}</Link>
+      <Link href="/">{open ? 'burse' : 'r'}</Link>
     </SidebarHeader>
   )
 }

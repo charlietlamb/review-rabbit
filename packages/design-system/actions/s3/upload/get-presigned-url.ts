@@ -1,7 +1,7 @@
 'use server'
 
-import client from '@remio/design-system/lib/client'
-import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
+import client from '@burse/design-system/lib/client'
+import { headersWithCookies } from '@burse/design-system/lib/header-with-cookies'
 
 export async function getPresignedUrl(key: string) {
   try {

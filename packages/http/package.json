@@ -1,5 +1,5 @@
 {
-  "name": "@remio/http",
+  "name": "@burse/http",
   "type": "module",
   "module": "index.ts",
   "dependencies": {

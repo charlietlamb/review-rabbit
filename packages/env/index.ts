@@ -24,6 +24,7 @@ const server = {
   // Stripe
   STRIPE_SECRET_KEY: z.string().min(1).startsWith('sk_'),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).startsWith('whsec_'),
+  STRIPE_CLIENT_ID: z.string().min(1),
 
   // Bundle Analyzer
   ANALYZE: z.string().optional().default('false'),
@@ -95,6 +96,7 @@ if (!databaseOnly) {
       // Stripe
       STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
       STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+      STRIPE_CLIENT_ID: process.env.STRIPE_CLIENT_ID,
 
       // Bundle Analyzer
       ANALYZE: process.env.ANALYZE,

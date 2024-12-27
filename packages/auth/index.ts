@@ -1,9 +1,9 @@
-import { db } from '@remio/database'
+import { db } from '@burse/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { env } from '@remio/env'
-import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@remio/email'
-import * as schema from '@remio/database/schema'
+import { env } from '@burse/env'
+import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@burse/email'
+import * as schema from '@burse/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 
 export const auth = betterAuth({
@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'remio',
+    cookiePrefix: 'burse',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
       enabled: env.NODE_ENV === 'production' ? true : false,
@@ -51,6 +51,12 @@ export const auth = betterAuth({
         type: 'string',
         defaultValue: 'free',
         required: true,
+      },
+      onboardingCompleted: {
+        type: 'boolean',
+        defaultValue: false,
+        required: true,
+        input: false,
       },
     },
   },

@@ -1,6 +1,6 @@
 'use client'
-import { SidebarTrigger } from '@remio/design-system/components/ui/sidebar'
-import { useIsMobile } from '@remio/design-system/hooks/use-mobile'
+import { SidebarTrigger } from '@burse/design-system/components/ui/sidebar'
+import { useIsMobile } from '@burse/design-system/hooks/use-mobile'
 
 export default function DashboardSidebarToggle() {
   const mobile = useIsMobile()

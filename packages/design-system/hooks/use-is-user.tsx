@@ -1,4 +1,4 @@
-import { User } from '@remio/database'
+import { User } from '@burse/database'
 import { redirect } from 'next/navigation'
 
 export default function useIsUser(user: User | null) {

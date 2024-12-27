@@ -1,13 +1,13 @@
-import { users } from '@remio/database/schema/users'
+import { users } from '@burse/database/schema/users'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,
-} from '@remio/hono/routes/s3/s3.types'
-import { HttpStatusCodes } from '@remio/http'
-import { env } from '@remio/env'
+} from '@burse/hono/routes/s3/s3.types'
+import { HttpStatusCodes } from '@burse/http'
+import { env } from '@burse/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { db } from '@remio/database'
+import { db } from '@burse/database'
 import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 

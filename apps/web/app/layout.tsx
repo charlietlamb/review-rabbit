@@ -1,18 +1,12 @@
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
-import { DesignSystemProvider } from '@remio/design-system'
-import '@remio/design-system/styles/globals.css'
+import { DesignSystemProvider } from '@burse/design-system'
+import '@burse/design-system/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
-
-const outfit = Outfit({
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
-  subsets: ['latin'],
-  variable: '--font-outfit',
-})
+import { GeistMono } from 'geist/font/mono'
 
 export const metadata: Metadata = {
-  title: 'remio',
-  description: 'remio',
+  title: 'burse',
+  description: 'burse',
 }
 
 export default async function RootLayout({
@@ -23,7 +17,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.variable} ${outfit.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
       >
         <DesignSystemProvider>{children}</DesignSystemProvider>
       </body>

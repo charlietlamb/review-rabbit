@@ -1,5 +1,5 @@
-import { env } from '@remio/env'
-import { config, withAnalyzer } from '@remio/next-config'
+import { env } from '@burse/env'
+import { config, withAnalyzer } from '@burse/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = { ...config }

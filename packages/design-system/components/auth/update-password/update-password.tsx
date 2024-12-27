@@ -5,17 +5,17 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from '@remio/design-system/components/ui/dialog'
+} from '@burse/design-system/components/ui/dialog'
 import { z } from 'zod'
 import Password from '../form/password'
 import PasswordStrength from '../form/password-strength'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { toast } from 'sonner'
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { useState } from 'react'
-import Spinner from '@remio/design-system/components/misc/spinner'
-import { updatePassword } from '@remio/design-system/actions/auth/user/update-password'
+import Spinner from '@burse/design-system/components/misc/spinner'
+import { updatePassword } from '@burse/design-system/actions/auth/user/update-password'
 
 const updatePasswordSchema = z.object({
   password: z.string().min(1),

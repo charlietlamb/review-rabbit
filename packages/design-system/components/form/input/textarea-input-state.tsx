@@ -1,7 +1,7 @@
-import { cn } from '@remio/design-system/lib/utils'
-import { useFormContext } from '@remio/design-system/components/form/form-context'
-import { Textarea } from '@remio/design-system/components/ui/textarea'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import { cn } from '@burse/design-system/lib/utils'
+import { useFormContext } from '@burse/design-system/components/form/form-context'
+import { Textarea } from '@burse/design-system/components/ui/textarea'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 export default function TextareaInput({
   value,

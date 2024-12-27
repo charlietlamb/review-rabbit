@@ -1,12 +1,12 @@
 import { CheckIcon, ChevronDown, X } from 'lucide-react'
-import { cn } from '@remio/design-system/lib/utils'
-import { Button } from '@remio/design-system/components/ui/button'
-import { Badge } from '@remio/design-system/components/ui/badge'
+import { cn } from '@burse/design-system/lib/utils'
+import { Button } from '@burse/design-system/components/ui/button'
+import { Badge } from '@burse/design-system/components/ui/badge'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@remio/design-system/components/ui/popover'
+} from '@burse/design-system/components/ui/popover'
 import {
   Command,
   CommandEmpty,
@@ -14,19 +14,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@remio/design-system/components/ui/command'
+} from '@burse/design-system/components/ui/command'
 import {
   clientsSelectOptionsAtom,
   clientsSelectSearchAtom,
   selectedClientsAtom,
-} from '@remio/design-system/atoms/dashboard/mediations/mediation-atoms'
+} from '@burse/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtom } from 'jotai'
-import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
-import { Client } from '@remio/database/schema/clients'
-import ClientAvatar from '@remio/design-system/components/dashboard/clients/client-avatar'
+import { fetchClients } from '@burse/design-system/actions/clients/fetch-clients'
+import { Client } from '@burse/database/schema/clients'
+import ClientAvatar from '@burse/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
-import Spinner from '@remio/design-system/components/misc/spinner'
-import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
+import Spinner from '@burse/design-system/components/misc/spinner'
+import { useInfiniteQueryWithAtom } from '@burse/design-system/hooks/use-infinite-query-with-atom'
 import { useFormContext } from '../form-context'
 
 export default function ClientMultiSelect() {

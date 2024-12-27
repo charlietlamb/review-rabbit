@@ -7,17 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@remio/design-system/components/ui/dialog'
-import { Button } from '@remio/design-system/components/ui/button'
+} from '@burse/design-system/components/ui/dialog'
+import { Button } from '@burse/design-system/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import { authClient } from '@remio/design-system/lib/authClient'
+import { authClient } from '@burse/design-system/lib/authClient'
 import { toast } from 'sonner'
-import InputWithIcon from '@remio/design-system/components/form/input/input-with-icon'
+import InputWithIcon from '@burse/design-system/components/form/input/input-with-icon'
 import { MailIcon } from 'lucide-react'
-import { FormProvider } from '@remio/design-system/components/form/form-context'
+import { FormProvider } from '@burse/design-system/components/form/form-context'
 
 export const resetPasswordSchema = z.object({
   email: z.string().email(),

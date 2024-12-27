@@ -1,47 +1,64 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from '@remio/design-system/components/ui/breadcrumb'
-import React from 'react'
-import { useIsMobile } from '@remio/design-system/hooks/use-mobile'
-import { cn } from '@remio/design-system/lib/utils'
-import { useAtomValue } from 'jotai'
-import { breadcrumbOverrideAtom } from '@remio/design-system/atoms/dashboard/breadcrumb/breadcrumb-atom'
-import { isUuid } from '@remio/design-system/lib/utils/is-uuid'
+  BreadcrumbSeparatorSlash,
+} from '@burse/design-system/components/ui/breadcrumb'
+import { useIsMobile } from '@burse/design-system/hooks/use-mobile'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTriggerChevrons,
+  SelectValue,
+} from '@burse/design-system/components/ui/select'
+import { Database } from 'lucide-react'
+import { LogoSvg } from '@burse/design-system/components/site/header/logo-svg'
 
 export default function DashboardBreadcrumb() {
-  const pathname = usePathname()
-  const pathSegments = pathname.split('/').filter(Boolean)
   const mobile = useIsMobile()
-  const override = useAtomValue(breadcrumbOverrideAtom)
+  const showIsTest = true
   return (
-    <Breadcrumb aria-label="breadcrumb" className={cn(!mobile && 'ml-2')}>
-      <BreadcrumbList>
-        {pathSegments.map((segment, index) => {
-          const href = '/' + pathSegments.slice(0, index + 1).join('/')
-          if (isUuid(segment)) {
-            segment = override ?? segment
-          }
-          return (
-            <React.Fragment key={href}>
-              <BreadcrumbItem>
-                <BreadcrumbLink
-                  href={href}
-                  className="font-semibold font-heading"
-                >
-                  {segment.charAt(0).toUpperCase() + segment.slice(1)}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              {index < pathSegments.length - 1 && <BreadcrumbSeparator />}
-            </React.Fragment>
-          )
-        })}
+    <Breadcrumb aria-label="breadcrumb" className="ml-4">
+      <BreadcrumbList className="gap-0 sm:gap-0">
+        <BreadcrumbItem>
+          <LogoSvg className="size-8 text-muted-foreground fill-muted-foreground mr-4" />
+        </BreadcrumbItem>
+        <BreadcrumbSeparatorSlash />
+        <BreadcrumbItem>
+          <Select defaultValue="s1">
+            <SelectTriggerChevrons
+              id="select-database"
+              aria-label="Select database"
+            >
+              <SelectValue placeholder="Select time" />
+            </SelectTriggerChevrons>
+            <SelectContent>
+              <SelectItem value="s1">Orion</SelectItem>
+              <SelectItem value="s2">Sigma</SelectItem>
+              <SelectItem value="s3">Dorado</SelectItem>
+            </SelectContent>
+          </Select>
+        </BreadcrumbItem>
+        <BreadcrumbSeparatorSlash />
+        <BreadcrumbItem>
+          <Select defaultValue="s1">
+            <SelectTriggerChevrons
+              id="select-database"
+              className="relative"
+              aria-label="Select database"
+            >
+              <SelectValue placeholder="Select time" />
+            </SelectTriggerChevrons>
+            <SelectContent>
+              <SelectItem value="s1">Orion</SelectItem>
+              <SelectItem value="s2">Sigma</SelectItem>
+              <SelectItem value="s3">Dorado</SelectItem>
+            </SelectContent>
+          </Select>
+        </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
   )

@@ -12,6 +12,7 @@ export const users = pgTable('users', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
   plan: text('plan').default('free').notNull(),
+  onboardingCompleted: boolean('onboardingCompleted').default(false).notNull(),
 })
 
 export const selectUserSchema = createSelectSchema(users)

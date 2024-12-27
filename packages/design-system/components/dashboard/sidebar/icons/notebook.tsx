@@ -6,7 +6,7 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { useSidebar } from '@remio/design-system/components/ui/sidebar'
+import { useSidebar } from '@burse/design-system/components/ui/sidebar'
 
 const NotebookIcon = () => {
   const controls = useAnimation()

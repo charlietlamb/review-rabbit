@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@remio/hono/lib/types'
+import { AppOpenAPI } from '@burse/hono/lib/types'
 import { cors } from 'hono/cors'
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 
 export default function configureCors(app: AppOpenAPI) {
   app.use('*', async (c, next) => {

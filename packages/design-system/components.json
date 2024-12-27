@@ -10,10 +10,10 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@remio/design-system/components",
-    "utils": "@remio/design-system/lib/utils",
-    "hooks": "@remio/design-system/hooks",
-    "lib": "@remio/design-system/lib",
-    "ui": "@remio/design-system/components/ui"
+    "components": "@burse/design-system/components",
+    "utils": "@burse/design-system/lib/utils",
+    "hooks": "@burse/design-system/hooks",
+    "lib": "@burse/design-system/lib",
+    "ui": "@burse/design-system/components/ui"
   }
 }

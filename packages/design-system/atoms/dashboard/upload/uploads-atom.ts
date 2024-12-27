@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { Media } from '@remio/database/schema/media'
+import { Media } from '@burse/database/schema/media'
 
 export const uploadPagesAtom = atom<Media[][]>([])
 export const uploadsSortAtom = atom<

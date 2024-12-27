@@ -1,7 +1,5 @@
-import HeroImage from './hero-image'
-import HeroPitch from './hero-pitch'
-import { HeroText } from './hero-text'
 import HeroActions from './hero-actions'
+import { HeroText } from './hero-text'
 
 export function Hero() {
   return (
@@ -11,9 +9,7 @@ export function Hero() {
           <HeroText />
           <HeroActions />
         </div>
-        <HeroPitch />
       </div>
-      <HeroImage />
     </section>
   )
 }

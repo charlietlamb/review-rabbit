@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
@@ -22,7 +22,7 @@ export default function HeroActions() {
         size="lg"
         variant="shine"
         colors="none"
-        className="font-heading text-lg hover:text-white"
+        className="font-heading text-lg"
         onClick={() => router.push('/signup')}
       >
         Get Started

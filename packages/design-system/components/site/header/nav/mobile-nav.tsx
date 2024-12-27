@@ -1,4 +1,4 @@
-import { MobileNavbar } from '@remio/design-system/components/site/index/mobile-navbar'
+import { MobileNavbar } from '@burse/design-system/components/site/index/mobile-navbar'
 import { NavLinks } from './nav-links'
 import { ActionButton } from '../action-button'
 

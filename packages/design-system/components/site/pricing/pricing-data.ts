@@ -1,5 +1,5 @@
-import { env } from '@remio/env'
-import { Plan } from '@remio/hono/lib/types'
+import { env } from '@burse/env'
+import { Plan } from '@burse/hono/lib/types'
 
 export type PricingTier = {
   title: string

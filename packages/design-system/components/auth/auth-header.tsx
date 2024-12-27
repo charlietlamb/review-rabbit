@@ -17,12 +17,12 @@ export default function AuthHeader({ login }: { login: boolean }) {
       </Badge>
       <div className="flex flex-col items-center">
         <h1 className="text-xl font-bold font-heading text-foreground">
-          {login ? 'Sign in to remio' : 'Create your remio account'}
+          {login ? 'Sign in to burse' : 'Create your burse account'}
         </h1>
         <p className="text-muted-foreground text-center text-sm">
           {login
             ? 'Welcome back! Please enter your details.'
-            : 'Welcome to remio! Please enter your details.'}
+            : 'Welcome to burse! Please enter your details.'}
         </p>
       </div>
     </div>

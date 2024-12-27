@@ -4,20 +4,20 @@ import {
   CardHeader,
   CardContent,
   CardTitle,
-} from '@remio/design-system/components/ui/card'
-import { durationToTime } from '@remio/design-system/lib/misc/duration-to-time'
+} from '@burse/design-system/components/ui/card'
+import { durationToTime } from '@burse/design-system/lib/misc/duration-to-time'
 import { fileToIcon } from './file-to-icon'
-import { numberToSize } from '@remio/design-system/lib/misc/number-to-size'
+import { numberToSize } from '@burse/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
-import { cn } from '@remio/design-system/lib/utils'
-import { env } from '@remio/env'
+import { cn } from '@burse/design-system/lib/utils'
+import { env } from '@burse/env'
 import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
 import {
   isAudio,
   isImage,
   isVideo,
-} from '@remio/design-system/lib/misc/is-video'
-import { Media } from '@remio/database/schema/media'
+} from '@burse/design-system/lib/misc/is-video'
+import { Media } from '@burse/database/schema/media'
 
 export default function UploadCard({
   upload,

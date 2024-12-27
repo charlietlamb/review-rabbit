@@ -7,8 +7,8 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { cn } from '@remio/design-system/lib/utils'
-import { useSidebar } from '@remio/design-system/components/ui/sidebar'
+import { cn } from '@burse/design-system/lib/utils'
+import { useSidebar } from '@burse/design-system/components/ui/sidebar'
 
 const sparkleVariants: Variants = {
   initial: {

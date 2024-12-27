@@ -1,7 +1,7 @@
-import { Client } from '@remio/database'
+import { Client } from '@burse/database'
 import { Check, ChevronDown } from 'lucide-react'
-import { cn } from '@remio/design-system/lib/utils'
-import { Button } from '@remio/design-system/components/ui/button'
+import { cn } from '@burse/design-system/lib/utils'
+import { Button } from '@burse/design-system/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -9,27 +9,27 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@remio/design-system/components/ui/command'
+} from '@burse/design-system/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@remio/design-system/components/ui/popover'
-import ClientAvatar from '@remio/design-system/components/dashboard/clients/client-avatar'
+} from '@burse/design-system/components/ui/popover'
+import ClientAvatar from '@burse/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 import {
   clientsSelectAtom,
   clientsSelectSearchAtom,
-} from '@remio/design-system/atoms/dashboard/clients/client-select-atoms'
-import { useInfiniteQueryWithAtom } from '@remio/design-system/hooks/use-infinite-query-with-atom'
-import { fetchClients } from '@remio/design-system/actions/clients/fetch-clients'
-import Spinner from '@remio/design-system/components/misc/spinner'
-import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
-import { useFormContext } from '@remio/design-system/components/form/form-context'
-import FieldInfo from '@remio/design-system/components/form/field-info'
+} from '@burse/design-system/atoms/dashboard/clients/client-select-atoms'
+import { useInfiniteQueryWithAtom } from '@burse/design-system/hooks/use-infinite-query-with-atom'
+import { fetchClients } from '@burse/design-system/actions/clients/fetch-clients'
+import Spinner from '@burse/design-system/components/misc/spinner'
+import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
+import { useFormContext } from '@burse/design-system/components/form/form-context'
+import FieldInfo from '@burse/design-system/components/form/field-info'
 import { z } from 'zod'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 interface ClientSelectProps {
   form: TanstackForm<any>

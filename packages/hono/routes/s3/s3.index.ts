@@ -1,6 +1,6 @@
-import { createRouter } from '@remio/hono/lib/create-app'
-import * as handlers from '@remio/hono/routes/s3/s3.handlers'
-import * as routes from '@remio/hono/routes/s3/s3.routes'
+import { createRouter } from '@burse/hono/lib/create-app'
+import * as handlers from '@burse/hono/routes/s3/s3.handlers'
+import * as routes from '@burse/hono/routes/s3/s3.routes'
 
 const router = createRouter()
   .openapi(routes.uploadProfileImage, handlers.uploadProfileImage)

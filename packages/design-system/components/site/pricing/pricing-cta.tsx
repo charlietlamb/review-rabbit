@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 
 export default function PricingCta() {
   return (
@@ -14,7 +14,7 @@ export default function PricingCta() {
       <Button
         variant="shine"
         className="cursor-pointer border-border"
-        onClick={() => window.open('mailto:contact@remio.xyz', '_blank')}
+        onClick={() => window.open('mailto:contact@burse.xyz', '_blank')}
       >
         Contact Sales
       </Button>

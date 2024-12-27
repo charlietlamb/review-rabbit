@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 
 export default function CtaSection() {
   return (

@@ -1,6 +1,6 @@
-import { auth } from '@remio/auth'
-import { User } from '@remio/database/schema/users'
-import getUserImage from '@remio/design-system/lib/misc/get-user-image'
+import { auth } from '@burse/auth'
+import { User } from '@burse/database/schema/users'
+import getUserImage from '@burse/design-system/lib/misc/get-user-image'
 import { headers } from 'next/headers'
 
 export default async function useAuth(): Promise<User | null> {

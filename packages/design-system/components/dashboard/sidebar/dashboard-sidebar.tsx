@@ -1,28 +1,27 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarRail,
-  SidebarSeparator,
-} from '@remio/design-system/components/ui/sidebar'
+} from '@burse/design-system/components/ui/sidebar'
 import {
   dashboardSidebarItems,
   dashboardSidebarItemsTop,
 } from './data/dashboard-sidebar-items'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
-import DashboardSidebarHeader from './header/dashboard-sidebar-header'
 
 export default function DashboardSidebar() {
   return (
-    <Sidebar collapsible="icon" className="font-heading border-none">
-      <DashboardSidebarHeader />
+    <Sidebar collapsible="icon" className="border-none">
       <SidebarContent>
         <SidebarMenu>
+          <SidebarGroupLabel>Home</SidebarGroupLabel>
           {dashboardSidebarItemsTop.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
-          <SidebarSeparator className="my-2" />
+          <SidebarGroupLabel>More</SidebarGroupLabel>
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}

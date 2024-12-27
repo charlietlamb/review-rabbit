@@ -4,7 +4,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@remio/design-system/components/ui/collapsible'
+} from '@burse/design-system/components/ui/collapsible'
 import {
   SidebarMenuButton,
   SidebarMenuItem,
@@ -12,8 +12,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   useSidebar,
-} from '@remio/design-system/components/ui/sidebar'
-import { cn } from '@remio/design-system/lib/utils'
+} from '@burse/design-system/components/ui/sidebar'
+import { cn } from '@burse/design-system/lib/utils'
 import { ChevronRight, Settings } from 'lucide-react'
 
 const item = {

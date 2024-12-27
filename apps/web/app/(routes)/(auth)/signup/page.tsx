@@ -1,6 +1,6 @@
-import Auth from '@remio/design-system/components/auth/auth'
-import AuthLayout from '@remio/design-system/components/auth/auth-layout'
-import { auth } from '@remio/auth'
+import Auth from '@burse/design-system/components/auth/auth'
+import AuthLayout from '@burse/design-system/components/auth/auth-layout'
+import { auth } from '@burse/auth'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 

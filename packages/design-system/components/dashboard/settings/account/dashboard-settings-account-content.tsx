@@ -1,5 +1,5 @@
 import DashboardSettingsAccountEmailVerification from './dashboard-settings-account-email-verification'
-import UpdatePassword from '@remio/design-system/components/auth/update-password/update-password'
+import UpdatePassword from '@burse/design-system/components/auth/update-password/update-password'
 
 export default function DashboardSettingsAccountContent() {
   return (

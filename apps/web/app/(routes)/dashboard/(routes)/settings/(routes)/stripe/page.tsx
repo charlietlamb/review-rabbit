@@ -1,6 +1,6 @@
-import client from '@remio/design-system/lib/client'
-import StripeSettings from '@remio/design-system/components/dashboard/settings/stripe/stripe-settings'
-import { headersWithCookies } from '@remio/design-system/lib/header-with-cookies'
+import client from '@burse/design-system/lib/client'
+import StripeSettings from '@burse/design-system/components/dashboard/settings/stripe/stripe-settings'
+import { headersWithCookies } from '@burse/design-system/lib/header-with-cookies'
 
 export default async function StripeSettingsPage({
   searchParams,

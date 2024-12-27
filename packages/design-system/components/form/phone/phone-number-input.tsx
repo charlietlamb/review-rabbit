@@ -1,7 +1,7 @@
 'use client'
 
-import { Input } from '@remio/design-system/components/ui/input'
-import { cn } from '@remio/design-system/lib/utils'
+import { Input } from '@burse/design-system/components/ui/input'
+import { cn } from '@burse/design-system/lib/utils'
 import { ChevronDown, Phone } from 'lucide-react'
 import React, { forwardRef } from 'react'
 import * as RPNInput from 'react-phone-number-input'
@@ -9,7 +9,7 @@ import flags from 'react-phone-number-input/flags'
 import { TanstackForm } from '../tanstack-form'
 import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 interface PhoneNumberInputProps {
   form: TanstackForm<any>

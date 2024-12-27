@@ -1,6 +1,6 @@
 'use server'
 
-import client from '@remio/design-system/lib/client'
+import client from '@burse/design-system/lib/client'
 import { redirect } from 'next/navigation'
 
 export async function connectStripeRefresh(accountId: string) {

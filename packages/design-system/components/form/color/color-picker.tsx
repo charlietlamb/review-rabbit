@@ -6,12 +6,12 @@ import { z } from 'zod'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@remio/design-system/components/ui/radio-group'
-import { cn } from '@remio/design-system/lib/utils'
+} from '@burse/design-system/components/ui/radio-group'
+import { cn } from '@burse/design-system/lib/utils'
 import { TanstackForm } from '../tanstack-form'
 import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 const colors = [
   { value: 'blue', label: 'Blue', class: 'bg-blue-500 border-blue-500' },

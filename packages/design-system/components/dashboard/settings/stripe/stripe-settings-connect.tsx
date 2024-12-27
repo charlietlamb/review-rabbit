@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { useState } from 'react'
-import { connectStripe } from '@remio/design-system/actions/stripe/connect-stripe'
+import { connectStripe } from '@burse/design-system/actions/stripe/connect-stripe'
 import { toast } from 'sonner'
-import { HttpStatusCodes } from '@remio/http'
+import { HttpStatusCodes } from '@burse/http'
 
 export default function StripeSettingsConnect() {
   const [loading, setLoading] = useState(false)

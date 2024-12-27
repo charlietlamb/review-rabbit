@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -8,13 +8,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@remio/design-system/components/ui/command'
+} from '@burse/design-system/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@remio/design-system/components/ui/popover'
-import { cn } from '@remio/design-system/lib/utils'
+} from '@burse/design-system/components/ui/popover'
+import { cn } from '@burse/design-system/lib/utils'
 import { getDay, getDaysInMonth, isSameDay } from 'date-fns'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { Check, ChevronsUpDown } from 'lucide-react'

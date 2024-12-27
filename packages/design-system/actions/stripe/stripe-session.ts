@@ -1,9 +1,9 @@
 'use server'
 
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 import { redirect } from 'next/navigation'
-import { Plan } from '@remio/hono/lib/types'
-import { stripe } from '@remio/stripe'
+import { Plan } from '@burse/hono/lib/types'
+import { stripe } from '@burse/stripe'
 
 export const postStripeSession = async ({
   priceId,

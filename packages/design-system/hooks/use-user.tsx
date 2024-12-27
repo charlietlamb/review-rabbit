@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai'
-import { userAtom } from '@remio/design-system/atoms/user/user-atom'
-import { User } from '@remio/database'
+import { userAtom } from '@burse/design-system/atoms/user/user-atom'
+import { User } from '@burse/database'
 
 export default function useUser() {
   const user = useAtomValue(userAtom)

@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@remio/hono/lib/types'
-import { env } from '@remio/env'
-import { HttpStatusCodes } from '@remio/http'
+import { AppOpenAPI } from '@burse/hono/lib/types'
+import { env } from '@burse/env'
+import { HttpStatusCodes } from '@burse/http'
 
 export default function configureRedirects(app: AppOpenAPI) {
   app.use('/redirect/:path', async (c) => {

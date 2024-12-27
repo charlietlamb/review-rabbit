@@ -5,10 +5,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@remio/design-system/components/ui/sidebar'
+} from '@burse/design-system/components/ui/sidebar'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@remio/design-system/lib/utils'
+import { cn } from '@burse/design-system/lib/utils'
 
 export default function DashboardSidebarMenuItem({
   item,

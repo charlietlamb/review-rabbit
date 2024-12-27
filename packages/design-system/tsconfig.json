@@ -1,5 +1,5 @@
 {
-  "extends": "@remio/typescript-config/react-library.json",
+  "extends": "@burse/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
@@ -9,7 +9,7 @@
       }
     ],
     "paths": {
-      "@remio/*": ["../*"]
+      "@burse/*": ["../*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

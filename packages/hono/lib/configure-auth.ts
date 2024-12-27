@@ -1,7 +1,7 @@
-import { AppBindings, AppOpenAPI } from '@remio/hono/lib/types'
+import { AppBindings, AppOpenAPI } from '@burse/hono/lib/types'
 import { createMiddleware } from 'hono/factory'
-import { auth } from '@remio/auth'
-import { HttpStatusCodes } from '@remio/http'
+import { auth } from '@burse/auth'
+import { HttpStatusCodes } from '@burse/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 

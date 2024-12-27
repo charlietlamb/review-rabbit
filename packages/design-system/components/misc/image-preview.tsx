@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { Media } from '@remio/database/schema/media'
-import { getPresignedUrl } from '@remio/design-system/actions/s3/upload/get-presigned-url'
+import { Media } from '@burse/database/schema/media'
+import { getPresignedUrl } from '@burse/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
-import { cn } from '@remio/design-system/lib/utils'
+import { cn } from '@burse/design-system/lib/utils'
 import { Expand, Shrink } from 'lucide-react'
 import { Button } from '../ui/button'
 

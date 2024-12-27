@@ -10,15 +10,15 @@ import {
   WandSparkles,
 } from 'lucide-react'
 
-import { cn } from '@remio/design-system/lib/utils'
-import { Separator } from '@remio/design-system/components/ui/separator'
-import { Button } from '@remio/design-system/components/ui/button'
-import { Badge } from '@remio/design-system/components/ui/badge'
+import { cn } from '@burse/design-system/lib/utils'
+import { Separator } from '@burse/design-system/components/ui/separator'
+import { Button } from '@burse/design-system/components/ui/button'
+import { Badge } from '@burse/design-system/components/ui/badge'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@remio/design-system/components/ui/popover'
+} from '@burse/design-system/components/ui/popover'
 import {
   Command,
   CommandEmpty,
@@ -27,7 +27,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@remio/design-system/components/ui/command'
+} from '@burse/design-system/components/ui/command'
 
 /**
  * Variants for the multi-select component to handle different styles.

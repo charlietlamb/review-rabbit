@@ -1,4 +1,4 @@
-import app from '@remio/hono'
+import app from '@burse/hono'
 
 app.get('/', (c) => c.text('Hono!'))
 

@@ -1,10 +1,10 @@
-import { AnalyticsProvider } from '@remio/analytics'
-import { env } from '@remio/env'
+import { AnalyticsProvider } from '@burse/analytics'
+import { env } from '@burse/env'
 import { VercelToolbar } from '@vercel/toolbar/next'
-import { Toaster } from '@remio/design-system/components/ui/sonner'
-import { TooltipProvider } from '@remio/design-system/components/ui/tooltip'
-import Providers from '@remio/design-system/components/providers/providers'
-import OneTapProvider from '@remio/design-system/components/providers/one-tap-provider'
+import { Toaster } from '@burse/design-system/components/ui/sonner'
+import { TooltipProvider } from '@burse/design-system/components/ui/tooltip'
+import Providers from '@burse/design-system/components/providers/providers'
+import OneTapProvider from '@burse/design-system/components/providers/one-tap-provider'
 
 export const DesignSystemProvider = ({
   children,

@@ -7,12 +7,12 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 
 export function EmailHeader() {
   return (
     <Img
-      src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/remio/logo.svg`}
+      src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/burse/logo.svg`}
       width="48"
       height="48"
       alt="Company Logo"
@@ -53,7 +53,7 @@ export function EmailFooter() {
     <>
       <Hr className="border-gray-300 my-4" />
       <Text className="text-gray-500 text-sm text-center">
-        © {new Date().getFullYear()} remio. All rights reserved.
+        © {new Date().getFullYear()} burse. All rights reserved.
       </Text>
     </>
   )

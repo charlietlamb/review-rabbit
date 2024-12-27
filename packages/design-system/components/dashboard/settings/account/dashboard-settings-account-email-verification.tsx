@@ -1,8 +1,8 @@
 'use client'
 
-import { authClient } from '@remio/design-system/lib/authClient'
-import { Button } from '@remio/design-system/components/ui/button'
-import useUser from '@remio/design-system/hooks/use-user'
+import { authClient } from '@burse/design-system/lib/authClient'
+import { Button } from '@burse/design-system/components/ui/button'
+import useUser from '@burse/design-system/hooks/use-user'
 import { useState } from 'react'
 import { toast } from 'sonner'
 

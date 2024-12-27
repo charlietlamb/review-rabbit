@@ -1,10 +1,10 @@
 {
-  "name": "@remio/stripe",
+  "name": "@burse/stripe",
   "version": "0.0.0",
   "private": true,
   "main": "./index.ts",
   "dependencies": {
-    "@remio/env": "workspace:*",
+    "@burse/env": "workspace:*",
     "stripe": "^17.4.0"
   }
 }

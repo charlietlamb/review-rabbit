@@ -1,7 +1,7 @@
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 import { createAuthClient } from 'better-auth/react'
 import { inferAdditionalFields, oneTapClient } from 'better-auth/client/plugins'
-import { auth } from '@remio/auth'
+import { auth } from '@burse/auth'
 
 export const authClient = createAuthClient({
   baseURL: env.NEXT_PUBLIC_API,

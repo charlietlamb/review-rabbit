@@ -1,15 +1,15 @@
 {
-  "name": "@remio/auth",
+  "name": "@burse/auth",
   "module": "index.ts",
   "type": "module",
   "dependencies": {
-    "@remio/database": "workspace:*",
-    "@remio/email": "workspace:*",
-    "@remio/env": "workspace:*",
+    "@burse/database": "workspace:*",
+    "@burse/email": "workspace:*",
+    "@burse/env": "workspace:*",
     "better-auth": "^1.0.20"
   },
   "devDependencies": {
-    "@remio/typescript-config": "workspace:*",
+    "@burse/typescript-config": "workspace:*",
     "@types/bun": "latest"
   },
   "peerDependencies": {

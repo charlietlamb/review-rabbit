@@ -1,9 +1,9 @@
-import { authClient } from '@remio/design-system/lib/authClient'
+import { authClient } from '@burse/design-system/lib/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@remio/design-system/components/ui/dropdown-menu'
+} from '@burse/design-system/components/ui/dropdown-menu'
 import {
   Sparkles,
   BadgeCheck,

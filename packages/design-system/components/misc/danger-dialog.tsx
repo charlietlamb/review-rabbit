@@ -5,8 +5,8 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from '@remio/design-system/components/ui/dialog'
-import { Button } from '@remio/design-system/components/ui/button'
+} from '@burse/design-system/components/ui/dialog'
+import { Button } from '@burse/design-system/components/ui/button'
 import { useState } from 'react'
 
 export default function DangerDialog({

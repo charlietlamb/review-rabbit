@@ -1,5 +1,5 @@
-import { HomeIcon } from '@remio/design-system/components/dashboard/sidebar/icons/home'
-import { SquarePenIcon } from '@remio/design-system/components/dashboard/sidebar/icons/square-pen'
+import { HomeIcon } from '@burse/design-system/components/dashboard/sidebar/icons/home'
+import { SquarePenIcon } from '@burse/design-system/components/dashboard/sidebar/icons/square-pen'
 import { CircleDollarSignIcon } from '../icons/dollar'
 import { FileStackIcon } from '../icons/files'
 import { UsersIcon } from '../icons/users'

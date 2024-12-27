@@ -4,18 +4,18 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@remio/design-system/components/ui/avatar'
+} from '@burse/design-system/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-} from '@remio/design-system/components/ui/dropdown-menu'
+} from '@burse/design-system/components/ui/dropdown-menu'
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@remio/design-system/components/ui/sidebar'
-import useUser from '@remio/design-system/hooks/use-user'
+} from '@burse/design-system/components/ui/sidebar'
+import useUser from '@burse/design-system/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
 import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
 

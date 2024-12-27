@@ -12,8 +12,8 @@ import {
   useFormContext,
 } from 'react-hook-form'
 
-import { cn } from '@remio/design-system/lib/utils'
-import { Label } from '@remio/design-system/components/ui/label'
+import { cn } from '@burse/design-system/lib/utils'
+import { Label } from '@burse/design-system/components/ui/label'
 
 const Form = FormProvider
 

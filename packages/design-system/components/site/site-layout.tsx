@@ -1,7 +1,7 @@
 import React from 'react'
-import { Footer } from '@remio/design-system/components/site/footer/footer'
-import { Header } from '@remio/design-system/components/site/header/header'
-import { cn } from '@remio/design-system/lib/utils'
+import { Footer } from '@burse/design-system/components/site/footer/footer'
+import { Header } from '@burse/design-system/components/site/header/header'
+import { cn } from '@burse/design-system/lib/utils'
 
 export default function SiteLayout({
   home,
@@ -13,7 +13,7 @@ export default function SiteLayout({
   return (
     <div
       className={cn(
-        'light bg-background min-h-screen flex flex-col overflow-y-hidden',
+        'dark bg-background min-h-screen flex flex-col overflow-y-hidden',
         !home && 'py-[72px]'
       )}
     >

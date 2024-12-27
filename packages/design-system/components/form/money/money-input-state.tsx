@@ -2,9 +2,9 @@
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Button, Group, Input, NumberField } from 'react-aria-components'
-import { cn } from '@remio/design-system/lib/utils'
+import { cn } from '@burse/design-system/lib/utils'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 interface MoneyInputProps {
   value: number

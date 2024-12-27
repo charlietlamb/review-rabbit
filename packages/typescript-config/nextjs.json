@@ -11,7 +11,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "@remio/*": ["../../packages/*"]
+      "@burse/*": ["../../packages/*"]
     }
   },
   "exclude": ["node_modules"]

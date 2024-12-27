@@ -1,5 +1,5 @@
 {
-  "name": "@remio/database",
+  "name": "@burse/database",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

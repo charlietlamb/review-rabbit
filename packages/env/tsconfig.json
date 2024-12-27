@@ -1,5 +1,5 @@
 {
-  "extends": "@remio/typescript-config/react-library.json",
+  "extends": "@burse/typescript-config/react-library.json",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",

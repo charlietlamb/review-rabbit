@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { CircleUserRound, X } from 'lucide-react'
 import Image from 'next/image'
 import React, {
@@ -12,8 +12,8 @@ import React, {
   useState,
 } from 'react'
 import { FieldApi } from '@tanstack/react-form'
-import { AspectRatio } from '@remio/design-system/components/ui/aspect-ratio'
-import { MAX_FILE_SIZE } from '@remio/design-system/lib/constants'
+import { AspectRatio } from '@burse/design-system/components/ui/aspect-ratio'
+import { MAX_FILE_SIZE } from '@burse/design-system/lib/constants'
 
 export default function ImageUpload({
   previewUrl: initPreviewUrl,

@@ -1,9 +1,9 @@
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { RiGoogleFill } from '@remixicon/react'
-import { authClient } from '@remio/design-system/lib/authClient'
+import { authClient } from '@burse/design-system/lib/authClient'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import Spinner from '@remio/design-system/components/misc/spinner'
+import Spinner from '@burse/design-system/components/misc/spinner'
 
 export default function OAuth() {
   const [loading, setLoading] = useState(false)

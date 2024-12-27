@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
-import { users } from '@remio/database/schema/users'
+import { users } from '@burse/database/schema/users'
 
 export const sessions = pgTable('sessions', {
   id: text('id').primaryKey(),

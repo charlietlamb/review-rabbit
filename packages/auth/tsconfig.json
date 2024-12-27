@@ -1,9 +1,9 @@
 {
-  "extends": "@remio/typescript-config/react-library.json",
+  "extends": "@burse/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@remio/auth/*": ["./*"]
+      "@burse/auth/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

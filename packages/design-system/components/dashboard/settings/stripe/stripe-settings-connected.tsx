@@ -1,6 +1,6 @@
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { useAtomValue } from 'jotai'
-import { stripeConnectAtom } from '@remio/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
+import { stripeConnectAtom } from '@burse/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
 
 export default function StripeSettingsConnected() {
   const stripeConnect = useAtomValue(stripeConnectAtom)

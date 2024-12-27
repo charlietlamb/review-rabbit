@@ -1,5 +1,5 @@
 {
-  "name": "@remio/hono",
+  "name": "@burse/hono",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -7,9 +7,9 @@
     "@aws-sdk/client-ses": "^3.687.0",
     "@aws-sdk/s3-request-presigner": "^3.688.0",
     "@hono/zod-openapi": "^0.18.0",
-    "@remio/env": "workspace:*",
-    "@remio/http": "workspace:*",
-    "@remio/stripe": "workspace:*",
+    "@burse/env": "workspace:*",
+    "@burse/http": "workspace:*",
+    "@burse/stripe": "workspace:*",
     "@scalar/hono-api-reference": "^0.5.161",
     "drizzle-zod": "^0.5.1",
     "elevenlabs": "^0.18.0",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "typescript": "^5.6.3",
-    "@remio/typescript-config": "workspace:*",
+    "@burse/typescript-config": "workspace:*",
     "@types/node": "22.9.0"
   }
 }

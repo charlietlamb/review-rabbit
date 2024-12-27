@@ -1,10 +1,10 @@
-import { AppRouteHandler } from '@remio/hono/lib/types'
-import { HttpStatusCodes } from '@remio/http'
-import { SendVerifyEmailRoute } from '@remio/hono/routes/email/email.routes'
-import { db } from '@remio/database'
-import { verifications } from '@remio/database/schema'
-import { sendEmail } from '@remio/email'
-import { getVerifyEmail } from '@remio/email'
+import { AppRouteHandler } from '@burse/hono/lib/types'
+import { HttpStatusCodes } from '@burse/http'
+import { SendVerifyEmailRoute } from '@burse/hono/routes/email/email.routes'
+import { db } from '@burse/database'
+import { verifications } from '@burse/database/schema'
+import { sendEmail } from '@burse/email'
+import { getVerifyEmail } from '@burse/email'
 
 export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
   c

@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import ReactPlayer from 'react-player'
-import { getPresignedUrl } from '@remio/design-system/actions/s3/upload/get-presigned-url'
+import { getPresignedUrl } from '@burse/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
-import { cn } from '@remio/design-system/lib/utils'
-import { Media } from '@remio/database/schema/media'
+import { cn } from '@burse/design-system/lib/utils'
+import { Media } from '@burse/database/schema/media'
 
 export default function VideoPlayer({ media }: { media: Media }) {
   const [isPlaying, setIsPlaying] = useState(false)

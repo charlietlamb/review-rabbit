@@ -1,12 +1,12 @@
 import { z } from 'zod'
-import { Input } from '@remio/design-system/components/ui/input'
-import { cn } from '@remio/design-system/lib/utils'
-import FieldInfo from '@remio/design-system/components/form/field-info'
-import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
+import { Input } from '@burse/design-system/components/ui/input'
+import { cn } from '@burse/design-system/lib/utils'
+import FieldInfo from '@burse/design-system/components/form/field-info'
+import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
 import { FieldApi } from '@tanstack/react-form'
 import { cloneElement } from 'react'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 export default function InputWithIcon({
   form,

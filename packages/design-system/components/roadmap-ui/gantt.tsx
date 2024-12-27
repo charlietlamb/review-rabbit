@@ -1,13 +1,13 @@
 'use client'
 
-import { Card } from '@remio/design-system/components/ui/card'
+import { Card } from '@burse/design-system/components/ui/card'
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from '@remio/design-system/components/ui/context-menu'
-import { cn } from '@remio/design-system/lib/utils'
+} from '@burse/design-system/components/ui/context-menu'
+import { cn } from '@burse/design-system/lib/utils'
 import { DndContext, MouseSensor, useDraggable, useSensor } from '@dnd-kit/core'
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
 import { useMouse, useThrottle, useWindowScroll } from '@uidotdev/usehooks'

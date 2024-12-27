@@ -2,15 +2,15 @@
 
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import Uploads from './uploads'
-import Toolbar from '@remio/design-system/components/misc/toolbar/toolbar'
+import Toolbar from '@burse/design-system/components/misc/toolbar/toolbar'
 import { useAtom, useSetAtom } from 'jotai'
 import {
   uploadPagesAtom,
   uploadsLayoutAtom,
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@remio/design-system/atoms/dashboard/upload/uploads-atom'
-import { Media } from '@remio/database/schema/media'
+} from '@burse/design-system/atoms/dashboard/upload/uploads-atom'
+import { Media } from '@burse/database/schema/media'
 import { UploadDialog } from './upload-dialog'
 
 export default function Upload({

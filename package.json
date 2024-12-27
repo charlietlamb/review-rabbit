@@ -1,5 +1,5 @@
 {
-  "name": "remio",
+  "name": "burse",
   "packageManager": "bun@1.1.29",
   "devDependencies": {
     "@types/bun": "latest"
@@ -23,7 +23,7 @@
     "apps/*"
   ],
   "dependencies": {
-    "remio": ".",
+    "burse": ".",
     "turbo": "^2.3.0"
   }
 }

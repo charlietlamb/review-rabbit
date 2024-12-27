@@ -1,11 +1,11 @@
-import { Label } from '@remio/design-system/components/ui/label'
-import { cn } from '@remio/design-system/lib/utils'
+import { Label } from '@burse/design-system/components/ui/label'
+import { cn } from '@burse/design-system/lib/utils'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@remio/design-system/components/ui/tooltip'
-import Required from '@remio/design-system/components/form/required'
+} from '@burse/design-system/components/ui/tooltip'
+import Required from '@burse/design-system/components/form/required'
 
 export default function RequiredLabel({
   className,

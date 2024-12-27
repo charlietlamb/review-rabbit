@@ -1,4 +1,4 @@
-# remio
+# burse
 
 To install dependencies:
 

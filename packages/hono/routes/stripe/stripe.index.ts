@@ -1,6 +1,6 @@
-import { createRouter } from '@remio/hono/lib/create-app'
-import * as routes from '@remio/hono/routes/stripe/stripe.routes'
-import * as handlers from '@remio/hono/routes/stripe/stripe.handlers'
+import { createRouter } from '@burse/hono/lib/create-app'
+import * as routes from '@burse/hono/routes/stripe/stripe.routes'
+import * as handlers from '@burse/hono/routes/stripe/stripe.handlers'
 
 const router = createRouter()
   .openapi(routes.connect, handlers.connect)

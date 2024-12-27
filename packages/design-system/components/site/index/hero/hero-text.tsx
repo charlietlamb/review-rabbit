@@ -1,24 +1,29 @@
+'use client'
+
 import { ArrowRight } from 'lucide-react'
 import Balancer from 'react-wrap-balancer'
 import Link from 'next/link'
+import { Badge } from '@burse/design-system/components/ui/badge'
+import { useRouter } from 'next/navigation'
+
 export function HeroText() {
+  const router = useRouter()
+
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex cursor-pointer items-center gap-2 rounded-full border bg-background px-4 py-1 hover:bg-white transition-colors">
-        <Link
-          href="/signup"
-          className="text-sm text-secondary-foreground font-heading"
-        >
-          Start managing your mediations free
-        </Link>
-        <ArrowRight size={16} className="text-foreground" />
-      </div>
+      <Badge
+        variant="outline"
+        className="cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+        onClick={() => router.push('/signup')}
+      >
+        Add your first 50 paying clients for free
+        <ArrowRight size={16} />
+      </Badge>
       <h1 className="max-w-2xl font-heading text-5xl font-semibold sm:text-6xl tracking-tight text-foreground text-center">
-        <Balancer>Make Mediations Effortless</Balancer>
+        <Balancer>Setup Stripe In A Couple Of Clicks</Balancer>
       </h1>
       <p className="max-w-lg text-center text-lg text-muted-foreground sm:text-xl">
-        Streamline your mediation processes with custom workflows tailored to
-        your needs.
+        Spend time on what really matters. Let us handle the rest.
       </p>
     </div>
   )

@@ -3,21 +3,21 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import { z } from 'zod'
-import { cn } from '@remio/design-system/lib/utils'
-import { Button } from '@remio/design-system/components/ui/button'
-import { Calendar } from '@remio/design-system/components/ui/calendar'
+import { cn } from '@burse/design-system/lib/utils'
+import { Button } from '@burse/design-system/components/ui/button'
+import { Calendar } from '@burse/design-system/components/ui/calendar'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@remio/design-system/components/ui/popover'
+} from '@burse/design-system/components/ui/popover'
 import {
   ScrollArea,
   ScrollBar,
-} from '@remio/design-system/components/ui/scroll-area'
+} from '@burse/design-system/components/ui/scroll-area'
 import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import { TanstackForm } from '../tanstack-form'
 
 interface DateTimePickerProps {

@@ -1,4 +1,4 @@
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { XCircle } from 'lucide-react'
 import Link from 'next/link'
 import Balancer from 'react-wrap-balancer'
@@ -57,7 +57,7 @@ export function Failure({ message = 'Payment failed' }: FailureProps) {
             asChild
             className="hover:bg-destructive hover:text-destructive-foreground transition-colors"
           >
-            <Link href="mailto:support@remio.xyz">Contact Support</Link>
+            <Link href="mailto:support@burse.xyz">Contact Support</Link>
           </Button>
         </div>
       </div>

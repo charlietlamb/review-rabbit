@@ -5,19 +5,19 @@ import { Slot } from '@radix-ui/react-slot'
 import { VariantProps, cva } from 'class-variance-authority'
 import { PanelLeft } from 'lucide-react'
 
-import { useIsMobile } from '@remio/design-system/hooks/use-mobile'
-import { cn } from '@remio/design-system/lib/utils'
-import { Button } from '@remio/design-system/components/ui/button'
-import { Input } from '@remio/design-system/components/ui/input'
-import { Separator } from '@remio/design-system/components/ui/separator'
-import { Sheet, SheetContent } from '@remio/design-system/components/ui/sheet'
-import { Skeleton } from '@remio/design-system/components/ui/skeleton'
+import { useIsMobile } from '@burse/design-system/hooks/use-mobile'
+import { cn } from '@burse/design-system/lib/utils'
+import { Button } from '@burse/design-system/components/ui/button'
+import { Input } from '@burse/design-system/components/ui/input'
+import { Separator } from '@burse/design-system/components/ui/separator'
+import { Sheet, SheetContent } from '@burse/design-system/components/ui/sheet'
+import { Skeleton } from '@burse/design-system/components/ui/skeleton'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@remio/design-system/components/ui/tooltip'
+} from '@burse/design-system/components/ui/tooltip'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -41,7 +41,7 @@ const SidebarContext = React.createContext<SidebarContext | null>(null)
 function useSidebar() {
   const context = React.useContext(SidebarContext)
   if (!context) {
-    throw new Error('useSidebar must be used within a Sidebar.')
+    throw new Error('useSidebar must be used within a SidebarProvider.')
   }
 
   return context
@@ -76,16 +76,15 @@ const SidebarProvider = React.forwardRef<
     const open = openProp ?? _open
     const setOpen = React.useCallback(
       (value: boolean | ((value: boolean) => boolean)) => {
+        const openState = typeof value === 'function' ? value(open) : value
         if (setOpenProp) {
-          return setOpenProp?.(
-            typeof value === 'function' ? value(open) : value
-          )
+          setOpenProp(openState)
+        } else {
+          _setOpen(openState)
         }
 
-        _setOpen(value)
-
         // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${open}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
       },
       [setOpenProp, open]
     )
@@ -142,7 +141,7 @@ const SidebarProvider = React.forwardRef<
               } as React.CSSProperties
             }
             className={cn(
-              'group/sidebar-wrapper flex min-h-svh w-full text-sidebar-foreground has-[[data-variant=inset]]:bg-sidebar',
+              'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar',
               className
             )}
             ref={ref}
@@ -199,7 +198,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden rounded-l-none rounded-r-lg"
+            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
             style={
               {
                 '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -216,7 +215,7 @@ const Sidebar = React.forwardRef<
     return (
       <div
         ref={ref}
-        className="group peer hidden md:block"
+        className="group peer hidden md:block text-sidebar-foreground"
         data-state={state}
         data-collapsible={state === 'collapsed' ? collapsible : ''}
         data-variant={variant}
@@ -225,7 +224,7 @@ const Sidebar = React.forwardRef<
         {/* This is what handles the sidebar gap on desktop */}
         <div
           className={cn(
-            'duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear',
+            'duration-200 relative h-full w-[--sidebar-width] bg-transparent transition-[width] ease-linear',
             'group-data-[collapsible=offcanvas]:w-0',
             'group-data-[side=right]:rotate-180',
             variant === 'floating' || variant === 'inset'
@@ -235,21 +234,32 @@ const Sidebar = React.forwardRef<
         />
         <div
           className={cn(
-            'duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex',
+            'duration-200 absolute inset-y-0 z-10 hidden h-full w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex',
             side === 'left'
               ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
               : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
             // Adjust the padding for floating and inset variants.
             variant === 'floating' || variant === 'inset'
-              ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
+              ? 'top-[var(--header-height)] bottom-[var(--footer-height)] p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
               : 'group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l',
+            // Handle collapsed state and dynamic width
+            collapsible === 'icon' && state === 'collapsed'
+              ? 'w-[--sidebar-width-icon]'
+              : 'w-[--sidebar-width]',
             className
           )}
           {...props}
         >
           <div
             data-sidebar="sidebar"
-            className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+            className={cn(
+              'flex h-full w-full flex-col bg-sidebar',
+              'group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow',
+              // Hide overflow for collapsible icon state
+              collapsible === 'icon' && state === 'collapsed'
+                ? 'overflow-hidden w-[--sidebar-width-icon]'
+                : 'w-full'
+            )}
           >
             {children}
           </div>
@@ -258,6 +268,7 @@ const Sidebar = React.forwardRef<
     )
   }
 )
+
 Sidebar.displayName = 'Sidebar'
 
 const SidebarTrigger = React.forwardRef<
@@ -271,7 +282,6 @@ const SidebarTrigger = React.forwardRef<
       ref={ref}
       data-sidebar="trigger"
       variant="ghost"
-      colors="ghost"
       size="icon"
       className={cn('h-7 w-7', className)}
       onClick={(event) => {
@@ -302,7 +312,7 @@ const SidebarRail = React.forwardRef<
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
-        'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex',
+        'absolute inset-y-[var(--header-height)] z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex',
         '[[data-side=left]_&]:cursor-w-resize [[data-side=right]_&]:cursor-e-resize',
         '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
         'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar',

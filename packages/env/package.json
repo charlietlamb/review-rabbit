@@ -1,5 +1,5 @@
 {
-  "name": "@remio/env",
+  "name": "@burse/env",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "typescript": "^5.6.3",
-    "@remio/typescript-config": "workspace:*",
+    "@burse/typescript-config": "workspace:*",
     "@types/node": "22.9.0"
   }
 }

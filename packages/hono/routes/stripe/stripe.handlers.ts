@@ -1,7 +1,7 @@
-import { AppRouteHandler } from '@remio/hono/lib/types'
-import { HttpStatusCodes } from '@remio/http'
-import { stripeConnects } from '@remio/database/schema/stripe-connects'
-import { db } from '@remio/database'
+import { AppRouteHandler } from '@burse/hono/lib/types'
+import { HttpStatusCodes } from '@burse/http'
+import { stripeConnects } from '@burse/database/schema/stripe-connects'
+import { db } from '@burse/database'
 import {
   ConnectGetRoute,
   ConnectRefreshRoute,
@@ -10,12 +10,16 @@ import {
   PaymentSuccessRoute,
   SubscriptionSuccessRoute,
 } from './stripe.routes'
-import { stripe } from '@remio/stripe'
+import { stripe } from '@burse/stripe'
 import { and, eq } from 'drizzle-orm'
-import { env } from '@remio/env'
-import { invoices } from '@remio/database'
-import { users } from '@remio/database'
-import { Plan } from '@remio/hono/lib/types'
+import { env } from '@burse/env'
+import { invoices } from '@burse/database'
+import { users } from '@burse/database'
+import { Plan } from '@burse/hono/lib/types'
+import crypto from 'crypto'
+
+// Store state in memory for demo - in production use Redis/DB
+const oauthStates = new Map<string, { userId: string; timestamp: number }>()
 
 export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   const user = c.get('user')
@@ -24,24 +28,41 @@ export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   }
 
   try {
-    const account = await stripe.accounts.create({})
-    await db.insert(stripeConnects).values({
-      id: account.id,
-      userId: user.id,
-    })
-    const accountLink = await stripe.accountLinks.create({
-      account: account.id,
-      refresh_url: `${env.NEXT_PUBLIC_API}/stripe/connect/refresh/${account.id}`,
-      return_url: `${env.NEXT_PUBLIC_API}/stripe/connect/return/${account.id}`,
-      type: 'account_onboarding',
+    // Check if user already has a connected account
+    const existingConnect = await db.query.stripeConnects.findFirst({
+      where: eq(stripeConnects.userId, user.id),
     })
 
-    return c.json({ redirectUrl: accountLink.url }, HttpStatusCodes.OK)
+    if (existingConnect?.onboardingCompleted) {
+      return c.json(
+        { error: 'Account already connected' },
+        HttpStatusCodes.BAD_REQUEST
+      )
+    }
+
+    // Generate state for CSRF protection
+    const state = crypto.randomBytes(32).toString('hex')
+    oauthStates.set(state, {
+      userId: user.id,
+      timestamp: Date.now(),
+    })
+
+    // Clean up old states
+    for (const [key, value] of oauthStates.entries()) {
+      if (Date.now() - value.timestamp > 1000 * 60 * 10) {
+        // 10 minutes
+        oauthStates.delete(key)
+      }
+    }
+
+    const redirectUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${env.STRIPE_CLIENT_ID}&scope=read_write&state=${state}`
+
+    return c.json({ redirectUrl }, HttpStatusCodes.OK)
   } catch (error) {
-    console.error('Error creating Stripe Connect account:', error)
+    console.error('Error creating Stripe Connect OAuth URL:', error)
     return c.json(
       {
-        error: 'Failed to create Stripe Connect account',
+        error: 'Failed to create Stripe Connect OAuth URL',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
@@ -61,19 +82,39 @@ export const connectRefresh: AppRouteHandler<ConnectRefreshRoute> = async (
   }
 
   try {
-    const accountLink = await stripe.accountLinks.create({
-      account: accountId,
-      refresh_url: `${env.NEXT_PUBLIC_API}/stripe/connect/refresh/${accountId}`,
-      return_url: `${env.NEXT_PUBLIC_API}/stripe/connect/return/${accountId}`,
-      type: 'account_onboarding',
+    const account = await db.query.stripeConnects.findFirst({
+      where: eq(stripeConnects.id, accountId),
     })
 
-    return c.redirect(accountLink.url, HttpStatusCodes.MOVED_TEMPORARILY)
+    if (!account?.refreshToken) {
+      return c.json(
+        { error: 'No refresh token found' },
+        HttpStatusCodes.BAD_REQUEST
+      )
+    }
+
+    const response = await stripe.oauth.token({
+      grant_type: 'refresh_token',
+      refresh_token: account.refreshToken,
+    })
+
+    await db
+      .update(stripeConnects)
+      .set({
+        accessToken: response.access_token,
+        refreshToken: response.refresh_token,
+        tokenType: response.token_type,
+        scope: response.scope,
+        updatedAt: new Date(),
+      })
+      .where(eq(stripeConnects.id, accountId))
+
+    return c.json({ success: true }, HttpStatusCodes.OK)
   } catch (error) {
-    console.error('Error refreshing Stripe Connect account:', error)
+    console.error('Error refreshing OAuth token:', error)
     return c.json(
       {
-        error: 'Failed to refresh Stripe Connect account',
+        error: 'Failed to refresh OAuth token',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
@@ -81,31 +122,85 @@ export const connectRefresh: AppRouteHandler<ConnectRefreshRoute> = async (
 }
 
 export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
-  const accountId = c.req.param('accountId')
-  if (!accountId) {
+  const code = c.req.query('code')
+  const state = c.req.query('state')
+
+  if (!code || !state) {
     return c.json(
-      { error: 'Account ID is required' },
+      { error: 'Missing code or state' },
+      HttpStatusCodes.BAD_REQUEST
+    )
+  }
+
+  const storedState = oauthStates.get(state)
+  if (!storedState) {
+    return c.json(
+      { error: 'Invalid state parameter' },
       HttpStatusCodes.BAD_REQUEST
     )
   }
 
   try {
-    await db
-      .update(stripeConnects)
-      .set({
+    const response = await stripe.oauth.token({
+      grant_type: 'authorization_code',
+      code,
+    })
+
+    if (!response.stripe_user_id) {
+      throw new Error('No stripe_user_id in response')
+    }
+
+    // Check if account already exists
+    const existingConnect = await db.query.stripeConnects.findFirst({
+      where: eq(stripeConnects.userId, storedState.userId),
+    })
+
+    if (existingConnect) {
+      // Update existing account
+      await db
+        .update(stripeConnects)
+        .set({
+          accessToken: response.access_token,
+          refreshToken: response.refresh_token,
+          tokenType: response.token_type,
+          stripePublishableKey: response.stripe_publishable_key,
+          stripeUserId: response.stripe_user_id,
+          scope: response.scope,
+          onboardingCompleted: true,
+          updatedAt: new Date(),
+        })
+        .where(eq(stripeConnects.id, existingConnect.id))
+    } else {
+      // Create new account
+      const newConnect = {
+        id: response.stripe_user_id,
+        userId: storedState.userId,
+        accessToken: response.access_token,
+        refreshToken: response.refresh_token,
+        tokenType: response.token_type,
+        stripePublishableKey: response.stripe_publishable_key,
+        stripeUserId: response.stripe_user_id,
+        scope: response.scope,
         onboardingCompleted: true,
-      })
-      .where(eq(stripeConnects.id, accountId))
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+
+      await db.insert(stripeConnects).values(newConnect)
+    }
+
+    // Clean up state
+    oauthStates.delete(state)
 
     return c.redirect(
       `${env.NEXT_PUBLIC_WEB}/dashboard/settings/stripe?success=true`,
       HttpStatusCodes.MOVED_TEMPORARILY
     )
   } catch (error) {
-    console.error('Error refreshing Stripe Connect account:', error)
+    console.error('Error completing OAuth flow:', error)
     return c.json(
       {
-        error: 'Failed to refresh Stripe Connect account',
+        error: 'Failed to complete OAuth flow',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
@@ -126,7 +221,6 @@ export const connectGet: AppRouteHandler<ConnectGetRoute> = async (c) => {
     return c.json({ account }, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error getting Stripe Connect account:', error)
-
     return c.json(
       {
         error: 'Failed to get Stripe Connect account',

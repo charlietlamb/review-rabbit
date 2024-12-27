@@ -1,7 +1,7 @@
-import { Button } from '@remio/design-system/components/ui/button'
+import { Button } from '@burse/design-system/components/ui/button'
 import { useAtomValue } from 'jotai'
-import { stripeConnectAtom } from '@remio/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
-import { connectStripeRefresh } from '@remio/design-system/actions/stripe/connect-stripe-refresh'
+import { stripeConnectAtom } from '@burse/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
+import { connectStripeRefresh } from '@burse/design-system/actions/stripe/connect-stripe-refresh'
 import { toast } from 'sonner'
 
 export default function StripeSettingsOnboarding() {

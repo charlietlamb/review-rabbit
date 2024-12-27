@@ -1,8 +1,8 @@
 import { createRoute, z } from '@hono/zod-openapi'
-import { HttpStatusCodes } from '@remio/http'
+import { HttpStatusCodes } from '@burse/http'
 import { jsonContent } from 'stoker/openapi/helpers'
-import { unauthorizedSchema } from '@remio/hono/lib/configure-auth'
-import { selectStripeConnectSchema } from '@remio/database'
+import { unauthorizedSchema } from '@burse/hono/lib/configure-auth'
+import { selectStripeConnectSchema } from '@burse/database'
 
 const tags = ['Stripe']
 
@@ -16,13 +16,19 @@ export const connect = createRoute({
       z.object({
         redirectUrl: z.string(),
       }),
-      'Stripe connected.'
+      'Stripe OAuth redirect URL.'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Account already connected'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'Failed to create Stripe Connect account'
+      'Failed to create Stripe Connect OAuth URL'
     ),
     ...unauthorizedSchema,
   },
@@ -33,23 +39,26 @@ export type ConnectRoute = typeof connect
 export const connectRefresh = createRoute({
   path: '/stripe/connect/refresh/:accountId',
   method: 'get',
-  summary: 'Refresh Stripe Connect account',
+  summary: 'Refresh Stripe Connect OAuth token',
   tags,
   responses: {
-    [HttpStatusCodes.MOVED_TEMPORARILY]: {
-      description: 'Redirect to dashboard',
-    },
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        success: z.boolean(),
+      }),
+      'Token refreshed successfully'
+    ),
     [HttpStatusCodes.BAD_REQUEST]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'Account ID is required'
+      'Account ID is required or no refresh token found'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'Failed to create Stripe Connect account'
+      'Failed to refresh OAuth token'
     ),
   },
 })
@@ -57,10 +66,16 @@ export const connectRefresh = createRoute({
 export type ConnectRefreshRoute = typeof connectRefresh
 
 export const connectReturn = createRoute({
-  path: '/stripe/connect/return/:accountId',
+  path: '/stripe/connect/oauth/callback',
   method: 'get',
-  summary: 'Return Stripe Connect account',
+  summary: 'Handle Stripe Connect OAuth callback',
   tags,
+  request: {
+    query: z.object({
+      code: z.string(),
+      state: z.string(),
+    }),
+  },
   responses: {
     [HttpStatusCodes.MOVED_TEMPORARILY]: {
       description: 'Redirect to dashboard',
@@ -69,13 +84,13 @@ export const connectReturn = createRoute({
       z.object({
         error: z.string(),
       }),
-      'Account ID is required'
+      'Invalid OAuth callback'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'Failed to complete onboarding'
+      'Failed to complete OAuth flow'
     ),
   },
 })
@@ -98,7 +113,7 @@ export const connectGet = createRoute({
       z.object({
         error: z.string(),
       }),
-      'Failed to create Stripe Connect account'
+      'Failed to get Stripe Connect account'
     ),
     ...unauthorizedSchema,
   },

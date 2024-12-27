@@ -3,13 +3,11 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@remio/design-system/components/ui/radio-group'
-import { env } from '@remio/env'
-import { Label } from '@remio/design-system/components/ui/label'
+} from '@burse/design-system/components/ui/radio-group'
+import { env } from '@burse/env'
 import { Check, Minus } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
-
 const items = [
   {
     id: 'radio-18-r1',
@@ -34,11 +32,10 @@ const items = [
   },
 ]
 
-export default function DashboardSettingsAccountTheme() {
+export default function BasicTheme() {
   const { theme, setTheme } = useTheme()
   return (
-    <fieldset className="flex flex-col gap-4 p-4">
-      <Label className="font-heading font-bold">Choose a theme</Label>
+    <fieldset className="flex flex-col gap-4">
       <RadioGroup
         className="flex gap-3"
         defaultValue={theme}

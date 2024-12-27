@@ -1,13 +1,13 @@
 'use client'
 
-import { StripeConnect } from '@remio/database/schema/stripe-connects'
-import DashboardContentHeader from '@remio/design-system/components/dashboard/header/dashboard-content-header'
+import { StripeConnect } from '@burse/database/schema/stripe-connects'
+import DashboardContentHeader from '@burse/design-system/components/dashboard/header/dashboard-content-header'
 import StripeSettingsConnect from './stripe-settings-connect'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 import StripeSettingsConnected from './stripe-settings-connected'
 import StripeSettingsOnboarding from './stripe-settings-onboarding'
-import { stripeConnectAtom } from '@remio/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
+import { stripeConnectAtom } from '@burse/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
 import { useSetAtom } from 'jotai'
 
 export default function StripeSettings({

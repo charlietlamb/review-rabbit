@@ -1,5 +1,5 @@
-import SiteLayout from '@remio/design-system/components/site/site-layout'
-import { TermsAndConditions } from '@remio/design-system/components/site/terms/terms-and-conditions'
+import SiteLayout from '@burse/design-system/components/site/site-layout'
+import { TermsAndConditions } from '@burse/design-system/components/site/terms/terms-and-conditions'
 
 export default function TermsPage() {
   return (

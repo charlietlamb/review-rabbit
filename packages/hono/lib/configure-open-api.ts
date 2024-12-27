@@ -1,13 +1,13 @@
-import { AppOpenAPI } from '@remio/hono/lib/types'
+import { AppOpenAPI } from '@burse/hono/lib/types'
 import { apiReference } from '@scalar/hono-api-reference'
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 
 export default function configureOpenAPI(app: AppOpenAPI) {
   if (env.NODE_ENV === 'development') {
     app.doc('/doc', {
       openapi: '3.0.0',
       info: {
-        title: 'remio API',
+        title: 'burse API',
         version: '0.0.1',
       },
     })

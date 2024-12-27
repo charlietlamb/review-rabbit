@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { buttonVariants } from '@remio/design-system/components/ui/button'
-import { cn } from '@remio/design-system/lib/utils'
-import { Logo } from '@remio/design-system/components/site/header/logo'
+import { buttonVariants } from '@burse/design-system/components/ui/button'
+import { cn } from '@burse/design-system/lib/utils'
+import { Logo } from '@burse/design-system/components/site/header/logo'
 
 export default function AuthLayout({
   children,

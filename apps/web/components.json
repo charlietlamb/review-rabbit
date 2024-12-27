@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@remio/design-system/components",
-    "utils": "@remio/design-system/lib/utils",
-    "ui": "@remio/design-system/components/ui",
-    "lib": "@remio/design-system/lib",
-    "hooks": "@remio/design-system/hooks"
+    "components": "@burse/design-system/components",
+    "utils": "@burse/design-system/lib/utils",
+    "ui": "@burse/design-system/components/ui",
+    "lib": "@burse/design-system/lib",
+    "hooks": "@burse/design-system/hooks"
   }
 }

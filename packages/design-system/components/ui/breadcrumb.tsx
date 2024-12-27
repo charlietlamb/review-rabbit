@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { ChevronRight, MoreHorizontal } from 'lucide-react'
+import { ChevronRight, MoreHorizontal, Slash } from 'lucide-react'
 
-import { cn } from '@remio/design-system/lib/utils'
+import { cn } from '@burse/design-system/lib/utils'
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -88,6 +88,22 @@ const BreadcrumbSeparator = ({
 )
 BreadcrumbSeparator.displayName = 'BreadcrumbSeparator'
 
+const BreadcrumbSeparatorSlash = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<'li'>) => (
+  <li
+    role="presentation"
+    aria-hidden="true"
+    className={cn('text-muted-foreground/50 -rotate-[22.5deg]', className)}
+    {...props}
+  >
+    {children ?? <Slash />}
+  </li>
+)
+BreadcrumbSeparator.displayName = 'BreadcrumbSeparatorSlash'
+
 const BreadcrumbEllipsis = ({
   className,
   ...props
@@ -111,5 +127,6 @@ export {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  BreadcrumbSeparatorSlash,
   BreadcrumbEllipsis,
 }

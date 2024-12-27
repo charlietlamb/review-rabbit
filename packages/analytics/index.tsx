@@ -1,4 +1,4 @@
-import { env } from '@remio/env'
+import { env } from '@burse/env'
 import type { ReactNode } from 'react'
 import { GoogleAnalytics } from './google'
 import { PostHogProvider } from './posthog/client'

@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { cn } from '@remio/design-system/lib/utils'
-import FieldInfo from '@remio/design-system/components/form/field-info'
-import { TanstackForm } from '@remio/design-system/components/form/tanstack-form'
-import { useFormContext } from '@remio/design-system/components/form/form-context'
-import { Textarea } from '@remio/design-system/components/ui/textarea'
-import RequiredLabel from '@remio/design-system/components/misc/required-label'
+import { cn } from '@burse/design-system/lib/utils'
+import FieldInfo from '@burse/design-system/components/form/field-info'
+import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
+import { useFormContext } from '@burse/design-system/components/form/form-context'
+import { Textarea } from '@burse/design-system/components/ui/textarea'
+import RequiredLabel from '@burse/design-system/components/misc/required-label'
 
 export default function TextareaInput({
   form,

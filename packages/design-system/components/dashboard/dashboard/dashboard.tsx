@@ -9,6 +9,10 @@ export default function Dashboard({ status }: { status?: string }) {
       toast.success('Welcome to Burse!', {
         description: "You've successfully connected your stripe account!",
       })
+    } else if (status === 'stripe-connected') {
+      toast.success('Stripe Connected!', {
+        description: 'You can now add some products to your account!',
+      })
     }
   }, [status])
   return <div>dashboard</div>

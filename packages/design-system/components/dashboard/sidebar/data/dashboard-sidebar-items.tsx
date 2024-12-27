@@ -11,61 +11,19 @@ export const dashboardSidebarItemsTop = [
   {
     title: 'Dashboard',
     icon: <HomeIcon />,
-    href: '/dashboard/overview',
+    href: '/dashboard',
     key: 'overview',
-    match: ['overview'],
-  },
-  {
-    title: 'New Matter',
-    icon: <SquarePenIcon />,
-    href: '/dashboard/mediation/new',
-    key: 'new',
-    match: ['new'],
+    match: [''],
   },
 ]
 
 export const dashboardSidebarItems = [
   {
-    title: 'Mediations',
-    icon: <MessageCircleMoreIcon />,
-    href: '/dashboard/mediations',
-    key: 'mediations',
-    match: ['mediations'],
-  },
-  {
-    title: 'Schedule',
-    icon: <ClockIcon />,
-    href: '/dashboard/schedule',
-    key: 'schedule',
-    match: ['schedule'],
-  },
-  {
-    title: 'Notes',
-    icon: <NotebookIcon />,
-    href: '/dashboard/notes',
-    key: 'notes',
-    match: ['note', 'notes'],
-  },
-  {
-    title: 'Clients',
+    title: 'Stripe',
     icon: <UsersIcon />,
-    href: '/dashboard/clients',
-    key: 'clients',
-    match: ['clients', 'client'],
-  },
-  {
-    title: 'Invoices',
-    icon: <CircleDollarSignIcon />,
-    href: '/dashboard/invoices',
-    key: 'invoices',
-    match: ['invoices'],
-  },
-  {
-    title: 'Files',
-    icon: <FileStackIcon />,
-    href: '/dashboard/files',
-    key: 'files',
-    match: ['files'],
+    href: '/dashboard/stripe',
+    key: 'stripe',
+    match: ['stripe'],
   },
 ]
 

@@ -24,7 +24,7 @@ export default function DashboardBreadcrumb() {
     <Breadcrumb aria-label="breadcrumb" className="ml-4">
       <BreadcrumbList className="gap-0 sm:gap-0">
         <BreadcrumbItem>
-          <LogoSvg className="size-8 text-muted-foreground fill-muted-foreground mr-4" />
+          <LogoSvg className="size-7 text-muted-foreground fill-muted-foreground mr-4" />
         </BreadcrumbItem>
         <BreadcrumbSeparatorSlash />
         <BreadcrumbItem>

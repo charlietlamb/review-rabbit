@@ -7,5 +7,6 @@ const router = createRouter()
   .openapi(routes.connectGet, handlers.connectGet)
   .openapi(routes.connectRefresh, handlers.connectRefresh)
   .openapi(routes.connectReturn, handlers.connectReturn)
+  .openapi(routes.deauthorize, handlers.deauthorize)
 
 export default router

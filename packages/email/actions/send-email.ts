@@ -8,7 +8,6 @@ export async function sendEmail(
   subject: string,
   component: React.ReactElement
 ) {
-  console.log('Sending email to', to)
   const { data, error } = await resend.emails.send({
     from: 'burse <no-reply@burse.xyz>',
     to: [to],

@@ -12,6 +12,7 @@ export default function OneTapProvider({
   if (env.NEXT_PUBLIC_DOMAIN === 'localhost') return <>{children}</>
   const router = useRouter()
   const session = authClient.useSession()
+  console.log(session)
   if (!session.data) {
     authClient.oneTap({
       fetchOptions: {

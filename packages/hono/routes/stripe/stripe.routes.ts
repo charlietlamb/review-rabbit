@@ -120,3 +120,33 @@ export const connectGet = createRoute({
 })
 
 export type ConnectGetRoute = typeof connectGet
+
+export const deauthorize = createRoute({
+  path: '/stripe/deauthorize/:accountId',
+  method: 'post',
+  summary: 'Deauthorize Stripe Connect account',
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        success: z.boolean(),
+      }),
+      'Account deauthorized successfully'
+    ),
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Account ID is required'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to deauthorize account'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type DeauthorizeRoute = typeof deauthorize

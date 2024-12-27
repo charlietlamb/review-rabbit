@@ -9,6 +9,7 @@ import {
   ConnectRefreshRoute,
   ConnectReturnRoute,
   ConnectRoute,
+  DeauthorizeRoute,
 } from './stripe.routes'
 import { stripe } from '@burse/stripe'
 import { and, eq, lt, or } from 'drizzle-orm'
@@ -170,6 +171,11 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
 
     // Start a transaction for all database operations
     await db.transaction(async (tx) => {
+      const hasOnboarded = await tx.query.stripeConnects.findFirst({
+        where: eq(stripeConnects.userId, storedState.userId),
+      })
+
+      const status = hasOnboarded ? 'stripe-connected' : 'onboarding-completed'
       // Check if account already exists
       const existingConnect = await tx.query.stripeConnects.findFirst({
         where: eq(stripeConnects.userId, storedState.userId),
@@ -201,7 +207,6 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
         }
         await tx.insert(stripeConnects).values(insertData)
       }
-
       // Update user's onboarding status
       await tx
         .update(users)
@@ -218,7 +223,7 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
     })
 
     return c.redirect(
-      `${env.NEXT_PUBLIC_WEB}/dashboard?status=onboarding-completed`,
+      `${env.NEXT_PUBLIC_WEB}/dashboard?status=${status}`,
       HttpStatusCodes.MOVED_TEMPORARILY
     )
   } catch (error) {
@@ -249,6 +254,60 @@ export const connectGet: AppRouteHandler<ConnectGetRoute> = async (c) => {
     return c.json(
       {
         error: 'Failed to get Stripe Connect account',
+      },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const deauthorize: AppRouteHandler<DeauthorizeRoute> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+
+  const accountId = c.req.param('accountId')
+  if (!accountId) {
+    return c.json(
+      { error: 'Account ID is required' },
+      HttpStatusCodes.BAD_REQUEST
+    )
+  }
+
+  try {
+    // Start transaction
+    return await db.transaction(async (tx) => {
+      const account = await tx.query.stripeConnects.findFirst({
+        where: and(
+          eq(stripeConnects.id, accountId),
+          eq(stripeConnects.userId, user.id)
+        ),
+      })
+
+      if (!account) {
+        return c.json(
+          { error: 'Account not found' },
+          HttpStatusCodes.BAD_REQUEST
+        )
+      }
+
+      // Deauthorize with Stripe
+      await stripe.oauth.deauthorize({
+        client_id: env.STRIPE_CLIENT_ID,
+        stripe_user_id: accountId,
+      })
+
+      // Delete the account from our database within the transaction
+      await tx.delete(stripeConnects).where(eq(stripeConnects.id, accountId))
+
+      return c.json({ success: true }, HttpStatusCodes.OK)
+    })
+  } catch (error) {
+    console.error('Error deauthorizing Stripe Connect account:', error)
+    return c.json(
+      {
+        error: 'Failed to deauthorize account',
+        details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )

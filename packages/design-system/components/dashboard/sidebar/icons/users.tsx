@@ -65,7 +65,9 @@ const UsersIcon = () => {
           animate={controls}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Clients</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>
+        Stripe Accounts
+      </p>
     </div>
   )
 }

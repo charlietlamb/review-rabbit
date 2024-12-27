@@ -175,7 +175,9 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
         where: eq(stripeConnects.userId, storedState.userId),
       })
 
-      const status = hasOnboarded ? 'stripe-connected' : 'onboarding-completed'
+      const status = hasOnboarded?.onboardingCompleted
+        ? 'stripe-connected'
+        : 'onboarding-completed'
       // Check if account already exists
       const existingConnect = await tx.query.stripeConnects.findFirst({
         where: eq(stripeConnects.userId, storedState.userId),

@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react'
 import { deauthorizeStripeConnect } from '@burse/design-system/actions/stripe-connects/deauthorize'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import DangerDialog from '@burse/design-system/components/misc/danger-dialog'
 
 export default function StripeConnect({
   stripeConnect,
@@ -54,14 +55,15 @@ export default function StripeConnect({
           Dashboard
           <ExternalLink className="h-4 w-4" />
         </Button>
-        <Button
-          variant="destructive"
-          size="sm"
+        <DangerDialog
+          title="Disconnect Stripe Account"
+          description="Are you sure you want to disconnect this Stripe account? This action cannot be undone."
           onClick={handleDisconnect}
-          disabled={disconnecting}
         >
-          {disconnecting ? <Spinner /> : 'Disconnect'}
-        </Button>
+          <Button variant="destructive" size="sm" disabled={disconnecting}>
+            {disconnecting ? <Spinner /> : 'Disconnect'}
+          </Button>
+        </DangerDialog>
       </div>
     </div>
   )

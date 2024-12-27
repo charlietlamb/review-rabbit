@@ -1,5 +1,10 @@
-import { redirect } from 'next/navigation'
+import Dashboard from '@burse/design-system/components/dashboard/dashboard/dashboard'
 
-export default function DashboardPage() {
-  return <div>Dashboard</div>
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { status: string }
+}) {
+  const { status } = await searchParams
+  return <Dashboard status={status} />
 }

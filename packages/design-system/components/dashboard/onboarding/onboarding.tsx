@@ -95,7 +95,7 @@ export default function Onboarding({ user }: { user: User }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 bg-background/20 backdrop-blur-sm flex items-center justify-center z-50"
     >
       <motion.div
         variants={containerVariants}

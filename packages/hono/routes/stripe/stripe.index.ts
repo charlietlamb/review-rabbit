@@ -7,7 +7,5 @@ const router = createRouter()
   .openapi(routes.connectGet, handlers.connectGet)
   .openapi(routes.connectRefresh, handlers.connectRefresh)
   .openapi(routes.connectReturn, handlers.connectReturn)
-  .openapi(routes.paymentSuccess, handlers.paymentSuccess)
-  .openapi(routes.subscriptionSuccess, handlers.subscriptionSuccess)
 
 export default router

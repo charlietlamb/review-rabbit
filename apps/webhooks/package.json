@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "build": "node esbuild.config.js",
+    "build": "bun esbuild.config.js",
     "deploy": "bun run build && wrangler deploy",
     "lint": "eslint src/",
     "clean": "rm -rf .turbo node_modules dist",
@@ -14,12 +14,12 @@
   "dependencies": {
     "@burse/http": "workspace:*",
     "hono": "^3.11.7",
-    "stripe": "^14.10.0"
+    "stripe": "^14.10.0",
+    "esbuild": "^0.19.11"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "@types/bun": "latest",
-    "esbuild": "^0.19.11",
     "typescript": "^5.3.3",
     "wrangler": "^3.22.1"
   }

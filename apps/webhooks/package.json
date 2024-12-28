@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "prebuild": "bun install",
-    "build": "bun build ./src/index.ts --outdir ./dist --target node --minify",
-    "deploy": "bun install && bun run build && wrangler deploy --minify",
+    "build": "node esbuild.config.js",
+    "deploy": "bun run build && wrangler deploy",
     "lint": "eslint src/",
     "clean": "rm -rf .turbo node_modules dist",
     "typecheck": "tsc --noEmit"
@@ -20,6 +19,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "@types/bun": "latest",
+    "esbuild": "^0.19.11",
     "typescript": "^5.3.3",
     "wrangler": "^3.22.1"
   }

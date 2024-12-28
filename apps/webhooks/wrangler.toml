@@ -1,21 +1,7 @@
 name = "webhooks"
 main = "dist/index.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
 
-# Environment Variables
 [vars]
 NODE_ENV = "production"
-
-# Development environment
-[env.development]
-vars = { NODE_ENV = "development" }
-
-# Production environment
-[env.production]
-vars = { NODE_ENV = "production" }
-
-[build]
-command = "bun install && bun run build"
-
-[build.upload]
-format = "modules"

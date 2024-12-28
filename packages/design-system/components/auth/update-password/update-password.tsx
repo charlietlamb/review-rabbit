@@ -16,6 +16,7 @@ import { Button } from '@burse/design-system/components/ui/button'
 import { useState } from 'react'
 import Spinner from '@burse/design-system/components/misc/spinner'
 import { updatePassword } from '@burse/design-system/actions/auth/user/update-password'
+import { FormProvider } from '@burse/design-system/components/form/form-context'
 
 const updatePasswordSchema = z.object({
   password: z.string().min(1),
@@ -26,6 +27,7 @@ type UpdatePasswordSchema = z.infer<typeof updatePasswordSchema>
 
 export default function UpdatePassword() {
   const [open, setOpen] = useState(false)
+  const [attemptSubmitted, setAttemptSubmitted] = useState(false)
   const form = useForm({
     defaultValues: {
       password: '',
@@ -67,32 +69,34 @@ export default function UpdatePassword() {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Update password</DialogTitle>
-        <form
-          className="flex flex-col gap-2"
-          onSubmit={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            form.handleSubmit()
-          }}
-        >
-          <Password form={form} />
-          <PasswordStrength
-            form={form}
-            name="newPassword"
-            label="New password"
-          />
-          <Button
-            variant="shine"
-            disabled={form.state.isSubmitting}
-            onClick={(e) => {
+        <FormProvider value={{ attemptSubmitted }}>
+          <form
+            className="flex flex-col gap-2"
+            onSubmit={(e) => {
               e.preventDefault()
               e.stopPropagation()
-              handleSubmit()
+              form.handleSubmit()
             }}
           >
-            {form.state.isSubmitting ? <Spinner /> : 'Update password'}
-          </Button>
-        </form>
+            <Password form={form} />
+            <PasswordStrength
+              form={form}
+              name="newPassword"
+              label="New password"
+            />
+            <Button
+              variant="shine"
+              disabled={form.state.isSubmitting}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleSubmit()
+              }}
+            >
+              {form.state.isSubmitting ? <Spinner /> : 'Update password'}
+            </Button>
+          </form>
+        </FormProvider>
       </DialogContent>
     </Dialog>
   )

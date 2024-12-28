@@ -37,13 +37,6 @@ export default function DashboardSidebarFooterDropdown() {
           Account
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => router.push('/dashboard/settings/stripe')}
-          className="cursor-pointer"
-        >
-          <Wallet />
-          Stripe
-        </DropdownMenuItem>
-        <DropdownMenuItem
           onClick={() => router.push('/dashboard/settings/billing')}
           className="cursor-pointer"
         >

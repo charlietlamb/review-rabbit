@@ -7,14 +7,15 @@ import { createInsertSchema } from 'drizzle-zod'
 export const stripePrices = pgTable('stripe_prices', {
   id: text('id').primaryKey(),
   stripeProductId: text('stripe_product_id').references(
-    () => stripeProducts.id
+    () => stripeProducts.id,
+    { onDelete: 'cascade' }
   ),
   stripePriceId: text('stripe_price_id'),
   title: text('title'),
   amount: integer('amount'),
   currency: text('currency'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
 export const stripePricesRelations = relations(stripePrices, ({ one }) => ({

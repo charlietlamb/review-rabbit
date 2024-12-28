@@ -94,7 +94,7 @@ export default function UploadCard({
             className="items-center justify-center bg-red-500 hover:bg-red-400 transition-all duration-300 px-2 flex-shrink-0 group-hover:flex hidden"
             onClick={onDelete}
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="size-4" />
           </div>
         )}
       </Card>

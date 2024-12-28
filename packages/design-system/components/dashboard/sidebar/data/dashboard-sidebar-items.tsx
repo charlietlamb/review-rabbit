@@ -25,7 +25,7 @@ export const dashboardSidebarItems = [
     icon: <ArchiveIcon />,
     href: '/dashboard/products',
     key: 'products',
-    match: ['products'],
+    match: ['products', 'product'],
   },
 ]
 

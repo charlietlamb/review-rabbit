@@ -1,7 +1,7 @@
 import { StripeConnect as StripeConnectType } from '@burse/database/schema/stripe-connects'
 import { Button } from '@burse/design-system/components/ui/button'
 import Spinner from '@burse/design-system/components/misc/spinner'
-import { ExternalLink, Pencil } from 'lucide-react'
+import { ExternalLink, Pencil, Trash2 } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { deauthorizeStripeConnect } from '@burse/design-system/actions/stripe-connects/deauthorize'
 import { useQueryClient } from '@tanstack/react-query'
@@ -9,6 +9,11 @@ import { toast } from 'sonner'
 import DangerDialog from '@burse/design-system/components/misc/danger-dialog'
 import StripeConnectUpdateDialog from './stripe-connect-update-dialog'
 import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@burse/design-system/components/ui/tooltip'
 
 export default function StripeConnect({
   stripeConnect,
@@ -42,37 +47,64 @@ export default function StripeConnect({
         </div>
         <div className="flex gap-2 items-center">
           <div className="text-sm">{stripeConnect.title}</div>
-          <StripeConnectUpdateDialog stripeConnect={stripeConnect}>
-            <Button variant="ghost" size="icon" className="p-0.5">
-              <Pencil className="h-4 w-4" />
-            </Button>
-          </StripeConnectUpdateDialog>
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            window.open(
-              `https://dashboard.stripe.com/${stripeConnect.stripeUserId}`,
-              '_blank'
-            )
-          }}
-          className="flex items-center gap-2"
-        >
-          Dashboard
-          <ExternalLink className="h-4 w-4" />
-        </Button>
-        <DangerDialog
-          title="Disconnect Stripe Account"
-          description="Are you sure you want to disconnect this Stripe account? This action cannot be undone."
-          onClick={handleDisconnect}
-        >
-          <Button variant="destructive" size="sm" disabled={disconnecting}>
-            {disconnecting ? <Spinner /> : 'Disconnect'}
-          </Button>
-        </DangerDialog>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => {
+                window.open(
+                  `https://dashboard.stripe.com/${stripeConnect.stripeUserId}`,
+                  '_blank'
+                )
+              }}
+              className="flex items-center gap-2"
+            >
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>View Stripe Dashboard</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <StripeConnectUpdateDialog stripeConnect={stripeConnect}>
+                <Button variant="outline" size="icon" className="p-0.5">
+                  <Pencil className="h-4 w-4" />
+                </Button>
+              </StripeConnectUpdateDialog>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>Edit Stripe Account</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <DangerDialog
+                title="Disconnect Stripe Account"
+                description="Are you sure you want to disconnect this Stripe account? This action cannot be undone."
+                onClick={handleDisconnect}
+              >
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  disabled={disconnecting}
+                >
+                  {disconnecting ? (
+                    <Spinner className="size-4" />
+                  ) : (
+                    <Trash2 className="size-4" />
+                  )}
+                </Button>
+              </DangerDialog>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>Disconnect Stripe Account</TooltipContent>
+        </Tooltip>
       </div>
     </div>
   )

@@ -18,7 +18,7 @@ import Spinner from '@burse/design-system/components/misc/spinner'
 import InfiniteScroll from '@burse/design-system/components/misc/infinite-scroll'
 import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@burse/design-system/components/ui/button'
-import { connectStripe } from '@burse/design-system/actions/stripe/connect'
+import { handleConnect } from '@burse/design-system/lib/stripe/handle-connect'
 
 export default function DashboardBreadcrumbStripe() {
   const [stripeConnectId, setStripeConnectId] = useAtom(stripeConnectIdAtom)
@@ -35,28 +35,13 @@ export default function DashboardBreadcrumbStripe() {
     atom: stripeConnectsAtom,
   })
 
-  const handleConnect = useCallback(async () => {
-    try {
-      setIsConnectLoading(true)
-      const result = await connectStripe()
-
-      if (result.redirectUrl) {
-        window.location.href = result.redirectUrl
-      } else if (result.error) {
-        console.error('Failed to get OAuth URL:', result.error)
-      }
-    } catch (error) {
-      console.error('Error connecting to Stripe:', error)
-    } finally {
-      setIsConnectLoading(false)
-    }
-  }, [])
-
   useEffect(() => {
     if (!stripeConnectId) {
       setStripeConnectId(stripeConnects[0]?.id)
     }
   }, [stripeConnects])
+
+  if (isLoading) return <Spinner className="mx-2" />
 
   return (
     <Select defaultValue={stripeConnectId || undefined}>
@@ -72,17 +57,27 @@ export default function DashboardBreadcrumbStripe() {
             <Spinner />
           </div>
         ) : stripeConnects.length > 0 ? (
-          <InfiniteScroll
-            isFetchingNextPage={isFetchingNextPage}
-            hasNextPage={hasNextPage}
-            fetchNextPage={fetchNextPage}
-          >
-            {stripeConnects.map((stripeConnect) => (
-              <SelectItem key={stripeConnect.id} value={stripeConnect.id}>
-                {stripeConnect.title}
-              </SelectItem>
-            ))}
-          </InfiniteScroll>
+          <div className="flex flex-col">
+            <InfiniteScroll
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={hasNextPage}
+              fetchNextPage={fetchNextPage}
+            >
+              {stripeConnects.map((stripeConnect) => (
+                <SelectItem key={stripeConnect.id} value={stripeConnect.id}>
+                  {stripeConnect.title}
+                </SelectItem>
+              ))}
+            </InfiniteScroll>
+            <Button
+              variant="shine"
+              className="mt-2 w-full py-1"
+              onClick={handleConnect}
+              disabled={isConnectLoading}
+            >
+              {isConnectLoading ? <Spinner /> : 'Connect new account'}
+            </Button>
+          </div>
         ) : (
           <div className="flex items-center justify-center p-4 flex-col">
             <p className="text-muted-foreground">

@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@burse/design-system/components/ui/dialog'
-
+import { useState } from 'react'
 export default function EditProductDialog({
   product,
   children,
@@ -15,14 +15,15 @@ export default function EditProductDialog({
   product?: StripeProductWithData
   children: React.ReactNode
 }) {
+  const [open, setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add a product</DialogTitle>
         </DialogHeader>
-        <ProductForm />
+        <ProductForm onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

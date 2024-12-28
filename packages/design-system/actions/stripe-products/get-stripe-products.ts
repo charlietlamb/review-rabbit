@@ -6,11 +6,12 @@ import { headersWithCookies } from '@burse/design-system/lib/header-with-cookies
 import { PAGE_SIZE } from '@burse/design-system/data/page-size'
 
 export async function getStripeProducts(
-  page: number
+  page: number,
+  stripeConnectId: string
 ): Promise<StripeProductWithData[]> {
   const response = await client['stripe-products'].$post(
     {
-      json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE },
+      json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE, stripeConnectId },
     },
     await headersWithCookies()
   )

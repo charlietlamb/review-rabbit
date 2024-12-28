@@ -170,7 +170,7 @@ export default function Onboarding({ user }: { user: User }) {
                   ) : (
                     <>
                       Continue
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="size-4" />
                     </>
                   )}
                 </Button>

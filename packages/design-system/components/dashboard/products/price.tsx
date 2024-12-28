@@ -2,6 +2,11 @@ import { PriceFormSchema } from '@burse/design-system/types/stripe/prices'
 import { Button } from '@burse/design-system/components/ui/button'
 import { Pencil, Trash2 } from 'lucide-react'
 import EditPriceDialog from './edit-price-dialog'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@burse/design-system/components/ui/tooltip'
 
 export default function Price({
   price,
@@ -27,19 +32,31 @@ export default function Price({
           {price.currency}
         </div>
       </div>
-      <EditPriceDialog price={price} setPrice={setPrice}>
-        <Button variant="outline" size="icon" className="p-2">
-          <Pencil />
-        </Button>
-      </EditPriceDialog>
-      <Button
-        variant="destructive"
-        size="icon"
-        className="p-2"
-        onClick={() => onDelete()}
-      >
-        <Trash2 />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div>
+            <EditPriceDialog price={price} setPrice={setPrice}>
+              <Button variant="outline" size="icon" className="p-2">
+                <Pencil className="size-4" />
+              </Button>
+            </EditPriceDialog>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>Edit Price</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="destructive"
+            size="icon"
+            className="p-2"
+            onClick={() => onDelete()}
+          >
+            <Trash2 className="size-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Delete Price</TooltipContent>
+      </Tooltip>
     </div>
   )
 }

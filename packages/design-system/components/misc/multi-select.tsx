@@ -212,11 +212,11 @@ export const MultiSelect = React.forwardRef<
                         style={{ animationDuration: `${animation}s` }}
                       >
                         {IconComponent && (
-                          <IconComponent className="w-4 h-4 mr-2" />
+                          <IconComponent className="size-4 mr-2" />
                         )}
                         {option?.label}
                         <XCircle
-                          className="w-4 h-4 ml-2 cursor-pointer"
+                          className="size-4 ml-2 cursor-pointer"
                           onClick={(event) => {
                             event.stopPropagation()
                             toggleOption(value)
@@ -236,7 +236,7 @@ export const MultiSelect = React.forwardRef<
                     >
                       {`+ ${selectedValues.length - maxCount} more`}
                       <XCircle
-                        className="w-4 h-4 ml-2 cursor-pointer"
+                        className="size-4 ml-2 cursor-pointer"
                         onClick={(event) => {
                           event.stopPropagation()
                           clearExtraOptions()
@@ -299,10 +299,10 @@ export const MultiSelect = React.forwardRef<
                             : 'opacity-50 [&_svg]:invisible'
                         )}
                       >
-                        <CheckIcon className="w-4 h-4" />
+                        <CheckIcon className="size-4" />
                       </div>
                       {option.icon && (
-                        <option.icon className="text-muted-foreground w-4 h-4 mr-2" />
+                        <option.icon className="text-muted-foreground size-4 mr-2" />
                       )}
                       <span>{option.label}</span>
                     </CommandItem>

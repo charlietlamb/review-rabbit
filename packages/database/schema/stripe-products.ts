@@ -19,8 +19,8 @@ export const stripeProducts = pgTable('stripe_products', {
   stripeProductId: text('stripe_product_id').notNull(),
   stripeTestProductId: text('stripe_test_product_id').notNull(),
   taxCode: text('tax_code'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
 export const stripeProductsRelations = relations(

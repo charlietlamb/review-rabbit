@@ -13,6 +13,7 @@ import { StripeConnect } from '@burse/database/schema/stripe-connects'
 import Spinner from '@burse/design-system/components/misc/spinner'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
 
 export default function StripeConnectUpdateDialog({
   stripeConnect,
@@ -36,7 +37,10 @@ export default function StripeConnectUpdateDialog({
         toast.error('Failed to update stripe connect.')
       }
       await queryClient.invalidateQueries({
-        queryKey: 'stripe-connects',
+        queryKey: QUERY_KEYS.STRIPE_CONNECTS,
+      })
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.STRIPE_CONNECTS_BREADCRUMB,
       })
       setOpen(false)
       setIsLoading(false)

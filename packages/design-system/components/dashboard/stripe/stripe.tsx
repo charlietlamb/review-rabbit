@@ -3,29 +3,11 @@
 import { Button } from '@burse/design-system/components/ui/button'
 import DashboardContentHeader from '../header/dashboard-content-header'
 import StripeConnects from './stripe-connects'
-import { useCallback, useState } from 'react'
-import { connectStripe } from '@burse/design-system/actions/stripe/connect'
+import { useState } from 'react'
 import Spinner from '@burse/design-system/components/misc/spinner'
-
+import { handleConnect } from '@burse/design-system/lib/stripe/handle-connect'
 export default function Stripe() {
   const [isLoading, setIsLoading] = useState(false)
-
-  const handleConnect = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const result = await connectStripe()
-
-      if (result.redirectUrl) {
-        window.location.href = result.redirectUrl
-      } else if (result.error) {
-        console.error('Failed to get OAuth URL:', result.error)
-      }
-    } catch (error) {
-      console.error('Error connecting to Stripe:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
 
   return (
     <div className="flex flex-col divide-y">

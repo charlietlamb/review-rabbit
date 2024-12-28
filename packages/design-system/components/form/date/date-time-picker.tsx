@@ -69,7 +69,7 @@ export default function DateTimePicker({
                   ) : (
                     <span>{placeholder}</span>
                   )}
-                  <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
+                  <CalendarIcon className="size-4 ml-auto opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">

@@ -169,7 +169,7 @@ export default function ClientMultiSelect() {
                             : 'opacity-50 [&_svg]:invisible'
                         )}
                       >
-                        <CheckIcon className="w-4 h-4" />
+                        <CheckIcon className="size-4" />
                       </div>
                       <span className="hidden">{option.id}</span>
                     </CommandItem>

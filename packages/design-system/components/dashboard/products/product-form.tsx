@@ -13,15 +13,23 @@ import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import { createStripeProduct } from '@burse/design-system/actions/stripe-products/create-stripe-product'
 import { useAtomValue } from 'jotai'
 import { stripeConnectIdAtom } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
+import Spinner from '@burse/design-system/components/misc/spinner'
+import { useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
+import { updateStripeProduct } from '@burse/design-system/actions/stripe-products/update-stripe-product'
 
 export default function ProductForm({
   product,
+  onSuccess,
 }: {
   product?: StripeProductWithData
+  onSuccess?: () => void
 }) {
   const user = useUser()
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState(product?.title ?? '')
+  const queryClient = useQueryClient()
   const [prices, setPrices] = useState<PriceFormSchema[]>(
     product?.prices.map((price) => ({
       id: price.id.toString(),
@@ -57,14 +65,37 @@ export default function ProductForm({
   async function handleSubmit() {
     setAttemptSubmitted(true)
     if (validateForm()) {
-      await createStripeProduct(
-        {
-          title,
-          prices,
-        },
-        stripeConnectId!
-      )
+      setLoading(true)
+      const success = product
+        ? await updateStripeProduct(
+            {
+              title,
+              prices,
+            },
+            product.stripeProductId
+          )
+        : await createStripeProduct(
+            {
+              title,
+              prices,
+            },
+            stripeConnectId!
+          )
+      if (success) {
+        toast.success('Product created successfully', {
+          description: 'The product has been created in Stripe',
+        })
+        onSuccess?.()
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.STRIPE_PRODUCTS, stripeConnectId],
+        })
+      } else {
+        toast.error('Failed to create product', {
+          description: 'Please try again',
+        })
+      }
     }
+    setLoading(false)
   }
 
   function validateForm() {
@@ -98,7 +129,7 @@ export default function ProductForm({
           label="Title"
           type="text"
         />
-        <RequiredLabel>Product Prices</RequiredLabel>
+        <RequiredLabel>Prices</RequiredLabel>
 
         {prices.map((price) => (
           <Price
@@ -115,8 +146,8 @@ export default function ProductForm({
           Add Price
         </Button>
 
-        <Button variant="shine" onClick={handleSubmit}>
-          Submit
+        <Button variant="shine" onClick={handleSubmit} disabled={loading}>
+          {loading ? <Spinner /> : product ? 'Update' : 'Submit'}
         </Button>
       </div>
     </FormProvider>

@@ -1,6 +1,7 @@
 import { HomeIcon } from '@burse/design-system/components/dashboard/sidebar/icons/home'
 import { ConnectIcon } from '../icons/connect'
 import { ArchiveIcon } from '../icons/archive'
+import { WebhookIcon } from '../icons/webhook'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -26,6 +27,13 @@ export const dashboardSidebarItems = [
     href: '/dashboard/products',
     key: 'products',
     match: ['products', 'product'],
+  },
+  {
+    title: 'Webhooks',
+    icon: <WebhookIcon />,
+    href: '/dashboard/webhooks',
+    key: 'webhooks',
+    match: ['webhooks'],
   },
 ]
 

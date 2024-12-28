@@ -2,21 +2,29 @@
   "name": "burse",
   "version": "0.0.1",
   "packageManager": "bun@1.1.29",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.6.3"
-  },
   "scripts": {
     "dev": "cd packages/web && bun dev",
-    "pack": "cd packages/web&& next build",
+    "pack": "cd packages/web && next build",
     "api": "cd packages/api && bun dev",
     "gen": "cd packages/database && bunx drizzle-kit generate",
     "migrate": "cd packages/database && bunx drizzle-kit migrate",
     "studio": "cd packages/database && bunx drizzle-kit studio",
     "up": "docker compose up -d",
-    "sync": "bun scripts/sync.ts"
+    "sync": "bun scripts/sync.ts",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "clean": "turbo clean",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "deploy:webhooks": "turbo build --filter=@burse/webhooks && cd apps/webhooks && bun run deploy"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@turbo/gen": "^1.11.3",
+    "prettier": "^3.1.1",
+    "turbo": "^2.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.6.3"
   },
   "type": "module",
   "workspaces": [

@@ -1,5 +1,5 @@
 name = "webhooks"
-main = "src/index.ts"
+main = "dist/index.js"
 compatibility_date = "2024-01-01"
 
 # Environment Variables
@@ -13,3 +13,9 @@ vars = { NODE_ENV = "development" }
 # Production environment
 [env.production]
 vars = { NODE_ENV = "production" }
+
+[build]
+command = "bun run build"
+
+[build.upload]
+format = "modules"

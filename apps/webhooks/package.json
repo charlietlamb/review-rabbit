@@ -1,15 +1,25 @@
 {
-  "name": "webhooks",
+  "name": "@burse/webhooks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "build": "bun build ./src/index.ts --outdir ./dist --target node --minify",
+    "deploy": "bun run build && wrangler deploy --minify",
+    "lint": "eslint src/",
+    "clean": "rm -rf .turbo node_modules dist",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "hono": "^4.6.15",
-    "@burse/http": "workspace:*"
+    "@burse/http": "workspace:*",
+    "hono": "^3.11.7",
+    "stripe": "^14.10.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241218.0",
-    "wrangler": "^3.96.0"
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "@types/bun": "latest",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.1"
   }
 }

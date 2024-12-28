@@ -1,11 +1,11 @@
 import { Button } from '@burse/design-system/components/ui/button'
 import { useAtomValue } from 'jotai'
-import { stripeConnectAtom } from '@burse/design-system/atoms/dashboard/settings/stripe/stripe-atoms'
+import { stripeConnectIdAtom } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
 import { connectStripeRefresh } from '@burse/design-system/actions/stripe/connect-stripe-refresh'
 import { toast } from 'sonner'
 
 export default function StripeSettingsOnboarding() {
-  const stripeConnect = useAtomValue(stripeConnectAtom)
+  const stripeConnectId = useAtomValue(stripeConnectIdAtom)
   return (
     <div className="flex flex-col gap-4">
       <p>
@@ -14,11 +14,11 @@ export default function StripeSettingsOnboarding() {
       </p>
       <Button
         onClick={() => {
-          if (stripeConnect?.id) {
+          if (stripeConnectId) {
             toast.info('Redirecting to stripe...', {
               description: 'This may take a few seconds.',
             })
-            connectStripeRefresh(stripeConnect.id)
+            connectStripeRefresh(stripeConnectId)
           } else {
             toast.error('No stripe connect id found.', {
               description: 'Please contact support.',

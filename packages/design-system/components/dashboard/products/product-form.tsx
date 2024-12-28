@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid'
 import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import { createStripeProduct } from '@burse/design-system/actions/stripe-products/create-stripe-product'
 import { useAtomValue } from 'jotai'
-import { stripeConnectAtom } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
+import { stripeConnectIdAtom } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
 
 export default function ProductForm({
   product,
@@ -30,7 +30,7 @@ export default function ProductForm({
       currency: price.currency ?? '',
     })) ?? []
   )
-  const stripeConnect = useAtomValue(stripeConnectAtom)
+  const stripeConnectId = useAtomValue(stripeConnectIdAtom)
 
   function addPrice() {
     setPrices([
@@ -62,7 +62,7 @@ export default function ProductForm({
           title,
           prices,
         },
-        stripeConnect!.id
+        stripeConnectId!
       )
     }
   }
@@ -76,7 +76,7 @@ export default function ProductForm({
       toast.error('At least one price is required')
       return false
     }
-    if (!stripeConnect) {
+    if (!stripeConnectId) {
       toast.error('You are currently not connected to Stripe', {
         description: 'Please connect to Stripe to create a product',
       })

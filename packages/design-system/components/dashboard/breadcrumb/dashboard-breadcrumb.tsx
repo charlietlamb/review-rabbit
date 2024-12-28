@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@burse/design-system/components/ui/select'
 import { LogoSvg } from '@burse/design-system/components/site/header/logo-svg'
+import DashboardBreadcrumbStripe from './dashboard-breadcrumb-stripe'
 
 export default function DashboardBreadcrumb() {
   const mobile = useIsMobile()
@@ -27,19 +28,7 @@ export default function DashboardBreadcrumb() {
         </BreadcrumbItem>
         <BreadcrumbSeparatorSlash />
         <BreadcrumbItem>
-          <Select defaultValue="s1">
-            <SelectTriggerChevrons
-              id="select-database"
-              aria-label="Select database"
-            >
-              <SelectValue placeholder="Select time" />
-            </SelectTriggerChevrons>
-            <SelectContent>
-              <SelectItem value="s1">Orion</SelectItem>
-              <SelectItem value="s2">Sigma</SelectItem>
-              <SelectItem value="s3">Dorado</SelectItem>
-            </SelectContent>
-          </Select>
+          <DashboardBreadcrumbStripe />
         </BreadcrumbItem>
         <BreadcrumbSeparatorSlash />
         <BreadcrumbItem>

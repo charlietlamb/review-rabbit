@@ -12,6 +12,7 @@ export const users = pgTable('users', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
   plan: text('plan').default('free').notNull(),
+  currency: text('currency').default('usd').notNull(),
   onboardingCompleted: boolean('onboardingCompleted').default(false).notNull(),
 })
 

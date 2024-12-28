@@ -1,13 +1,13 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { QueryKey, useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { useAtom } from 'jotai'
 import { PrimitiveAtom } from 'jotai'
 import { useDebounce } from '@burse/design-system/hooks/use-debounce'
 
 interface UseInfiniteQueryProps<T, S> {
-  queryKey: string | string[]
+  queryKey: QueryKey
   fetchFn: (page: number, search?: string) => Promise<T[]>
   atom: PrimitiveAtom<T[]>
   searchAtom?: PrimitiveAtom<S>
@@ -37,7 +37,7 @@ export function useInfiniteQueryWithAtom<T, S extends string>({
     isFetching,
     refetch,
   } = useInfiniteQuery({
-    queryKey: [queryKey, debouncedSearch],
+    queryKey: queryKey as QueryKey,
     queryFn: ({ pageParam }) => fetchFn(pageParam, debouncedSearch),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) =>

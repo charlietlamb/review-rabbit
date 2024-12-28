@@ -1,1 +1,0 @@
-ALTER TABLE "users" ADD COLUMN "onboardingCompleted" boolean DEFAULT false NOT NULL;

@@ -5,5 +5,6 @@ import * as handlers from '@burse/hono/routes/stripe-connects/stripe-connects.ha
 const router = createRouter()
   .openapi(routes.getStripeConnects, handlers.getStripeConnects)
   .openapi(routes.getStripeConnectById, handlers.getStripeConnectById)
+  .openapi(routes.updateStripeConnect, handlers.updateStripeConnect)
 
 export default router

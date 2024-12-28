@@ -14,7 +14,6 @@ import {
   SelectTriggerChevrons,
   SelectValue,
 } from '@burse/design-system/components/ui/select'
-import { Database } from 'lucide-react'
 import { LogoSvg } from '@burse/design-system/components/site/header/logo-svg'
 
 export default function DashboardBreadcrumb() {

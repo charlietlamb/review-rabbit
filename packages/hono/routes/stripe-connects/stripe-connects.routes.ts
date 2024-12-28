@@ -82,3 +82,39 @@ export const getStripeConnectById = createRoute({
 })
 
 export type GetStripeConnectByIdRoute = typeof getStripeConnectById
+
+export const updateStripeConnect = createRoute({
+  path: '/stripe-connects/update',
+  method: 'post',
+  summary: 'Update a Stripe Connect account',
+  tags,
+  request: {
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            id: z.string(),
+            title: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        success: z.boolean(),
+      }),
+      'Successfully updated stripe connect'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to update stripe connect'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type UpdateStripeConnectRoute = typeof updateStripeConnect

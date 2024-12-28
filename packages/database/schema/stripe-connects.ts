@@ -8,6 +8,7 @@ export const stripeConnects = pgTable('stripe_connects', {
   userId: text('userId')
     .references(() => users.id)
     .notNull(),
+  title: text('title').notNull().default('Connected Account'),
   onboardingCompleted: boolean('onboardingCompleted').notNull().default(false),
   accessToken: text('access_token'),
   refreshToken: text('refresh_token'),

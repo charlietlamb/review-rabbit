@@ -1,11 +1,6 @@
 import { HomeIcon } from '@burse/design-system/components/dashboard/sidebar/icons/home'
-import { SquarePenIcon } from '@burse/design-system/components/dashboard/sidebar/icons/square-pen'
-import { CircleDollarSignIcon } from '../icons/dollar'
-import { FileStackIcon } from '../icons/files'
-import { UsersIcon } from '../icons/users'
-import { ClockIcon } from '../icons/clock'
-import { NotebookIcon } from '../icons/notebook'
-import { MessageCircleMoreIcon } from '../icons/message'
+import { ConnectIcon } from '../icons/connect'
+import { ArchiveIcon } from '../icons/archive'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -20,10 +15,17 @@ export const dashboardSidebarItemsTop = [
 export const dashboardSidebarItems = [
   {
     title: 'Stripe',
-    icon: <UsersIcon />,
+    icon: <ConnectIcon />,
     href: '/dashboard/stripe',
     key: 'stripe',
     match: ['stripe'],
+  },
+  {
+    title: 'Products',
+    icon: <ArchiveIcon />,
+    href: '/dashboard/products',
+    key: 'products',
+    match: ['products'],
   },
 ]
 

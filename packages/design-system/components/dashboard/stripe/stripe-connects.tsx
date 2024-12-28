@@ -8,7 +8,9 @@ import {
 } from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
 import InfiniteScroll from '@burse/design-system/components/misc/infinite-scroll'
 import StripeConnect from './stripe-connect'
-import Spinner from '@burse/design-system/components/misc/spinner'
+import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
+import { QueryKey } from '@tanstack/react-query'
+import PageLoading from '@burse/design-system/components/misc/page-loading'
 
 export default function StripeConnects() {
   const {
@@ -18,17 +20,12 @@ export default function StripeConnects() {
     fetchNextPage,
     isLoading,
   } = useInfiniteQueryWithAtom({
-    queryKey: ['stripe-connects'],
+    queryKey: QUERY_KEYS.STRIPE_CONNECTS as QueryKey,
     fetchFn: (page) => getStripeConnects(page),
     atom: stripeConnectsAtom,
     searchAtom: stripeConnectsSearchAtom,
   })
-  if (isLoading)
-    return (
-      <div className="py-4 flex items-center justify-center">
-        <Spinner />
-      </div>
-    )
+  if (isLoading) return <PageLoading />
   if (stripeConnects.length === 0)
     return (
       <div className="flex items-center justify-center py-4">

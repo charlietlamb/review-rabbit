@@ -1,12 +1,14 @@
 import { StripeConnect as StripeConnectType } from '@burse/database/schema/stripe-connects'
 import { Button } from '@burse/design-system/components/ui/button'
 import Spinner from '@burse/design-system/components/misc/spinner'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Pencil } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { deauthorizeStripeConnect } from '@burse/design-system/actions/stripe-connects/deauthorize'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import DangerDialog from '@burse/design-system/components/misc/danger-dialog'
+import StripeConnectUpdateDialog from './stripe-connect-update-dialog'
+import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
 
 export default function StripeConnect({
   stripeConnect,
@@ -27,7 +29,7 @@ export default function StripeConnect({
       toast.error('Failed to disconnect Stripe account')
     }
     await queryClient.invalidateQueries({
-      queryKey: ['stripe-connects'],
+      queryKey: QUERY_KEYS.STRIPE_CONNECTS,
     })
     setDisconnecting(false)
   }, [queryClient, stripeConnect.id])
@@ -36,9 +38,16 @@ export default function StripeConnect({
     <div className="flex w-full items-center justify-between p-4 border rounded-lg">
       <div className="flex flex-col gap-2">
         <div className="text-sm font-medium text-muted-foreground">
-          Connected Account
+          {stripeConnect.stripeUserId}
         </div>
-        <div className="text-sm">{stripeConnect.stripeUserId}</div>
+        <div className="flex gap-2 items-center">
+          <div className="text-sm">{stripeConnect.title}</div>
+          <StripeConnectUpdateDialog stripeConnect={stripeConnect}>
+            <Button variant="ghost" size="icon" className="p-0.5">
+              <Pencil className="h-4 w-4" />
+            </Button>
+          </StripeConnectUpdateDialog>
+        </div>
       </div>
       <div className="flex items-center gap-2">
         <Button

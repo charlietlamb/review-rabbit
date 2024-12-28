@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1735237010522,
-      "tag": "0000_crazy_peter_quill",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1735298699226,
-      "tag": "0001_amazing_cable",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1735303068140,
-      "tag": "0002_bouncy_the_watchers",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1735308175847,
-      "tag": "0003_talented_shaman",
+      "when": 1735389032765,
+      "tag": "0000_sparkling_silvermane",
       "breakpoints": true
     }
   ]

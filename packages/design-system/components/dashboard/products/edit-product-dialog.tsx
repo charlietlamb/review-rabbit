@@ -1,4 +1,5 @@
 import { StripeProductWithData } from '@burse/database/schema/stripe-products'
+import ProductForm from './product-form'
 import {
   Dialog,
   DialogContent,
@@ -6,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@burse/design-system/components/ui/dialog'
-import ProductForm from './product-form'
 
 export default function EditProductDialog({
   product,

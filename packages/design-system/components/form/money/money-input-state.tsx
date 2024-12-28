@@ -5,17 +5,7 @@ import { Button, Group, Input, NumberField } from 'react-aria-components'
 import { cn } from '@burse/design-system/lib/utils'
 import { useFormContext } from '../form-context'
 import RequiredLabel from '@burse/design-system/components/misc/required-label'
-
-interface MoneyInputProps {
-  value: number
-  setValue: (value: number) => void
-  name: string
-  label: string
-  placeholder?: string
-  required?: boolean
-  className?: string
-  currency?: string
-}
+import { Currency } from '@burse/design-system/data/currency'
 
 export default function MoneyInputState({
   value,
@@ -25,8 +15,19 @@ export default function MoneyInputState({
   placeholder = 'Enter amount',
   required,
   className,
-  currency = 'EUR',
-}: MoneyInputProps) {
+  inputClassName,
+  currency = 'usd',
+}: {
+  value: number
+  setValue: (value: number) => void
+  name: string
+  label: string
+  placeholder?: string
+  required?: boolean
+  className?: string
+  inputClassName?: string
+  currency?: Currency
+}) {
   const { attemptSubmitted } = useFormContext()
 
   return (
@@ -50,11 +51,12 @@ export default function MoneyInputState({
         minValue={0}
         isRequired={required}
         aria-label={label}
+        className={inputClassName}
       >
-        <div className="relative">
+        <div className="relative h-full">
           <Group
             className={cn(
-              'relative inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-lg border border-input text-sm shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[focus-within]:outline-none data-[focus-within]:ring-[3px] data-[focus-within]:ring-ring/20'
+              'relative inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-lg border border-input text-sm shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[focus-within]:outline-none data-[focus-within]:ring-[3px] data-[focus-within]:ring-ring/20 h-full'
             )}
           >
             <Input

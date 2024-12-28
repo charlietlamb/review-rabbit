@@ -22,7 +22,7 @@ export default function RequiredLabel({
     <Tooltip>
       <TooltipTrigger asChild>
         <Label
-          className={cn('font-heading font-bold w-fit', className)}
+          className={cn('font-heading font-bold w-fit text-base', className)}
           htmlFor={htmlFor}
         >
           {children}

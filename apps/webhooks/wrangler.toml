@@ -15,7 +15,7 @@ vars = { NODE_ENV = "development" }
 vars = { NODE_ENV = "production" }
 
 [build]
-command = "bun run build"
+command = "bun install && bun run build"
 
 [build.upload]
 format = "modules"

@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
+    "prebuild": "bun install",
     "build": "bun build ./src/index.ts --outdir ./dist --target node --minify",
-    "deploy": "bun run build && wrangler deploy --minify",
+    "deploy": "bun install && bun run build && wrangler deploy --minify",
     "lint": "eslint src/",
     "clean": "rm -rf .turbo node_modules dist",
     "typecheck": "tsc --noEmit"

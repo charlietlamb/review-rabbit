@@ -1,5 +1,6 @@
 {
   "name": "burse",
+  "version": "0.0.1",
   "packageManager": "bun@1.1.29",
   "devDependencies": {
     "@types/bun": "latest"

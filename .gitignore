@@ -180,3 +180,8 @@ dist
 
 # wrangler
 .dev.vars
+
+# wrangler
+.dev.vars
+.wrangler
+dev.vars.local

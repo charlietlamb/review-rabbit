@@ -1,0 +1,15 @@
+name = "webhooks"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Environment Variables
+[vars]
+NODE_ENV = "production"
+
+# Development environment
+[env.development]
+vars = { NODE_ENV = "development" }
+
+# Production environment
+[env.production]
+vars = { NODE_ENV = "production" }

@@ -1,7 +1,7 @@
 import { db } from '@burse/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@burse/email'
 import * as schema from '@burse/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
@@ -12,8 +12,8 @@ export const auth = betterAuth({
     usePlural: true,
     schema,
   }),
-  baseURL: env.NEXT_PUBLIC_API,
-  basePath: env.BETTER_AUTH_BASE_PATH,
+  baseURL: getEnv().NEXT_PUBLIC_API,
+  basePath: getEnv().BETTER_AUTH_BASE_PATH,
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url }, request) => {
@@ -29,8 +29,8 @@ export const auth = betterAuth({
     cookiePrefix: 'burse',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
-      enabled: env.NODE_ENV === 'production' ? true : false,
-      domain: env.NEXT_PUBLIC_DOMAIN,
+      enabled: getEnv().NODE_ENV === 'production' ? true : false,
+      domain: getEnv().NEXT_PUBLIC_DOMAIN,
     },
   },
   user: {
@@ -75,7 +75,7 @@ export const auth = betterAuth({
     },
     sendOnSignUp: false,
   },
-  trustedOrigins: [env.NEXT_PUBLIC_WEB],
+  trustedOrigins: [getEnv().NEXT_PUBLIC_WEB],
   account: {
     accountLinking: {
       enabled: true,
@@ -84,9 +84,9 @@ export const auth = betterAuth({
   plugins: [openAPI(), oneTap()],
   socialProviders: {
     google: {
-      clientId: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-      redirectURI: `${env.NEXT_PUBLIC_API}/api/auth/callback/google`,
+      clientId: getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      clientSecret: getEnv().GOOGLE_CLIENT_SECRET,
+      redirectURI: `${getEnv().NEXT_PUBLIC_API}/api/auth/callback/google`,
     },
   },
 })

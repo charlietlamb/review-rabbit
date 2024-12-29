@@ -12,7 +12,7 @@ import {
   GetUploadPresignedUrlRoute,
   UploadProfileImageRoute,
 } from '@burse/hono/routes/s3/s3.routes'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { HttpStatusCodes } from '@burse/http'
 import { db } from '@burse/database'
 import { eq } from 'drizzle-orm'
@@ -68,15 +68,15 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
   const body = await c.req.json()
   const key = body.key
   const client = new S3Client({
-    region: env.AWS_REGION,
+    region: getEnv().AWS_REGION,
     credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
+      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
+    Bucket: getEnv().AWS_S3_BUCKET_NAME,
     Key: key,
   })
 
@@ -130,15 +130,15 @@ export const getUploadPresignedUrl: AppRouteHandler<
   const body = await c.req.json()
   const key = body.key
   const client = new S3Client({
-    region: env.AWS_REGION,
+    region: getEnv().AWS_REGION,
     credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
+      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new PutObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
+    Bucket: getEnv().AWS_S3_BUCKET_NAME,
     Key: key,
   })
 
@@ -162,15 +162,15 @@ export const deleteMedia: AppRouteHandler<DeleteMediaRoute> = async (c) => {
   const body = await c.req.json()
   const { path, id } = body
   const client = new S3Client({
-    region: env.AWS_REGION,
+    region: getEnv().AWS_REGION,
     credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
+      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new DeleteObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
+    Bucket: getEnv().AWS_S3_BUCKET_NAME,
     Key: path,
   })
   const deleteResponse = await client.send(command)

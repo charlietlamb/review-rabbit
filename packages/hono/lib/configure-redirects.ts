@@ -1,5 +1,5 @@
 import { AppOpenAPI } from '@burse/hono/lib/types'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { HttpStatusCodes } from '@burse/http'
 
 export default function configureRedirects(app: AppOpenAPI) {
@@ -9,12 +9,12 @@ export default function configureRedirects(app: AppOpenAPI) {
       return c.json({ error: 'Path is required' }, HttpStatusCodes.BAD_REQUEST)
     }
     if (path === 'index') {
-      return c.redirect(`${env.NEXT_PUBLIC_WEB}/`)
+      return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/`)
     } else if (c.req.url.includes('token=')) {
       return c.redirect(
-        `${env.NEXT_PUBLIC_WEB}/${path}?token=${c.req.url.split('token=')[1]}`
+        `${getEnv().NEXT_PUBLIC_WEB}/${path}?token=${c.req.url.split('token=')[1]}`
       )
     }
-    return c.redirect(`${env.NEXT_PUBLIC_WEB}/${path}`)
+    return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/${path}`)
   })
 }

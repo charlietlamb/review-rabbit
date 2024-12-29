@@ -1,9 +1,9 @@
 import { AppOpenAPI } from '@burse/hono/lib/types'
 import { apiReference } from '@scalar/hono-api-reference'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 
 export default function configureOpenAPI(app: AppOpenAPI) {
-  if (env.NODE_ENV === 'development') {
+  if (getEnv().NODE_ENV === 'development') {
     app.doc('/doc', {
       openapi: '3.0.0',
       info: {

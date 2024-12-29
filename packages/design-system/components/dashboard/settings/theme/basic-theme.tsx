@@ -4,7 +4,7 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from '@burse/design-system/components/ui/radio-group'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { Check, Minus } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
@@ -14,21 +14,21 @@ const items = [
     value: 'light',
     label: 'Light',
     theme: 'light',
-    url: `${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI Light.png`,
+    url: `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI Light.png`,
   },
   {
     id: 'radio-18-r2',
     value: 'dark',
     label: 'Dark',
     theme: 'dark',
-    url: `${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI Dark Theme.png`,
+    url: `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI Dark Theme.png`,
   },
   {
     id: 'radio-18-r3',
     value: 'system',
     label: 'System',
     theme: 'system',
-    url: `${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI System.png`,
+    url: `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/UI System.png`,
   },
 ]
 

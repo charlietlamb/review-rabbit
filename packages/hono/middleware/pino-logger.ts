@@ -1,4 +1,4 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { logger } from 'hono-pino'
 import pino from 'pino'
 import pretty from 'pino-pretty'
@@ -6,8 +6,8 @@ import pretty from 'pino-pretty'
 export function pinoLogger() {
   return logger({
     pino: pino(
-      { level: env.LOG_LEVEL || 'info' },
-      env.NODE_ENV === 'production' ? undefined : pretty()
+      { level: getEnv().LOG_LEVEL || 'info' },
+      getEnv().NODE_ENV === 'production' ? undefined : pretty()
     ),
     http: {
       reqId: () => {

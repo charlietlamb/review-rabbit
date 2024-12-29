@@ -4,7 +4,7 @@ import {
   type PresignedUrlResponseOk,
 } from '@burse/hono/routes/s3/s3.types'
 import { HttpStatusCodes } from '@burse/http'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { db } from '@burse/database'
@@ -41,15 +41,15 @@ export async function generatePresignedUrlUserImage(
 
   // Generate new presigned URL
   const client = new S3Client({
-    region: env.AWS_REGION,
+    region: getEnv().AWS_REGION,
     credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
+      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
+    Bucket: getEnv().AWS_S3_BUCKET_NAME,
     Key: `users/pp/${user.id}/pp.jpg`,
   })
 
@@ -93,15 +93,15 @@ export async function generatePresignedUrlFromPath(
 ): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
   // Generate new presigned URL
   const client = new S3Client({
-    region: env.AWS_REGION,
+    region: getEnv().AWS_REGION,
     credentials: {
-      accessKeyId: env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
+      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: env.AWS_S3_BUCKET_NAME,
+    Bucket: getEnv().AWS_S3_BUCKET_NAME,
     Key: path,
   })
 

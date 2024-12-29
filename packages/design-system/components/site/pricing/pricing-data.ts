@@ -1,4 +1,4 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { Plan } from '@burse/hono/lib/types'
 
 export type PricingTier = {
@@ -18,7 +18,7 @@ export const pricingTiers: PricingTier[] = [
     description: 'Essential features for small projects',
     features: ['Analytic Reports', 'Email', 'Schedule Mediations'],
     buttonText: 'Get Started',
-    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
+    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
     plan: 'basic',
   },
   {
@@ -34,7 +34,7 @@ export const pricingTiers: PricingTier[] = [
       'Stripe Payments',
     ],
     buttonText: 'Upgrade to Pro',
-    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
+    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
     plan: 'pro',
   },
   {
@@ -43,7 +43,7 @@ export const pricingTiers: PricingTier[] = [
     description: 'Contact Sales for Custom Features',
     features: ['Custom Features'],
     buttonText: 'Contact Sales',
-    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
+    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
     plan: 'enterprise',
   },
 ]

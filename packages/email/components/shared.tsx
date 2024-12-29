@@ -7,12 +7,12 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 
 export function EmailHeader() {
   return (
     <Img
-      src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/burse/logo.svg`}
+      src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/burse/logo.svg`}
       width="48"
       height="48"
       alt="Company Logo"

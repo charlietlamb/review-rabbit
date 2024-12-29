@@ -1,4 +1,4 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import type { ReactNode } from 'react'
 import { GoogleAnalytics } from './google'
 import { PostHogProvider } from './posthog/client'
@@ -12,8 +12,8 @@ export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => (
   <PostHogProvider>
     {children}
     <VercelAnalytics />
-    {/* {env.NODE_ENV !== 'development' && (
-      <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+    {/* {getEnv().NODE_ENV !== 'development' && (
+      <GoogleAnalytics gaId={getEnv().NEXT_PUBLIC_GA_MEASUREMENT_ID} />
     )} */}
   </PostHogProvider>
 )

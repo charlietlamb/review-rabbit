@@ -10,7 +10,7 @@ import { fileToIcon } from './file-to-icon'
 import { numberToSize } from '@burse/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
 import { cn } from '@burse/design-system/lib/utils'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
 import {
   isAudio,
@@ -50,8 +50,8 @@ export default function UploadCard({
             <img
               src={
                 video
-                  ? `${env.NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`
-                  : `${env.NEXT_PUBLIC_AWS_S3_URL}media/${upload.id}.${upload.extension}`
+                  ? `${getEnv().NEXT_PUBLIC_AWS_S3_URL}thumbnails/${upload.id}.webp`
+                  : `${getEnv().NEXT_PUBLIC_AWS_S3_URL}media/${upload.id}.${upload.extension}`
               }
               alt={upload.name}
               className="w-full h-full absolute inset-0 object-cover"

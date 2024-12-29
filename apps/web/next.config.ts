@@ -1,4 +1,4 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { config, withAnalyzer } from '@burse/next-config'
 import type { NextConfig } from 'next'
 
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   nextConfig.redirects = redirects
 }
 
-if (env.ANALYZE === 'true') {
+if (getEnv().ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig)
 }
 

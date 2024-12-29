@@ -1,5 +1,5 @@
 import { AnalyticsProvider } from '@burse/analytics'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { VercelToolbar } from '@vercel/toolbar/next'
 import { Toaster } from '@burse/design-system/components/ui/sonner'
 import { TooltipProvider } from '@burse/design-system/components/ui/tooltip'
@@ -17,7 +17,7 @@ export const DesignSystemProvider = ({
         <OneTapProvider>{children}</OneTapProvider>
       </TooltipProvider>
       <Toaster />
-      {env.NODE_ENV === 'development' && <VercelToolbar />}
+      {getEnv().NODE_ENV === 'development' && <VercelToolbar />}
     </AnalyticsProvider>
   </Providers>
 )

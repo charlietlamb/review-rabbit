@@ -24,13 +24,14 @@ if (!databaseOnly && !cloudflareWorkerNotInitialized) {
 }
 
 type EnvType = ReturnType<typeof createEnv<typeof server, typeof client>>
-// @ts-expect-error - This is a workaround to avoid type errors when using the env variable
-export const env: EnvType = !databaseOnly ? mainEnv : dbOnlyEnv
 
-export function getEnv() {
-  return getMainEnv() as ReturnType<
-    typeof createEnv<typeof server, typeof client>
-  >
+export function getEnv(): EnvType {
+  // @ts-expect-error - This is a workaround to avoid type errors when using the env variable
+  return process.env.DATABASE_ONLY === 'true'
+    ? getDbEnv()
+    : (getMainEnv() as ReturnType<
+        typeof createEnv<typeof server, typeof client>
+      >)
 }
 
 export { client, server }

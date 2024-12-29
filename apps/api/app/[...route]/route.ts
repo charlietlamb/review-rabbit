@@ -1,6 +1,6 @@
 import { handle } from 'hono/vercel'
 import app from '@burse/hono'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 
 export const runtime = 'nodejs'
 
@@ -8,9 +8,9 @@ export const runtime = 'nodejs'
 export const OPTIONS = async (request: Request) => {
   const origin = request.headers.get('origin')
   const allowedOrigin =
-    env.NODE_ENV === 'development'
+    getEnv().NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : env.NEXT_PUBLIC_WEB
+      : getEnv().NEXT_PUBLIC_WEB
 
   // Return response with CORS headers
   return new Response(null, {
@@ -32,9 +32,9 @@ const handleWithCors = async (request: Request) => {
   const response = await handle(app)(request)
   const origin = request.headers.get('origin')
   const allowedOrigin =
-    env.NODE_ENV === 'development'
+    getEnv().NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : env.NEXT_PUBLIC_WEB
+      : getEnv().NEXT_PUBLIC_WEB
 
   // Clone the response to add CORS headers
   const corsResponse = new Response(response.body, response)

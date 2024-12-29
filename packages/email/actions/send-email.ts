@@ -1,7 +1,7 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { Resend } from 'resend'
 
-const resend = new Resend(env.RESEND_API_KEY)
+const resend = new Resend(getEnv().RESEND_API_KEY)
 
 export async function sendEmail(
   to: string,

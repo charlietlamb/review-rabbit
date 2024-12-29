@@ -13,7 +13,7 @@ import {
 } from './stripe.routes'
 import { stripe } from '@burse/stripe'
 import { and, eq, lt, or } from 'drizzle-orm'
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import crypto from 'crypto'
 
 const STATE_EXPIRY_MINUTES = 30
@@ -58,7 +58,7 @@ export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
       expiresAt,
     })
 
-    const redirectUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${env.STRIPE_CLIENT_ID}&scope=read_write&state=${state}`
+    const redirectUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${getEnv().STRIPE_CLIENT_ID}&scope=read_write&state=${state}`
 
     return c.json({ redirectUrl }, HttpStatusCodes.OK)
   } catch (error) {
@@ -225,7 +225,7 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
     })
 
     return c.redirect(
-      `${env.NEXT_PUBLIC_WEB}/dashboard?status=${status}`,
+      `${getEnv().NEXT_PUBLIC_WEB}/dashboard?status=${status}`,
       HttpStatusCodes.MOVED_TEMPORARILY
     )
   } catch (error) {
@@ -295,7 +295,7 @@ export const deauthorize: AppRouteHandler<DeauthorizeRoute> = async (c) => {
 
       // Deauthorize with Stripe
       await stripe.oauth.deauthorize({
-        client_id: env.STRIPE_CLIENT_ID,
+        client_id: getEnv().STRIPE_CLIENT_ID,
         stripe_user_id: accountId,
       })
 

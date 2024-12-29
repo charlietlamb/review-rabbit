@@ -43,7 +43,7 @@ export default function StripeProduct({
       </div>
       <div className="flex items-center gap-2">
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               variant="outline"
               size="icon"
@@ -61,7 +61,7 @@ export default function StripeProduct({
           <TooltipContent>View in Stripe</TooltipContent>
         </Tooltip>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               variant="outline"
               size="icon"
@@ -77,20 +77,22 @@ export default function StripeProduct({
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger>
-            <DangerDialog
-              title="Delete Stripe Product"
-              description="Are you sure you want to delete this Stripe product? This action cannot be undone."
-              onClick={handleDelete}
-            >
-              <Button variant="destructive" disabled={deleting} size="icon">
-                {deleting ? (
-                  <Spinner className="h-4 w-4" />
-                ) : (
-                  <Trash2 className="h-4 w-4" />
-                )}
-              </Button>
-            </DangerDialog>
+          <TooltipTrigger asChild>
+            <div>
+              <DangerDialog
+                title="Delete Stripe Product"
+                description="Are you sure you want to delete this Stripe product? This action cannot be undone."
+                onClick={handleDelete}
+              >
+                <Button variant="destructive" disabled={deleting} size="icon">
+                  {deleting ? (
+                    <Spinner className="h-4 w-4" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
+                </Button>
+              </DangerDialog>
+            </div>
           </TooltipTrigger>
           <TooltipContent>Delete Product</TooltipContent>
         </Tooltip>

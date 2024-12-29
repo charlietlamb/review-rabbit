@@ -1,10 +1,10 @@
-import { env } from '@burse/env'
+import { getEnv } from '@burse/env'
 import { config, withAnalyzer } from '@burse/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = { ...config }
 
-if (env.ANALYZE === 'true') {
+if (getEnv().ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig)
 }
 

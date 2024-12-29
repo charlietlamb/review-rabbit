@@ -18,4 +18,5 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install
+      - run: cd apps/webhooks
       - run: bun run deploy

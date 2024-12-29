@@ -5,7 +5,7 @@ import { unauthorizedSchema } from '@burse/hono/lib/configure-auth'
 import {
   selectStripeProductSchema,
   selectStripeProductWithDataSchema,
-} from '@burse/database/schema/stripe-products'
+} from '@burse/database/schema/stripe/stripe-products'
 import {
   createProductFormSchema,
   productFormSchema,

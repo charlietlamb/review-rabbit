@@ -1,6 +1,6 @@
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import { HttpStatusCodes } from '@burse/http'
-import { stripeConnects } from '@burse/database/schema/stripe-connects'
+import { stripeConnects } from '@burse/database/schema/stripe/stripe-connects'
 import { db } from '@burse/database'
 import { and, eq } from 'drizzle-orm'
 import {

@@ -1,8 +1,8 @@
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import { HttpStatusCodes } from '@burse/http'
-import { stripeConnects } from '@burse/database/schema/stripe-connects'
-import { stripeOAuthStates } from '@burse/database/schema/stripe-oauth-states'
-import { users } from '@burse/database/schema/users'
+import { stripeConnects } from '@burse/database/schema/stripe/stripe-connects'
+import { stripeOAuthStates } from '@burse/database/schema/stripe/stripe-oauth-states'
+import { users } from '@burse/database/schema/auth/users'
 import { db } from '@burse/database'
 import {
   ConnectGetRoute,

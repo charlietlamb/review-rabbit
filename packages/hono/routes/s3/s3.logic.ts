@@ -1,4 +1,4 @@
-import { users } from '@burse/database/schema/users'
+import { users } from '@burse/database/schema/auth/users'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,

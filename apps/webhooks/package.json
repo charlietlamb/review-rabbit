@@ -10,6 +10,7 @@
   "dependencies": {
     "@burse/http": "workspace:*",
     "@burse/env": "workspace:*",
+    "@burse/webhooks": "workspace:*",
     "hono": "^3.11.7",
     "stripe": "^14.10.0"
   },

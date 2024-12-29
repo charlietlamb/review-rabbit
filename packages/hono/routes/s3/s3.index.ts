@@ -10,6 +10,5 @@ const router = createRouter()
     handlers.getProfileImagePresignedUrl
   )
   .openapi(routes.getUploadPresignedUrl, handlers.getUploadPresignedUrl)
-  .openapi(routes.deleteMedia, handlers.deleteMedia)
 
 export default router

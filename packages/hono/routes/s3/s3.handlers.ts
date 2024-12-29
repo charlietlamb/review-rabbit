@@ -1,12 +1,10 @@
 import {
   PutObjectCommand,
   S3Client,
-  DeleteObjectCommand,
   GetObjectCommand,
 } from '@aws-sdk/client-s3'
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import {
-  DeleteMediaRoute,
   GetPresignedUrlRoute,
   GetProfileImagePresignedUrlRoute,
   GetUploadPresignedUrlRoute,
@@ -16,7 +14,7 @@ import { getEnv } from '@burse/env'
 import { HttpStatusCodes } from '@burse/http'
 import { db } from '@burse/database'
 import { eq } from 'drizzle-orm'
-import { media, users } from '@burse/database/schema'
+import { users } from '@burse/database/schema'
 import {
   generatePresignedUrlUserImage,
   PresignedUrlErrorCodes,
@@ -152,46 +150,4 @@ export const getUploadPresignedUrl: AppRouteHandler<
     )
   }
   return c.json({ presignedUrl }, HttpStatusCodes.OK)
-}
-
-export const deleteMedia: AppRouteHandler<DeleteMediaRoute> = async (c) => {
-  const user = c.get('user')
-  if (!user) {
-    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
-  }
-  const body = await c.req.json()
-  const { path, id } = body
-  const client = new S3Client({
-    region: getEnv().AWS_REGION,
-    credentials: {
-      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
-      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
-    },
-  })
-
-  const command = new DeleteObjectCommand({
-    Bucket: getEnv().AWS_S3_BUCKET_NAME,
-    Key: path,
-  })
-  const deleteResponse = await client.send(command)
-  if (
-    deleteResponse.$metadata.httpStatusCode !== 200 &&
-    deleteResponse.$metadata.httpStatusCode !== 204
-  ) {
-    return c.json(
-      { error: 'Failed to delete media file' },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-  try {
-    await db.delete(media).where(eq(media.id, id))
-  } catch (e) {
-    console.error(e)
-    return c.json(
-      { error: 'Failed to delete media from database' },
-      HttpStatusCodes.INTERNAL_SERVER_ERROR
-    )
-  }
-
-  return c.json({ success: true }, HttpStatusCodes.OK)
 }

@@ -1,0 +1,13 @@
+{
+  "extends": "@burse/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@burse/webhooks/*": ["./*"]
+    }
+  },
+  "include": ["./*.ts", "./*.tsx"],
+  "exclude": ["node_modules"]
+}

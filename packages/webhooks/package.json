@@ -1,0 +1,9 @@
+{
+  "name": "@burse/webhooks",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "dependencies": {
+    "@burse/env": "workspace:*"
+  }
+}

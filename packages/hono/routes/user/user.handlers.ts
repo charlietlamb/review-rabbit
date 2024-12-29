@@ -7,10 +7,10 @@ import {
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import { db } from '@burse/database'
 import { eq } from 'drizzle-orm'
-import { users } from '@burse/database/schema/users'
+import { users } from '@burse/database/schema/auth/users'
 import { updateUserSchema } from '@burse/hono/routes/user/user.schema'
 import { HttpStatusCodes } from '@burse/http'
-import { verifications } from '@burse/database/schema/verifications'
+import { verifications } from '@burse/database/schema/auth/verifications'
 import { hashPassword } from '@burse/hono/lib/password'
 import { accounts } from '@burse/database/schema'
 

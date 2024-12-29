@@ -1,15 +1,15 @@
 import Stripe from 'stripe'
 import { Hono } from 'hono'
-import { handleStripeWebhook } from './handlers/stripe-webhooks'
 import { HttpStatusCodes } from '@burse/http'
 import { Env, setupEnv } from './setup-env'
 import { getEnv } from '@burse/env'
+import { handleStripeWebhook } from '@burse/webhooks'
 
 const app = new Hono<{ Bindings: Env }>()
 
 app.get('/', (c) => {
   setupEnv(c.env)
-  return c.text(`${HttpStatusCodes.OK} ${JSON.stringify(c.env)}`)
+  return c.text(`Burse Webhooks.`)
 })
 
 app.get('/env', (c) => {

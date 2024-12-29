@@ -1,8 +1,8 @@
 import { AppRouteHandler } from '@burse/hono/lib/types'
 import { HttpStatusCodes } from '@burse/http'
-import { stripeProducts } from '@burse/database/schema/stripe-products'
-import { stripePrices } from '@burse/database/schema/stripe-prices'
-import { stripeConnects } from '@burse/database/schema/stripe-connects'
+import { stripeProducts } from '@burse/database/schema/stripe/stripe-products'
+import { stripePrices } from '@burse/database/schema/stripe/stripe-prices'
+import { stripeConnects } from '@burse/database/schema/stripe/stripe-connects'
 import { db } from '@burse/database'
 import { and, eq } from 'drizzle-orm'
 import type {

@@ -13,6 +13,9 @@ app.get('/', (context) => {
 app.post('/', async (context) => {
   console.log('Webhook received')
   console.log(HttpStatusCodes.ACCEPTED)
+
+  // Initialize process.env with Cloudflare environment variables
+
   const { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = env(context)
   const stripe = new Stripe(STRIPE_SECRET_KEY as string)
   const signature = context.req.header('stripe-signature')

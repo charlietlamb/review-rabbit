@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@burse/http": "workspace:*",
+    "@burse/env": "workspace:*",
     "hono": "^3.11.7",
     "stripe": "^14.10.0",
     "esbuild": "^0.19.11"

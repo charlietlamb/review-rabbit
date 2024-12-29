@@ -4,6 +4,7 @@ import { authClient } from '@burse/design-system/lib/authClient'
 import { Button } from '@burse/design-system/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { cn } from '@burse/design-system/lib/utils'
+import Link from 'next/link'
 
 type GetStartedButtonProps = {
   className?: string
@@ -16,15 +17,12 @@ export function ActionButton({
 }: GetStartedButtonProps) {
   const session = authClient.useSession()
   const user = session.data?.user
-  const router = useRouter()
   return (
-    <Button
-      size={size}
+    <Link
       className={cn(className, 'font-heading font-bold')}
-      variant="gooeyLeft"
-      onClick={() => router.push(user ? '/dashboard' : '/signup')}
+      href={user ? '/dashboard' : '/signup'}
     >
       {user ? 'Dashboard' : 'Get Started'}
-    </Button>
+    </Link>
   )
 }

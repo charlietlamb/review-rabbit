@@ -43,12 +43,8 @@ export const handleSetupIntentUpdated = async (event: Stripe.Event) => {
               type: setupIntent.last_setup_error.type,
             }
           : null,
-        latestAttempt:
-          typeof setupIntent.latest_attempt === 'string'
-            ? setupIntent.latest_attempt
-            : null,
         nextAction: setupIntent.next_action,
-        paymentMethod:
+        paymentMethodId:
           typeof setupIntent.payment_method === 'string'
             ? setupIntent.payment_method
             : (setupIntent.payment_method?.id ?? null),

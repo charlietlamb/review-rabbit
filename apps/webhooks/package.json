@@ -1,12 +1,12 @@
 {
-  "name": "@burse/webhooks",
+  "name": "webhooks",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "build": "bun esbuild.config.js",
-    "deploy": "bun run build && wrangler deploy",
+    "dev": "wrangler dev src/index.ts",
+    "build": "wrangler deploy --dry-run --outdir=dist src/index.ts",
+    "deploy": "wrangler deploy src/index.ts",
     "lint": "eslint src/",
     "clean": "rm -rf .turbo node_modules dist",
     "typecheck": "tsc --noEmit"
@@ -15,8 +15,7 @@
     "@burse/http": "workspace:*",
     "@burse/env": "workspace:*",
     "hono": "^3.11.7",
-    "stripe": "^14.10.0",
-    "esbuild": "^0.19.11"
+    "stripe": "^14.10.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",

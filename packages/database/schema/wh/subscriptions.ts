@@ -1,30 +1,28 @@
 import {
-  integer,
   pgTable,
+  text,
   timestamp,
-  varchar,
-  boolean,
   jsonb,
+  decimal,
+  boolean,
 } from 'drizzle-orm/pg-core'
 import { customers } from './customers'
 
 export const subscriptions = pgTable('wh_subscriptions', {
-  id: varchar('id').primaryKey(),
-  stripeId: varchar('stripeId').unique().notNull(),
-  customerId: varchar('customerId')
+  id: text('id').primaryKey(),
+  stripeId: text('stripeId').unique().notNull(),
+  customerId: text('customerId')
     .references(() => customers.id)
     .notNull(),
-  status: varchar('status').notNull(),
-  priceId: varchar('priceId').notNull(),
-  quantity: integer('quantity').notNull(),
-  cancelAtPeriodEnd: boolean('cancelAtPeriodEnd').notNull().default(false),
+  status: text('status').notNull(),
+  priceId: text('priceId').notNull(),
+  quantity: decimal('quantity', { precision: 32, scale: 2 }).notNull(),
+  cancelAtPeriodEnd: boolean('cancelAtPeriodEnd').default(false),
   cancelAt: timestamp('cancelAt'),
   canceledAt: timestamp('canceledAt'),
-  currentPeriodStart: timestamp('currentPeriodStart').notNull(),
-  currentPeriodEnd: timestamp('currentPeriodEnd').notNull(),
+  currentPeriodStart: timestamp('currentPeriodStart'),
+  currentPeriodEnd: timestamp('currentPeriodEnd'),
   endedAt: timestamp('endedAt'),
-  trialStart: timestamp('trialStart'),
-  trialEnd: timestamp('trialEnd'),
   metadata: jsonb('metadata'),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),

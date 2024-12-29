@@ -1,23 +1,23 @@
-import { pgTable, varchar, timestamp, jsonb } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, jsonb } from 'drizzle-orm/pg-core'
 import { customers } from './customers'
 import { subscriptions } from './subscriptions'
 import { users } from '../auth/users'
 
 export const subscriptionSchedules = pgTable('wh_subscription_schedules', {
-  id: varchar('id').primaryKey(),
-  userId: varchar('userId')
+  id: text('id').primaryKey(),
+  userId: text('userId')
     .references(() => users.id)
     .notNull(),
-  stripeId: varchar('stripeId').unique().notNull(),
-  customerId: varchar('customerId')
+  stripeId: text('stripeId').unique().notNull(),
+  customerId: text('customerId')
     .references(() => customers.id)
     .notNull(),
-  subscriptionId: varchar('subscriptionId').references(() => subscriptions.id),
-  status: varchar('status').notNull(),
+  subscriptionId: text('subscriptionId').references(() => subscriptions.id),
+  status: text('status').notNull(),
   phases: jsonb('phases'),
   currentPhase: jsonb('currentPhase'),
   defaultSettings: jsonb('defaultSettings'),
-  endBehavior: varchar('endBehavior'),
+  endBehavior: text('endBehavior'),
   releasedAt: timestamp('releasedAt'),
   releasedSubscription: jsonb('releasedSubscription'),
   metadata: jsonb('metadata'),

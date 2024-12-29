@@ -1,6 +1,6 @@
 import {
   pgTable,
-  varchar,
+  text,
   timestamp,
   jsonb,
   decimal,
@@ -10,26 +10,26 @@ import { customers } from './customers'
 import { users } from '../auth/users'
 
 export const paymentIntents = pgTable('wh_payment_intents', {
-  id: varchar('id').primaryKey(),
-  userId: varchar('userId')
+  id: text('id').primaryKey(),
+  userId: text('userId')
     .references(() => users.id)
     .notNull(),
-  stripeId: varchar('stripeId').unique().notNull(),
-  customerId: varchar('customerId')
+  stripeId: text('stripeId').unique().notNull(),
+  customerId: text('customerId')
     .references(() => customers.id)
     .notNull(),
   amount: decimal('amount', { precision: 32, scale: 2 }).notNull(),
-  currency: varchar('currency').notNull(),
-  status: varchar('status').notNull(),
-  paymentMethod: varchar('paymentMethod'),
-  description: varchar('description'),
+  currency: text('currency').notNull(),
+  status: text('status').notNull(),
+  paymentMethod: text('paymentMethod'),
+  description: text('description'),
   canceledAt: timestamp('canceledAt'),
   capturedAt: timestamp('capturedAt'),
   paidAt: timestamp('paidAt'),
-  confirmationMethod: varchar('confirmationMethod'),
+  confirmationMethod: text('confirmationMethod'),
   requiresAction: boolean('requiresAction').default(false),
   requiresCapture: boolean('requiresCapture').default(false),
-  setupFutureUsage: varchar('setupFutureUsage'),
+  setupFutureUsage: text('setupFutureUsage'),
   lastPaymentError: jsonb('lastPaymentError').default('{}'),
   metadata: jsonb('metadata'),
   createdAt: timestamp('createdAt').defaultNow().notNull(),

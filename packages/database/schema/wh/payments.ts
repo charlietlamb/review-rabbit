@@ -1,33 +1,34 @@
 import {
   pgTable,
+  text,
   timestamp,
-  varchar,
-  decimal,
   jsonb,
+  decimal,
+  boolean,
 } from 'drizzle-orm/pg-core'
 import { customers } from './customers'
 import { subscriptions } from './subscriptions'
 import { paymentIntents } from './payment-intents'
 
 export const payments = pgTable('wh_payments', {
-  id: varchar('id').primaryKey(),
-  stripeId: varchar('stripeId').unique().notNull(),
-  customerId: varchar('customerId')
+  id: text('id').primaryKey(),
+  stripeId: text('stripeId').unique().notNull(),
+  customerId: text('customerId')
     .references(() => customers.id)
     .notNull(),
-  subscriptionId: varchar('subscriptionId')
+  subscriptionId: text('subscriptionId')
     .references(() => subscriptions.id)
     .notNull(),
-  paymentIntentId: varchar('paymentIntentId')
+  paymentIntentId: text('paymentIntentId')
     .references(() => paymentIntents.id)
     .notNull(),
   amount: decimal('amount', { precision: 32, scale: 2 }).notNull(),
-  currency: varchar('currency').notNull(),
-  status: varchar('status').notNull(),
-  paymentMethod: varchar('paymentMethod').notNull(),
-  receiptEmail: varchar('receiptEmail'),
-  receiptUrl: varchar('receiptUrl'),
-  failureMessage: varchar('failureMessage'),
+  currency: text('currency').notNull(),
+  status: text('status').notNull(),
+  paymentMethod: text('paymentMethod').notNull(),
+  receiptEmail: text('receiptEmail'),
+  receiptUrl: text('receiptUrl'),
+  failureMessage: text('failureMessage'),
   metadata: jsonb('metadata'),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),

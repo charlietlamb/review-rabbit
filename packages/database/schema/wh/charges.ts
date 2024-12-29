@@ -1,6 +1,6 @@
 import {
   pgTable,
-  varchar,
+  text,
   timestamp,
   jsonb,
   decimal,
@@ -11,22 +11,22 @@ import { payments } from './payments'
 import { users } from '../auth/users'
 
 export const charges = pgTable('wh_charges', {
-  id: varchar('id').primaryKey(),
-  userId: varchar('userId')
+  id: text('id').primaryKey(),
+  userId: text('userId')
     .references(() => users.id)
     .notNull(),
-  stripeId: varchar('stripeId').unique().notNull(),
-  customerId: varchar('customerId')
+  stripeId: text('stripeId').unique().notNull(),
+  customerId: text('customerId')
     .references(() => customers.id)
     .notNull(),
-  paymentId: varchar('paymentId').references(() => payments.id),
+  paymentId: text('paymentId').references(() => payments.id),
   amount: decimal('amount', { precision: 32, scale: 2 }).notNull(),
-  currency: varchar('currency').notNull(),
-  status: varchar('status').notNull(),
-  paymentMethod: varchar('paymentMethod').notNull(),
-  description: varchar('description'),
-  failureCode: varchar('failureCode'),
-  failureMessage: varchar('failureMessage'),
+  currency: text('currency').notNull(),
+  status: text('status').notNull(),
+  paymentMethod: text('paymentMethod').notNull(),
+  description: text('description'),
+  failureCode: text('failureCode'),
+  failureMessage: text('failureMessage'),
   disputed: boolean('disputed').default(false),
   refunded: boolean('refunded').default(false),
   metadata: jsonb('metadata'),

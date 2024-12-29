@@ -1,6 +1,6 @@
 import { Button } from '@burse/design-system/components/ui/button'
 import { ExternalLink, Pencil, Trash2 } from 'lucide-react'
-import { StripeProductWithData } from '@burse/database/schema/stripe-products'
+import { StripeProductWithData } from '@burse/database/schema/stripe/stripe-products'
 import { useQueryClient } from '@tanstack/react-query'
 import DangerDialog from '@burse/design-system/components/misc/danger-dialog'
 import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
@@ -13,6 +13,8 @@ import {
   TooltipTrigger,
 } from '@burse/design-system/components/ui/tooltip'
 import { useRouter } from 'next/navigation'
+import EditProductDialog from './edit-product-dialog'
+
 export default function StripeProduct({
   stripeProduct,
 }: {
@@ -62,16 +64,17 @@ export default function StripeProduct({
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                router.push(`/dashboard/product/${stripeProduct.id}`)
-              }}
-              className="flex items-center gap-2"
-            >
-              <Pencil className="h-4 w-4" />
-            </Button>
+            <div>
+              <EditProductDialog product={stripeProduct}>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="flex items-center gap-2"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Button>
+              </EditProductDialog>
+            </div>
           </TooltipTrigger>
           <TooltipContent>Edit Product</TooltipContent>
         </Tooltip>

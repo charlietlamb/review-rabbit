@@ -2,7 +2,7 @@ import InputWithIconState from '@burse/design-system/components/form/input/input
 import { Button } from '@burse/design-system/components/ui/button'
 import { Pencil } from 'lucide-react'
 import { useState } from 'react'
-import { StripeProductWithData } from '@burse/database/schema/stripe-products'
+import { StripeProductWithData } from '@burse/database/schema/stripe/stripe-products'
 import { FormProvider } from '@burse/design-system/components/form/form-context'
 import { toast } from 'sonner'
 import { PriceFormSchema } from '@burse/design-system/types/stripe/prices'

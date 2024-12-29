@@ -2,7 +2,6 @@
 
 import { ArrowRight } from 'lucide-react'
 import Balancer from 'react-wrap-balancer'
-import Link from 'next/link'
 import { Badge } from '@burse/design-system/components/ui/badge'
 import { useRouter } from 'next/navigation'
 
@@ -16,14 +15,14 @@ export function HeroText() {
         className="cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
         onClick={() => router.push('/signup')}
       >
-        Add your first 50 paying clients for free
+        Start accepting payments in minutes
         <ArrowRight size={16} />
       </Badge>
       <h1 className="max-w-2xl font-heading text-5xl font-semibold sm:text-6xl tracking-tight text-foreground text-center">
-        <Balancer>Setup Stripe In A Couple Of Clicks</Balancer>
+        <Balancer>Stripe Payments Made Simple</Balancer>
       </h1>
       <p className="max-w-lg text-center text-lg text-muted-foreground sm:text-xl">
-        Spend time on what really matters. Let us handle the rest.
+        Seamlessly handle payments and webhooks. Focus on your business logic.
       </p>
     </div>
   )

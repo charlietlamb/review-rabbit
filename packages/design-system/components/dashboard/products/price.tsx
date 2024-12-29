@@ -36,7 +36,11 @@ export default function Price({
         <TooltipTrigger asChild>
           <div>
             <EditPriceDialog price={price} setPrice={setPrice}>
-              <Button variant="outline" size="icon" className="p-2">
+              <Button
+                variant="outline"
+                size="icon"
+                className="p-2 aspect-square"
+              >
                 <Pencil className="size-4" />
               </Button>
             </EditPriceDialog>
@@ -49,7 +53,7 @@ export default function Price({
           <Button
             variant="destructive"
             size="icon"
-            className="p-2"
+            className="p-2 aspect-square"
             onClick={() => onDelete()}
           >
             <Trash2 className="size-4" />

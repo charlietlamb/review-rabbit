@@ -1,4 +1,4 @@
-import { StripeProductWithData } from '@burse/database/schema/stripe-products'
+import { StripeProductWithData } from '@burse/database/schema/stripe/stripe-products'
 import ProductForm from './product-form'
 import {
   Dialog,
@@ -23,7 +23,7 @@ export default function EditProductDialog({
         <DialogHeader>
           <DialogTitle>Add a product</DialogTitle>
         </DialogHeader>
-        <ProductForm onSuccess={() => setOpen(false)} />
+        <ProductForm product={product} onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

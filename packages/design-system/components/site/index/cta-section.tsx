@@ -9,16 +9,16 @@ export default function CtaSection() {
           Get started
         </span>
         <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-balance max-w-xl sm:leading-tight text-center text-foreground">
-          Streamline Your Mediation Process
+          Start Accepting Payments Today
         </h2>
       </div>
       <p className="text-lg text-muted-foreground text-balance max-w-xl text-center">
-        Schedule mediations, manage client communications, and handle invoicing
-        all in one place.
+        Set up Stripe payments and webhook handling in minutes. No complex
+        integration required.
       </p>
       <div className="flex gap-4 mt-2">
         <Button size="lg" asChild variant="shine" className="cursor-pointer">
-          <Link href="/dashboard/mediation/new">Start today</Link>
+          <Link href="/dashboard/payments/new">Get Started</Link>
         </Button>
       </div>
     </section>

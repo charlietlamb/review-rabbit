@@ -25,18 +25,6 @@ export const connect: AppRouteHandler<ConnectRoute> = async (c) => {
   }
 
   try {
-    // Check if user already has a connected account
-    const existingConnect = await db.query.stripeConnects.findFirst({
-      where: eq(stripeConnects.userId, user.id),
-    })
-
-    if (existingConnect?.onboardingCompleted) {
-      return c.json(
-        { error: 'Account already connected' },
-        HttpStatusCodes.BAD_REQUEST
-      )
-    }
-
     // Clean up any existing states for this user and expired states
     await db
       .delete(stripeOAuthStates)
@@ -171,16 +159,9 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
 
     // Start a transaction for all database operations
     await db.transaction(async (tx) => {
-      const hasOnboarded = await tx.query.stripeConnects.findFirst({
-        where: eq(stripeConnects.userId, storedState.userId),
-      })
-
-      const status = hasOnboarded?.onboardingCompleted
-        ? 'stripe-connected'
-        : 'onboarding-completed'
-      // Check if account already exists
+      // Check if this specific Stripe account is already connected
       const existingConnect = await tx.query.stripeConnects.findFirst({
-        where: eq(stripeConnects.userId, storedState.userId),
+        where: eq(stripeConnects.id, stripeUserId),
       })
 
       const stripeData = {
@@ -209,14 +190,6 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
         }
         await tx.insert(stripeConnects).values(insertData)
       }
-      // Update user's onboarding status
-      await tx
-        .update(users)
-        .set({
-          onboardingCompleted: true,
-          updatedAt: new Date(),
-        })
-        .where(eq(users.id, storedState.userId))
 
       // Clean up used state
       await tx
@@ -225,7 +198,7 @@ export const connectReturn: AppRouteHandler<ConnectReturnRoute> = async (c) => {
     })
 
     return c.redirect(
-      `${getEnv().NEXT_PUBLIC_WEB}/dashboard?status=${status}`,
+      `${getEnv().NEXT_PUBLIC_WEB}/dashboard?status=stripe-connected`,
       HttpStatusCodes.MOVED_TEMPORARILY
     )
   } catch (error) {
@@ -247,15 +220,15 @@ export const connectGet: AppRouteHandler<ConnectGetRoute> = async (c) => {
   }
 
   try {
-    const account = await db.query.stripeConnects.findFirst({
+    const accounts = await db.query.stripeConnects.findMany({
       where: eq(stripeConnects.userId, user.id),
     })
-    return c.json({ account }, HttpStatusCodes.OK)
+    return c.json({ accounts }, HttpStatusCodes.OK)
   } catch (error) {
-    console.error('Error getting Stripe Connect account:', error)
+    console.error('Error getting Stripe Connect accounts:', error)
     return c.json(
       {
-        error: 'Failed to get Stripe Connect account',
+        error: 'Failed to get Stripe Connect accounts',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )

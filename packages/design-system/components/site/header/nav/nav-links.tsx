@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 type NavLink = {
@@ -10,12 +12,15 @@ const links: NavLink[] = [
   { href: '/docs', label: 'Docs' },
 ]
 
-type NavLinksProps = {
+export function NavLinks({
+  className,
+  linkClassName,
+  loggedIn,
+}: {
   className?: string
   linkClassName?: string
-}
-
-export function NavLinks({ className, linkClassName }: NavLinksProps) {
+  loggedIn: boolean
+}) {
   return (
     <nav className={className}>
       {links.map(({ href, label }) => (
@@ -23,6 +28,12 @@ export function NavLinks({ className, linkClassName }: NavLinksProps) {
           {label}
         </Link>
       ))}
+      <Link
+        href={loggedIn ? '/dashboard' : '/signup'}
+        className={linkClassName}
+      >
+        {loggedIn ? 'Dashboard' : 'Sign up'}
+      </Link>
     </nav>
   )
 }

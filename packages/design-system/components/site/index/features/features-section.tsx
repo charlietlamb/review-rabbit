@@ -9,13 +9,13 @@ export function Features() {
           Features
         </span>
         <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center text-foreground">
-          Streamline Your Mediation Practice
+          Powerful Payment Infrastructure
         </h2>
       </div>
       <p className="text-muted-foreground text-balance max-w-2xl text-lg text-center">
-        Our platform combines powerful case management tools with seamless
-        client communication to help you focus on what matters most - resolving
-        disputes.
+        Our platform combines Stripe's robust payment processing with automated
+        webhook handling, giving you everything you need to manage payments
+        effectively.
       </p>
       <div className="max-w-7xl md:grid-cols-2 lg:grid-cols-4 relative z-10 grid grid-cols-1 py-10 mx-auto">
         {featuresData.map((feature) => (

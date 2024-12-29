@@ -18,12 +18,6 @@ export const connect = createRoute({
       }),
       'Stripe OAuth redirect URL.'
     ),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Account already connected'
-    ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
@@ -100,20 +94,20 @@ export type ConnectReturnRoute = typeof connectReturn
 export const connectGet = createRoute({
   path: '/stripe/connect/get',
   method: 'get',
-  summary: 'Get Stripe Connect account',
+  summary: 'Get connected Stripe accounts',
   tags,
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({
-        account: selectStripeConnectSchema.optional(),
+        accounts: z.array(selectStripeConnectSchema),
       }),
-      'Stripe connected.'
+      'Successfully retrieved Stripe Connect accounts'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),
       }),
-      'Failed to get Stripe Connect account'
+      'Failed to get Stripe Connect accounts'
     ),
     ...unauthorizedSchema,
   },

@@ -1,38 +1,38 @@
 export const faqData = [
   {
     value: 'item-0',
-    question: 'How secure is my client data?',
+    question: 'How secure are the payment transactions?',
     answer:
-      'We take data security seriously. All data is encrypted both in transit and at rest, and we comply with industry-standard security protocols. Our platform is designed with privacy in mind, ensuring your client information remains confidential and secure.',
+      "All payment data is handled securely through Stripe's PCI-compliant infrastructure. We never store sensitive card data on our servers, and all transactions are encrypted end-to-end.",
   },
   {
     value: 'item-1',
-    question: 'Can I handle multiple parties in a single mediation case?',
+    question: 'How do webhooks help with payment processing?',
     answer:
-      'Yes! Our platform is designed to handle complex mediation cases with multiple parties. You can add multiple clients to a single case, manage their individual information, send separate communications, and generate individual invoices while keeping everything organized.',
+      'Webhooks provide real-time notifications about payment events like successful charges, failed payments, or refunds. Our system automatically handles these events, updates your database, and can trigger custom business logic.',
   },
   {
     value: 'item-2',
-    question: 'How does the scheduling system work?',
+    question: 'What happens if a webhook fails?',
     answer:
-      'Our smart scheduling system allows you to set your availability, send invitations to all parties, and receive confirmations automatically. It includes conflict checking, automatic time zone conversion, and integration with popular calendar apps like Google Calendar and Outlook.',
+      'Our platform includes automatic retry logic for failed webhooks. We store events securely and attempt redelivery with exponential backoff. You can monitor webhook status and manually retry if needed.',
   },
   {
     value: 'item-3',
     question: 'What payment methods are supported?',
     answer:
-      'We support all major credit cards through our secure Stripe integration. You can set up automatic invoicing, recurring payments, and even split billing between multiple parties. All payments are processed securely and automatically reconciled in your dashboard.',
+      'Through Stripe, we support all major credit cards, digital wallets like Apple Pay and Google Pay, and local payment methods. The available methods can be customized based on your region and business needs.',
   },
   {
     value: 'item-4',
-    question: 'Can I customize documents and forms?',
+    question: 'Can I customize the payment flow?',
     answer:
-      'Absolutely! You can customize all documents, including agreement templates, intake forms, and invoices. Add your branding, modify the content to match your practice needs, and save templates for future use.',
+      'Yes! You can customize the checkout experience, add your branding, configure payment methods, and set up specific business rules. Our webhook system can also be configured to trigger custom actions based on payment events.',
   },
   {
     value: 'item-5',
-    question: 'Is training provided for new users?',
+    question: 'How do I monitor payment and webhook activity?',
     answer:
-      'Yes, we provide comprehensive onboarding support including video tutorials, documentation, and live training sessions. Our support team is also available to help you get the most out of the platform.',
+      'Our dashboard provides real-time monitoring of payment transactions and webhook events. You can track successful payments, view failed webhooks, analyze performance metrics, and export detailed reports.',
   },
 ] as const

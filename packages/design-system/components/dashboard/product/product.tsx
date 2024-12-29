@@ -1,6 +1,6 @@
 'use client'
 
-import { StripeProductWithData } from '@burse/database/schema/stripe-products'
+import { StripeProductWithData } from '@burse/database/schema/stripe/stripe-products'
 import DashboardContentHeader from '../header/dashboard-content-header'
 import ProductForm from '../products/product-form'
 

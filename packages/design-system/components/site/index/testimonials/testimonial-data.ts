@@ -1,51 +1,44 @@
-type Testimonial = {
-  quote: string
-  name: string
-  handle: string
-  imageUrl: string
-}
-
-export const testimonials: Testimonial[] = [
+export const testimonials = [
   {
     quote:
-      'The scheduling and client management features have transformed how I run my practice. I can focus more on mediation and less on administration.',
+      'The payment processing integration was seamless. We were able to start accepting international payments within hours of setup.',
     name: 'Sarah Chen',
-    handle: 'Family Mediator',
+    handle: 'CTO, TechStart',
     imageUrl: '/images/testimonial-1.avif',
   },
   {
     quote:
-      'Being able to take digital notes during sessions and having them automatically organized by case has been a game-changer for my workflow.',
+      "The webhook handling system is robust and reliable. We haven't missed a single payment event since implementation.",
     name: 'Michael Rodriguez',
-    handle: 'Commercial Mediator',
+    handle: 'Lead Developer, PayFlow',
     imageUrl: '/images/testimonial-2.avif',
   },
   {
     quote:
-      'The automated invoicing and payment system has significantly reduced the time I spend on billing. My clients appreciate the professional experience.',
+      'Their automated retry logic for webhooks saved us countless hours of manual intervention. The dashboard makes tracking events a breeze.',
     name: 'Emma Thompson',
-    handle: 'Workplace Mediator',
+    handle: 'Engineering Manager, ShopWave',
     imageUrl: '/images/testimonial-3.avif',
   },
   {
     quote:
-      'As a community mediator, I love how the platform helps me stay organized with multiple cases. The email notifications keep everyone in the loop.',
+      'The real-time payment notifications and webhook monitoring have greatly improved our customer service response times.',
     name: 'David Park',
-    handle: 'Community Mediator',
+    handle: 'Product Lead, FastPay',
     imageUrl: '/images/testimonial-4.avif',
   },
   {
     quote:
-      'The analytics dashboard gives me valuable insights into my practice. I can track my success rates and identify areas for growth.',
+      "The analytics dashboard gives us valuable insights into our payment flows and webhook performance. It's been crucial for optimization.",
     name: 'Rachel Foster',
-    handle: 'Civil Mediator',
+    handle: 'Data Analyst, PaymentPro',
     imageUrl: '/images/testimonial-5.avif',
   },
   {
     quote:
-      'The platform is intuitive and customizable to my needs. It has helped me scale my mediation practice while maintaining quality service.',
+      'Setting up Stripe payments was incredibly simple. The documentation and support made the integration process smooth and hassle-free.',
     name: 'James Wilson',
-    handle: 'Elder Care Mediator',
+    handle: 'Founder, QuickCharge',
     imageUrl: '/images/testimonial-6.avif',
   },
-]
+] as const

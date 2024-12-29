@@ -137,7 +137,6 @@ export const createStripeProduct: AppRouteHandler<
           stripeAccount: stripeUserId,
         }
       )
-      console.log('Live product created:', liveProduct.id)
 
       // Create product in test mode
       testProduct = await stripe.products.create(
@@ -152,7 +151,6 @@ export const createStripeProduct: AppRouteHandler<
           stripeAccount: stripeUserId,
         }
       )
-      console.log('Test product created:', testProduct.id)
     } catch (stripeError) {
       console.error('Stripe product creation failed:', stripeError)
       if (stripeError instanceof stripe.errors.StripeError) {

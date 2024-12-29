@@ -7,19 +7,21 @@ import { handleStripeWebhook } from '@burse/webhooks'
 
 const app = new Hono<{ Bindings: Env }>()
 
-app.get('/', (c) => {
+// Middleware to ensure environment is set up
+app.use('*', async (c, next) => {
   setupEnv(c.env)
+  await next()
+})
+
+app.get('/', (c) => {
   return c.text(`Burse Webhooks.`)
 })
 
 app.get('/env', (c) => {
-  setupEnv(c.env)
   return c.text(`${HttpStatusCodes.OK} ${JSON.stringify(getEnv())}`)
 })
 
 app.post('/', async (context) => {
-  setupEnv(context.env)
-
   const { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = getEnv()
   const stripe = new Stripe(STRIPE_SECRET_KEY as string)
   const signature = context.req.header('stripe-signature')

@@ -216,7 +216,6 @@ export const webhookHandlers: WebhookHandlers = {
   [STRIPE_EVENTS.INVOICE_UPCOMING]: async (event) => {
     // No action needed for upcoming invoices as they don't exist yet
     const invoice = event.data.object as Stripe.Invoice
-    console.log('Invoice Upcoming:', invoice.id)
   },
 
   [STRIPE_EVENTS.INVOICE_UPDATED]: async (event) =>

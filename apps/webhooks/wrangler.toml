@@ -3,17 +3,41 @@ main = "src/index.ts"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
-# Default environment variables
 [vars]
 NODE_ENV = "production"
+LOG_LEVEL = "info"
+BETTER_AUTH_BASE_PATH = "/api/auth"
 
-# Development environment variables
-[env.development]
-vars = { NODE_ENV = "development" }
+# Public variables
+NEXT_PUBLIC_DOMAIN = "burse.dev"
+NEXT_PUBLIC_WEB = "https://www.burse.dev"
+NEXT_PUBLIC_API = "https://api.burse.dev"
+NEXT_PUBLIC_AWS_S3_URL = "https://burse-dev.s3.eu-west-2.amazonaws.com/"
+NEXT_PUBLIC_AWS_CLOUDFRONT_URL = "https://d3squtndjejtgg.cloudfront.net"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51OMfZPCYfuNFtxqeyFNwK6nm5RWVs9vOZMmufTSlfspBhlOVv6VuETV8DkA89bCvleaIYaZBp0F2VVAdWQRKqOYl00gxrS6k4L"
+NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID = "price_1QGjYlCYfuNFtxqeCyGBh0RD"
+NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID = "price_1QGjYlCYfuNFtxqeCyGBh0RD"
+NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID = "price_1QGjYlCYfuNFtxqeCyGBh0RD"
+NEXT_PUBLIC_POSTHOG_KEY = "phc_uK289zVu2xrBQ8HCWgEjwEthKXcxSptIC3pOxiIIlFT"
+NEXT_PUBLIC_POSTHOG_HOST = "https://us.i.posthog.com"
+NEXT_PUBLIC_GOOGLE_CLIENT_ID = "1063999285216-pkh72jia8l352ivn7q9ojpqrp1dvuv9m.apps.googleusercontent.com"
 
-# Production environment variables
-[env.production]
-vars = { NODE_ENV = "production" }
+[observability]
+enabled = true
+head_sampling_rate = 1
 
-[dev]
-port = 8787
+# The following secrets should be set using `wrangler secret put`:
+# - DATABASE_URL
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY
+# - AWS_REGION
+# - AWS_S3_BUCKET_NAME
+# - BETTER_AUTH_SECRET
+# - STRIPE_SECRET_KEY
+# - STRIPE_WEBHOOK_SECRET
+# - STRIPE_CLIENT_ID
+# - GOOGLE_CLIENT_SECRET
+# - RESEND_API_KEY
+# - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+# - NEXT_PUBLIC_POSTHOG_KEY
+# - NEXT_PUBLIC_GOOGLE_CLIENT_ID

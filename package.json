@@ -14,14 +14,12 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "clean": "turbo clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "deploy:webhooks": "bun install && turbo build --filter=@burse/webhooks && cd apps/webhooks && bun run deploy"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@turbo/gen": "^1.11.3",
-    "prettier": "^3.1.1",
-    "turbo": "^2.3.0"
+    "prettier": "^3.1.1"
   },
   "peerDependencies": {
     "typescript": "^5.6.3"

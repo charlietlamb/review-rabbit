@@ -5,7 +5,6 @@ import {
   RadioGroupItem,
 } from '@burse/design-system/components/ui/radio-group'
 import { cn } from '@burse/design-system/lib/utils'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
 import { useAtom } from 'jotai'
 import {
   CustomTheme as CustomThemeType,

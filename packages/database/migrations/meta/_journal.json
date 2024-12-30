@@ -8,6 +8,20 @@
       "when": 1735502153313,
       "tag": "0000_wild_ultimatum",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1735516274664,
+      "tag": "0001_silent_thena",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1735516607944,
+      "tag": "0002_magenta_ink",
+      "breakpoints": true
     }
   ]
 }

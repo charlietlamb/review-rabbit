@@ -98,8 +98,7 @@ export default function AuthFormLogin({ className }: { className?: string }) {
             variant="shine"
             colors="none"
           >
-            {isLoading && <Spinner />}
-            Sign In
+            {isLoading ? <Spinner /> : 'Sign In'}
           </Button>
         </form>
         <OrLabel />

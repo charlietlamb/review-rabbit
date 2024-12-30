@@ -12,7 +12,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
         'fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-background border-b divide-x h-16'
       )}
     >
-      <Logo className="px-4" />
+      <Logo className="px-4 h-full" />
       <DesktopNav loggedIn={loggedIn} />
       <MobileNav loggedIn={loggedIn} />
     </header>

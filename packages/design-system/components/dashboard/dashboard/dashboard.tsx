@@ -5,12 +5,13 @@ import { toast } from 'sonner'
 
 export default function Dashboard({ status }: { status?: string }) {
   useEffect(() => {
+    console.log('status', status)
     if (status === 'onboarding-completed') {
-      toast.success('Welcome to Burse!', {
+      toast('Welcome to Burse!', {
         description: "You've successfully connected your stripe account!",
       })
     } else if (status === 'stripe-connected') {
-      toast.success('Stripe Connected!', {
+      toast('Stripe Connected!', {
         description: 'You can now add some products to your account!',
       })
     }

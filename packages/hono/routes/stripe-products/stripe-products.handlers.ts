@@ -13,8 +13,9 @@ import type {
   UpdateStripeProductRoute,
 } from './stripe-products.routes'
 import { v4 as uuidv4 } from 'uuid'
-import { stripe } from '@burse/stripe'
+import { stripe, stripeTest } from '@burse/stripe'
 import type Stripe from 'stripe'
+import { PriceFormSchema } from '@burse/design-system/types/stripe/prices'
 
 export const getStripeProducts: AppRouteHandler<
   GetStripeProductsRoute
@@ -124,7 +125,7 @@ export const createStripeProduct: AppRouteHandler<
     let testProduct: Stripe.Product
 
     try {
-      // Create product in live mode
+      // Create product in live mode using stripe instance
       liveProduct = await stripe.products.create(
         {
           name: product.title,
@@ -138,8 +139,8 @@ export const createStripeProduct: AppRouteHandler<
         }
       )
 
-      // Create product in test mode
-      testProduct = await stripe.products.create(
+      // Create product in test mode using stripeTest instance
+      testProduct = await stripeTest.products.create(
         {
           name: product.title,
           metadata: {
@@ -183,6 +184,7 @@ export const createStripeProduct: AppRouteHandler<
         // Create prices for the product
         for (const price of product.prices) {
           try {
+            // Create live price using stripe instance
             const livePrice = await stripe.prices.create(
               {
                 product: liveProduct.id,
@@ -195,7 +197,8 @@ export const createStripeProduct: AppRouteHandler<
               }
             )
 
-            await stripe.prices.create(
+            // Create test price using stripeTest instance
+            const testPrice = await stripeTest.prices.create(
               {
                 product: testProduct.id,
                 currency: price.currency.toLowerCase(),
@@ -212,6 +215,7 @@ export const createStripeProduct: AppRouteHandler<
               stripeProductId: productId,
               title: price.title,
               stripePriceId: livePrice.id,
+              stripeTestPriceId: testPrice.id,
               amount: Math.round(price.price * 100),
               currency: price.currency,
             })
@@ -225,12 +229,14 @@ export const createStripeProduct: AppRouteHandler<
       console.error('Database transaction failed:', dbError)
       // Attempt to clean up Stripe products if DB transaction fails
       try {
-        await stripe.products.del(liveProduct.id, {
-          stripeAccount: stripeUserId,
-        })
-        await stripe.products.del(testProduct.id, {
-          stripeAccount: stripeUserId,
-        })
+        await Promise.all([
+          stripe.products.del(liveProduct.id, {
+            stripeAccount: stripeUserId,
+          }),
+          stripeTest.products.del(testProduct.id, {
+            stripeAccount: stripeUserId,
+          }),
+        ])
       } catch (cleanupError) {
         console.error('Failed to cleanup Stripe products:', cleanupError)
       }
@@ -301,7 +307,7 @@ export const deleteStripeProduct: AppRouteHandler<
             stripeAccount: stripeUserId,
           }
         ),
-        stripe.prices.list(
+        stripeTest.prices.list(
           {
             product: stripeProduct.stripeTestProductId,
             active: true,
@@ -325,7 +331,7 @@ export const deleteStripeProduct: AppRouteHandler<
           )
         ),
         ...testPrices.data.map((price) =>
-          stripe.prices.update(
+          stripeTest.prices.update(
             price.id,
             { active: false },
             {
@@ -352,7 +358,7 @@ export const deleteStripeProduct: AppRouteHandler<
             stripeAccount: stripeUserId,
           }
         ),
-        stripe.products.update(
+        stripeTest.products.update(
           stripeProduct.stripeTestProductId,
           {
             active: false,
@@ -443,7 +449,7 @@ export const updateStripeProduct: AppRouteHandler<
             { name: product.title },
             { stripeAccount: stripeUserId }
           ),
-          stripe.products.update(
+          stripeTest.products.update(
             existingProduct.stripeTestProductId,
             { name: product.title },
             { stripeAccount: stripeUserId }
@@ -473,18 +479,32 @@ export const updateStripeProduct: AppRouteHandler<
       // Archive removed prices in Stripe
       for (const price of pricesToArchive) {
         if (price.stripePriceId) {
-          await stripe.prices.update(
-            price.stripePriceId,
-            { active: false },
-            { stripeAccount: stripeUserId }
-          )
+          const archivePromises: Promise<Stripe.Response<Stripe.Price>>[] = [
+            stripe.prices.update(
+              price.stripePriceId,
+              { active: false },
+              { stripeAccount: stripeUserId }
+            ),
+          ]
+
+          if (price.stripeTestPriceId) {
+            archivePromises.push(
+              stripeTest.prices.update(
+                price.stripeTestPriceId,
+                { active: false },
+                { stripeAccount: stripeUserId }
+              )
+            )
+          }
+
+          await Promise.all(archivePromises)
         }
         // Delete from our database
         await tx.delete(stripePrices).where(eq(stripePrices.id, price.id))
       }
 
       // Update existing prices and create new ones
-      for (const newPrice of product.prices) {
+      for (const newPrice of product.prices as PriceFormSchema[]) {
         const existingPrice = existingPriceMap.get(newPrice.id)
 
         if (existingPrice) {
@@ -494,35 +514,49 @@ export const updateStripeProduct: AppRouteHandler<
             existingPrice.currency !== newPrice.currency ||
             existingPrice.title !== newPrice.title
           ) {
-            // Create new price in Stripe (prices can't be updated, only archived)
-            const [livePrice] = await Promise.all([
-              stripe.prices.create(
+            // Create new prices in Stripe (prices can't be updated, only archived)
+            const stripePriceData = {
+              product: existingProduct.stripeProductId,
+              currency: newPrice.currency.toLowerCase(),
+              unit_amount: Math.round(newPrice.price * 100),
+              nickname: newPrice.title,
+            } as const
+
+            const [livePrice, testPrice] = await Promise.all([
+              stripe.prices.create(stripePriceData, {
+                stripeAccount: stripeUserId,
+              }),
+              stripeTest.prices.create(
                 {
-                  product: existingProduct.stripeProductId,
-                  currency: newPrice.currency.toLowerCase(),
-                  unit_amount: Math.round(newPrice.price * 100),
-                  nickname: newPrice.title,
-                },
-                { stripeAccount: stripeUserId }
-              ),
-              stripe.prices.create(
-                {
+                  ...stripePriceData,
                   product: existingProduct.stripeTestProductId,
-                  currency: newPrice.currency.toLowerCase(),
-                  unit_amount: Math.round(newPrice.price * 100),
-                  nickname: newPrice.title,
                 },
                 { stripeAccount: stripeUserId }
               ),
             ])
 
-            // Archive old price
+            // Archive old prices
             if (existingPrice.stripePriceId) {
-              await stripe.prices.update(
-                existingPrice.stripePriceId,
-                { active: false },
-                { stripeAccount: stripeUserId }
-              )
+              const archivePromises: Promise<Stripe.Response<Stripe.Price>>[] =
+                [
+                  stripe.prices.update(
+                    existingPrice.stripePriceId,
+                    { active: false },
+                    { stripeAccount: stripeUserId }
+                  ),
+                ]
+
+              if (existingPrice.stripeTestPriceId) {
+                archivePromises.push(
+                  stripeTest.prices.update(
+                    existingPrice.stripeTestPriceId,
+                    { active: false },
+                    { stripeAccount: stripeUserId }
+                  )
+                )
+              }
+
+              await Promise.all(archivePromises)
             }
 
             // Update in our database
@@ -530,6 +564,7 @@ export const updateStripeProduct: AppRouteHandler<
               .update(stripePrices)
               .set({
                 stripePriceId: livePrice.id,
+                stripeTestPriceId: testPrice.id,
                 title: newPrice.title,
                 amount: Math.round(newPrice.price * 100),
                 currency: newPrice.currency,
@@ -538,22 +573,21 @@ export const updateStripeProduct: AppRouteHandler<
           }
         } else {
           // New price - create it
-          const [livePrice] = await Promise.all([
-            stripe.prices.create(
+          const stripePriceData = {
+            product: existingProduct.stripeProductId,
+            currency: newPrice.currency.toLowerCase(),
+            unit_amount: Math.round(newPrice.price * 100),
+            nickname: newPrice.title,
+          } as const
+
+          const [livePrice, testPrice] = await Promise.all([
+            stripe.prices.create(stripePriceData, {
+              stripeAccount: stripeUserId,
+            }),
+            stripeTest.prices.create(
               {
-                product: existingProduct.stripeProductId,
-                currency: newPrice.currency.toLowerCase(),
-                unit_amount: Math.round(newPrice.price * 100),
-                nickname: newPrice.title,
-              },
-              { stripeAccount: stripeUserId }
-            ),
-            stripe.prices.create(
-              {
+                ...stripePriceData,
                 product: existingProduct.stripeTestProductId,
-                currency: newPrice.currency.toLowerCase(),
-                unit_amount: Math.round(newPrice.price * 100),
-                nickname: newPrice.title,
               },
               { stripeAccount: stripeUserId }
             ),
@@ -564,6 +598,7 @@ export const updateStripeProduct: AppRouteHandler<
             id: uuidv4(),
             stripeProductId: product.productId,
             stripePriceId: livePrice.id,
+            stripeTestPriceId: testPrice.id,
             title: newPrice.title,
             amount: Math.round(newPrice.price * 100),
             currency: newPrice.currency,

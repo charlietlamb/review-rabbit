@@ -32,22 +32,28 @@ function syncEnvFiles() {
     }
   })
 
-  // Write .env to apps/api/.dev.vars
-  const apiDevVarsPath = join(rootDir, 'apps/api/.dev.vars')
-  const apiDevVarsDir = dirname(apiDevVarsPath)
+  // Write .env to apps/api/.dev.vars and apps/webhooks/.dev.vars
+  const devVarsTargets = [
+    // { path: join(rootDir, 'apps/api/.dev.vars'), name: 'apps/api' },
+    { path: join(rootDir, 'apps/webhooks/.dev.vars'), name: 'apps/webhooks' },
+  ]
 
-  // Ensure apps/api directory exists
-  if (!existsSync(apiDevVarsDir)) {
-    mkdirSync(apiDevVarsDir, { recursive: true })
-  }
+  devVarsTargets.forEach(({ path, name }) => {
+    const dir = dirname(path)
 
-  // Copy .env as .dev.vars to apps/api
-  try {
-    copyFileSync(sourceEnvPath, apiDevVarsPath)
-    console.log('✅ Synced .env to apps/api/.dev.vars')
-  } catch (error) {
-    console.error('❌ Failed to sync .env to apps/api/.dev.vars:', error)
-  }
+    // Ensure directory exists
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true })
+    }
+
+    // Copy .env as .dev.vars
+    try {
+      copyFileSync(sourceEnvPath, path)
+      console.log(`✅ Synced .env to ${name}/.dev.vars`)
+    } catch (error) {
+      console.error(`❌ Failed to sync .env to ${name}/.dev.vars:`, error)
+    }
+  })
 }
 
 syncEnvFiles()

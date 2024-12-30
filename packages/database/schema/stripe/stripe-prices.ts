@@ -11,9 +11,10 @@ export const stripePrices = pgTable('stripe_prices', {
     { onDelete: 'cascade' }
   ),
   stripePriceId: text('stripe_price_id'),
-  title: text('title'),
+  stripeTestPriceId: text('stripe_test_price_id'),
+  title: text('title').notNull(),
   amount: integer('amount'),
-  currency: text('currency'),
+  currency: text('currency').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })

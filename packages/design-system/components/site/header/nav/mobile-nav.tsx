@@ -8,7 +8,7 @@ export function MobileNav({ loggedIn }: { loggedIn: boolean }) {
         <NavLinks
           className="flex flex-col pt-2"
           linkClassName="flex w-full cursor-pointer items-center rounded-md p-2 font-medium text-muted-foreground hover:text-foreground font-heading"
-          loggedIn={false}
+          loggedIn={loggedIn}
         />
       </div>
     </MobileNavbar>

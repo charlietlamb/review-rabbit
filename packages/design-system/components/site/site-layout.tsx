@@ -17,12 +17,18 @@ export default async function SiteLayout({
     <div
       className={cn(
         'bg-background min-h-screen flex flex-col overflow-y-hidden',
-        !home && 'py-[72px]'
+        !home && 'pt-[64px]'
       )}
     >
       <Header loggedIn={!!session} />
-      <main className="flex-grow flex flex-col">{children}</main>
-      <Footer />
+      <div className="flex divide-x">
+        <div className="w-16 min-w-16 hidden lg:block" />
+        <div className="flex flex-col flex-grow w-full">
+          <main className="flex-grow flex flex-col">{children}</main>
+          <Footer />
+        </div>
+        <div className="w-16 min-w-16 hidden lg:block" />
+      </div>
     </div>
   )
 }

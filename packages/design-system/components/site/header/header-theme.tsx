@@ -12,7 +12,7 @@ export function HeaderTheme() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <div className="h-full aspect-square flex items-center justify-center hover:bg-muted transition-colors duration-300">
+        <div className="h-full aspect-square flex items-center justify-center hover:bg-muted transition-colors duration-300 w-16 min-w-16 cursor-pointer">
           {resolvedTheme === 'light' ? <Sun /> : <Moon />}
         </div>
       </PopoverTrigger>

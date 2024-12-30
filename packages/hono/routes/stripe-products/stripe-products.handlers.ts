@@ -295,12 +295,11 @@ export const deleteStripeProduct: AppRouteHandler<
 
   try {
     await db.transaction(async (tx) => {
-      // Step 1: Get all active prices for both live and test products
+      // Step 1: Get all prices (both active and inactive) for both live and test products
       const [livePrices, testPrices] = await Promise.all([
         stripe.prices.list(
           {
             product: stripeProduct.stripeProductId,
-            active: true,
             limit: 100,
           },
           {
@@ -310,7 +309,6 @@ export const deleteStripeProduct: AppRouteHandler<
         stripeTest.prices.list(
           {
             product: stripeProduct.stripeTestProductId,
-            active: true,
             limit: 100,
           },
           {
@@ -319,7 +317,7 @@ export const deleteStripeProduct: AppRouteHandler<
         ),
       ])
 
-      // Step 2: Archive all active prices
+      // Step 2: Archive all prices (Stripe doesn't allow price deletion)
       const archivePricePromises = [
         ...livePrices.data.map((price) =>
           stripe.prices.update(
@@ -343,8 +341,9 @@ export const deleteStripeProduct: AppRouteHandler<
 
       await Promise.all(archivePricePromises)
 
-      // Step 3: Archive products in Stripe (instead of deleting)
+      // Step 3: Archive and then delete products in Stripe
       await Promise.all([
+        // First archive the products
         stripe.products.update(
           stripeProduct.stripeProductId,
           {
@@ -373,16 +372,26 @@ export const deleteStripeProduct: AppRouteHandler<
         ),
       ])
 
+      // Then delete the products
+      await Promise.all([
+        stripe.products.del(stripeProduct.stripeProductId, {
+          stripeAccount: stripeUserId,
+        }),
+        stripeTest.products.del(stripeProduct.stripeTestProductId, {
+          stripeAccount: stripeUserId,
+        }),
+      ])
+
       // Step 4: Delete from our database - prices will be deleted automatically due to cascade
       await tx.delete(stripeProducts).where(eq(stripeProducts.id, productId))
     })
 
     return c.json({ success: true }, HttpStatusCodes.OK)
   } catch (error) {
-    console.error('Error archiving stripe product:', error)
+    console.error('Error deleting stripe product:', error)
     return c.json(
       {
-        error: 'Failed to archive stripe product',
+        error: 'Failed to delete stripe product',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       HttpStatusCodes.INTERNAL_SERVER_ERROR

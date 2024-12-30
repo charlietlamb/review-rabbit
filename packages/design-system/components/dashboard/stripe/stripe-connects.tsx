@@ -28,7 +28,7 @@ export default function StripeConnects() {
   if (isLoading) return <PageLoading />
   if (stripeConnects.length === 0)
     return (
-      <div className="flex items-center justify-center py-4">
+      <div className="flex text-muted-foreground justify-center py-4">
         No stripe connects found
       </div>
     )

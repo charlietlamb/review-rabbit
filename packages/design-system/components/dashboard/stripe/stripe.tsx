@@ -34,7 +34,7 @@ export default function Stripe() {
           onClick={onConnect}
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : 'Connect another account'}
+          {isLoading ? <Spinner /> : 'Connect Stripe Acccount'}
         </Button>
       </div>
     </div>

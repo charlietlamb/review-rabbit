@@ -3,18 +3,18 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import { z } from 'zod'
-import { cn } from '@burse/design-system/lib/utils'
-import { Button } from '@burse/design-system/components/ui/button'
-import { Calendar } from '@burse/design-system/components/ui/calendar'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Calendar } from '@rabbit/design-system/components/ui/calendar'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
+} from '@rabbit/design-system/components/ui/popover'
 import { TanstackForm } from '../tanstack-form'
 import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 export default function DatePicker({
   form,

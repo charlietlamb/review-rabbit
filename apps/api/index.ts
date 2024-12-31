@@ -1,4 +1,4 @@
-import app from '@burse/hono'
+import app from '@rabbit/hono'
 
 app.get('/', (c) => c.text('Hono!'))
 

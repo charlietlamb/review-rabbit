@@ -1,4 +1,4 @@
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import type { ReactNode } from 'react'
 import { GoogleAnalytics } from './google'
 import { PostHogProvider } from './posthog/client'

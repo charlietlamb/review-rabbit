@@ -1,4 +1,4 @@
-import Dashboard from '@burse/design-system/components/dashboard/dashboard/dashboard'
+import Dashboard from '@rabbit/design-system/components/dashboard/dashboard/dashboard'
 
 export default async function DashboardPage({
   searchParams,

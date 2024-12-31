@@ -1,1 +1,0 @@
-ALTER TABLE "stripe_prices" ADD COLUMN "stripe_test_price_id" text;

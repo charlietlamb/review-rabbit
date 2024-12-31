@@ -31,29 +31,6 @@ function syncEnvFiles() {
       console.error(`❌ Failed to sync .env to ${dir}:`, error)
     }
   })
-
-  // Write .env to apps/api/.dev.vars and apps/webhooks/.dev.vars
-  const devVarsTargets = [
-    // { path: join(rootDir, 'apps/api/.dev.vars'), name: 'apps/api' },
-    { path: join(rootDir, 'apps/webhooks/.dev.vars'), name: 'apps/webhooks' },
-  ]
-
-  devVarsTargets.forEach(({ path, name }) => {
-    const dir = dirname(path)
-
-    // Ensure directory exists
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true })
-    }
-
-    // Copy .env as .dev.vars
-    try {
-      copyFileSync(sourceEnvPath, path)
-      console.log(`✅ Synced .env to ${name}/.dev.vars`)
-    } catch (error) {
-      console.error(`❌ Failed to sync .env to ${name}/.dev.vars:`, error)
-    }
-  })
 }
 
 syncEnvFiles()

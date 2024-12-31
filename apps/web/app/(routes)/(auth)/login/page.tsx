@@ -1,6 +1,6 @@
-import Auth from '@burse/design-system/components/auth/auth'
-import AuthLayout from '@burse/design-system/components/auth/auth-layout'
-import { auth } from '@burse/auth'
+import Auth from '@rabbit/design-system/components/auth/auth'
+import AuthLayout from '@rabbit/design-system/components/auth/auth-layout'
+import { auth } from '@rabbit/auth'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 

@@ -1,5 +1,5 @@
 {
-  "name": "burse",
+  "name": "review-rabbit",
   "version": "0.0.1",
   "packageManager": "bun@1.1.29",
   "scripts": {
@@ -31,7 +31,7 @@
     "apps/*"
   ],
   "dependencies": {
-    "burse": ".",
+    "review-rabbit": ".",
     "turbo": "^2.3.0"
   }
 }

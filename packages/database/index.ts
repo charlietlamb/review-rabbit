@@ -1,2 +1,2 @@
-export * from '@burse/database/schema/index'
-export { db } from '@burse/database/postgres'
+export * from '@rabbit/database/schema/index'
+export { db } from '@rabbit/database/postgres'

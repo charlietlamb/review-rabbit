@@ -1,8 +1,8 @@
-import { formatBytes } from '@burse/design-system/lib/misc/format-bytes'
+import { formatBytes } from '@rabbit/design-system/lib/misc/format-bytes'
 import { FileCardProps } from './types'
-import { Progress } from '@burse/design-system/components/ui/progress'
+import { Progress } from '@rabbit/design-system/components/ui/progress'
 import FilePreview from './file-preview'
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { X } from 'lucide-react'
 import { isFileWithPreview } from './is-file-with-preview'
 

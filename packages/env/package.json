@@ -1,5 +1,5 @@
 {
-  "name": "@burse/env",
+  "name": "@rabbit/env",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "typescript": "^5.6.3",
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/node": "22.9.0"
   }
 }

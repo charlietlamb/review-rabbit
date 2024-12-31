@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@burse/design-system/components/ui/input'
+import { Input } from '@rabbit/design-system/components/ui/input'
 import { LoaderCircle, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 

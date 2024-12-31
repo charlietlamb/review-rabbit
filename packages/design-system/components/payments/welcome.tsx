@@ -18,7 +18,7 @@ export default function Welcome({ plan }: { plan: string }) {
 
       <div className="flex flex-col gap-2 items-center">
         <h1 className="text-4xl font-bold font-heading text-foreground">
-          Welcome to burse!
+          Welcome to review-rabbit!
         </h1>
         <p className="text-muted-foreground">
           You have successfully subscribed to {plan} plan.

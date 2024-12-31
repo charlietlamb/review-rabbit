@@ -2,15 +2,15 @@
 
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import Uploads from './uploads'
-import Toolbar from '@burse/design-system/components/misc/toolbar/toolbar'
+import Toolbar from '@rabbit/design-system/components/misc/toolbar/toolbar'
 import { useAtom, useSetAtom } from 'jotai'
 import {
   uploadPagesAtom,
   uploadsLayoutAtom,
   uploadsSearchAtom,
   uploadsSortAtom,
-} from '@burse/design-system/atoms/dashboard/upload/uploads-atom'
-import { Media } from '@burse/database/schema/media'
+} from '@rabbit/design-system/atoms/dashboard/upload/uploads-atom'
+import { Media } from '@rabbit/database/schema/media'
 import { UploadDialog } from './upload-dialog'
 
 export default function Upload({

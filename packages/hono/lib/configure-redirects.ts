@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@burse/hono/lib/types'
-import { getEnv } from '@burse/env'
-import { HttpStatusCodes } from '@burse/http'
+import { AppOpenAPI } from '@rabbit/hono/lib/types'
+import { getEnv } from '@rabbit/env'
+import { HttpStatusCodes } from '@rabbit/http'
 
 export default function configureRedirects(app: AppOpenAPI) {
   app.use('/redirect/:path', async (c) => {

@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@burse/design-system/components/ui/select'
-import { currenciesWithFlags } from '@burse/design-system/data/currency'
+} from '@rabbit/design-system/components/ui/select'
+import { currenciesWithFlags } from '@rabbit/design-system/data/currency'
 
 export default function CurrencyPicker({
   value,

@@ -1,11 +1,11 @@
-import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
+import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import ClientMultiSelect from './client-multi-select'
 import { useAtomValue } from 'jotai'
-import { clientsSelectAtom } from '@burse/design-system/atoms/dashboard/clients/client-select-atoms'
+import { clientsSelectAtom } from '@rabbit/design-system/atoms/dashboard/clients/client-select-atoms'
 import { useEffect } from 'react'
-import { MediationData } from '@burse/design-system/components/dashboard/mediation/mediation-types'
-import { cn } from '@burse/design-system/lib/utils'
+import { MediationData } from '@rabbit/design-system/components/dashboard/mediation/mediation-types'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function ClientsSelect({
   form,

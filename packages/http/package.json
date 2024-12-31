@@ -1,5 +1,5 @@
 {
-  "name": "@burse/http",
+  "name": "@rabbit/http",
   "type": "module",
   "module": "index.ts",
   "dependencies": {

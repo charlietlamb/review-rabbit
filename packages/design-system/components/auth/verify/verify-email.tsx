@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import Link from 'next/link'
 
 export function VerifyEmail() {

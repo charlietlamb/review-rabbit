@@ -1,4 +1,4 @@
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withVercelToolbar from '@vercel/toolbar/plugins/next'
 import type { NextConfig } from 'next'

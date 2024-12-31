@@ -1,7 +1,7 @@
-import { Client } from '@burse/database'
+import { Client } from '@rabbit/database'
 import { Check, ChevronDown } from 'lucide-react'
-import { cn } from '@burse/design-system/lib/utils'
-import { Button } from '@burse/design-system/components/ui/button'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -9,27 +9,27 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@burse/design-system/components/ui/command'
+} from '@rabbit/design-system/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
-import ClientAvatar from '@burse/design-system/components/dashboard/clients/client-avatar'
+} from '@rabbit/design-system/components/ui/popover'
+import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 import {
   clientsSelectAtom,
   clientsSelectSearchAtom,
-} from '@burse/design-system/atoms/dashboard/clients/client-select-atoms'
-import { useInfiniteQueryWithAtom } from '@burse/design-system/hooks/use-infinite-query-with-atom'
-import { fetchClients } from '@burse/design-system/actions/clients/fetch-clients'
-import Spinner from '@burse/design-system/components/misc/spinner'
-import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
-import { useFormContext } from '@burse/design-system/components/form/form-context'
-import FieldInfo from '@burse/design-system/components/form/field-info'
+} from '@rabbit/design-system/atoms/dashboard/clients/client-select-atoms'
+import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
+import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
+import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
+import { useFormContext } from '@rabbit/design-system/components/form/form-context'
+import FieldInfo from '@rabbit/design-system/components/form/field-info'
 import { z } from 'zod'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 interface ClientSelectProps {
   form: TanstackForm<any>

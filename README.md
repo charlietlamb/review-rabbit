@@ -1,4 +1,4 @@
-# burse
+# review-rabbit
 
 To install dependencies:
 

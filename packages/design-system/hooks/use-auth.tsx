@@ -1,6 +1,6 @@
-import { auth } from '@burse/auth'
-import { User } from '@burse/database/schema/users'
-import getUserImage from '@burse/design-system/lib/misc/get-user-image'
+import { auth } from '@rabbit/auth'
+import { User } from '@rabbit/database/schema/users'
+import getUserImage from '@rabbit/design-system/lib/misc/get-user-image'
 import { headers } from 'next/headers'
 
 export default async function useAuth(): Promise<User | null> {

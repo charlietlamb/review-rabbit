@@ -7,7 +7,7 @@ export default function Dashboard({ status }: { status?: string }) {
   useEffect(() => {
     console.log('status', status)
     if (status === 'onboarding-completed') {
-      toast('Welcome to Burse!', {
+      toast('Welcome to Review Rabbit!', {
         description: "You've successfully connected your stripe account!",
       })
     } else if (status === 'stripe-connected') {

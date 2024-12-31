@@ -1,9 +1,9 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { useSetAtom } from 'jotai'
-import { uploadsLastUpdatedAtom } from '@burse/design-system/atoms/dashboard/upload/uploads-atom'
+import { uploadsLastUpdatedAtom } from '@rabbit/design-system/atoms/dashboard/upload/uploads-atom'
 import { toast } from 'sonner'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { deleteMedia } from '@burse/design-system/actions/media/delete-media'
+import { deleteMedia } from '@rabbit/design-system/actions/media/delete-media'
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@burse/design-system/components/ui/dialog'
-import Spinner from '@burse/design-system/components/misc/spinner'
-import { Media } from '@burse/database/schema/media'
+} from '@rabbit/design-system/components/ui/dialog'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
+import { Media } from '@rabbit/database/schema/media'
 
 export default function UploadCardDeleteDialog({
   upload,

@@ -1,4 +1,4 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 
 export default function DocsButton() {
   return (

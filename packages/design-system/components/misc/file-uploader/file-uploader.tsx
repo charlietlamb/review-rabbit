@@ -5,16 +5,16 @@ import { Upload } from 'lucide-react'
 import Dropzone, { type FileRejection } from 'react-dropzone'
 import { toast } from 'sonner'
 
-import { cn } from '@burse/design-system/lib/utils'
-import { formatBytes } from '@burse/design-system/lib/misc/format-bytes'
-import { ScrollArea } from '@burse/design-system/components/ui/scroll-area'
-import { useControllableState } from '@burse/design-system/hooks/use-controllable-state'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { formatBytes } from '@rabbit/design-system/lib/misc/format-bytes'
+import { ScrollArea } from '@rabbit/design-system/components/ui/scroll-area'
+import { useControllableState } from '@rabbit/design-system/hooks/use-controllable-state'
 import { FileUploaderProps } from './types'
 import FileCard from './file-card'
 import FileUpload from './file-upload'
 import { isFileWithPreview } from './is-file-with-preview'
-import { getFileDuration } from '@burse/design-system/lib/misc/get-file-duration'
-import { MAX_FILE_SIZE } from '@burse/design-system/lib/constants'
+import { getFileDuration } from '@rabbit/design-system/lib/misc/get-file-duration'
+import { MAX_FILE_SIZE } from '@rabbit/design-system/lib/constants'
 
 export function FileUploader(props: FileUploaderProps) {
   const {

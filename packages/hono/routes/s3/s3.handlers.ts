@@ -3,26 +3,26 @@ import {
   S3Client,
   GetObjectCommand,
 } from '@aws-sdk/client-s3'
-import { AppRouteHandler } from '@burse/hono/lib/types'
+import { AppRouteHandler } from '@rabbit/hono/lib/types'
 import {
   GetPresignedUrlRoute,
   GetProfileImagePresignedUrlRoute,
   GetUploadPresignedUrlRoute,
   UploadProfileImageRoute,
-} from '@burse/hono/routes/s3/s3.routes'
-import { getEnv } from '@burse/env'
-import { HttpStatusCodes } from '@burse/http'
-import { db } from '@burse/database'
+} from '@rabbit/hono/routes/s3/s3.routes'
+import { getEnv } from '@rabbit/env'
+import { HttpStatusCodes } from '@rabbit/http'
+import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
-import { users } from '@burse/database/schema'
+import { users } from '@rabbit/database/schema'
 import {
   generatePresignedUrlUserImage,
   PresignedUrlErrorCodes,
-} from '@burse/hono/routes/s3/s3.logic'
+} from '@rabbit/hono/routes/s3/s3.logic'
 import {
   PresignedUrlResponseError,
   PresignedUrlResponseOk,
-} from '@burse/hono/routes/s3/s3.types'
+} from '@rabbit/hono/routes/s3/s3.types'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { User } from 'better-auth'
 

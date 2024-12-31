@@ -1,5 +1,5 @@
-import { getEnv } from '@burse/env'
-import { config, withAnalyzer } from '@burse/next-config'
+import { getEnv } from '@rabbit/env'
+import { config, withAnalyzer } from '@rabbit/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = { ...config }

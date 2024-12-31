@@ -13,7 +13,7 @@ export const footerSections: FooterSection[] = [
     title: 'Company',
     links: [
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Contact', href: 'mailto:help@burse.xyz' },
+      { label: 'Contact', href: 'mailto:help@review-rabbit.co.uk' },
     ],
   },
   {

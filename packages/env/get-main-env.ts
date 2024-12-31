@@ -59,6 +59,10 @@ export function getMainEnv() {
 
       // Resend
       RESEND_API_KEY: process.env.RESEND_API_KEY,
+
+      // Twilio
+      TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+      TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     },
   })
 }

@@ -1,10 +1,10 @@
-import ImageUpload from '@burse/design-system/components/form/image/image-upload'
-import { Label } from '@burse/design-system/components/ui/label'
-import FieldInfo from '@burse/design-system/components/form/field-info'
+import ImageUpload from '@rabbit/design-system/components/form/image/image-upload'
+import { Label } from '@rabbit/design-system/components/ui/label'
+import FieldInfo from '@rabbit/design-system/components/form/field-info'
 import { zfd } from 'zod-form-data'
 import { SetStateAction } from 'react'
 import { Dispatch } from 'react'
-import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
+import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
 
 export default function Image({
   form,

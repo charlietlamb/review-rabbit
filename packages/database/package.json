@@ -1,5 +1,5 @@
 {
-  "name": "@burse/database",
+  "name": "@rabbit/database",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

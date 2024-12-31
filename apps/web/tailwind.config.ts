@@ -1,1 +1,1 @@
-export { config as default } from '@burse/tailwind-config/config'
+export { config as default } from '@rabbit/tailwind-config/config'

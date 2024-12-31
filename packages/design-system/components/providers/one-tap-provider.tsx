@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { authClient } from '@burse/design-system/lib/authClient'
-import { getEnv } from '@burse/env'
+import { authClient } from '@rabbit/design-system/lib/authClient'
+import { getEnv } from '@rabbit/env'
 
 export default function OneTapProvider({
   children,

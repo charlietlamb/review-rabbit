@@ -2,8 +2,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
-import Theme from '@burse/design-system/components/dashboard/settings/theme/theme'
+} from '@rabbit/design-system/components/ui/popover'
+import Theme from '@rabbit/design-system/components/dashboard/settings/theme/theme'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 

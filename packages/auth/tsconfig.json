@@ -1,9 +1,9 @@
 {
-  "extends": "@burse/typescript-config/react-library.json",
+  "extends": "@rabbit/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@burse/auth/*": ["./*"]
+      "@rabbit/auth/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

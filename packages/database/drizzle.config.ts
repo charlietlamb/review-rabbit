@@ -1,5 +1,5 @@
 import { defineConfig } from 'drizzle-kit'
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 
 export default defineConfig({
   dialect: 'postgresql',

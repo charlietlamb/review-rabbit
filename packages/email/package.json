@@ -1,16 +1,16 @@
 {
-  "name": "@burse/email",
+  "name": "@rabbit/email",
   "module": "index.ts",
   "type": "module",
   "dependencies": {
     "@react-email/components": "0.0.28",
-    "@burse/env": "workspace:*",
+    "@rabbit/env": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resend": "^4.0.0"
   },
   "devDependencies": {
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/node": "22.9.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",

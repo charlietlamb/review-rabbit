@@ -1,10 +1,10 @@
 {
-  "extends": "@burse/typescript-config/nextjs.json",
+  "extends": "@rabbit/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@burse/*": ["../../packages/*"]
+      "@rabbit/*": ["../../packages/*"]
     }
   },
   "include": [

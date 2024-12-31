@@ -9,12 +9,12 @@
     "stripe": "stripe listen --forward-to localhost:8000/webhooks/stripe"
   },
   "dependencies": {
-    "@burse/analytics": "workspace:*",
-    "@burse/auth": "workspace:*",
-    "@burse/database": "workspace:*",
-    "@burse/design-system": "workspace:*",
-    "@burse/env": "workspace:*",
-    "@burse/next-config": "workspace:*",
+    "@rabbit/analytics": "workspace:*",
+    "@rabbit/auth": "workspace:*",
+    "@rabbit/database": "workspace:*",
+    "@rabbit/design-system": "workspace:*",
+    "@rabbit/env": "workspace:*",
+    "@rabbit/next-config": "workspace:*",
     "next": "15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -22,7 +22,7 @@
     "wrangler": "^3.95.0"
   },
   "devDependencies": {
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",

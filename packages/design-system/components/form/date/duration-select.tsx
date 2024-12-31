@@ -4,11 +4,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@burse/design-system/components/ui/select'
+} from '@rabbit/design-system/components/ui/select'
 import { Clock } from 'lucide-react'
 import { TanstackForm } from '../tanstack-form'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
-import { cn } from '@burse/design-system/lib/utils'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { useFormContext } from '../form-context'
 import { z } from 'zod'
 import FieldInfo from '../field-info'

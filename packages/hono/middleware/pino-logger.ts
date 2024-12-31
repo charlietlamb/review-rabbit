@@ -1,4 +1,4 @@
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import { logger } from 'hono-pino'
 import pino from 'pino'
 import pretty from 'pino-pretty'

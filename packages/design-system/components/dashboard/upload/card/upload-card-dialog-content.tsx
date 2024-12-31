@@ -1,23 +1,23 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import {
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@burse/design-system/components/ui/dialog'
+} from '@rabbit/design-system/components/ui/dialog'
 import { Dispatch, SetStateAction } from 'react'
 import UploadCardDeleteDialog from './upload-card-delete-dialog'
 import {
   isAudio,
   isImage,
   isVideo,
-} from '@burse/design-system/lib/misc/is-video'
-import AudioPlayer from '@burse/design-system/components/misc/audio-player'
-import VideoPlayer from '@burse/design-system/components/misc/video-player'
-import { Media } from '@burse/database/schema/media'
-import { ImagePreview } from '@burse/design-system/components/misc/image-preview'
-import OtherFilePreview from '@burse/design-system/components/misc/other-file-preview'
-import { downloadMedia } from '@burse/design-system/lib/media/download-media'
+} from '@rabbit/design-system/lib/misc/is-video'
+import AudioPlayer from '@rabbit/design-system/components/misc/audio-player'
+import VideoPlayer from '@rabbit/design-system/components/misc/video-player'
+import { Media } from '@rabbit/database/schema/media'
+import { ImagePreview } from '@rabbit/design-system/components/misc/image-preview'
+import OtherFilePreview from '@rabbit/design-system/components/misc/other-file-preview'
+import { downloadMedia } from '@rabbit/design-system/lib/media/download-media'
 
 export default function UploadCardDialogContent({
   upload,

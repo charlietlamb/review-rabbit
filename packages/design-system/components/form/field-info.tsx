@@ -1,4 +1,4 @@
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { FieldApi } from '@tanstack/react-form'
 
 export default function FieldInfo({

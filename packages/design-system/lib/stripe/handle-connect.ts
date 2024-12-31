@@ -1,4 +1,4 @@
-import { connectStripe } from '@burse/design-system/actions/stripe/connect'
+import { connectStripe } from '@rabbit/design-system/actions/stripe/connect'
 
 export const handleConnect = async () => {
   try {

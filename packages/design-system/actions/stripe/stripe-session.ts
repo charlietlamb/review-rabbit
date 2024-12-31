@@ -1,9 +1,9 @@
 'use server'
 
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import { redirect } from 'next/navigation'
-import { Plan } from '@burse/hono/lib/types'
-import { stripe } from '@burse/stripe'
+import { Plan } from '@rabbit/hono/lib/types'
+import { stripe } from '@rabbit/stripe'
 
 export const postStripeSession = async ({
   priceId,

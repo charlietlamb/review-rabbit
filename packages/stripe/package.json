@@ -1,10 +1,10 @@
 {
-  "name": "@burse/stripe",
+  "name": "@rabbit/stripe",
   "version": "0.0.0",
   "private": true,
   "main": "./index.ts",
   "dependencies": {
-    "@burse/env": "workspace:*",
+    "@rabbit/env": "workspace:*",
     "stripe": "^17.4.0"
   }
 }

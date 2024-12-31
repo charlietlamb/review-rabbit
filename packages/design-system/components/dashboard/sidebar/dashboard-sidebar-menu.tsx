@@ -5,10 +5,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@burse/design-system/components/ui/sidebar'
+} from '@rabbit/design-system/components/ui/sidebar'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function DashboardSidebarMenuItem({
   item,

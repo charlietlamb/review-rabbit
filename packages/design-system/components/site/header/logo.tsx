@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { LogoSvg } from './logo-svg'
 
 export function Logo({ className }: { className?: string }) {
@@ -12,7 +12,9 @@ export function Logo({ className }: { className?: string }) {
       )}
     >
       <LogoSvg className="w-8 h-8" />
-      <span className="font-heading text-xl font-bold mb-0.5">burse</span>
+      <span className="font-heading text-xl font-bold mb-0.5">
+        review-rabbit
+      </span>
     </Link>
   )
 }

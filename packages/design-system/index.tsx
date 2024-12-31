@@ -1,10 +1,10 @@
-import { AnalyticsProvider } from '@burse/analytics'
-import { getEnv } from '@burse/env'
+import { AnalyticsProvider } from '@rabbit/analytics'
+import { getEnv } from '@rabbit/env'
 import { VercelToolbar } from '@vercel/toolbar/next'
-import { Toaster } from '@burse/design-system/components/ui/sonner'
-import { TooltipProvider } from '@burse/design-system/components/ui/tooltip'
-import Providers from '@burse/design-system/components/providers/providers'
-import OneTapProvider from '@burse/design-system/components/providers/one-tap-provider'
+import { Toaster } from '@rabbit/design-system/components/ui/sonner'
+import { TooltipProvider } from '@rabbit/design-system/components/ui/tooltip'
+import Providers from '@rabbit/design-system/components/providers/providers'
+import OneTapProvider from '@rabbit/design-system/components/providers/one-tap-provider'
 
 export const DesignSystemProvider = ({
   children,

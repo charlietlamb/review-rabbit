@@ -1,13 +1,13 @@
 'use client'
 
-import { Card } from '@burse/design-system/components/ui/card'
+import { Card } from '@rabbit/design-system/components/ui/card'
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from '@burse/design-system/components/ui/context-menu'
-import { cn } from '@burse/design-system/lib/utils'
+} from '@rabbit/design-system/components/ui/context-menu'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { DndContext, MouseSensor, useDraggable, useSensor } from '@dnd-kit/core'
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
 import { useMouse, useThrottle, useWindowScroll } from '@uidotdev/usehooks'

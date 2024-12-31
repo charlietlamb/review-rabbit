@@ -4,7 +4,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarRail,
-} from '@burse/design-system/components/ui/sidebar'
+} from '@rabbit/design-system/components/ui/sidebar'
 import {
   dashboardSidebarItems,
   dashboardSidebarItemsTop,

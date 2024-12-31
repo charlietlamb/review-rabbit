@@ -1,7 +1,7 @@
-import { Input } from '@burse/design-system/components/ui/input'
-import { cn } from '@burse/design-system/lib/utils'
+import { Input } from '@rabbit/design-system/components/ui/input'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { cloneElement } from 'react'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import { useFormContext } from '../form-context'
 import InputError from './input-error'
 

@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from '@burse/design-system/components/ui/button'
-import { Textarea } from '@burse/design-system/components/ui/textarea'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Textarea } from '@rabbit/design-system/components/ui/textarea'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import InputWithIcon from '@burse/design-system/components/form/input/input-with-icon'
+import InputWithIcon from '@rabbit/design-system/components/form/input/input-with-icon'
 import { UserIcon } from 'lucide-react'
 import { MailIcon } from 'lucide-react'
 

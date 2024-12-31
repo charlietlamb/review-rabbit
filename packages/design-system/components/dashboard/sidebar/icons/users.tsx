@@ -7,8 +7,8 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { cn } from '@burse/design-system/lib/utils'
-import { useSidebar } from '@burse/design-system/components/ui/sidebar'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 
 const pathVariants: Variants = {
   normal: {

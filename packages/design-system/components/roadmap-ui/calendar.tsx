@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -8,13 +8,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@burse/design-system/components/ui/command'
+} from '@rabbit/design-system/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
-import { cn } from '@burse/design-system/lib/utils'
+} from '@rabbit/design-system/components/ui/popover'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { getDay, getDaysInMonth, isSameDay } from 'date-fns'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { Check, ChevronsUpDown } from 'lucide-react'

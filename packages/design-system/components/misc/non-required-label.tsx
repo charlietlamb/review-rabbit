@@ -1,10 +1,10 @@
-import { Label } from '@burse/design-system/components/ui/label'
-import { cn } from '@burse/design-system/lib/utils'
+import { Label } from '@rabbit/design-system/components/ui/label'
+import { cn } from '@rabbit/design-system/lib/utils'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@burse/design-system/components/ui/tooltip'
+} from '@rabbit/design-system/components/ui/tooltip'
 
 export default function NonRequiredLabel({
   className,

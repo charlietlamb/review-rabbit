@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@burse/design-system/components",
-    "utils": "@burse/design-system/lib/utils",
-    "ui": "@burse/design-system/components/ui",
-    "lib": "@burse/design-system/lib",
-    "hooks": "@burse/design-system/hooks"
+    "components": "@rabbit/design-system/components",
+    "utils": "@rabbit/design-system/lib/utils",
+    "ui": "@rabbit/design-system/components/ui",
+    "lib": "@rabbit/design-system/lib",
+    "hooks": "@rabbit/design-system/hooks"
   }
 }

@@ -1,13 +1,13 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@burse/design-system/components/ui/radio-group'
-import { Label } from '@burse/design-system/components/ui/label'
+} from '@rabbit/design-system/components/ui/radio-group'
+import { Label } from '@rabbit/design-system/components/ui/label'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
+} from '@rabbit/design-system/components/ui/popover'
 import { EllipsisVertical } from 'lucide-react'
 import { useToolbarContext } from './toolbar-context'
 

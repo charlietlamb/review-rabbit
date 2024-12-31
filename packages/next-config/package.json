@@ -1,10 +1,10 @@
 {
-  "name": "@burse/next-config",
+  "name": "@rabbit/next-config",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@burse/env": "workspace:*",
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/env": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "next": "15.0.3"
   },
   "dependencies": {

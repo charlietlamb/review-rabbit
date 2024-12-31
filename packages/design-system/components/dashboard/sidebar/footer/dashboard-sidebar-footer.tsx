@@ -4,18 +4,18 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@burse/design-system/components/ui/avatar'
+} from '@rabbit/design-system/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-} from '@burse/design-system/components/ui/dropdown-menu'
+} from '@rabbit/design-system/components/ui/dropdown-menu'
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@burse/design-system/components/ui/sidebar'
-import useUser from '@burse/design-system/hooks/use-user'
+} from '@rabbit/design-system/components/ui/sidebar'
+import useUser from '@rabbit/design-system/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
 import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
 

@@ -1,5 +1,5 @@
 import 'server-only'
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import { PostHog } from 'posthog-node'
 
 export const analytics = new PostHog(getEnv().NEXT_PUBLIC_POSTHOG_KEY, {

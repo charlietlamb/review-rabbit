@@ -4,7 +4,7 @@ import { QueryKey, useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { useAtom } from 'jotai'
 import { PrimitiveAtom } from 'jotai'
-import { useDebounce } from '@burse/design-system/hooks/use-debounce'
+import { useDebounce } from '@rabbit/design-system/hooks/use-debounce'
 
 interface UseInfiniteQueryProps<T, S> {
   queryKey: QueryKey

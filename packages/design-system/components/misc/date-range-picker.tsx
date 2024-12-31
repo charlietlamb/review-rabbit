@@ -1,12 +1,12 @@
 'use client'
-import { Button } from '@burse/design-system/components/ui/button'
-import { Calendar } from '@burse/design-system/components/ui/calendar'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Calendar } from '@rabbit/design-system/components/ui/calendar'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
-import { cn } from '@burse/design-system/lib/utils'
+} from '@rabbit/design-system/components/ui/popover'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import * as React from 'react'

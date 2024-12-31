@@ -3,16 +3,16 @@ import {
   ResetPasswordRoute,
   UpdateCurrencyRoute,
   UpdateUserRoute,
-} from '@burse/hono/routes/user/user.routes'
-import { AppRouteHandler } from '@burse/hono/lib/types'
-import { db } from '@burse/database'
+} from '@rabbit/hono/routes/user/user.routes'
+import { AppRouteHandler } from '@rabbit/hono/lib/types'
+import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
-import { users } from '@burse/database/schema/auth/users'
-import { updateUserSchema } from '@burse/hono/routes/user/user.schema'
-import { HttpStatusCodes } from '@burse/http'
-import { verifications } from '@burse/database/schema/auth/verifications'
-import { hashPassword } from '@burse/hono/lib/password'
-import { accounts } from '@burse/database/schema'
+import { users } from '@rabbit/database/schema/auth/users'
+import { updateUserSchema } from '@rabbit/hono/routes/user/user.schema'
+import { HttpStatusCodes } from '@rabbit/http'
+import { verifications } from '@rabbit/database/schema/auth/verifications'
+import { hashPassword } from '@rabbit/hono/lib/password'
+import { accounts } from '@rabbit/database/schema'
 
 export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   const userId = c.req.param('userId')

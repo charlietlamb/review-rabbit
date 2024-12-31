@@ -4,21 +4,21 @@ import {
   SelectItem,
   SelectTriggerChevrons,
   SelectValue,
-} from '@burse/design-system/components/ui/select'
+} from '@rabbit/design-system/components/ui/select'
 import { useAtom } from 'jotai'
 import {
   stripeConnectIdAtom,
   stripeConnectsAtom,
-} from '@burse/design-system/atoms/dashboard/stripe/stripe-atoms'
+} from '@rabbit/design-system/atoms/dashboard/stripe/stripe-atoms'
 import { QueryKey } from '@tanstack/react-query'
-import { QUERY_KEYS } from '@burse/design-system/data/query-keys'
-import { getStripeConnects } from '@burse/design-system/actions/stripe-connects/get-stripe-connects'
-import { useInfiniteQueryWithAtom } from '@burse/design-system/hooks/use-infinite-query-with-atom'
-import Spinner from '@burse/design-system/components/misc/spinner'
-import InfiniteScroll from '@burse/design-system/components/misc/infinite-scroll'
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+import { getStripeConnects } from '@rabbit/design-system/actions/stripe-connects/get-stripe-connects'
+import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
+import InfiniteScroll from '@rabbit/design-system/components/misc/infinite-scroll'
 import { useCallback, useEffect, useState } from 'react'
-import { Button } from '@burse/design-system/components/ui/button'
-import { handleConnect } from '@burse/design-system/lib/stripe/handle-connect'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { handleConnect } from '@rabbit/design-system/lib/stripe/handle-connect'
 
 export default function DashboardBreadcrumbStripe() {
   const [stripeConnectId, setStripeConnectId] = useAtom(stripeConnectIdAtom)

@@ -1,9 +1,9 @@
-import { db } from '@burse/database'
+import { db } from '@rabbit/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { getEnv } from '@burse/env'
-import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@burse/email'
-import * as schema from '@burse/database/schema'
+import { getEnv } from '@rabbit/env'
+import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@rabbit/email'
+import * as schema from '@rabbit/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 
 export const auth = betterAuth({
@@ -26,7 +26,7 @@ export const auth = betterAuth({
   },
   advanced: {
     disableCSRFCheck: true,
-    cookiePrefix: 'burse',
+    cookiePrefix: 'review-rabbit',
     generateId: () => crypto.randomUUID(),
     crossSubDomainCookies: {
       enabled: getEnv().NODE_ENV === 'production' ? true : false,

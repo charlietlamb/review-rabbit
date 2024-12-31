@@ -1,7 +1,7 @@
 import { createRoute, z } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
-import { HttpStatusCodes } from '@burse/http'
-import { unauthorizedSchema } from '@burse/hono/lib/configure-auth'
+import { HttpStatusCodes } from '@rabbit/http'
+import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
 
 const tags = ['S3']
 

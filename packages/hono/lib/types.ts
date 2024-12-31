@@ -1,6 +1,6 @@
 import { OpenAPIHono, RouteConfig, RouteHandler, z } from '@hono/zod-openapi'
 import { PinoLogger } from 'hono-pino'
-import { auth } from '@burse/auth'
+import { auth } from '@rabbit/auth'
 
 type Session = typeof auth.$Infer.Session.session
 type User = typeof auth.$Infer.Session.user

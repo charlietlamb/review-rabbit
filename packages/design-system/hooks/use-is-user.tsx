@@ -1,4 +1,4 @@
-import { User } from '@burse/database'
+import { User } from '@rabbit/database'
 import { redirect } from 'next/navigation'
 
 export default function useIsUser(user: User | null) {

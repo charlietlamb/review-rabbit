@@ -1,7 +1,7 @@
-import { AppBindings, AppOpenAPI } from '@burse/hono/lib/types'
+import { AppBindings, AppOpenAPI } from '@rabbit/hono/lib/types'
 import { createMiddleware } from 'hono/factory'
-import { auth } from '@burse/auth'
-import { HttpStatusCodes } from '@burse/http'
+import { auth } from '@rabbit/auth'
+import { HttpStatusCodes } from '@rabbit/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 

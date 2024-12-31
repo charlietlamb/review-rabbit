@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 
 export const stripe = new Stripe(getEnv().STRIPE_SECRET_KEY, {
   typescript: true,

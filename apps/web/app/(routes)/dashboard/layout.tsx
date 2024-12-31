@@ -1,12 +1,12 @@
-import DashboardHeader from '@burse/design-system/components/dashboard/header/dashboard-header'
-import DashboardSidebar from '@burse/design-system/components/dashboard/sidebar/dashboard-sidebar'
-import SessionProvider from '@burse/design-system/components/providers/session-provider'
-import { SidebarProvider } from '@burse/design-system/components/ui/sidebar'
-import useAuth from '@burse/design-system/hooks/use-auth'
-import useIsUser from '@burse/design-system/hooks/use-is-user'
-import ThemeProvider from '@burse/design-system/components/providers/theme-provider'
-import Onboarding from '@burse/design-system/components/dashboard/onboarding/onboarding'
-import CustomThemeProvider from '@burse/design-system/components/providers/custom-theme-provider'
+import DashboardHeader from '@rabbit/design-system/components/dashboard/header/dashboard-header'
+import DashboardSidebar from '@rabbit/design-system/components/dashboard/sidebar/dashboard-sidebar'
+import SessionProvider from '@rabbit/design-system/components/providers/session-provider'
+import { SidebarProvider } from '@rabbit/design-system/components/ui/sidebar'
+import useAuth from '@rabbit/design-system/hooks/use-auth'
+import useIsUser from '@rabbit/design-system/hooks/use-is-user'
+import ThemeProvider from '@rabbit/design-system/components/providers/theme-provider'
+import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
+import CustomThemeProvider from '@rabbit/design-system/components/providers/custom-theme-provider'
 
 export default async function layout({
   children,

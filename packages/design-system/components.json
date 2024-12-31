@@ -10,10 +10,10 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@burse/design-system/components",
-    "utils": "@burse/design-system/lib/utils",
-    "hooks": "@burse/design-system/hooks",
-    "lib": "@burse/design-system/lib",
-    "ui": "@burse/design-system/components/ui"
+    "components": "@rabbit/design-system/components",
+    "utils": "@rabbit/design-system/lib/utils",
+    "hooks": "@rabbit/design-system/hooks",
+    "lib": "@rabbit/design-system/lib",
+    "ui": "@rabbit/design-system/components/ui"
   }
 }

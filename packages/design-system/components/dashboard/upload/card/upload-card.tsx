@@ -4,20 +4,20 @@ import {
   CardHeader,
   CardContent,
   CardTitle,
-} from '@burse/design-system/components/ui/card'
-import { durationToTime } from '@burse/design-system/lib/misc/duration-to-time'
+} from '@rabbit/design-system/components/ui/card'
+import { durationToTime } from '@rabbit/design-system/lib/misc/duration-to-time'
 import { fileToIcon } from './file-to-icon'
-import { numberToSize } from '@burse/design-system/lib/misc/number-to-size'
+import { numberToSize } from '@rabbit/design-system/lib/misc/number-to-size'
 import { useAtom } from 'jotai'
-import { cn } from '@burse/design-system/lib/utils'
-import { getEnv } from '@burse/env'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { getEnv } from '@rabbit/env'
 import { AudioLines, Dot, FileIcon, Trash2 } from 'lucide-react'
 import {
   isAudio,
   isImage,
   isVideo,
-} from '@burse/design-system/lib/misc/is-video'
-import { Media } from '@burse/database/schema/media'
+} from '@rabbit/design-system/lib/misc/is-video'
+import { Media } from '@rabbit/database/schema/media'
 
 export default function UploadCard({
   upload,

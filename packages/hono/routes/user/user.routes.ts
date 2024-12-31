@@ -1,9 +1,9 @@
 import { createRoute, z } from '@hono/zod-openapi'
-import { HttpStatusCodes } from '@burse/http'
+import { HttpStatusCodes } from '@rabbit/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { updateUserSchema } from './user.schema'
-import { selectUserSchema } from '@burse/database/schema/auth/users'
-import { unauthorizedSchema } from '@burse/hono/lib/configure-auth'
+import { selectUserSchema } from '@rabbit/database/schema/auth/users'
+import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
 
 const tags = ['Users']
 

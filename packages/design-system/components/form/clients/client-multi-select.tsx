@@ -1,12 +1,12 @@
 import { CheckIcon, ChevronDown, X } from 'lucide-react'
-import { cn } from '@burse/design-system/lib/utils'
-import { Button } from '@burse/design-system/components/ui/button'
-import { Badge } from '@burse/design-system/components/ui/badge'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Badge } from '@rabbit/design-system/components/ui/badge'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
+} from '@rabbit/design-system/components/ui/popover'
 import {
   Command,
   CommandEmpty,
@@ -14,19 +14,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@burse/design-system/components/ui/command'
+} from '@rabbit/design-system/components/ui/command'
 import {
   clientsSelectOptionsAtom,
   clientsSelectSearchAtom,
   selectedClientsAtom,
-} from '@burse/design-system/atoms/dashboard/mediations/mediation-atoms'
+} from '@rabbit/design-system/atoms/dashboard/mediations/mediation-atoms'
 import { useAtom } from 'jotai'
-import { fetchClients } from '@burse/design-system/actions/clients/fetch-clients'
-import { Client } from '@burse/database/schema/clients'
-import ClientAvatar from '@burse/design-system/components/dashboard/clients/client-avatar'
+import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
+import { Client } from '@rabbit/database/schema/clients'
+import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
-import Spinner from '@burse/design-system/components/misc/spinner'
-import { useInfiniteQueryWithAtom } from '@burse/design-system/hooks/use-infinite-query-with-atom'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
+import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { useFormContext } from '../form-context'
 
 export default function ClientMultiSelect() {

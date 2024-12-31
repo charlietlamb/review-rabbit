@@ -1,6 +1,6 @@
-import { AppOpenAPI } from '@burse/hono/lib/types'
+import { AppOpenAPI } from '@rabbit/hono/lib/types'
 import { cors } from 'hono/cors'
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 
 export default function configureCors(app: AppOpenAPI) {
   app.use('*', async (c, next) => {

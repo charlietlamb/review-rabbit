@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@burse/design-system/components/ui/select'
+} from '@rabbit/design-system/components/ui/select'
 import { useToolbarContext } from './toolbar-context'
 
 export default function ToolbarSort() {

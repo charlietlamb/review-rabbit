@@ -1,6 +1,6 @@
 'use server'
 
-import { Plan } from '@burse/hono/lib/types'
+import { Plan } from '@rabbit/hono/lib/types'
 import { postStripeSession } from './stripe-session'
 
 export const checkout = async (priceId: string, plan: Plan) => {

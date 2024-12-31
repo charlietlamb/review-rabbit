@@ -1,10 +1,10 @@
 {
-  "name": "@burse/analytics",
+  "name": "@rabbit/analytics",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@next/third-parties": "^15.0.3",
-    "@burse/env": "workspace:*",
+    "@rabbit/env": "workspace:*",
     "@vercel/analytics": "^1.4.0",
     "posthog-js": "^1.186.1",
     "posthog-node": "^4.2.1",
@@ -12,7 +12,7 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "^18.3.1"

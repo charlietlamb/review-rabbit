@@ -2,13 +2,13 @@
 
 import type { Transition, Variants } from 'motion/react'
 import { motion, useAnimation } from 'motion/react'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 import {
   iconWrapClassName,
   iconClassName,
   iconTextClassName,
 } from './class-names'
-import { useSidebar } from '@burse/design-system/components/ui/sidebar'
+import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 
 const handTransition: Transition = {
   duration: 0.6,

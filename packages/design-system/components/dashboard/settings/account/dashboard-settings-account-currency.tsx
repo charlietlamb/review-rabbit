@@ -1,10 +1,10 @@
 'use client'
 
-import useUser from '@burse/design-system/hooks/use-user'
-import { updateCurrency } from '@burse/design-system/actions/auth/user/update-currency'
-import { HttpStatusCodes } from '@burse/http'
+import useUser from '@rabbit/design-system/hooks/use-user'
+import { updateCurrency } from '@rabbit/design-system/actions/auth/user/update-currency'
+import { HttpStatusCodes } from '@rabbit/http'
 import { toast } from 'sonner'
-import CurrencyPicker from '@burse/design-system/components/form/currency/currency-picker'
+import CurrencyPicker from '@rabbit/design-system/components/form/currency/currency-picker'
 
 export default function DashboardSettingsAccountCurrency() {
   const user = useUser()

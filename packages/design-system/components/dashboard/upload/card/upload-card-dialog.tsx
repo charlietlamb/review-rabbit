@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import UploadCard from './upload-card'
-import { Dialog } from '@burse/design-system/components/ui/dialog'
-import { DialogTrigger } from '@burse/design-system/components/ui/dialog'
+import { Dialog } from '@rabbit/design-system/components/ui/dialog'
+import { DialogTrigger } from '@rabbit/design-system/components/ui/dialog'
 import UploadCardDialogContent from './upload-card-dialog-content'
-import { Media } from '@burse/database/schema/media'
+import { Media } from '@rabbit/database/schema/media'
 
 export default function UploadCardDialog({ upload }: { upload: Media }) {
   const [open, setOpen] = useState(false)

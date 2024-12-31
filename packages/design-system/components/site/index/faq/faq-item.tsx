@@ -2,7 +2,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@burse/design-system/components/ui/accordion'
+} from '@rabbit/design-system/components/ui/accordion'
 
 type FaqItemProps = {
   value: string

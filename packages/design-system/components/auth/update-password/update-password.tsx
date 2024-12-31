@@ -5,18 +5,18 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from '@burse/design-system/components/ui/dialog'
+} from '@rabbit/design-system/components/ui/dialog'
 import { z } from 'zod'
 import Password from '../form/password'
 import PasswordStrength from '../form/password-strength'
 import { useForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { toast } from 'sonner'
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { useState } from 'react'
-import Spinner from '@burse/design-system/components/misc/spinner'
-import { updatePassword } from '@burse/design-system/actions/auth/user/update-password'
-import { FormProvider } from '@burse/design-system/components/form/form-context'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
+import { updatePassword } from '@rabbit/design-system/actions/auth/user/update-password'
+import { FormProvider } from '@rabbit/design-system/components/form/form-context'
 
 const updatePasswordSchema = z.object({
   password: z.string().min(1),

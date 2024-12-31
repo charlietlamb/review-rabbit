@@ -1,4 +1,4 @@
-import Welcome from '@burse/design-system/components/payments/welcome'
+import Welcome from '@rabbit/design-system/components/payments/welcome'
 import React from 'react'
 
 export default function page({

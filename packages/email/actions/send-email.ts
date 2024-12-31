@@ -1,4 +1,4 @@
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import { Resend } from 'resend'
 
 const resend = new Resend(getEnv().RESEND_API_KEY)
@@ -9,7 +9,7 @@ export async function sendEmail(
   component: React.ReactElement
 ) {
   const { data, error } = await resend.emails.send({
-    from: 'burse <no-reply@burse.xyz>',
+    from: 'review-rabbit <no-reply@review-rabbit.co.uk>',
     to: [to],
     subject: subject,
     react: component,

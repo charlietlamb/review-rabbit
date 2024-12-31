@@ -1,8 +1,8 @@
 'use client'
 
-import { User } from '@burse/database/schema/users'
+import { User } from '@rabbit/database/schema/users'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { useState } from 'react'
 import { ArrowRight, Wallet } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -11,7 +11,7 @@ import OnboardingStripe from './onboarding-stripe'
 
 const steps = [
   {
-    title: 'Welcome to Burse',
+    title: 'Welcome to Review Rabbit',
     description: "Let's get you set up with everything you need",
     content: () => (
       <div className="flex flex-col items-center gap-4">

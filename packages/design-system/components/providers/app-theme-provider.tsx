@@ -1,6 +1,6 @@
 'use client'
 
-import CustomThemeProvider from '@burse/design-system/components/providers/custom-theme-provider'
+import CustomThemeProvider from '@rabbit/design-system/components/providers/custom-theme-provider'
 import { ThemeProvider } from 'next-themes'
 
 export default function AppThemeProvider({

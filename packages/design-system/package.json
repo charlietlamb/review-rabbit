@@ -1,12 +1,12 @@
 {
-  "name": "@burse/design-system",
+  "name": "@rabbit/design-system",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@burse/analytics": "workspace:*",
-    "@burse/auth": "workspace:*",
-    "@burse/env": "workspace:*",
-    "@burse/stripe": "workspace:*",
+    "@rabbit/analytics": "workspace:*",
+    "@rabbit/auth": "workspace:*",
+    "@rabbit/env": "workspace:*",
+    "@rabbit/stripe": "workspace:*",
     "@dnd-kit/core": "^6.2.0",
     "@dnd-kit/modifiers": "^8.0.0",
     "@hookform/resolvers": "^3.9.1",
@@ -85,7 +85,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "autoprefixer": "^10.4.20",

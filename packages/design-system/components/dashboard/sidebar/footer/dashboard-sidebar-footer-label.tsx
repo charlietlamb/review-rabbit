@@ -2,9 +2,9 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@burse/design-system/components/ui/avatar'
-import { DropdownMenuLabel } from '@burse/design-system/components/ui/dropdown-menu'
-import useUser from '@burse/design-system/hooks/use-user'
+} from '@rabbit/design-system/components/ui/avatar'
+import { DropdownMenuLabel } from '@rabbit/design-system/components/ui/dropdown-menu'
+import useUser from '@rabbit/design-system/hooks/use-user'
 
 export default function DashboardSidebarFooterLabel() {
   const user = useUser()

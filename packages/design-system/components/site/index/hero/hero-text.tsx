@@ -2,7 +2,7 @@
 
 import { ArrowRight } from 'lucide-react'
 import Balancer from 'react-wrap-balancer'
-import { Badge } from '@burse/design-system/components/ui/badge'
+import { Badge } from '@rabbit/design-system/components/ui/badge'
 import { useRouter } from 'next/navigation'
 
 export function HeroText() {

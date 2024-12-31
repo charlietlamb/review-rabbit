@@ -5,16 +5,16 @@ import {
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbSeparatorSlash,
-} from '@burse/design-system/components/ui/breadcrumb'
-import { useIsMobile } from '@burse/design-system/hooks/use-mobile'
+} from '@rabbit/design-system/components/ui/breadcrumb'
+import { useIsMobile } from '@rabbit/design-system/hooks/use-mobile'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTriggerChevrons,
   SelectValue,
-} from '@burse/design-system/components/ui/select'
-import { LogoSvg } from '@burse/design-system/components/site/header/logo-svg'
+} from '@rabbit/design-system/components/ui/select'
+import { LogoSvg } from '@rabbit/design-system/components/site/header/logo-svg'
 import DashboardBreadcrumbStripe from './dashboard-breadcrumb-stripe'
 
 export default function DashboardBreadcrumb() {
@@ -27,9 +27,9 @@ export default function DashboardBreadcrumb() {
           <LogoSvg className="size-7 text-muted-foreground fill-muted-foreground mr-4" />
         </BreadcrumbItem>
         <BreadcrumbSeparatorSlash />
-        <BreadcrumbItem>
+        {/* <BreadcrumbItem>
           <DashboardBreadcrumbStripe />
-        </BreadcrumbItem>
+        </BreadcrumbItem> */}
         <BreadcrumbSeparatorSlash />
         <BreadcrumbItem>
           <Select defaultValue="s1">

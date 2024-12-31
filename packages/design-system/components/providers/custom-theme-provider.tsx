@@ -1,7 +1,7 @@
 'use client'
 
 import { useAtomValue } from 'jotai'
-import { customThemeAtom } from '@burse/design-system/atoms/dashboard/theme/custom-theme-atom'
+import { customThemeAtom } from '@rabbit/design-system/atoms/dashboard/theme/custom-theme-atom'
 import { useEffect } from 'react'
 
 export default function CustomThemeProvider({

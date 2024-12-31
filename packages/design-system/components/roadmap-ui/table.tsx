@@ -1,10 +1,10 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@burse/design-system/components/ui/dropdown-menu'
+} from '@rabbit/design-system/components/ui/dropdown-menu'
 import {
   TableBody as TableBodyRaw,
   TableCell as TableCellRaw,
@@ -12,8 +12,8 @@ import {
   TableHeader as TableHeaderRaw,
   Table as TableRaw,
   TableRow as TableRowRaw,
-} from '@burse/design-system/components/ui/table'
-import { cn } from '@burse/design-system/lib/utils'
+} from '@rabbit/design-system/components/ui/table'
+import { cn } from '@rabbit/design-system/lib/utils'
 import type {
   Cell,
   Column,

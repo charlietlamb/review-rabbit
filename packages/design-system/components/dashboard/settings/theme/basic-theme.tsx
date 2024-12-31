@@ -3,8 +3,8 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@burse/design-system/components/ui/radio-group'
-import { getEnv } from '@burse/env'
+} from '@rabbit/design-system/components/ui/radio-group'
+import { getEnv } from '@rabbit/env'
 import { Check, Minus } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'

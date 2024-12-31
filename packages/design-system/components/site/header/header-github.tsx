@@ -1,7 +1,7 @@
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
-const githubUrl = 'https://github.com/charlietlamb/burse'
+const githubUrl = 'https://github.com/charlietlamb/review-rabbit'
 
 export function HeaderGithub() {
   return (

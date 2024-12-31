@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { DesignSystemProvider } from '@burse/design-system'
-import '@burse/design-system/styles/globals.css'
+import { DesignSystemProvider } from '@rabbit/design-system'
+import '@rabbit/design-system/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 
 export const metadata: Metadata = {
-  title: 'burse',
-  description: 'burse',
+  title: 'review-rabbit',
+  description: 'review-rabbit',
 }
 
 export default async function RootLayout({

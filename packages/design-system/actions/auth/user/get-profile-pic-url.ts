@@ -1,4 +1,4 @@
-import client from '@burse/design-system/lib/client'
+import client from '@rabbit/design-system/lib/client'
 
 export async function getProfilePicUrl(userId: string): Promise<string> {
   const response = await client.s3.get['profile-image'][':userId'].$get({

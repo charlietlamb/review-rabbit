@@ -1,7 +1,7 @@
 'use server'
 
-import { authClient } from '@burse/design-system/lib/authClient'
-import { headersWithCookies } from '@burse/design-system/lib/header-with-cookies'
+import { authClient } from '@rabbit/design-system/lib/authClient'
+import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
 export async function updatePassword(
   currentPassword: string,

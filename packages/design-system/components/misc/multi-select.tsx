@@ -10,15 +10,15 @@ import {
   WandSparkles,
 } from 'lucide-react'
 
-import { cn } from '@burse/design-system/lib/utils'
-import { Separator } from '@burse/design-system/components/ui/separator'
-import { Button } from '@burse/design-system/components/ui/button'
-import { Badge } from '@burse/design-system/components/ui/badge'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { Separator } from '@rabbit/design-system/components/ui/separator'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Badge } from '@rabbit/design-system/components/ui/badge'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@burse/design-system/components/ui/popover'
+} from '@rabbit/design-system/components/ui/popover'
 import {
   Command,
   CommandEmpty,
@@ -27,7 +27,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@burse/design-system/components/ui/command'
+} from '@rabbit/design-system/components/ui/command'
 
 /**
  * Variants for the multi-select component to handle different styles.

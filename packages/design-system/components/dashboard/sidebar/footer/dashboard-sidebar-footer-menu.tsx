@@ -1,4 +1,4 @@
-import { DropdownMenuContent } from '@burse/design-system/components/ui/dropdown-menu'
+import { DropdownMenuContent } from '@rabbit/design-system/components/ui/dropdown-menu'
 import DashboardSidebarFooterDropdown from './dashboard-sidebar-footer-dropdown'
 
 export default function DashboardSidebarFooterMenu() {

@@ -6,7 +6,7 @@ import {
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { useSidebar } from '@burse/design-system/components/ui/sidebar'
+import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 
 const NotebookIcon = () => {
   const controls = useAnimation()

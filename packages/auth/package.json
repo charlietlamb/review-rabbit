@@ -1,15 +1,15 @@
 {
-  "name": "@burse/auth",
+  "name": "@rabbit/auth",
   "module": "index.ts",
   "type": "module",
   "dependencies": {
-    "@burse/database": "workspace:*",
-    "@burse/email": "workspace:*",
-    "@burse/env": "workspace:*",
+    "@rabbit/database": "workspace:*",
+    "@rabbit/email": "workspace:*",
+    "@rabbit/env": "workspace:*",
     "better-auth": "^1.0.20"
   },
   "devDependencies": {
-    "@burse/typescript-config": "workspace:*",
+    "@rabbit/typescript-config": "workspace:*",
     "@types/bun": "latest"
   },
   "peerDependencies": {

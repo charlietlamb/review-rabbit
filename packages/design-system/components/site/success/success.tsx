@@ -1,4 +1,4 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 import Balancer from 'react-wrap-balancer'
@@ -44,7 +44,7 @@ export function Success() {
           asChild
           className="hover:bg-primary hover:text-primary-foreground transition-colors"
         >
-          <Link href="mailto:support@burse.xyz">Need Help?</Link>
+          <Link href="mailto:support@review-rabbit.co.uk">Need Help?</Link>
         </Button>
       </div>
     </div>

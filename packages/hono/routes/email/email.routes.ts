@@ -1,9 +1,9 @@
-import { HttpStatusCodes } from '@burse/http'
+import { HttpStatusCodes } from '@rabbit/http'
 import { createRoute } from '@hono/zod-openapi'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 import { emailResponseSchema } from './email.schema'
-import { unauthorizedSchema } from '@burse/hono/lib/configure-auth'
+import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
 const tags = ['Email']
 
 export const sendVerifyEmail = createRoute({

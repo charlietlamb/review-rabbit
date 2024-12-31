@@ -1,11 +1,11 @@
 {
-  "extends": "@burse/typescript-config/react-library.json",
+  "extends": "@rabbit/typescript-config/react-library.json",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@burse/hono/*": ["./*"]
+      "@rabbit/hono/*": ["./*"]
     }
   },
   "include": ["./*.ts", "./*.tsx"],

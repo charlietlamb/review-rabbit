@@ -2,12 +2,12 @@
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Button, Group, Input, NumberField } from 'react-aria-components'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { TanstackForm } from '../tanstack-form'
 import { z } from 'zod'
 import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 interface MoneyInputProps {
   form: TanstackForm<any>

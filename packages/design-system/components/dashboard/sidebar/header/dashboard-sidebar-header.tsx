@@ -3,9 +3,9 @@
 import {
   SidebarHeader,
   useSidebar,
-} from '@burse/design-system/components/ui/sidebar'
+} from '@rabbit/design-system/components/ui/sidebar'
 import Link from 'next/link'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function DashboardSidebarHeader() {
   const { open } = useSidebar()
@@ -16,7 +16,7 @@ export default function DashboardSidebarHeader() {
         !open && 'justify-center'
       )}
     >
-      <Link href="/">{open ? 'burse' : 'r'}</Link>
+      <Link href="/">{open ? 'review-rabbit' : 'r'}</Link>
     </SidebarHeader>
   )
 }

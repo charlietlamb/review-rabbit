@@ -1,8 +1,8 @@
 import React from 'react'
-import { Footer } from '@burse/design-system/components/site/footer/footer'
-import { Header } from '@burse/design-system/components/site/header/header'
-import { cn } from '@burse/design-system/lib/utils'
-import { authClient } from '@burse/design-system/lib/authClient'
+import { Footer } from '@rabbit/design-system/components/site/footer/footer'
+import { Header } from '@rabbit/design-system/components/site/header/header'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { authClient } from '@rabbit/design-system/lib/authClient'
 
 export default async function SiteLayout({
   home,

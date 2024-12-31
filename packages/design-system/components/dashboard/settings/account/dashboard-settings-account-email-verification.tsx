@@ -1,8 +1,8 @@
 'use client'
 
-import { authClient } from '@burse/design-system/lib/authClient'
-import { Button } from '@burse/design-system/components/ui/button'
-import useUser from '@burse/design-system/hooks/use-user'
+import { authClient } from '@rabbit/design-system/lib/authClient'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import useUser from '@rabbit/design-system/hooks/use-user'
 import { useState } from 'react'
 import { toast } from 'sonner'
 

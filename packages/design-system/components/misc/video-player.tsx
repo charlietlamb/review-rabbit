@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import ReactPlayer from 'react-player'
-import { getPresignedUrl } from '@burse/design-system/actions/s3/upload/get-presigned-url'
+import { getPresignedUrl } from '@rabbit/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
-import { cn } from '@burse/design-system/lib/utils'
-import { Media } from '@burse/database/schema/media'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { Media } from '@rabbit/database/schema/media'
 
 export default function VideoPlayer({ media }: { media: Media }) {
   const [isPlaying, setIsPlaying] = useState(false)

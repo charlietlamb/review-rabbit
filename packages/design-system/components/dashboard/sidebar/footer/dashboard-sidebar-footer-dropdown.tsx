@@ -1,9 +1,9 @@
-import { authClient } from '@burse/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/authClient'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@burse/design-system/components/ui/dropdown-menu'
+} from '@rabbit/design-system/components/ui/dropdown-menu'
 import {
   Sparkles,
   BadgeCheck,

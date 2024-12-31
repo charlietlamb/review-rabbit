@@ -3,14 +3,14 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@burse/design-system/components/ui/radio-group'
-import { cn } from '@burse/design-system/lib/utils'
+} from '@rabbit/design-system/components/ui/radio-group'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { useAtom } from 'jotai'
 import {
   CustomTheme as CustomThemeType,
   customThemeAtom,
   customThemeOptions,
-} from '@burse/design-system/atoms/dashboard/theme/custom-theme-atom'
+} from '@rabbit/design-system/atoms/dashboard/theme/custom-theme-atom'
 
 export default function CustomTheme() {
   const [theme, setTheme] = useAtom(customThemeAtom)

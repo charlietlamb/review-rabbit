@@ -1,5 +1,5 @@
-import { getEnv } from '@burse/env'
-import { Plan } from '@burse/hono/lib/types'
+import { getEnv } from '@rabbit/env'
+import { Plan } from '@rabbit/hono/lib/types'
 
 export type PricingTier = {
   title: string

@@ -2,10 +2,10 @@
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Button, Group, Input, NumberField } from 'react-aria-components'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { useFormContext } from '../form-context'
-import RequiredLabel from '@burse/design-system/components/misc/required-label'
-import { Currency } from '@burse/design-system/data/currency'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
+import { Currency } from '@rabbit/design-system/data/currency'
 
 export default function MoneyInputState({
   value,

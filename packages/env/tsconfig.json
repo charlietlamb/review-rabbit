@@ -1,5 +1,5 @@
 {
-  "extends": "@burse/typescript-config/react-library.json",
+  "extends": "@rabbit/typescript-config/react-library.json",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",

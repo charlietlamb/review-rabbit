@@ -6,14 +6,14 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
-} from '@burse/design-system/components/ui/card'
+} from '@rabbit/design-system/components/ui/card'
 import { PricingTier } from './pricing-data'
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { ArrowRight, Check, X } from 'lucide-react'
-import { checkout } from '@burse/design-system/actions/stripe/checkout'
-import { cn } from '@burse/design-system/lib/utils'
+import { checkout } from '@rabbit/design-system/actions/stripe/checkout'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
-import { authClient } from '@burse/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/authClient'
 
 function getFeaturesToShow(
   currentTier: PricingTier,
@@ -130,7 +130,7 @@ export function PricingCard({
           )}
           onClick={() => {
             if (isEnterprise) {
-              window.open('mailto:contact@burse.xyz', '_blank')
+              window.open('mailto:contact@review-rabbit.co.uk', '_blank')
             } else {
               if (session?.user) {
                 checkout(tier.priceId, tier.plan)

@@ -1,6 +1,6 @@
 'use client'
 
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import posthogRaw, { type PostHog } from 'posthog-js'
 import { PostHogProvider as PostHogProviderRaw } from 'posthog-js/react'
 import type { ReactNode } from 'react'

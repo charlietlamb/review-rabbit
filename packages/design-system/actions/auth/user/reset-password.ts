@@ -1,4 +1,4 @@
-import client from '@burse/design-system/lib/client'
+import client from '@rabbit/design-system/lib/client'
 
 export async function resetPassword(
   token: string,

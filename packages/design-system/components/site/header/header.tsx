@@ -3,7 +3,7 @@
 import { Logo } from './logo'
 import { DesktopNav } from './nav/desktop-nav'
 import { MobileNav } from './nav/mobile-nav'
-import { cn } from '@burse/design-system/lib/utils'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export function Header({ loggedIn }: { loggedIn: boolean }) {
   return (

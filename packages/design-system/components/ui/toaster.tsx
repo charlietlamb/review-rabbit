@@ -1,6 +1,6 @@
 'use client'
 
-import { useToast } from '@burse/design-system/hooks/use-toast'
+import { useToast } from '@rabbit/design-system/hooks/use-toast'
 import {
   Toast,
   ToastClose,
@@ -8,7 +8,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@burse/design-system/components/ui/toast'
+} from '@rabbit/design-system/components/ui/toast'
 
 export function Toaster() {
   const { toasts } = useToast()

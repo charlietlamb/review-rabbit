@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@burse/design-system/components/ui/dialog'
+} from '@rabbit/design-system/components/ui/dialog'
 import { useState } from 'react'
-import { FileUploader } from '@burse/design-system/components/misc/file-uploader/file-uploader'
+import { FileUploader } from '@rabbit/design-system/components/misc/file-uploader/file-uploader'
 export function UploadDialog() {
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)

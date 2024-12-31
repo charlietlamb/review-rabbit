@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Card, CardContent } from '@burse/design-system/components/ui/card'
+import { Card, CardContent } from '@rabbit/design-system/components/ui/card'
 
 type TestimonialCardProps = {
   quote: string

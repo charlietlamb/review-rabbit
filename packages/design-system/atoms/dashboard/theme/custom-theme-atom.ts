@@ -1,4 +1,4 @@
-import { atomWithLocalStorage } from '@burse/design-system/atoms/utility/atom-with-local-storage'
+import { atomWithLocalStorage } from '@rabbit/design-system/atoms/utility/atom-with-local-storage'
 
 export const customThemeOptions = [
   'blue',
@@ -13,5 +13,5 @@ export type CustomTheme = (typeof customThemeOptions)[number]
 
 export const customThemeAtom = atomWithLocalStorage<CustomTheme>(
   'custom-theme',
-  'blue'
+  'green'
 )

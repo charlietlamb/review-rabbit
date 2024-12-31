@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Button } from '@burse/design-system/components/ui/button'
-import { Slider } from '@burse/design-system/components/ui/slider'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Slider } from '@rabbit/design-system/components/ui/slider'
 import {
   Play,
   Pause,
@@ -11,7 +11,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react'
-import { getPresignedUrl } from '@burse/design-system/actions/s3/upload/get-presigned-url'
+import { getPresignedUrl } from '@rabbit/design-system/actions/s3/upload/get-presigned-url'
 import PageLoading from './page-loading'
 
 export default function AudioPlayer({ media }: { media: Media }) {

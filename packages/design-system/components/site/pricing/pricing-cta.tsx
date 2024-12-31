@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 
 export default function PricingCta() {
   return (
@@ -14,7 +14,9 @@ export default function PricingCta() {
       <Button
         variant="shine"
         className="cursor-pointer border-border"
-        onClick={() => window.open('mailto:contact@burse.xyz', '_blank')}
+        onClick={() =>
+          window.open('mailto:contact@review-rabbit.co.uk', '_blank')
+        }
       >
         Contact Sales
       </Button>

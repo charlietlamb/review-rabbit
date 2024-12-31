@@ -34,6 +34,10 @@ export const server = {
 
   // Resend
   RESEND_API_KEY: z.string().min(1),
+
+  // Twilio
+  TWILIO_ACCOUNT_SID: z.string().min(1),
+  TWILIO_AUTH_TOKEN: z.string().min(1),
 } as const
 
 export const dbOnlyServer = { DATABASE_URL: z.string().min(1).url() }

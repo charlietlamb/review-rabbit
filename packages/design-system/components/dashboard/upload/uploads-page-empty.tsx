@@ -1,4 +1,4 @@
-import { UploadDialog } from '@burse/design-system/components/dashboard/upload/upload-dialog'
+import { UploadDialog } from '@rabbit/design-system/components/dashboard/upload/upload-dialog'
 
 export default function UploadsPageEmpty() {
   return (

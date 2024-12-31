@@ -1,6 +1,6 @@
-import * as schema from '@burse/database/schema'
+import * as schema from '@rabbit/database/schema'
 import { Pool } from '@neondatabase/serverless'
-import { getEnv } from '@burse/env'
+import { getEnv } from '@rabbit/env'
 import { drizzle } from 'drizzle-orm/neon-serverless'
 import { type NeonDatabase } from 'drizzle-orm/neon-serverless'
 

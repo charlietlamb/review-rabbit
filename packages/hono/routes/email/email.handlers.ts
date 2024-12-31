@@ -1,10 +1,10 @@
-import { AppRouteHandler } from '@burse/hono/lib/types'
-import { HttpStatusCodes } from '@burse/http'
-import { SendVerifyEmailRoute } from '@burse/hono/routes/email/email.routes'
-import { db } from '@burse/database'
-import { verifications } from '@burse/database/schema'
-import { sendEmail } from '@burse/email'
-import { getVerifyEmail } from '@burse/email'
+import { AppRouteHandler } from '@rabbit/hono/lib/types'
+import { HttpStatusCodes } from '@rabbit/http'
+import { SendVerifyEmailRoute } from '@rabbit/hono/routes/email/email.routes'
+import { db } from '@rabbit/database'
+import { verifications } from '@rabbit/database/schema'
+import { sendEmail } from '@rabbit/email'
+import { getVerifyEmail } from '@rabbit/email'
 
 export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
   c

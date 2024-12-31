@@ -1,12 +1,12 @@
 import { z } from 'zod'
-import { Label } from '@burse/design-system/components/ui/label'
-import { Input } from '@burse/design-system/components/ui/input'
-import { cn } from '@burse/design-system/lib/utils'
+import { Label } from '@rabbit/design-system/components/ui/label'
+import { Input } from '@rabbit/design-system/components/ui/input'
+import { cn } from '@rabbit/design-system/lib/utils'
 import { Eye, EyeOff } from 'lucide-react'
-import FieldInfo from '@burse/design-system/components/form/field-info'
+import FieldInfo from '@rabbit/design-system/components/form/field-info'
 import { useState } from 'react'
-import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
-import { useFormContext } from '@burse/design-system/components/form/form-context'
+import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
+import { useFormContext } from '@rabbit/design-system/components/form/form-context'
 
 export default function Password({ form }: { form: TanstackForm<any> }) {
   const [isVisible, setIsVisible] = useState(false)

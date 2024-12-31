@@ -1,13 +1,13 @@
-import { users } from '@burse/database/schema/auth/users'
+import { users } from '@rabbit/database/schema/auth/users'
 import {
   type PresignedUrlResponseError,
   type PresignedUrlResponseOk,
-} from '@burse/hono/routes/s3/s3.types'
-import { HttpStatusCodes } from '@burse/http'
-import { getEnv } from '@burse/env'
+} from '@rabbit/hono/routes/s3/s3.types'
+import { HttpStatusCodes } from '@rabbit/http'
+import { getEnv } from '@rabbit/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { db } from '@burse/database'
+import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 

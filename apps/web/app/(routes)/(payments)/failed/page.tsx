@@ -1,5 +1,5 @@
-import { Failure } from '@burse/design-system/components/site/index/failure/failure'
-import SiteLayout from '@burse/design-system/components/site/site-layout'
+import { Failure } from '@rabbit/design-system/components/site/index/failure/failure'
+import SiteLayout from '@rabbit/design-system/components/site/site-layout'
 
 export default function FailedPage({
   searchParams,

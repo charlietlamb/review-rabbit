@@ -1,6 +1,6 @@
-import { Button } from '@burse/design-system/components/ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
 import { Wallet } from 'lucide-react'
-import { handleConnect } from '@burse/design-system/lib/stripe/handle-connect'
+import { handleConnect } from '@rabbit/design-system/lib/stripe/handle-connect'
 import { useState } from 'react'
 
 export default function OnboardingStripe() {

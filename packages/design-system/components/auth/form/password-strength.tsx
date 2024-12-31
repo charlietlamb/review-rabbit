@@ -1,14 +1,14 @@
 'use client'
 
-import { Input } from '@burse/design-system/components/ui/input'
-import { Label } from '@burse/design-system/components/ui/label'
+import { Input } from '@rabbit/design-system/components/ui/input'
+import { Label } from '@rabbit/design-system/components/ui/label'
 import { Check, Eye, EyeOff, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import FieldInfo from '@burse/design-system/components/form/field-info'
+import FieldInfo from '@rabbit/design-system/components/form/field-info'
 import { z } from 'zod'
-import { cn } from '@burse/design-system/lib/utils'
-import { TanstackForm } from '@burse/design-system/components/form/tanstack-form'
-import { useFormContext } from '@burse/design-system/components/form/form-context'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
+import { useFormContext } from '@rabbit/design-system/components/form/form-context'
 
 export default function PasswordStrength({
   form,

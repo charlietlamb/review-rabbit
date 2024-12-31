@@ -1,5 +1,5 @@
-import ResetPasswordForm from '@burse/design-system/components/auth/reset-password/reset-password-form'
-import SiteLayout from '@burse/design-system/components/site/site-layout'
+import ResetPasswordForm from '@rabbit/design-system/components/auth/reset-password/reset-password-form'
+import SiteLayout from '@rabbit/design-system/components/site/site-layout'
 import React from 'react'
 
 export default async function ResetPasswordPage({

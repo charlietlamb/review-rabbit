@@ -2,7 +2,6 @@ import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 import DashboardContentHeader from '../../header/dashboard-content-header'
 import DashboardSettingsAccountContent from './dashboard-settings-account-content'
 import Theme from '../theme/theme'
-import DashboardSettingsAccountCurrency from './dashboard-settings-account-currency'
 
 export default function DashboardSettingsAccount() {
   return (
@@ -13,7 +12,6 @@ export default function DashboardSettingsAccount() {
       />
       <DashboadSettingsAccountForm />
       <DashboardSettingsAccountContent />
-      <DashboardSettingsAccountCurrency />
       <div className="p-4">
         <Theme />
       </div>

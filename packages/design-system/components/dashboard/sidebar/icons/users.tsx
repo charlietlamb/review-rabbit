@@ -65,7 +65,7 @@ const UsersIcon = () => {
           animate={controls}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Businesses</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>Clients</p>
     </div>
   )
 }

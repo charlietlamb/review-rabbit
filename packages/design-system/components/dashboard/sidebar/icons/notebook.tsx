@@ -52,7 +52,7 @@ const NotebookIcon = () => {
         <path d="M8 11h8" />
         <path d="M8 7h6" />
       </motion.svg>
-      {open && <span className={iconTextClassName}>Notes</span>}
+      {open && <span className={iconTextClassName}>Businesses</span>}
     </div>
   )
 }

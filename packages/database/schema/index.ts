@@ -7,3 +7,6 @@ export * from './auth/verifications'
 // App
 export * from './app/businesses'
 export * from './app/clicks'
+export * from './app/clients'
+export * from './app/automations'
+export * from './app/automation-items'

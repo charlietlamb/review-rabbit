@@ -1,8 +1,7 @@
 import { HomeIcon } from '@rabbit/design-system/components/dashboard/sidebar/icons/home'
-import { ArchiveIcon } from '../icons/archive'
-import { WebhookIcon } from '../icons/webhook'
 import { UsersIcon } from '../icons/users'
 import { SquareStackIcon } from '../icons/square-stack'
+import { NotebookIcon } from '../icons/notebook'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -17,7 +16,7 @@ export const dashboardSidebarItemsTop = [
 export const dashboardSidebarItems = [
   {
     title: 'Business',
-    icon: <UsersIcon />,
+    icon: <NotebookIcon />,
     href: '/dashboard/business',
     key: 'business',
     match: ['business'],
@@ -28,6 +27,13 @@ export const dashboardSidebarItems = [
     href: '/dashboard/automations',
     key: 'automations',
     match: ['automations'],
+  },
+  {
+    title: 'Clients',
+    icon: <UsersIcon />,
+    href: '/dashboard/clients',
+    key: 'clients',
+    match: ['clients'],
   },
 ]
 

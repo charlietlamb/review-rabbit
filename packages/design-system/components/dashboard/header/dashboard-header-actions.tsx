@@ -1,10 +1,16 @@
-import DashboardHeaderActionItem from './dashboard-header-action-item'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { Rocket } from 'lucide-react'
+import AutomationFormDialog from '@rabbit/design-system/components/dashboard/automations/automation-form-dialog'
 
 export default function DashboardHeaderActions() {
   return (
-    <div className="flex items-center ml-auto divide-x h-full">
-      <div className="h-full" />
-      <DashboardHeaderActionItem>New Automation</DashboardHeaderActionItem>
+    <div className="flex items-center ml-auto h-full pr-2">
+      <AutomationFormDialog>
+        <Button variant="shine" className="h-8 flex items-center gap-2">
+          <Rocket className="fill-background" />
+          New Automation
+        </Button>
+      </AutomationFormDialog>
     </div>
   )
 }

@@ -31,7 +31,7 @@ export default function BusinessItem({ business }: { business: Business }) {
     }
   }
   return (
-    <div className="flex flex-row items-center gap-2 border">
+    <div className="flex flex-row items-center gap-2 border rounded-lg">
       <Avatar className="rounded-lg size-12">
         <AvatarImage
           className="rounded-lg"

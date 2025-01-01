@@ -7,10 +7,7 @@ type NavLink = {
   label: string
 }
 
-const links: NavLink[] = [
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/docs', label: 'Docs' },
-]
+const links: NavLink[] = [{ href: '/pricing', label: 'Pricing' }]
 
 export function NavLinks({
   className,

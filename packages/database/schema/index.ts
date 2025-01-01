@@ -6,3 +6,4 @@ export * from './auth/verifications'
 
 // App
 export * from './app/businesses'
+export * from './app/clicks'

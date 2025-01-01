@@ -29,7 +29,7 @@ export default function RequiredLabel({
           {required && <Required />}
         </Label>
       </TooltipTrigger>
-      <TooltipContent>{children} is required.</TooltipContent>
+      <TooltipContent>{`${children}${required ? ' is required.' : ''}`}</TooltipContent>
     </Tooltip>
   )
 }

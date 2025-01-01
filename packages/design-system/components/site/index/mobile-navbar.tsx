@@ -32,7 +32,7 @@ export function MobileNavbar({ children }: { children: ReactNode }) {
       </button>
       {isOpen && (
         <div
-          className="fixed inset-0 top-[50px] z-40 size-full overflow-auto bg-black/40 animate-in slide-in-from-bottom-24 md:hidden"
+          className="fixed inset-0 top-[48px] z-40 size-full overflow-auto bg-black/40 animate-in slide-in-from-bottom-24 md:hidden"
           onClick={() => setIsOpen(false)}
         >
           {children}

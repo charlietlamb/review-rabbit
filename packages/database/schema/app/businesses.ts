@@ -14,6 +14,7 @@ export const businesses = pgTable('businesses', {
   name: text('name').notNull(),
   image: text('image'),
   email: text('email').notNull(),
+  url: text('url').notNull(),
   phone: text('phone'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
@@ -33,6 +34,7 @@ export type Business = z.infer<typeof businessSelectSchema>
 export const businessFormSchema = businessSelectSchema.pick({
   name: true,
   email: true,
+  url: true,
   phone: true,
   image: true,
 })

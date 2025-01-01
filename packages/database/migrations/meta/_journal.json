@@ -8,6 +8,34 @@
       "when": 1735637447487,
       "tag": "0000_flat_lake",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1735751469012,
+      "tag": "0001_regular_prodigy",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1735755657425,
+      "tag": "0002_blushing_moonstone",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1735757954280,
+      "tag": "0003_flowery_whistler",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1735757968119,
+      "tag": "0004_condemned_abomination",
+      "breakpoints": true
     }
   ]
 }

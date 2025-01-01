@@ -11,9 +11,9 @@ export function Logo({ className }: { className?: string }) {
         className
       )}
     >
-      <LogoSvg className="w-8 h-8" />
+      <LogoSvg className="w-8 h-8 fill-foreground" />
       <span className="font-heading text-xl font-bold mb-0.5">
-        review-rabbit
+        Review Rabbit
       </span>
     </Link>
   )

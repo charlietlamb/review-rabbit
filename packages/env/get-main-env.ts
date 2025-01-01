@@ -28,7 +28,6 @@ export function getMainEnv() {
 
       // Stripe
       STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-      STRIPE_TEST_SECRET_KEY: process.env.STRIPE_TEST_SECRET_KEY,
       STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
       STRIPE_CLIENT_ID: process.env.STRIPE_CLIENT_ID,
 

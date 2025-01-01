@@ -12,7 +12,7 @@ export default function Business() {
         title="Business"
         subtitle="Manage your business information."
       />
-      <div className="p-4 w-full">
+      <div className="p-4 w-full flex flex-col gap-2">
         <Businesses />
         <BusinessFormDialog>
           <Button variant="shine" className="w-full">

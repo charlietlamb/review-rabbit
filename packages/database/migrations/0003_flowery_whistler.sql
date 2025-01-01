@@ -1,0 +1,1 @@
+ALTER TABLE "clicks" ADD COLUMN "method" text DEFAULT 'email' NOT NULL;

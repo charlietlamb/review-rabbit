@@ -56,8 +56,9 @@ export default function InputWithIconState({
           placeholder={placeholder}
           type={type}
           className={cn(
+            'peer pe-9',
             isError &&
-              'peer pe-9 border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              ' border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
         />
         <div className="end-0 pe-3 text-muted-foreground/80 peer-disabled:opacity-50 absolute inset-y-0 flex items-center justify-center pointer-events-none">

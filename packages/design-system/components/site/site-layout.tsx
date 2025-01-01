@@ -21,14 +21,8 @@ export default async function SiteLayout({
       )}
     >
       <Header loggedIn={!!session} />
-      <div className="flex divide-x">
-        <div className="w-16 min-w-16 hidden lg:block" />
-        <div className="flex flex-col flex-grow w-full">
-          <main className="flex-grow flex flex-col">{children}</main>
-          <Footer />
-        </div>
-        <div className="w-16 min-w-16 hidden lg:block" />
-      </div>
+      <main className="flex-grow flex flex-col">{children}</main>
+      <Footer />
     </div>
   )
 }

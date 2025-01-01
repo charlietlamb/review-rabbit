@@ -1,3 +1,4 @@
+import { User } from '@rabbit/database/schema/auth/users'
 import { getUploadPresignedUrl } from './get-upload-presigned-url'
 import { uploadProfilePicture } from './upload-profile-picture'
 

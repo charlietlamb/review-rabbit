@@ -5,6 +5,7 @@ export const automationItems = pgTable('automation_items', {
   id: text('id').primaryKey(),
   automationId: text('automation_id').references(() => automations.id),
   method: text('method').notNull(),
+  content: text('content').notNull(),
   clicked: boolean('clicked').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),

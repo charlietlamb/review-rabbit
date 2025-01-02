@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -24,9 +25,12 @@ export default function AutomationFormDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Automation</DialogTitle>
+          <DialogDescription>
+            Schedule an email, text or whatsapp message to your clients.
+          </DialogDescription>
         </DialogHeader>
+        <AutomationForm automation={automation} client={client} />
       </DialogContent>
-      <AutomationForm automation={automation} client={client} />
     </Dialog>
   )
 }

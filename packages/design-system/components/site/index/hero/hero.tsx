@@ -8,7 +8,7 @@ import { HeroTestimonials } from './hero-testimonials'
 export function Hero() {
   return (
     <section className="relative z-10 w-full min-h-screen overflow-hidden">
-      <div className="grid lg:grid-cols-2 grid-cols-1 padding-main items-center min-h-screen">
+      <div className="grid lg:grid-cols-2 grid-cols-1 padding-main items-center min-h-screen gap-16 lg:gap-0">
         <div className="flex flex-col items-center pt-[20vh] lg:pt-0 lg:items-start justify-center h-full gap-4">
           <HeroText />
           <HeroActions />

@@ -32,7 +32,7 @@ export default function Businesses() {
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         {businesses.map((business) => (
           <BusinessItem key={business.id} business={business} />
         ))}

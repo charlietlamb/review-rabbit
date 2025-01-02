@@ -21,7 +21,7 @@ export function HeroText() {
       <h1 className="font-heading text-5xl font-semibold sm:text-6xl tracking-tight text-foreground text-center lg:text-left">
         <Balancer>Google Reviews Made Easy</Balancer>
       </h1>
-      <p className="max-w-lg text-center text-lg text-muted-foreground sm:text-xl lg:text-left">
+      <p className="sm:max-w-lg max-w-md text-center text-lg text-muted-foreground sm:text-xl lg:text-left">
         Effortlessly collect and manage Google reviews to boost your online
         reputation and attract more customers.
       </p>

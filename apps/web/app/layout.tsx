@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} ${kanit.variable} antialiased flex flex-col min-h-screen relative light:bg-background font-sans`}
+        className={`${GeistSans.variable} ${GeistMono.variable} ${kanit.variable} antialiased flex flex-col min-h-screen relative bg-background font-sans`}
       >
         <DesignSystemProvider>{children}</DesignSystemProvider>
       </body>

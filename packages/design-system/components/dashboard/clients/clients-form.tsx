@@ -19,6 +19,8 @@ import { cn } from '@rabbit/design-system/lib/utils'
 import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
 import ColorPicker from '@rabbit/design-system/components/form/color/color-picker'
 import { useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+
 export default function ClientsForm({
   client,
   setIsOpen,
@@ -66,7 +68,7 @@ export default function ClientsForm({
         )
         onSuccess?.()
         queryClient.invalidateQueries({
-          queryKey: ['clients'],
+          queryKey: QUERY_KEYS.CLIENTS,
         })
         router.refresh()
       }
@@ -81,34 +83,32 @@ export default function ClientsForm({
   return (
     <FormContext.Provider value={{ attemptSubmitted }}>
       <form className={cn('flex flex-col gap-4 w-full mx-auto', className)}>
-        <div className="grid grid-cols-2 gap-4">
-          <InputWithIcon
-            form={form}
-            name="name"
-            icon={<User />}
-            label="Name"
-            placeholder="Name"
-            type="text"
-            required
-          />
-          <InputWithIcon
-            form={form}
-            name="email"
-            icon={<Mail />}
-            label="Email"
-            placeholder="Email"
-            type="email"
-            required
-          />
-          <PhoneNumberInput
-            form={form}
-            name="phoneNumber"
-            label="Phone Number"
-            placeholder="Phone Number"
-            className="col-span-2"
-          />
-          <ColorPicker form={form} name="color" label="Color" />
-        </div>
+        <InputWithIcon
+          form={form}
+          name="name"
+          icon={<User />}
+          label="Name"
+          placeholder="Name"
+          type="text"
+          required
+        />
+        <InputWithIcon
+          form={form}
+          name="email"
+          icon={<Mail />}
+          label="Email"
+          placeholder="Email"
+          type="email"
+          required
+        />
+        <PhoneNumberInput
+          form={form}
+          name="phoneNumber"
+          label="Phone Number"
+          placeholder="Phone Number"
+          required={false}
+        />
+        <ColorPicker form={form} name="color" label="Color" />
         <div className="flex gap-2">
           {client && (
             <DangerDialog

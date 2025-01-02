@@ -21,7 +21,10 @@ export default function AuthLayout({
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-background lg:flex dark:border-r">
         <div className="absolute inset-0 bg-primary" />
-        <Logo className="text-background z-50 fill-background" />
+        <Logo
+          className="text-background z-50"
+          logoClassName="fill-background text-background"
+        />
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">

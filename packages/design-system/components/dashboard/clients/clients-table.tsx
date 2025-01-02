@@ -17,7 +17,7 @@ import {
   clientsAtoms,
   clientsSearchAtom,
 } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
-import { Client } from '@rabbit/database/schema/clients'
+import { Client } from '@rabbit/database/schema/app/clients'
 import ClientsNewDialog from './clients-new-dialog'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
@@ -28,7 +28,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import ClientAvatar from './client-avatar'
 import { useRouter } from 'next/navigation'
-
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 export default function ClientsTable() {
   const {
     items: clients,
@@ -37,7 +37,7 @@ export default function ClientsTable() {
     fetchNextPage,
     isLoading,
   } = useInfiniteQueryWithAtom({
-    queryKey: 'clients',
+    queryKey: QUERY_KEYS.CLIENTS,
     fetchFn: fetchClients,
     atom: clientsAtoms,
     searchAtom: clientsSearchAtom,
@@ -165,9 +165,7 @@ export default function ClientsTable() {
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <Users />
-          <p className="font-heading">
-            We couldn't find any connected clients...
-          </p>
+          <p className="font-heading">We couldn't find any clients...</p>
           <ClientsNewDialog>
             <Button variant="shine">Add New Client</Button>
           </ClientsNewDialog>

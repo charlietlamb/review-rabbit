@@ -31,8 +31,8 @@ export default function BusinessItem({ business }: { business: Business }) {
     }
   }
   return (
-    <div className="flex flex-row items-center gap-2 border rounded-lg">
-      <Avatar className="rounded-lg size-12">
+    <div className="flex items-center gap-4">
+      <Avatar className="rounded-lg size-16">
         <AvatarImage
           className="rounded-lg"
           src={
@@ -45,25 +45,31 @@ export default function BusinessItem({ business }: { business: Business }) {
           {business.name.charAt(0)}
         </AvatarFallback>
       </Avatar>
-      <div className="flex flex-col">
-        <div className="font-bold">{business.name}</div>
-        <div className="text-sm text-muted-foreground">{business.email}</div>
-      </div>
-      <div className="ml-auto flex items-center gap-2 pr-2">
-        <BusinessFormDialog business={business}>
-          <Button variant="ghost" size="icon" className="size-7 p-1">
-            <Pencil />
-          </Button>
-        </BusinessFormDialog>
-        <DangerDialog
-          title="Delete Business"
-          description="Are you sure you want to delete this business?"
-          onClick={handleDelete}
-        >
-          <Button variant="ghostDestructive" size="icon" className="size-7 p-1">
-            <Trash2 />
-          </Button>
-        </DangerDialog>
+      <div className="flex flex-row items-center gap-2 border rounded-lg h-16 flex-grow p-2">
+        <div className="flex flex-col">
+          <div className="font-bold">{business.name}</div>
+          <div className="text-sm text-muted-foreground">{business.email}</div>
+        </div>
+        <div className="ml-auto flex items-center gap-2 pr-2">
+          <BusinessFormDialog business={business}>
+            <Button variant="ghost" size="icon" className="size-7 p-1">
+              <Pencil />
+            </Button>
+          </BusinessFormDialog>
+          <DangerDialog
+            title="Delete Business"
+            description="Are you sure you want to delete this business?"
+            onClick={handleDelete}
+          >
+            <Button
+              variant="ghostDestructive"
+              size="icon"
+              className="size-7 p-1"
+            >
+              <Trash2 />
+            </Button>
+          </DangerDialog>
+        </div>
       </div>
     </div>
   )

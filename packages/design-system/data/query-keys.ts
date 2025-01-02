@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   CLIENTS: ['clients'] as const,
   CLIENT_SELECT: ['client-select'] as const,
   AUTOMATIONS: ['automations'] as const,
+  WORKFLOWS: ['workflows'] as const,
 } as const

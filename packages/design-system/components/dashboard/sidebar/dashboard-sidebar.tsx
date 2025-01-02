@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Sidebar,
   SidebarContent,
@@ -11,17 +13,24 @@ import {
 } from './data/dashboard-sidebar-items'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
+import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function DashboardSidebar() {
+  const { open } = useSidebar()
   return (
     <Sidebar collapsible="icon" className="border-none">
       <SidebarContent>
         <SidebarMenu>
-          <SidebarGroupLabel>Home</SidebarGroupLabel>
+          <SidebarGroupLabel className={cn(!open && 'hidden')}>
+            Home
+          </SidebarGroupLabel>
           {dashboardSidebarItemsTop.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
-          <SidebarGroupLabel>More</SidebarGroupLabel>
+          <SidebarGroupLabel className={cn(!open && 'hidden')}>
+            More
+          </SidebarGroupLabel>
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}

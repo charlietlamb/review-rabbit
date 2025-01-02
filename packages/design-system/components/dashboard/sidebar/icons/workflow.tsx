@@ -78,7 +78,7 @@ const WorkflowIcon = () => {
           custom={0}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Flow</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>Workflows</p>
     </div>
   )
 }

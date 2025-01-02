@@ -741,3 +741,7 @@ body {
 .padding-main {
   @apply px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20;
 }
+
+.padding-left-main {
+  @apply pl-4 md:pl-8 lg:pl-12 xl:pl-16 2xl:pl-20;
+}

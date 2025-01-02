@@ -4,6 +4,7 @@ import configureBetterAuth from '@rabbit/hono/lib/configure-better-auth'
 import configureAuth from '@rabbit/hono/lib/configure-auth'
 import configureCors from '@rabbit/hono/lib/configure-cors'
 import configureRedirects from '@rabbit/hono/lib/configure-redirects'
+import configureStripe from '@rabbit/hono/lib/configure-stripe'
 
 export default function configure(app: AppOpenAPI) {
   configureCors(app)
@@ -11,4 +12,5 @@ export default function configure(app: AppOpenAPI) {
   configureBetterAuth(app)
   configureOpenAPI(app)
   configureRedirects(app)
+  configureStripe(app)
 }

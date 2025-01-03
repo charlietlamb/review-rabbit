@@ -4,7 +4,9 @@ import { createSelectSchema } from 'drizzle-zod'
 
 export const workflowItems = pgTable('workflow_items', {
   id: text('id').primaryKey(),
-  workflowId: text('workflow_id').references(() => workflows.id),
+  workflowId: text('workflow_id').references(() => workflows.id, {
+    onDelete: 'cascade',
+  }),
   content: text('content').notNull(),
   type: text('type').notNull(),
   x: integer('x').notNull(),

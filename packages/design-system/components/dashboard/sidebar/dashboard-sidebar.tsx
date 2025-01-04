@@ -10,6 +10,7 @@ import {
 import {
   dashboardSidebarItems,
   dashboardSidebarItemsTop,
+  dashboardSidebarItemsBottom,
 } from './data/dashboard-sidebar-items'
 import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
@@ -32,6 +33,12 @@ export default function DashboardSidebar() {
             More
           </SidebarGroupLabel>
           {dashboardSidebarItems.map((item) => (
+            <DashboardSidebarMenuItem key={item.title} item={item} />
+          ))}
+          <SidebarGroupLabel className={cn(!open && 'hidden')}>
+            Create
+          </SidebarGroupLabel>
+          {dashboardSidebarItemsBottom.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
         </SidebarMenu>

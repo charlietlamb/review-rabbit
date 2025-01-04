@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { InitNodeData } from '../lib/types'
 import BaseNode from './base-node'
 import { SquarePlus } from 'lucide-react'
 import MessageFormDialog from '../form/message/message-form-dialog'

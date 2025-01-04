@@ -2,7 +2,7 @@ import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '../auth/users'
 import { businesses } from './businesses'
 import { relations } from 'drizzle-orm'
-
+import { z } from 'zod'
 export const automations = pgTable('automations', {
   id: text('id').primaryKey(),
   userId: text('user_id').references(() => users.id),
@@ -23,3 +23,10 @@ export const automationsRelations = relations(automations, ({ one }) => ({
     references: [users.id],
   }),
 }))
+
+export const automationFormSchema = z.object({
+  clientId: z.string().uuid(),
+  workflowId: z.string().uuid(),
+})
+
+export type AutomationForm = z.infer<typeof automationFormSchema>

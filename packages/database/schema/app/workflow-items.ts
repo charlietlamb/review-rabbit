@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, integer } from 'drizzle-orm/pg-core'
 import { workflows } from './workflows'
-import { createSelectSchema } from 'drizzle-zod'
+import { relations } from 'drizzle-orm'
 
 export const workflowItems = pgTable('workflow_items', {
   id: text('id').primaryKey(),
@@ -12,9 +12,14 @@ export const workflowItems = pgTable('workflow_items', {
   x: integer('x').notNull(),
   y: integer('y').notNull(),
   time: integer('time').notNull(),
+  level: integer('level').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
-export const workflowItem = createSelectSchema(workflowItems)
-export type WorkflowItem = typeof workflowItem
+export const workflowItemsRelations = relations(workflowItems, ({ one }) => ({
+  workflow: one(workflows, {
+    fields: [workflowItems.workflowId],
+    references: [workflows.id],
+  }),
+}))

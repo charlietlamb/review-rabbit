@@ -14,6 +14,8 @@ import {
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
+import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
+import { getNodes } from './lib/get-nodes'
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
@@ -21,19 +23,15 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
   style: { strokeWidth: 2 },
 }
 
-export default function Flow() {
+export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
   const setNodes = useSetAtom(nodesAtom)
   const nodesWithAdds = useAtomValue(nodesWithAddsAtom)
   const edges = useAtomValue(edgesAtom)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    setNodes(initialNodes)
-  }, [])
-
-  useEffect(() => {
-    console.log(nodesWithAdds)
-  }, [nodesWithAdds])
+    setNodes(workflow ? [...initialNodes, ...getNodes(workflow)] : initialNodes)
+  }, [workflow])
 
   return (
     <ReactFlow

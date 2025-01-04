@@ -1,5 +1,5 @@
-import WorkflowCreate from '@rabbit/design-system/components/dashboard/workflow/workflow-create'
+import WorkflowManage from '@rabbit/design-system/components/dashboard/workflow/workflow-manage'
 
 export default function WorkflowCreatePage() {
-  return <WorkflowCreate />
+  return <WorkflowManage />
 }

@@ -1,6 +1,6 @@
 'use server'
 
-import { WorkflowForm } from '@rabbit/database/schema/app/workflows'
+import { WorkflowForm } from '@rabbit/database/types/workflow-types'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
@@ -11,5 +11,6 @@ export async function createWorkflow(workflow: WorkflowForm) {
     },
     await headersWithCookies()
   )
-  return response.status
+  const data = await response.json()
+  return { status: response.status, id: data }
 }

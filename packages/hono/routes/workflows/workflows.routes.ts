@@ -3,7 +3,10 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
 import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
-import { workflowFormSchema, workflowWithItems } from '@rabbit/database'
+import {
+  workflowFormSchema,
+  workflowWithItems,
+} from '@rabbit/database/types/workflow-types'
 
 const tags = ['Workflows']
 
@@ -94,7 +97,7 @@ export const createWorkflow = createRoute({
     },
   },
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Workflow added.'),
+    [HttpStatusCodes.OK]: jsonContent(z.string(), 'Workflow added.'),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),

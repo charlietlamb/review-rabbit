@@ -75,7 +75,9 @@ const SquareStackIcon = () => {
           animate={controls}
         />
       </svg>
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Automations</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>
+        Create Workflow
+      </p>
     </div>
   )
 }

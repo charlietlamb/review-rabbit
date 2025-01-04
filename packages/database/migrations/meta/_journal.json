@@ -43,6 +43,20 @@
       "when": 1735851752083,
       "tag": "0005_tranquil_kid_colt",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1736023289518,
+      "tag": "0006_thin_white_tiger",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1736024655611,
+      "tag": "0007_worried_maestro",
+      "breakpoints": true
     }
   ]
 }

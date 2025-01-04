@@ -3,6 +3,7 @@ import { CustomNode } from '@rabbit/design-system/components/flow/lib/types'
 import { getCreateNodes } from '@rabbit/design-system/components/flow/lib/add-create-nodes'
 import { Edge } from '@xyflow/react'
 import { generateEdges } from '@rabbit/design-system/components/flow/lib/generate-edges'
+
 export const nodesAtom = atom<CustomNode[]>([])
 export const levelAtom = atom<number>(0)
 

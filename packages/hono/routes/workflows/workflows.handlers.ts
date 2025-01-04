@@ -9,8 +9,8 @@ import {
   GetWorkflowByIdRoute,
 } from './workflows.routes'
 import { eq, sql, and, or } from 'drizzle-orm'
-import { nanoid } from 'nanoid'
-import type { WorkflowForm } from '@rabbit/database/schema/app/workflows'
+import type { WorkflowForm } from '@rabbit/database/types/workflow-types'
+import { v4 as uuidv4 } from 'uuid'
 
 export const getWorkflows: AppRouteHandler<GetWorkflowsRoute> = async (c) => {
   const user = c.get('user')
@@ -23,7 +23,7 @@ export const getWorkflows: AppRouteHandler<GetWorkflowsRoute> = async (c) => {
     const results = await db.query.workflows.findMany({
       where: and(
         eq(workflows.userId, user.id),
-        or(sql`LOWER(${workflows.name}) LIKE ${`%${search?.toLowerCase()}%`}`)
+        or(sql`LOWER(${workflows.title}) LIKE ${`%${search?.toLowerCase()}%`}`)
       ),
       offset,
       limit,
@@ -77,10 +77,34 @@ export const createWorkflow: AppRouteHandler<CreateWorkflowRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const newWorkflow = await c.req.json()
+  const { items, ...workflowData } = await c.req.valid('json')
+  const workflowId = uuidv4()
+
   try {
-    await db.insert(workflows).values({ ...newWorkflow, userId: user.id })
-    return c.json(true, HttpStatusCodes.OK)
+    await db.transaction(async (tx) => {
+      await tx.insert(workflows).values({
+        ...workflowData,
+        id: workflowId,
+        userId: user.id,
+      })
+
+      if (items && items.length > 0) {
+        await tx.insert(workflowItems).values(
+          items.map((item) => ({
+            id: item.id || uuidv4(),
+            workflowId,
+            content: item.content,
+            type: item.type,
+            x: item.x,
+            y: item.y,
+            time: item.time,
+            level: item.level,
+          }))
+        )
+      }
+    })
+
+    return c.json(workflowId, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error adding workflow:', error)
     return c.json(
@@ -154,15 +178,14 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
       if (itemsToAdd.length > 0) {
         await tx.insert(workflowItems).values(
           itemsToAdd.map((item) => ({
-            id: item.id || nanoid(),
+            id: item.id || uuidv4(),
             workflowId: id,
             content: item.content,
             type: item.type,
             x: item.x,
             y: item.y,
             time: item.time,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            level: item.level,
           }))
         )
       }

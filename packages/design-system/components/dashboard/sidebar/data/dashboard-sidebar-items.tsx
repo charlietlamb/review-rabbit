@@ -4,6 +4,8 @@ import { NotebookIcon } from '../icons/notebook'
 import { WorkflowIcon } from '../icons/workflow'
 import { RabbitIcon } from '../icons/rabbit'
 import { ClockIcon } from '../icons/clock'
+import { SquareStackIcon } from '../icons/square-stack'
+import { SquarePenIcon } from '../icons/square-pen'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -50,6 +52,23 @@ export const dashboardSidebarItems = [
     href: '/dashboard/clients',
     key: 'clients',
     match: ['clients'],
+  },
+]
+
+export const dashboardSidebarItemsBottom = [
+  {
+    title: 'Create Automation',
+    icon: <SquarePenIcon />,
+    href: '/dashboard/automation/create',
+    key: 'automation',
+    match: ['automation/create'],
+  },
+  {
+    title: 'Create Workflow',
+    icon: <SquareStackIcon />,
+    href: '/dashboard/workflow/create',
+    key: 'workflow',
+    match: ['workflow/create'],
   },
 ]
 

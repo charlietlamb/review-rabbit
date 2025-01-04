@@ -7,16 +7,21 @@ import { useState } from 'react'
 import { FormProvider } from '@rabbit/design-system/components/form/form-context'
 import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
 import { Type } from 'lucide-react'
+import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 
-export default function WorkflowCreate() {
-  const [title, setTitle] = useState('')
+export default function WorkflowManage({
+  workflow,
+}: {
+  workflow?: WorkflowWithItems
+}) {
+  const [title, setTitle] = useState(workflow?.title || '')
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
   return (
     <FormProvider value={{ attemptSubmitted }}>
       <div className="flex flex-col divide-y flex-grow">
         <DashboardContentHeader
-          title="Create Workflow"
-          subtitle="Create a new workflow"
+          title={workflow ? title : 'Create Workflow'}
+          subtitle={workflow ? 'Update your workflow' : 'Create a new workflow'}
           right={
             <InputWithIconState
               value={title}
@@ -33,7 +38,7 @@ export default function WorkflowCreate() {
           }
         />
         <ReactFlowProvider>
-          <WorkflowForm title={title} />
+          <WorkflowForm title={title} workflow={workflow} />
         </ReactFlowProvider>
       </div>
     </FormProvider>

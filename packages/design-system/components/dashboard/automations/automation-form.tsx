@@ -6,6 +6,7 @@ import ClientSelectState from '@rabbit/design-system/components/form/clients/cli
 import WorkflowSelect from '@rabbit/design-system/components/form/workflow/workflow-select'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { toast } from 'sonner'
+import WorkflowTimeSelect from '@rabbit/design-system/components/form/workflow/workflow-time-select'
 
 export default function AutomationForm({
   automation,
@@ -22,6 +23,7 @@ export default function AutomationForm({
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(
     automation?.workflowId || null
   )
+  const [date, setDate] = useState<Date | null>(null)
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
 
   function validate() {
@@ -73,6 +75,7 @@ export default function AutomationForm({
           selectedWorkflow={selectedWorkflow}
           setSelectedWorkflow={setSelectedWorkflow}
         />
+        <WorkflowTimeSelect date={date} setDate={setDate} />
         <Button variant="shine" className="w-full" onClick={handleSubmit}>
           Create Automation
         </Button>

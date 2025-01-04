@@ -378,7 +378,8 @@ body {
   }
 
   :root,
-  .light.blue {
+  .light.blue,
+  .light .blue {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --muted: 210 40% 96.1%;
@@ -404,7 +405,8 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
-  .dark.blue {
+  .dark.blue,
+  .dark .blue {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;

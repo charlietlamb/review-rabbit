@@ -6,7 +6,7 @@ import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { getWorkflows } from '@rabbit/design-system/actions/workflows/get-workflows'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
-import { WorkflowWithItems } from '@rabbit/database/schema/app/workflows'
+import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import {
   TableBody,
   TableCell,
@@ -57,7 +57,7 @@ export default function WorkflowsTable() {
         <div className="flex items-center gap-2">
           <div>
             <span className="font-medium font-heading">
-              {row.original.name}
+              {row.original.title}
             </span>
           </div>
         </div>

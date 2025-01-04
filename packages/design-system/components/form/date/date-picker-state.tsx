@@ -12,7 +12,7 @@ import {
 } from '@rabbit/design-system/components/ui/popover'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
-export default function DatePicker({
+export default function DatePickerState({
   value,
   setValue,
   name,
@@ -20,6 +20,7 @@ export default function DatePicker({
   placeholder = 'Select a date',
   required,
   className,
+  hideLabel = false,
 }: {
   value: Date
   setValue: (value: Date) => void
@@ -28,12 +29,15 @@ export default function DatePicker({
   placeholder?: string
   required?: boolean
   className?: string
+  hideLabel?: boolean
 }) {
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      <RequiredLabel htmlFor={name} required={required}>
-        {label}
-      </RequiredLabel>
+      {!hideLabel && (
+        <RequiredLabel htmlFor={name} required={required}>
+          {label}
+        </RequiredLabel>
+      )}
       <div className="relative">
         <Popover>
           <PopoverTrigger asChild>

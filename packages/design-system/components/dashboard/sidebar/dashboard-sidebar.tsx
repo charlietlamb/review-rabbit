@@ -30,7 +30,7 @@ export default function DashboardSidebar() {
             <DashboardSidebarMenuItem key={item.title} item={item} />
           ))}
           <SidebarGroupLabel className={cn(!open && 'hidden')}>
-            More
+            Manage
           </SidebarGroupLabel>
           {dashboardSidebarItems.map((item) => (
             <DashboardSidebarMenuItem key={item.title} item={item} />

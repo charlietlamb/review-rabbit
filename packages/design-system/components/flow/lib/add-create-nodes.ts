@@ -4,49 +4,68 @@ const VERTICAL_SPACING = 200
 const HORIZONTAL_SPACING = 500
 
 function getCreateNodeType(level: number) {
-  // Init is at level 1, so level 2 should be message, level 3 time, etc.
   return level % 2 === 0 ? NODE_TYPES.CREATE_MESSAGE : NODE_TYPES.CREATE_TIME
 }
 
+export function calculateNodePosition(nodesInLevel: number, nodeIndex: number) {
+  const totalWidth = (nodesInLevel - 1) * HORIZONTAL_SPACING
+  const startX = -totalWidth / 2
+  return startX + nodeIndex * HORIZONTAL_SPACING
+}
+
 export function getCreateNodes(nodes: CustomNode[]): CustomNode[] {
-  // Keep the init node
   const initNode = nodes.find((node) => node.data.type === NODE_TYPES.INIT)
   if (!initNode) return nodes
 
-  // Group nodes by level
-  const nodesByLevel = nodes.reduce(
-    (acc, node) => {
-      const level = node.data.level ?? 1 // Default to level 1 instead of 0
-      if (!acc[level]) acc[level] = []
-      acc[level].push(node)
-      return acc
-    },
-    {} as Record<number, CustomNode[]>
-  )
+  const nodesByLevel: Record<
+    number,
+    { content: CustomNode[]; creates: CustomNode[] }
+  > = {}
+
+  nodes.forEach((node) => {
+    const level = node.data.level ?? 1
+    if (!nodesByLevel[level]) {
+      nodesByLevel[level] = { content: [], creates: [] }
+    }
+    if (
+      node.data.type === NODE_TYPES.MESSAGE ||
+      node.data.type === NODE_TYPES.TIME
+    ) {
+      nodesByLevel[level].content.push(node)
+    } else if (node.data.type.startsWith('create-')) {
+      nodesByLevel[level].creates.push(node)
+    }
+  })
 
   const createNodes: CustomNode[] = []
+  const updatedNodes: CustomNode[] = []
 
-  // Process each level
-  Object.entries(nodesByLevel).forEach(([levelStr, levelNodes]) => {
+  Object.entries(nodesByLevel).forEach(([levelStr, { content, creates }]) => {
     const level = parseInt(levelStr)
-    // Skip level 1 (init) instead of 0
-    if (level === 1) return
+    if (level === 1) {
+      updatedNodes.push(...nodes.filter((n) => n.data.level === 1))
+      return
+    }
 
-    const nodesInLevel = levelNodes.length
-
-    // Check if this level has any message nodes
-    const hasMessageNode = levelNodes.some(
-      (node) => node.data.type === NODE_TYPES.MESSAGE
+    // Check if this level contains any time nodes
+    const hasTimeNode = content.some(
+      (node) => node.data.type === NODE_TYPES.TIME
     )
+    const shouldShowCreateNode = !hasTimeNode && content.length > 0
+    const totalNodesInLevel = content.length + (shouldShowCreateNode ? 1 : 0)
 
-    if (hasMessageNode) {
-      // Calculate x position based on number of nodes in the level
-      const baseOffset = (nodesInLevel * HORIZONTAL_SPACING) / 2
-      const lastNodeX = -baseOffset + (nodesInLevel - 1) * HORIZONTAL_SPACING
+    content.forEach((node, index) => {
+      updatedNodes.push({
+        ...node,
+        position: {
+          x: calculateNodePosition(totalNodesInLevel, index),
+          y: (level - 1) * VERTICAL_SPACING,
+        },
+      })
+    })
 
+    if (shouldShowCreateNode) {
       const createNodeType = getCreateNodeType(level)
-
-      // Add one create node to the right of the last node
       createNodes.push({
         id: `create-${level}`,
         type: createNodeType,
@@ -59,14 +78,13 @@ export function getCreateNodes(nodes: CustomNode[]): CustomNode[] {
           level,
         },
         position: {
-          x: lastNodeX + HORIZONTAL_SPACING,
+          x: calculateNodePosition(totalNodesInLevel, content.length),
           y: (level - 1) * VERTICAL_SPACING,
         },
       })
     }
   })
 
-  // Add one create node for the next level
   const maxCurrentLevel = Math.max(...Object.keys(nodesByLevel).map(Number))
   const nextLevel = maxCurrentLevel + 1
   const createNodeType = getCreateNodeType(nextLevel)
@@ -88,5 +106,5 @@ export function getCreateNodes(nodes: CustomNode[]): CustomNode[] {
     },
   })
 
-  return [...nodes, ...createNodes]
+  return [...updatedNodes, ...createNodes]
 }

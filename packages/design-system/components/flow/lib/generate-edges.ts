@@ -2,28 +2,28 @@ import { CustomNode } from './types'
 import { Edge } from '@xyflow/react'
 
 export function generateEdges(nodes: CustomNode[]): Edge[] {
-  const sortedNodes = nodes.sort((a, b) => a.data.level - b.data.level)
   const edges: Edge[] = []
+
+  // Sort nodes by level
+  const sortedNodes = [...nodes].sort((a, b) => a.data.level - b.data.level)
 
   // Group nodes by level
   const nodesByLevel = sortedNodes.reduce(
     (acc, node) => {
       const level = node.data.level
-      if (!acc[level]) {
-        acc[level] = []
-      }
+      if (!acc[level]) acc[level] = []
       acc[level].push(node)
       return acc
     },
     {} as Record<number, CustomNode[]>
   )
 
-  // Get all levels and sort them
+  // Get all levels
   const levels = Object.keys(nodesByLevel)
     .map(Number)
     .sort((a, b) => a - b)
 
-  // Create edges between adjacent levels
+  // For each level (except the last), connect all nodes to all nodes in the next level
   for (let i = 0; i < levels.length - 1; i++) {
     const currentLevel = levels[i]
     const nextLevel = levels[i + 1]
@@ -36,6 +36,8 @@ export function generateEdges(nodes: CustomNode[]): Edge[] {
           source: sourceNode.id,
           target: targetNode.id,
           type: 'smoothstep',
+          animated: true,
+          style: { stroke: 'hsl(var(--primary))', strokeWidth: 2 },
         })
       })
     })

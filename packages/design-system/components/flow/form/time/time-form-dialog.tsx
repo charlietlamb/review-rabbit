@@ -6,10 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@rabbit/design-system/components/ui/dialog'
-import MessageForm from './message-form'
 import { useState } from 'react'
+import TimeForm from './time-form'
 import { CustomNode } from '../../lib/types'
-
 export default function FlowFormDialog({
   node,
   onClick,
@@ -31,12 +30,13 @@ export default function FlowFormDialog({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Flow Form</DialogTitle>
+          <DialogTitle>Add Time Delay</DialogTitle>
           <DialogDescription>
-            This is a form for creating a flow.
+            Add a time delay to the flow. Add the number of days, hours &
+            minutes you'd like to delay.
           </DialogDescription>
         </DialogHeader>
-        <MessageForm onSuccess={() => setOpen(false)} node={node} />
+        <TimeForm node={node} onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

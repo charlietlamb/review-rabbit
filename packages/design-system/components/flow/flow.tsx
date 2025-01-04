@@ -2,25 +2,18 @@ import {
   Background,
   ReactFlow,
   BackgroundVariant,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-  Edge,
-  Connection,
   DefaultEdgeOptions,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { initialNodes, nodeTypes } from './lib/flow-data'
-import { useCallback, useEffect } from 'react'
 import { useTheme } from 'next-themes'
-import { generateEdges } from './lib/generate-edges'
-import { CustomNode } from './lib/types'
 import {
-  nodesAtom,
   nodesWithAddsAtom,
   edgesAtom,
+  nodesAtom,
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { useEffect } from 'react'
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
@@ -29,14 +22,18 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
 }
 
 export default function Flow() {
-  const [nodes, setNodes] = useAtom(nodesAtom)
+  const setNodes = useSetAtom(nodesAtom)
   const nodesWithAdds = useAtomValue(nodesWithAddsAtom)
   const edges = useAtomValue(edgesAtom)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
     setNodes(initialNodes)
-  }, [nodesWithAdds, setNodes])
+  }, [])
+
+  useEffect(() => {
+    console.log(nodesWithAdds)
+  }, [nodesWithAdds])
 
   return (
     <ReactFlow
@@ -49,6 +46,9 @@ export default function Flow() {
       draggable={false}
       className="flex-grow"
       fitView
+      fitViewOptions={{
+        padding: 1,
+      }}
       snapToGrid
       snapGrid={[20, 20]}
     >

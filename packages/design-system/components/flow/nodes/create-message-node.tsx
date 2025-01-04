@@ -2,22 +2,24 @@ import { memo } from 'react'
 import { InitNodeData } from '../lib/types'
 import BaseNode from './base-node'
 import { SquarePlus } from 'lucide-react'
-import FlowFormDialog from '../form/message/message-form-dialog'
+import MessageFormDialog from '../form/message/message-form-dialog'
+import { useSetAtom } from 'jotai'
+import { levelAtom } from '@rabbit/design-system/atoms/flow/flow-atoms'
+import { CustomNode } from '../lib/types'
 
-export default memo(
-  ({ data, isConnectable }: { data: InitNodeData; isConnectable: boolean }) => {
-    return (
-      <FlowFormDialog>
-        <BaseNode
-          label="Add Automation"
-          className="bg-emerald-500/20 hover:bg-emerald-500/30 border-none"
-          icon={<SquarePlus />}
-          iconClassName="bg-emerald-500/20 text-emerald-500"
-          hideSource
-        >
-          Add an automation to your workflow. SMS, WhatsApp, Email, etc.
-        </BaseNode>
-      </FlowFormDialog>
-    )
-  }
-)
+export default memo((node: CustomNode) => {
+  const setLevel = useSetAtom(levelAtom)
+  return (
+    <MessageFormDialog onClick={() => setLevel(node.data.level)}>
+      <BaseNode
+        label="Add Automation"
+        className="bg-emerald-500/20 hover:bg-emerald-500/30 border-none text-left"
+        icon={<SquarePlus />}
+        iconClassName="bg-emerald-500/20 text-emerald-500"
+        hideSource
+      >
+        Add an automation to your workflow. SMS, WhatsApp, Email, etc.
+      </BaseNode>
+    </MessageFormDialog>
+  )
+})

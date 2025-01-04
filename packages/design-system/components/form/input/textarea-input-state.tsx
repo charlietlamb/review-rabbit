@@ -3,7 +3,7 @@ import { useFormContext } from '@rabbit/design-system/components/form/form-conte
 import { Textarea } from '@rabbit/design-system/components/ui/textarea'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
-export default function TextareaInput({
+export default function TextareaInputState({
   value,
   setValue,
   name,
@@ -22,7 +22,7 @@ export default function TextareaInput({
 }) {
   const { attemptSubmitted } = useFormContext()
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       <RequiredLabel>{label}</RequiredLabel>
       <Textarea
         name={name}
@@ -30,6 +30,9 @@ export default function TextareaInput({
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
       />
+      {attemptSubmitted && !value && (
+        <p className="text-sm text-red-500">This field is required</p>
+      )}
     </div>
   )
 }

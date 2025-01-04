@@ -4,6 +4,7 @@ import { getCreateNodes } from '@rabbit/design-system/components/flow/lib/add-cr
 import { Edge } from '@xyflow/react'
 import { generateEdges } from '@rabbit/design-system/components/flow/lib/generate-edges'
 export const nodesAtom = atom<CustomNode[]>([])
+export const levelAtom = atom<number>(0)
 
 export const nodesWithAddsAtom = atom<CustomNode[]>((get) =>
   getCreateNodes(get(nodesAtom))

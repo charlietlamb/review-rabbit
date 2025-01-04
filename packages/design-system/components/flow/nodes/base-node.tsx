@@ -37,7 +37,7 @@ export default memo(
           {icon}
         </div>
         <div>
-          <Label className="p-1 px-2 font-heading text-lg text-center">
+          <Label className="p-1 px-2 font-heading text-lg w-full">
             {label}
           </Label>
           <div className="flex flex-col p-2 text-muted-foreground">

@@ -11,8 +11,8 @@ export const NODE_TYPES = {
 export type NodeType = (typeof NODE_TYPES)[keyof typeof NODE_TYPES]
 
 export const MESSAGE_TYPES = {
-  SMS: 'sms',
   EMAIL: 'email',
+  SMS: 'sms',
   WHATSAPP: 'whatsapp',
 } as const
 
@@ -39,13 +39,12 @@ export type CreateTimeNodeData = BaseNodeData & {
 export type MessageNodeData = BaseNodeData & {
   type: typeof NODE_TYPES.MESSAGE
   content: string
-  recipient: string
+  messageType: MessageType
 }
 
 export type TimeNodeData = BaseNodeData & {
   type: typeof NODE_TYPES.TIME
   delay: number
-  unit: 'minutes' | 'hours' | 'days'
 }
 
 type NodeData =
@@ -55,4 +54,6 @@ type NodeData =
   | MessageNodeData
   | TimeNodeData
 
-export type CustomNode = Node<NodeData>
+export type CustomNode = Node<NodeData> & {
+  id: string
+}

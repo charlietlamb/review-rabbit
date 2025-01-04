@@ -15,13 +15,16 @@ export default function MessageTypeSelect({
   return (
     <div className="flex flex-col gap-2">
       <RequiredLabel>Message Type</RequiredLabel>
-      {Object.values(MESSAGE_TYPES).map((messageType) => (
-        <MessageTypeOption
-          key={messageType}
-          type={messageType}
-          setType={setType}
-        />
-      ))}
+      <div className="grid grid-cols-3 gap-2">
+        {Object.values(MESSAGE_TYPES).map((messageType) => (
+          <MessageTypeOption
+            selected={type === messageType}
+            key={messageType}
+            type={messageType}
+            setType={setType}
+          />
+        ))}
+      </div>
     </div>
   )
 }

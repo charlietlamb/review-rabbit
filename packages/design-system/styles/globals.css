@@ -378,8 +378,7 @@ body {
   }
 
   :root,
-  .light,
-  .blue {
+  .light.blue {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --muted: 210 40% 96.1%;
@@ -405,7 +404,6 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
-  .dark,
   .dark.blue {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -744,4 +742,8 @@ body {
 
 .padding-left-main {
   @apply pl-4 md:pl-8 lg:pl-12 xl:pl-16 2xl:pl-20;
+}
+
+.react-flow__attribution {
+  @apply hidden;
 }

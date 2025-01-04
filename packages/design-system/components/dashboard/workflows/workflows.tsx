@@ -4,7 +4,7 @@ import WorkflowsTable from './workflows-table'
 
 export default function Workflows() {
   return (
-    <div className="flex flex-col divide-y">
+    <div className="flex flex-col divide-y flex-grow">
       <DashboardContentHeader
         title="Workflows"
         subtitle="Manage your workflows"

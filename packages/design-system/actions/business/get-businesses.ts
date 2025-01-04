@@ -6,7 +6,7 @@ import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookie
 import { PAGE_SIZE } from '@rabbit/design-system/data/page-size'
 
 export async function getBusinesses(page: number): Promise<Business[]> {
-  const response = await client['business'].get.$post(
+  const response = await client.business.get.$post(
     {
       json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE },
     },

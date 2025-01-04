@@ -15,6 +15,7 @@ export default function InputWithIconState({
   type,
   required,
   className,
+  hideLabel = false,
 }: {
   value: string
   onChange: (value: string) => void
@@ -25,6 +26,7 @@ export default function InputWithIconState({
   type: 'text' | 'email' | 'password'
   required: boolean
   className?: string
+  hideLabel?: boolean
 }) {
   const { attemptSubmitted } = useFormContext()
   const isError = attemptSubmitted && required && !value
@@ -40,13 +42,15 @@ export default function InputWithIconState({
 
   return (
     <div className={cn('flex flex-col gap-1', className)}>
-      <RequiredLabel
-        htmlFor={name}
-        className="font-heading text-foreground text-base font-semibold"
-        required={required}
-      >
-        {label}
-      </RequiredLabel>
+      {!hideLabel && (
+        <RequiredLabel
+          htmlFor={name}
+          className="font-heading text-foreground text-base font-semibold"
+          required={required}
+        >
+          {label}
+        </RequiredLabel>
+      )}
       <div className="relative">
         <Input
           id={name}

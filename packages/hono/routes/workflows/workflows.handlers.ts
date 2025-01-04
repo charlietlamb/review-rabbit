@@ -3,7 +3,7 @@ import { db, workflows, workflowItems } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetWorkflowsRoute,
-  AddWorkflowRoute,
+  CreateWorkflowRoute,
   UpdateWorkflowRoute,
   DeleteWorkflowRoute,
   GetWorkflowByIdRoute,
@@ -70,7 +70,9 @@ export const getWorkflowById: AppRouteHandler<GetWorkflowByIdRoute> = async (
   }
 }
 
-export const addWorkflow: AppRouteHandler<AddWorkflowRoute> = async (c) => {
+export const createWorkflow: AppRouteHandler<CreateWorkflowRoute> = async (
+  c
+) => {
   const user = c.get('user')
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)

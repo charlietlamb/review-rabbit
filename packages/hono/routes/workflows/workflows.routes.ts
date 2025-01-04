@@ -78,10 +78,10 @@ export const getWorkflowById = createRoute({
 
 export type GetWorkflowByIdRoute = typeof getWorkflowById
 
-export const addWorkflow = createRoute({
-  path: '/workflows/add',
+export const createWorkflow = createRoute({
+  path: '/workflows/create',
   method: 'post',
-  summary: 'Add a workflow',
+  summary: 'Create a workflow',
   tags,
   request: {
     body: {
@@ -105,7 +105,7 @@ export const addWorkflow = createRoute({
   },
 })
 
-export type AddWorkflowRoute = typeof addWorkflow
+export type CreateWorkflowRoute = typeof createWorkflow
 
 export const updateWorkflow = createRoute({
   path: '/workflows/update',

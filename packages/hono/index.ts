@@ -6,9 +6,10 @@ import s3 from '@rabbit/hono/routes/s3/s3.index'
 import business from '@rabbit/hono/routes/business/business.index'
 import review from '@rabbit/hono/routes/review/review.index'
 import clients from '@rabbit/hono/routes/clients/clients.index'
+import workflows from '@rabbit/hono/routes/workflows/workflows.index'
 
 const app = createApp()
-const routes = [index, users, s3, business, review, clients] as const
+const routes = [index, users, s3, business, review, clients, workflows] as const
 
 configure(app)
 

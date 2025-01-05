@@ -2,7 +2,11 @@ import { getEnv } from '@rabbit/env'
 import { config, withAnalyzer } from '@rabbit/next-config'
 import type { NextConfig } from 'next'
 
-let nextConfig: NextConfig = { ...config }
+let nextConfig: NextConfig = {
+  ...config,
+  staticPageGenerationTimeout: 0,
+  output: 'export',
+}
 
 if (process.env.NODE_ENV === 'production') {
   const redirects: NextConfig['redirects'] = async () => [

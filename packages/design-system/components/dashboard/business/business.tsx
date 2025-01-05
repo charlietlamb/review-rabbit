@@ -2,23 +2,29 @@
 
 import DashboardContentHeader from '../header/dashboard-content-header'
 import { Button } from '@rabbit/design-system/components/ui/button'
-import Businesses from './businesses'
 import BusinessFormDialog from './business-form-dialog'
+import TableSearch from '../table/table-search'
+import { useAtom } from 'jotai'
+import { businessSearchAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
+import BusinessTable from './business-table'
 
 export default function Business() {
+  const [search, setSearch] = useAtom(businessSearchAtom)
   return (
     <div className="flex flex-col divide-y">
       <DashboardContentHeader
         title="Business"
         subtitle="Manage your business information."
       />
-      <div className="p-4 w-full flex flex-col gap-2">
-        <Businesses />
+
+      <div className="flex items-center justify-between p-4 gap-4">
+        <TableSearch search={search} setSearch={setSearch} />
         <BusinessFormDialog>
-          <Button variant="shine" className="w-full">
-            Add Business
-          </Button>
+          <Button variant="shine">Add New Business</Button>
         </BusinessFormDialog>
+      </div>
+      <div className="p-4 overflow-y-auto flex-grow">
+        <BusinessTable />
       </div>
     </div>
   )

@@ -32,7 +32,7 @@ export default function Client({ client }: { client: ClientType }) {
         subtitle={`Manage and view information about ${client.name}`}
         left={<ClientAvatar client={client} className="mr-4" />}
         right={
-          <AutomationFormDialog client={client}>
+          <AutomationFormDialog>
             <Button className="ml-auto" variant="shine">
               Create Automation
             </Button>

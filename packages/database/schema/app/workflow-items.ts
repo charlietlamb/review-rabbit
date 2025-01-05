@@ -9,6 +9,7 @@ export const workflowItems = pgTable('workflow_items', {
   }),
   content: text('content').notNull(),
   type: text('type').notNull(),
+  method: text('method').notNull(),
   x: integer('x').notNull(),
   y: integer('y').notNull(),
   time: integer('time').notNull(),

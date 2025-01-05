@@ -5,6 +5,8 @@ import {
   workflowItems,
   automations,
   automationItems,
+  clients,
+  businesses,
 } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
@@ -21,6 +23,8 @@ import type {
 } from '@rabbit/database/types/automation-types'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
+import { triggerAutomation } from '@rabbit/trigger'
+import type { Client } from '@rabbit/database/schema/app/clients'
 
 export const getAutomations: AppRouteHandler<GetAutomationsRoute> = async (
   c
@@ -120,18 +124,52 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
       })
 
       if (clientIds && clientIds.length > 0) {
+        const business = await tx.query.businesses.findFirst({
+          where: eq(businesses.id, businessId),
+        })
+
+        if (!business) {
+          throw new Error('Business not found')
+        }
+
+        const matchingClients = await tx.query.clients.findMany({
+          where: sql`${clients.id} IN ${clientIds}`,
+        })
+
+        if (matchingClients.length !== clientIds.length) {
+          throw new Error('Some clients not found')
+        }
+
+        const clientMap = new Map<string, Client>(
+          matchingClients.map((client) => [client.id, client])
+        )
+        console.log('creating automations...')
         for (const item of workflow.items) {
           if (!item.content.length) continue
-          await tx.insert(automationItems).values(
-            clientIds.map((clientId) => ({
-              automationId,
-              clientId,
-              taskId: item.id,
-              method: item.type,
-              content: item.content,
-              time: new Date(Date.now() + item.time * 60 * 1000),
-            }))
-          )
+
+          const delayInMinutes = item.time
+          const baseTime = new Date(Date.now() + item.time * 60 * 1000)
+
+          const automationItemsToInsert = clientIds.map((clientId) => ({
+            id: uuidv4(),
+            automationId,
+            clientId,
+            taskId: item.id,
+            method: item.method,
+            type: item.type,
+            content: item.content,
+            delayInMinutes,
+            time: baseTime,
+          }))
+
+          await tx.insert(automationItems).values(automationItemsToInsert)
+
+          for (const automationItem of automationItemsToInsert) {
+            const client = clientMap.get(automationItem.clientId)
+            if (!client) continue
+            console.log('triggering automation...')
+            await triggerAutomation(automationItem, client, business)
+          }
         }
       }
     })

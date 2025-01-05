@@ -8,9 +8,15 @@ export default async function WorkflowPage({
   params: { workflowId: string }
 }) {
   const { workflowId } = await params
-  const workflow = await getWorkflowById(workflowId)
-  if (!workflow) {
+
+  try {
+    const workflow = await getWorkflowById(workflowId)
+    if (!workflow) {
+      return redirect('/dashboard/workflows')
+    }
+    return <WorkflowManage workflow={workflow} />
+  } catch (error) {
+    console.error(error)
     return redirect('/dashboard/workflows')
   }
-  return <WorkflowManage workflow={workflow} />
 }

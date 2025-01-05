@@ -1,10 +1,9 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '../auth/users'
 import { businesses } from './businesses'
-import { workflows } from './workflows'
 import { relations } from 'drizzle-orm'
-import { automationItems } from './automation-items'
 import { sql } from 'drizzle-orm'
+import { automationItems } from './automation-items'
 
 export const automations = pgTable('automations', {
   id: text('id')

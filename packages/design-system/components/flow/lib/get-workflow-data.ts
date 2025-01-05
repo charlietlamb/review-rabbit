@@ -17,6 +17,7 @@ export default function getWorkflowData(
           return {
             id: node.id,
             type: node.data.type,
+            method: node.data.messageType,
             x: node.position.x,
             y: node.position.y,
             content: messageData.content,
@@ -28,6 +29,7 @@ export default function getWorkflowData(
           return {
             id: node.id,
             type: node.data.type,
+            method: 'time',
             x: node.position.x,
             y: node.position.y,
             content: '',

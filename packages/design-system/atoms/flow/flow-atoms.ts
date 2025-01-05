@@ -3,8 +3,9 @@ import { CustomNode } from '@rabbit/design-system/components/flow/lib/types'
 import { getCreateNodes } from '@rabbit/design-system/components/flow/lib/add-create-nodes'
 import { Edge } from '@xyflow/react'
 import { generateEdges } from '@rabbit/design-system/components/flow/lib/generate-edges'
+import { atomWithLocalStorage } from '@rabbit/design-system/atoms/utility/atom-with-local-storage'
 
-export const nodesAtom = atom<CustomNode[]>([])
+export const nodesAtom = atomWithLocalStorage<CustomNode[]>('nodes', [])
 export const levelAtom = atom<number>(0)
 
 export const nodesWithAddsAtom = atom<CustomNode[]>((get) =>

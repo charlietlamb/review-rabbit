@@ -8,6 +8,7 @@ import ClientMultiSelect from '@rabbit/design-system/components/form/clients/cli
 import { useAtomValue } from 'jotai'
 import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/client/client-multi-select-atoms'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
+import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
 
 export default function AutomationForm({
   onSuccess,
@@ -70,9 +71,16 @@ export default function AutomationForm({
           setSelectedWorkflow={setSelectedWorkflow}
         />
         <WorkflowTimeSelect date={date} setDate={setDate} />
-        <Button variant="shine" className="w-full" onClick={handleSubmit}>
-          Create Automation
-        </Button>
+        <DangerDialog
+          title="Create Automation"
+          description="This will create an automation that will run on the selected clients."
+          variant="shine"
+          onClick={handleSubmit}
+        >
+          <Button variant="shine" className="w-full">
+            Create Automation
+          </Button>
+        </DangerDialog>
       </div>
     </FormProvider>
   )

@@ -33,9 +33,5 @@ export const automationsRelations = relations(automations, ({ one, many }) => ({
     fields: [automations.userId],
     references: [users.id],
   }),
-  workflow: one(workflows, {
-    fields: [automations.workflowId],
-    references: [workflows.id],
-  }),
   items: many(automationItems),
 }))

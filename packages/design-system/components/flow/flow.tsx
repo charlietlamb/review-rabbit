@@ -30,7 +30,13 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    setNodes(workflow ? [...initialNodes, ...getNodes(workflow)] : initialNodes)
+    if (workflow) {
+      setNodes([...initialNodes, ...getNodes(workflow)])
+    } else {
+      if (!nodesWithAdds.length) {
+        setNodes(initialNodes)
+      }
+    }
   }, [workflow])
 
   return (

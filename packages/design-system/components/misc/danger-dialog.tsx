@@ -13,11 +13,13 @@ import { useState } from 'react'
 export default function DangerDialog({
   title,
   description,
+  variant = 'destructive',
   onClick,
   children,
 }: {
   title: string
   description: string
+  variant?: 'destructive' | 'shine'
   onClick: () => void
   children: React.ReactNode
 }) {
@@ -39,7 +41,7 @@ export default function DangerDialog({
               onClick()
               setIsOpen(false)
             }}
-            variant="destructive"
+            variant={variant}
           >
             Confirm
           </Button>

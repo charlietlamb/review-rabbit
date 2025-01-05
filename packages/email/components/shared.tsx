@@ -9,10 +9,13 @@ import {
 } from '@react-email/components'
 import { getEnv } from '@rabbit/env'
 
-export function EmailHeader() {
+export function EmailHeader({ image }: { image?: string }) {
   return (
     <Img
-      src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/review-rabbit/logo.svg`}
+      src={
+        image ||
+        `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/review-rabbit/logo.svg`
+      }
       width="48"
       height="48"
       alt="Company Logo"
@@ -39,7 +42,7 @@ export function EmailButton({
   return (
     <Section className="text-center mb-6">
       <Button
-        className="bg-primary text-white font-bold rounded-md px-8 py-6"
+        className="bg-primary text-white font-bold rounded-md px-4 py-2"
         href={href}
       >
         {children}
@@ -59,10 +62,16 @@ export function EmailFooter() {
   )
 }
 
-export function EmailLayout({ children }: { children: React.ReactNode }) {
+export function EmailLayout({
+  children,
+  image,
+}: {
+  children: React.ReactNode
+  image?: string
+}) {
   return (
     <Container className="mx-auto py-5 px-5 max-w-xl">
-      <EmailHeader />
+      <EmailHeader image={image} />
       {children}
       <EmailFooter />
     </Container>

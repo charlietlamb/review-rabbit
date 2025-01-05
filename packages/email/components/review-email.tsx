@@ -1,26 +1,21 @@
+import React from 'react'
 import { Body, Head, Html, Preview } from '@react-email/components'
 import TailwindProvider from './tailwind-provider'
 import { EmailHeading, EmailButton, EmailMessage, EmailLayout } from './shared'
+import { EmailTaskType } from '@rabbit/trigger/types/email-type'
 
-function ReviewEmail({ name, url }: { name: string; url: string }) {
+function ReviewEmail({ email }: { email: EmailTaskType }) {
   return (
     <TailwindProvider>
       <Html>
         <Head />
-        <Preview>Review your email</Preview>
+        <Preview>{email.subject}</Preview>
         <Body className="bg-white font-sans">
-          <EmailLayout>
-            <EmailHeading>Review Your Email</EmailHeading>
-            <EmailMessage>Hello {name},</EmailMessage>
-            <EmailMessage>
-              Thank you for signing up! To complete your registration and start
-              using our service, please verify your email address by clicking
-              the button below:
-            </EmailMessage>
-            <EmailButton href={url}>Leave a Review</EmailButton>
-            <EmailMessage>
-              If you didn't create an account, you can safely ignore this email.
-            </EmailMessage>
+          <EmailLayout image={email.business.image || undefined}>
+            <EmailHeading>{email.subject}</EmailHeading>
+            <EmailMessage>Hello {email.client.name},</EmailMessage>
+            <EmailMessage>{email.content}</EmailMessage>
+            <EmailButton href={email.business.url}>Leave a Review</EmailButton>
           </EmailLayout>
         </Body>
       </Html>
@@ -28,6 +23,6 @@ function ReviewEmail({ name, url }: { name: string; url: string }) {
   )
 }
 
-export function getReviewEmail(name: string, url: string) {
-  return <ReviewEmail name={name} url={url} />
+export function getReviewEmail(email: EmailTaskType) {
+  return <ReviewEmail email={email} />
 }

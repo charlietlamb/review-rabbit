@@ -10,7 +10,7 @@ export async function sendEmail(
   component: React.ReactElement
 ) {
   const { data, error } = await resend.emails.send({
-    from: `review-rabbit <no-reply@${getEnv().NEXT_PUBLIC_DOMAIN}>`,
+    from: `no-reply@reviewrabbit.uk`,
     to: to,
     subject: subject,
     react: component,

@@ -16,7 +16,7 @@ export default function AuthHeader({ login }: { login: boolean }) {
         <ArrowRight />
       </Badge>
       <div className="flex flex-col items-center">
-        <h1 className="text-xl font-bold font-heading text-foreground">
+        <h1 className="text-xl font-bold font-heading text-center text-foreground">
           {login
             ? 'Sign in to review-rabbit'
             : 'Create your review-rabbit account'}

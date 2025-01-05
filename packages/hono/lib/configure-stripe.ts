@@ -25,7 +25,6 @@ export default async function configureStripe(app: AppOpenAPI) {
       const errorMessage = `⚠️  Webhook signature verification failed. ${
         err instanceof Error ? err.message : 'Internal server error'
       }`
-      console.log(errorMessage)
       return context.text(errorMessage, 400)
     }
   })

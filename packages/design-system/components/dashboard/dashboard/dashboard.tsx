@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 
 export default function Dashboard({ status }: { status?: string }) {
   useEffect(() => {
-    console.log('status', status)
     if (status === 'onboarding-completed') {
       toast('Welcome to Review Rabbit!', {
         description: "You've successfully connected your stripe account!",

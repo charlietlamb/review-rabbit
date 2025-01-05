@@ -59,7 +59,6 @@ export default function BusinessForm({
     if (image) {
       const uploadPresignedUrl = await getUploadPresignedUrl(imageUrl)
       if (uploadPresignedUrl) {
-        console.log(uploadPresignedUrl)
         await fetch(uploadPresignedUrl, {
           method: 'PUT',
           body: image,

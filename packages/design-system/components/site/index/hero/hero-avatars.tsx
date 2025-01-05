@@ -2,9 +2,6 @@ import { getEnv } from '@rabbit/env'
 import Image from 'next/image'
 
 export default function HeroAvatars() {
-  console.log(
-    `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar-1.jpg`
-  )
   return (
     <div className="flex items-center rounded-full border border-border bg-background p-1 shadow shadow-black/5">
       <div className="flex -space-x-1.5">

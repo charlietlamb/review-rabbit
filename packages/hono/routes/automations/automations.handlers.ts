@@ -143,7 +143,6 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
         const clientMap = new Map<string, Client>(
           matchingClients.map((client) => [client.id, client])
         )
-        console.log('creating automations...')
         for (const item of workflow.items) {
           if (!item.content.length) continue
 
@@ -167,7 +166,6 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
           for (const automationItem of automationItemsToInsert) {
             const client = clientMap.get(automationItem.clientId)
             if (!client) continue
-            console.log('triggering automation...')
             await triggerAutomation(automationItem, client, business)
           }
         }

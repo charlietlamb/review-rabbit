@@ -3,7 +3,7 @@
 import { Button } from '@rabbit/design-system/components/ui/button'
 import Flow from '@rabbit/design-system/components/flow/flow'
 import { toast } from 'sonner'
-import { useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { nodesAtom } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import getWorkflowData from '@rabbit/design-system/components/flow/lib/get-workflow-data'
 import { createWorkflow } from '@rabbit/design-system/actions/workflows/create-workflow'
@@ -11,6 +11,7 @@ import { HttpStatusCodes } from '@rabbit/http'
 import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { updateWorkflow } from '@rabbit/design-system/actions/workflows/update-workflow'
 import { useRouter } from 'next/navigation'
+import { initialNodes } from '@rabbit/design-system/components/flow/lib/flow-data'
 
 export default function WorkflowForm({
   title,
@@ -19,7 +20,7 @@ export default function WorkflowForm({
   title: string
   workflow?: WorkflowWithItems
 }) {
-  const nodes = useAtomValue(nodesAtom)
+  const [nodes, setNodes] = useAtom(nodesAtom)
   const router = useRouter()
   function validate() {
     if (!title) {
@@ -52,6 +53,7 @@ export default function WorkflowForm({
         toast.success('Workflow created!', {
           description: 'You can now use this workflow in your automations.',
         })
+        setNodes(initialNodes)
         router.push(`/dashboard/workflow/${id}`)
       } else {
         toast.error('Failed to create workflow', {

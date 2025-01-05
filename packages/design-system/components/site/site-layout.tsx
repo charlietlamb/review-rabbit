@@ -12,7 +12,6 @@ export default async function SiteLayout({
   children: React.ReactNode
 }) {
   const session = await authClient.getSession()
-  console.log(session)
   return (
     <div
       className={cn(

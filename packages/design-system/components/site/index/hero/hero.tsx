@@ -23,7 +23,7 @@ export function Hero() {
         x={-1}
         y={-1}
         className={cn(
-          '[mask-image:linear-gradient(to_bottom_left,hsl(var(--background)),transparent,transparent)] '
+          '[mask-image:linear-gradient(to_bottom_left,hsl(var(--background)),transparent,transparent)] min-h-screen'
         )}
       />
     </section>

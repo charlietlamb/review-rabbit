@@ -8,7 +8,6 @@ export async function updateClient(
   newClient: ClientFormData,
   id: string
 ): Promise<boolean> {
-  console.log('updating client', newClient, id)
   const response = await client.clients.update.$post(
     { json: { ...newClient, id } },
     await headersWithCookies()

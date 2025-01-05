@@ -7,14 +7,16 @@ import {
   DialogTrigger,
 } from '@rabbit/design-system/components/ui/dialog'
 import AutomationForm from './automation-form'
+import { useState } from 'react'
 
 export default function AutomationFormDialog({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const [open, setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -23,7 +25,7 @@ export default function AutomationFormDialog({
             Schedule an email, text or whatsapp message to your clients.
           </DialogDescription>
         </DialogHeader>
-        <AutomationForm />
+        <AutomationForm onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

@@ -23,10 +23,3 @@ export const automationsRelations = relations(automations, ({ one }) => ({
     references: [users.id],
   }),
 }))
-
-export const automationFormSchema = z.object({
-  clientId: z.string().uuid(),
-  workflowId: z.string().uuid(),
-})
-
-export type AutomationForm = z.infer<typeof automationFormSchema>

@@ -22,7 +22,12 @@ export default function WorkflowTimeSelect({
             defaultChecked={customTime}
             onCheckedChange={(checked) => setCustomTime(checked === true)}
           />
-          <Label htmlFor="custom-time">Custom time</Label>
+          <Label htmlFor="custom-time">
+            Custom time{' '}
+            <span className="text-muted-foreground">
+              (if unchecked automation will run now)
+            </span>
+          </Label>
         </div>
         {customTime && (
           <DateTimePickerState

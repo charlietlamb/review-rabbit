@@ -13,11 +13,9 @@ import { Client } from '@rabbit/database/schema/app/clients'
 export default function AutomationFormDialog({
   children,
   automation,
-  client,
 }: {
   children: React.ReactNode
-  automation?: Automation
-  client?: Client
+  automation?: AutomationWithItems
 }) {
   return (
     <Dialog>

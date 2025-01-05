@@ -19,15 +19,16 @@ import {
   clientsSelectOptionsAtom,
   clientsSelectSearchAtom,
   selectedClientsAtom,
-} from '@rabbit/design-system/atoms/dashboard/mediations/mediation-atoms'
+} from '@rabbit/design-system/atoms/dashboard/client/client-multi-select-atoms'
 import { useAtom } from 'jotai'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
-import { Client } from '@rabbit/database/schema/clients'
+import { Client } from '@rabbit/database/schema/app/clients'
 import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
 import { useState } from 'react'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { useFormContext } from '../form-context'
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 
 export default function ClientMultiSelect() {
   const [search, setSearch] = useAtom(clientsSelectSearchAtom)
@@ -36,7 +37,7 @@ export default function ClientMultiSelect() {
   const { attemptSubmitted } = useFormContext()
 
   const { items: options, isFetching } = useInfiniteQueryWithAtom({
-    queryKey: 'clients',
+    queryKey: QUERY_KEYS.CLIENT_MULTI_SELECT,
     fetchFn: fetchClients,
     atom: clientsSelectOptionsAtom,
     searchAtom: clientsSelectSearchAtom,

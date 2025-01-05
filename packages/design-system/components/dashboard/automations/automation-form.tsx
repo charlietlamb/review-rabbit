@@ -2,11 +2,14 @@ import { AutomationForm as AutomationFormType } from '@rabbit/database/schema/ap
 import { Client } from '@rabbit/database/schema/app/clients'
 import { FormProvider } from '@rabbit/design-system/components/form/form-context'
 import { useState } from 'react'
-import ClientSelectState from '@rabbit/design-system/components/form/clients/client-select-state'
 import WorkflowSelect from '@rabbit/design-system/components/form/workflow/workflow-select'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { toast } from 'sonner'
 import WorkflowTimeSelect from '@rabbit/design-system/components/form/workflow/workflow-time-select'
+import ClientMultiSelect from '@rabbit/design-system/components/form/clients/client-multi-select'
+import { useAtomValue } from 'jotai'
+import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/client/client-multi-select-atoms'
+import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 export default function AutomationForm({
   automation,
@@ -17,9 +20,7 @@ export default function AutomationForm({
   client?: Client
   onSuccess?: () => void
 }) {
-  const [selectedClient, setSelectedClient] = useState<Client | null>(
-    client || null
-  )
+  const selectedClients = useAtomValue(selectedClientsAtom)
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(
     automation?.workflowId || null
   )
@@ -27,7 +28,7 @@ export default function AutomationForm({
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
 
   function validate() {
-    if (!selectedClient) {
+    if (!selectedClients.length) {
       toast.error('You must select a client', {
         description: 'You must select a client to create an automation',
       })
@@ -48,7 +49,7 @@ export default function AutomationForm({
       description: 'This may take a few seconds...',
     })
     const status = await createAutomation({
-      clientId: selectedClient!.id,
+      clientIds: selectedClients.map((client) => client.id),
       workflowId: selectedWorkflow!,
     })
     if (status === 'success') {
@@ -67,10 +68,10 @@ export default function AutomationForm({
   return (
     <FormProvider value={{ attemptSubmitted }}>
       <div className="flex flex-col gap-4">
-        <ClientSelectState
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
-        />
+        <div className="flex flex-col gap-2">
+          <RequiredLabel htmlFor="clients">Clients</RequiredLabel>
+          <ClientMultiSelect />
+        </div>
         <WorkflowSelect
           selectedWorkflow={selectedWorkflow}
           setSelectedWorkflow={setSelectedWorkflow}

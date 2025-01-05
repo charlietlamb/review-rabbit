@@ -1,4 +1,4 @@
-import { logger, task, wait } from '@trigger.dev/sdk/v3'
+import { task, wait } from '@trigger.dev/sdk/v3'
 import { EmailTaskType } from '../types/email-type'
 import { getReviewEmail } from '@rabbit/email/components/review-email'
 import { sendEmail } from '@rabbit/email/actions/send-email'

@@ -1,5 +1,3 @@
-import { AutomationForm as AutomationFormType } from '@rabbit/database/schema/app/automations'
-import { Client } from '@rabbit/database/schema/app/clients'
 import { FormProvider } from '@rabbit/design-system/components/form/form-context'
 import { useState } from 'react'
 import WorkflowSelect from '@rabbit/design-system/components/form/workflow/workflow-select'
@@ -12,18 +10,12 @@ import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/clien
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 export default function AutomationForm({
-  automation,
-  client,
   onSuccess,
 }: {
-  automation?: AutomationFormType
-  client?: Client
   onSuccess?: () => void
 }) {
   const selectedClients = useAtomValue(selectedClientsAtom)
-  const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(
-    automation?.workflowId || null
-  )
+  const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null)
   const [date, setDate] = useState<Date | null>(null)
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
 
@@ -44,6 +36,7 @@ export default function AutomationForm({
   }
 
   async function handleSubmit() {
+    setAttemptSubmitted(true)
     if (!validate()) return
     toast.success('Creating automation...', {
       description: 'This may take a few seconds...',

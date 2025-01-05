@@ -17,7 +17,9 @@ export type AutomationWithItems = z.infer<typeof automationWithItems>
 
 export const automationFormSchema = z.object({
   clientIds: z.array(z.string().uuid()),
+  businessId: z.string().uuid(),
   workflowId: z.string().uuid(),
+  title: z.string(),
 })
 
 export type AutomationForm = z.infer<typeof automationFormSchema>

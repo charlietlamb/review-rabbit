@@ -1,19 +1,30 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '../auth/users'
 import { businesses } from './businesses'
+import { workflows } from './workflows'
 import { relations } from 'drizzle-orm'
-import { z } from 'zod'
+import { automationItems } from './automation-items'
+import { sql } from 'drizzle-orm'
+
 export const automations = pgTable('automations', {
-  id: text('id').primaryKey(),
-  userId: text('user_id').references(() => users.id),
-  businessId: text('business_id').references(() => businesses.id),
+  id: text('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`)
+    .notNull(),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
+  businessId: text('business_id')
+    .references(() => businesses.id)
+    .notNull(),
+  title: text('title').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
 export type Automation = typeof automations.$inferSelect
 
-export const automationsRelations = relations(automations, ({ one }) => ({
+export const automationsRelations = relations(automations, ({ one, many }) => ({
   business: one(businesses, {
     fields: [automations.businessId],
     references: [businesses.id],
@@ -22,4 +33,9 @@ export const automationsRelations = relations(automations, ({ one }) => ({
     fields: [automations.userId],
     references: [users.id],
   }),
+  workflow: one(workflows, {
+    fields: [automations.workflowId],
+    references: [workflows.id],
+  }),
+  items: many(automationItems),
 }))

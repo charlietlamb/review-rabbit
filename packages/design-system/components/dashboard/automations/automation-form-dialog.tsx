@@ -7,15 +7,11 @@ import {
   DialogTrigger,
 } from '@rabbit/design-system/components/ui/dialog'
 import AutomationForm from './automation-form'
-import { Automation } from '@rabbit/database/schema/app/automations'
-import { Client } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationFormDialog({
   children,
-  automation,
 }: {
   children: React.ReactNode
-  automation?: AutomationWithItems
 }) {
   return (
     <Dialog>
@@ -27,7 +23,7 @@ export default function AutomationFormDialog({
             Schedule an email, text or whatsapp message to your clients.
           </DialogDescription>
         </DialogHeader>
-        <AutomationForm automation={automation} client={client} />
+        <AutomationForm />
       </DialogContent>
     </Dialog>
   )

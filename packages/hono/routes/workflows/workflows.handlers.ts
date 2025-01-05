@@ -127,10 +127,13 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
     const { id, items, ...workflowData } = data as WorkflowForm & { id: string }
 
     await db.transaction(async (tx) => {
-      // Update workflow
+      // Update workflow with correct title field and updatedAt
       await tx
         .update(workflows)
-        .set({ ...workflowData, updatedAt: new Date() })
+        .set({
+          title: workflowData.title,
+          updatedAt: new Date(),
+        })
         .where(and(eq(workflows.id, id), eq(workflows.userId, user.id)))
 
       // Get existing workflow items
@@ -190,7 +193,7 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
         )
       }
 
-      // Update existing items
+      // Update existing items with all required fields including level
       for (const item of itemsToUpdate) {
         const { id: itemId, ...itemData } = item
         if (itemId) {
@@ -202,6 +205,7 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
               x: itemData.x,
               y: itemData.y,
               time: itemData.time,
+              level: itemData.level,
               updatedAt: new Date(),
             })
             .where(eq(workflowItems.id, itemId))

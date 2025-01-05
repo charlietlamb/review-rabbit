@@ -114,7 +114,7 @@ export default function ClientsTable() {
           <TableProvider
             columns={columns}
             data={clients}
-            className="border overflow-y-auto"
+            className="overflow-y-auto"
           >
             <TableHeader>
               {({ headerGroup }) => (

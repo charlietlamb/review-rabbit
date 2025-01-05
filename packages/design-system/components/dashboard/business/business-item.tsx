@@ -31,10 +31,9 @@ export default function BusinessItem({ business }: { business: Business }) {
     }
   }
   return (
-    <div className="flex items-center gap-4">
-      <Avatar className="rounded-lg size-16">
+    <div className="flex items-center border rounded-lg h-16 divide-x overflow-hidden">
+      <Avatar className="rounded-l-lg rounded-r-none h-full size-[62px]">
         <AvatarImage
-          className="rounded-lg"
           src={
             business.image
               ? `${getEnv().NEXT_PUBLIC_AWS_S3_URL}${business.image}`
@@ -45,7 +44,7 @@ export default function BusinessItem({ business }: { business: Business }) {
           {business.name.charAt(0)}
         </AvatarFallback>
       </Avatar>
-      <div className="flex flex-row items-center gap-2 border rounded-lg h-16 flex-grow p-2">
+      <div className="flex flex-row items-center gap-2 h-full flex-grow p-2">
         <div className="flex flex-col">
           <div className="font-bold">{business.name}</div>
           <div className="text-sm text-muted-foreground">{business.email}</div>

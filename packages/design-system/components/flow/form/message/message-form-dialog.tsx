@@ -31,10 +31,8 @@ export default function FlowFormDialog({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Flow Form</DialogTitle>
-          <DialogDescription>
-            This is a form for creating a flow.
-          </DialogDescription>
+          <DialogTitle>Send A Message</DialogTitle>
+          <DialogDescription>Send a message to a user.</DialogDescription>
         </DialogHeader>
         <MessageForm onSuccess={() => setOpen(false)} node={node} />
       </DialogContent>

@@ -16,6 +16,7 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { getNodes } from './lib/get-nodes'
+import ResetFlow from './reset-flow'
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
@@ -56,6 +57,7 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
       snapToGrid
       snapGrid={[20, 20]}
     >
+      <ResetFlow />
       <Background
         color={
           resolvedTheme === 'dark'

@@ -182,3 +182,6 @@ dist
 .dev.vars
 .wrangler
 dev.vars.local
+
+# Trigger
+.trigger

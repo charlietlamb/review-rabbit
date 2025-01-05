@@ -22,7 +22,7 @@ export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
     expiresAt,
   })
   const status = await sendEmail(
-    user.email,
+    [user.email],
     'Verify your email',
     getVerifyEmail(user.name, token)
   )

@@ -12,7 +12,6 @@ export const postStripeSession = async ({
   priceId: string
   plan: Plan
 }) => {
-  // const successUrl = `${env.NEXT_PUBLIC_API}/stripe/subscription-success?session_id={CHECKOUT_SESSION_ID}`
   const successUrl = `${getEnv().NEXT_PUBLIC_WEB}/welcome?plan=${plan}`
   const cancelUrl = `${getEnv().NEXT_PUBLIC_WEB}/cancel?session_id={CHECKOUT_SESSION_ID}`
 

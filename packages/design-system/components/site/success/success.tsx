@@ -2,7 +2,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 import Balancer from 'react-wrap-balancer'
-
+import { getEnv } from '@rabbit/env'
 export function Success() {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
@@ -44,7 +44,9 @@ export function Success() {
           asChild
           className="hover:bg-primary hover:text-primary-foreground transition-colors"
         >
-          <Link href="mailto:support@review-rabbit.co.uk">Need Help?</Link>
+          <Link href={`mailto:support@${getEnv().NEXT_PUBLIC_DOMAIN}`}>
+            Need Help?
+          </Link>
         </Button>
       </div>
     </div>

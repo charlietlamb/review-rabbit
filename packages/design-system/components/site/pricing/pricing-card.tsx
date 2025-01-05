@@ -14,7 +14,7 @@ import { checkout } from '@rabbit/design-system/actions/stripe/checkout'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@rabbit/design-system/lib/authClient'
-
+import { getEnv } from '@rabbit/env'
 function getFeaturesToShow(
   currentTier: PricingTier,
   pricingTiers: PricingTier[]
@@ -130,7 +130,10 @@ export function PricingCard({
           )}
           onClick={() => {
             if (isEnterprise) {
-              window.open('mailto:contact@review-rabbit.co.uk', '_blank')
+              window.open(
+                `mailto:contact@${getEnv().NEXT_PUBLIC_DOMAIN}`,
+                '_blank'
+              )
             } else {
               if (session?.user) {
                 checkout(tier.priceId, tier.plan)

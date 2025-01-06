@@ -4,6 +4,11 @@ import type { Transition, Variants } from 'motion/react'
 import { motion, useAnimation } from 'motion/react'
 import { cn } from '@rabbit/design-system/lib/utils'
 import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@rabbit/design-system/components/ui/tooltip'
+import {
   iconWrapClassName,
   iconClassName,
   iconTextClassName,
@@ -46,46 +51,57 @@ const ClockIcon = () => {
   const controls = useAnimation()
   const { open } = useSidebar()
 
+  const iconSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={iconClassName}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <motion.line
+        x1="12"
+        y1="12"
+        x2="12"
+        y2="6"
+        variants={handVariants}
+        animate={controls}
+        initial="normal"
+        transition={handTransition}
+      />
+      <motion.line
+        x1="12"
+        y1="12"
+        x2="16"
+        y2="12"
+        variants={minuteHandVariants}
+        animate={controls}
+        initial="normal"
+        transition={minuteHandTransition}
+      />
+    </svg>
+  )
+
   return (
     <div
       className={iconWrapClassName}
       onMouseEnter={() => controls.start('animate')}
       onMouseLeave={() => controls.start('normal')}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={iconClassName}
-      >
-        <circle cx="12" cy="12" r="10" />
-        <motion.line
-          x1="12"
-          y1="12"
-          x2="12"
-          y2="6"
-          variants={handVariants}
-          animate={controls}
-          initial="normal"
-          transition={handTransition}
-        />
-        <motion.line
-          x1="12"
-          y1="12"
-          x2="16"
-          y2="12"
-          variants={minuteHandVariants}
-          animate={controls}
-          initial="normal"
-          transition={minuteHandTransition}
-        />
-      </svg>
+      {!open ? (
+        <Tooltip>
+          <TooltipTrigger>{iconSvg}</TooltipTrigger>
+          <TooltipContent>Schedule</TooltipContent>
+        </Tooltip>
+      ) : (
+        iconSvg
+      )}
       <p className={cn(iconTextClassName, !open && 'hidden')}>Schedule</p>
     </div>
   )

@@ -1,5 +1,5 @@
-import { Button } from '@rabbit/design-system/components/ui/button'
 import DashboardContentHeader from '../header/dashboard-content-header'
+import AutomationsTable from './automations-table'
 
 export default function Automations() {
   return (
@@ -8,7 +8,9 @@ export default function Automations() {
         title="Automations"
         subtitle="Manage and schedule your automations"
       />
-      <div />
+      <div className="p-4 flex-grow">
+        <AutomationsTable />
+      </div>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { createSelectSchema } from 'drizzle-zod'
 import { automations } from '../schema/app/automations'
 import { automationItems } from '../schema/app/automation-items'
+import { businessSelectSchema } from '../schema/app/businesses'
 
 export const automationItem = createSelectSchema(automationItems)
 export type AutomationItem = typeof automationItem
@@ -11,6 +12,7 @@ export type Automation = typeof automation
 
 export const automationWithItems = automation.extend({
   items: z.array(automationItem),
+  business: businessSelectSchema,
 })
 
 export type AutomationWithItems = z.infer<typeof automationWithItems>

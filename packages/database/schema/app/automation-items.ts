@@ -2,6 +2,7 @@ import { pgTable, text, boolean, timestamp, integer } from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
 import { automations } from './automations'
 import { clients } from './clients'
+import { relations } from 'drizzle-orm'
 
 export const automationItems = pgTable('automation_items', {
   id: text('id')
@@ -27,3 +28,13 @@ export const automationItems = pgTable('automation_items', {
 
 export type AutomationItem = typeof automationItems.$inferSelect
 export type AutomationItemInsert = typeof automationItems.$inferInsert
+
+export const automationItemsRelations = relations(
+  automationItems,
+  ({ one }) => ({
+    automation: one(automations, {
+      fields: [automationItems.automationId],
+      references: [automations.id],
+    }),
+  })
+)

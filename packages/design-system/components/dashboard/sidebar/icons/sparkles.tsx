@@ -1,103 +1,84 @@
 'use client'
 
-import type { Variants } from 'motion/react'
+import type { Transition, Variants } from 'motion/react'
 import { motion, useAnimation } from 'motion/react'
 import {
   iconClassName,
   iconTextClassName,
   iconWrapClassName,
 } from './class-names'
-import { cn } from '@rabbit/design-system/lib/utils'
 import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@rabbit/design-system/components/ui/tooltip'
+import { cn } from '@rabbit/design-system/lib/utils'
 
-const sparkleVariants: Variants = {
-  initial: {
-    y: 0,
-    fill: 'none',
-  },
-  hover: {
-    y: [0, -1, 0, 0],
-    fill: 'currentColor',
-    transition: {
-      duration: 1,
-      bounce: 0.3,
-    },
-  },
+const transition: Transition = {
+  duration: 0.6,
+  ease: [0.42, 0, 0.58, 1],
 }
 
-const starVariants: Variants = {
-  initial: {
-    opacity: 1,
-    x: 0,
+const variants: Variants = {
+  normal: {
+    scale: 1,
+    rotate: 0,
     y: 0,
   },
-  blink: () => ({
-    opacity: [0, 1, 0, 0, 0, 0, 1],
+  animate: {
+    scale: [1, 1.04, 1],
+    rotate: [0, -8, 8, -8, 0],
+    y: [0, -2, 0],
     transition: {
-      duration: 2,
-      type: 'spring',
-      stiffness: 70,
-      damping: 10,
-      mass: 0.4,
+      duration: 0.6,
+      ease: 'easeInOut',
+      times: [0, 0.2, 0.5, 0.8, 1],
     },
-  }),
+  },
 }
 
 const SparklesIcon = () => {
-  const starControls = useAnimation()
-  const sparkleControls = useAnimation()
+  const controls = useAnimation()
   const { open } = useSidebar()
+
+  const iconSvg = (
+    <motion.svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      variants={variants}
+      animate={controls}
+      className={iconClassName}
+    >
+      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+      <path d="M5 3v4" />
+      <path d="M19 17v4" />
+      <path d="M3 5h4" />
+      <path d="M17 19h4" />
+    </motion.svg>
+  )
 
   return (
     <div
       className={iconWrapClassName}
-      onMouseEnter={() => {
-        sparkleControls.start('hover')
-        starControls.start('blink', { delay: 1 })
-      }}
-      onMouseLeave={() => {
-        sparkleControls.start('initial')
-        starControls.start('initial')
-      }}
+      onMouseEnter={() => controls.start('animate')}
+      onMouseLeave={() => controls.start('normal')}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={iconClassName}
-      >
-        <motion.path
-          d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-          variants={sparkleVariants}
-          animate={sparkleControls}
-        />
-        <motion.path
-          d="M20 3v4"
-          variants={starVariants}
-          animate={starControls}
-        />
-        <motion.path
-          d="M22 5h-4"
-          variants={starVariants}
-          animate={starControls}
-        />
-        <motion.path
-          d="M4 17v2"
-          variants={starVariants}
-          animate={starControls}
-        />
-        <motion.path
-          d="M5 18H3"
-          variants={starVariants}
-          animate={starControls}
-        />
-      </svg>
+      {!open ? (
+        <Tooltip>
+          <TooltipTrigger>{iconSvg}</TooltipTrigger>
+          <TooltipContent>Media</TooltipContent>
+        </Tooltip>
+      ) : (
+        iconSvg
+      )}
       <p className={cn(iconTextClassName, !open && 'hidden')}>Media</p>
     </div>
   )

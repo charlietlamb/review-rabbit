@@ -5,7 +5,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { toast } from 'sonner'
 import WorkflowTimeSelect from '@rabbit/design-system/components/form/workflow/workflow-time-select'
 import ClientMultiSelect from '@rabbit/design-system/components/form/clients/client-multi-select'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/client/client-multi-select-atoms'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
@@ -20,7 +20,7 @@ export default function AutomationForm({
 }: {
   onSuccess?: () => void
 }) {
-  const selectedClients = useAtomValue(selectedClientsAtom)
+  const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
   const businessId = useAtomValue(businessIdAtom)
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null)
   const [date, setDate] = useState<Date | null>(null)
@@ -72,6 +72,7 @@ export default function AutomationForm({
         description:
           'Initial automations will run now. You can edit future automations in the automations page.',
       })
+      setSelectedClients([])
       onSuccess?.()
     } else {
       toast.error('Failed to create automation', {

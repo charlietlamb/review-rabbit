@@ -12,19 +12,12 @@ import { AppRouteHandler } from '../../lib/types'
 import {
   GetAutomationsRoute,
   CreateAutomationRoute,
-  UpdateAutomationRoute,
-  DeleteAutomationRoute,
   GetAutomationByIdRoute,
 } from './automations.routes'
 import { eq, sql, and, or } from 'drizzle-orm'
-import type {
-  AutomationForm,
-  AutomationWithItems,
-} from '@rabbit/database/types/automation-types'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
-import { triggerAutomation } from '@rabbit/trigger'
-import type { Client } from '@rabbit/database/schema/app/clients'
+import { triggerWorkflow } from '@rabbit/trigger'
 
 export const getAutomations: AppRouteHandler<GetAutomationsRoute> = async (
   c
@@ -140,9 +133,6 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
           throw new Error('Some clients not found')
         }
 
-        const clientMap = new Map<string, Client>(
-          matchingClients.map((client) => [client.id, client])
-        )
         for (const item of workflow.items) {
           if (!item.content.length) continue
 
@@ -163,11 +153,7 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
 
           await tx.insert(automationItems).values(automationItemsToInsert)
 
-          for (const automationItem of automationItemsToInsert) {
-            const client = clientMap.get(automationItem.clientId)
-            if (!client) continue
-            await triggerAutomation(automationItem, client, business)
-          }
+          triggerWorkflow(item, matchingClients, business)
         }
       }
     })

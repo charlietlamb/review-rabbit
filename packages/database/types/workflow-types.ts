@@ -4,10 +4,10 @@ import { workflows } from '../schema/app/workflows'
 import { workflowItems } from '../schema/app/workflow-items'
 
 export const workflowItem = createSelectSchema(workflowItems)
-export type WorkflowItem = typeof workflowItem
+export type WorkflowItem = typeof workflowItems.$inferSelect
 
 export const workflow = createSelectSchema(workflows)
-export type Workflow = typeof workflow
+export type Workflow = typeof workflows.$inferSelect
 
 export const workflowWithItems = workflow.extend({
   items: z.array(workflowItem),
@@ -23,7 +23,6 @@ export const workflowFormSchema = z.object({
         id: true,
         content: true,
         type: true,
-        method: true,
         x: true,
         y: true,
         time: true,

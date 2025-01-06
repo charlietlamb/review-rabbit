@@ -4,4 +4,4 @@ export const TASK_IDS = {
   WHATSAPP: 'send-whatsapp',
 }
 
-export const TASK_TTL = 1
+export const TASK_TTL = 10 // 10 seconds

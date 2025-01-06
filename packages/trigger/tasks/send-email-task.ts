@@ -9,10 +9,6 @@ export const sendEmailTask = task({
   run: async (payload: EmailTaskType, { ctx }) => {
     const { to, subject, delayInMinutes } = payload
 
-    if (delayInMinutes) {
-      await wait.for({ minutes: delayInMinutes })
-    }
-
     const component = getReviewEmail(payload)
 
     const status = await sendEmail(to, subject, component)

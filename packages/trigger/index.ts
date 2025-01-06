@@ -9,8 +9,6 @@ export function triggerAutomation(
   client: Client,
   business: Business
 ) {
-  console.log('triggering automation...')
-  console.log(automationItem)
   switch (automationItem.method) {
     case MESSAGE_TYPES.EMAIL:
       sendEmailTask.trigger(
@@ -23,7 +21,7 @@ export function triggerAutomation(
           business,
         },
         {
-          ttl: automationItem.delayInMinutes,
+          delay: `${automationItem.delayInMinutes}m`,
         }
       )
       break

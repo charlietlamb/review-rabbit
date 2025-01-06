@@ -11,6 +11,10 @@ import {
   nodesWithAddsAtom,
   edgesAtom,
   nodesAtom,
+  manageNodesAtom,
+  manageNodesWithAddsAtom,
+  manageEdgesAtom,
+  isCreateModeAtom,
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
@@ -26,24 +30,30 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
 
 export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
   const setNodes = useSetAtom(nodesAtom)
+  const setManageNodes = useSetAtom(manageNodesAtom)
   const nodesWithAdds = useAtomValue(nodesWithAddsAtom)
+  const manageNodesWithAdds = useAtomValue(manageNodesWithAddsAtom)
   const edges = useAtomValue(edgesAtom)
+  const manageEdges = useAtomValue(manageEdgesAtom)
+  const setIsCreateMode = useSetAtom(isCreateModeAtom)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
+    console.log('workflow', workflow)
     if (workflow) {
-      setNodes([...initialNodes, ...getNodes(workflow)])
+      setManageNodes([...initialNodes, ...getNodes(workflow)])
     } else {
       if (!nodesWithAdds.length) {
         setNodes(initialNodes)
       }
     }
+    setIsCreateMode(workflow ? false : true)
   }, [workflow])
 
   return (
     <ReactFlow
-      nodes={nodesWithAdds}
-      edges={edges}
+      nodes={workflow ? manageNodesWithAdds : nodesWithAdds}
+      edges={workflow ? manageEdges : edges}
       nodeTypes={nodeTypes}
       defaultEdgeOptions={defaultEdgeOptions}
       nodesDraggable={false}

@@ -12,7 +12,9 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { useAtomValue, useSetAtom } from 'jotai'
 import {
   levelAtom,
+  manageNodesAtom,
   nodesAtom,
+  isCreateModeAtom,
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'sonner'
@@ -36,6 +38,8 @@ export default function MessageForm({
   const level = useAtomValue(levelAtom)
   const nodes = useAtomValue(nodesAtom)
   const setNodes = useSetAtom(nodesAtom)
+  const setManageNodes = useSetAtom(manageNodesAtom)
+  const isCreateMode = useAtomValue(isCreateModeAtom)
   const [content, setContent] = useState(data?.content || '')
 
   function validate() {
@@ -61,35 +65,66 @@ export default function MessageForm({
     if (validate()) {
       if (!node) {
         const position = calculatePosition()
-        setNodes((nodes) => [
-          ...nodes,
-          {
-            id: uuidv4(),
-            type: NODE_TYPES.MESSAGE,
-            data: {
-              content,
-              messageType: type,
-              label: 'Message',
-              level,
+        if (isCreateMode) {
+          setNodes((nodes) => [
+            ...nodes,
+            {
+              id: uuidv4(),
               type: NODE_TYPES.MESSAGE,
+              data: {
+                content,
+                messageType: type,
+                label: 'Message',
+                level,
+                type: NODE_TYPES.MESSAGE,
+              },
+              position,
             },
-            position,
-          },
-        ])
+          ])
+        } else {
+          setManageNodes((nodes) => [
+            ...nodes,
+            {
+              id: uuidv4(),
+              type: NODE_TYPES.MESSAGE,
+              data: {
+                content,
+                messageType: type,
+                label: 'Message',
+                level,
+                type: NODE_TYPES.MESSAGE,
+              },
+              position,
+            },
+          ])
+        }
         toast.success('Successfully added message', {
           description: 'Message added to the flow',
         })
       } else {
-        setNodes((nodes) =>
-          nodes.map((oldNode) =>
-            oldNode.id === node?.id
-              ? {
-                  ...oldNode,
-                  data: { ...oldNode.data, content, messageType: type },
-                }
-              : oldNode
+        if (isCreateMode) {
+          setNodes((nodes) =>
+            nodes.map((oldNode) =>
+              oldNode.id === node?.id
+                ? {
+                    ...oldNode,
+                    data: { ...oldNode.data, content, messageType: type },
+                  }
+                : oldNode
+            )
           )
-        )
+        } else {
+          setManageNodes((nodes) =>
+            nodes.map((oldNode) =>
+              oldNode.id === node?.id
+                ? {
+                    ...oldNode,
+                    data: { ...oldNode.data, content, messageType: type },
+                  }
+                : oldNode
+            )
+          )
+        }
       }
       onSuccess?.()
     }

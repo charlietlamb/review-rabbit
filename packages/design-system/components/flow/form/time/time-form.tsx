@@ -6,6 +6,8 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import {
   levelAtom,
   nodesAtom,
+  manageNodesAtom,
+  isCreateModeAtom,
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'sonner'
@@ -34,6 +36,8 @@ export default function TimeForm({
   const level = useAtomValue(levelAtom)
   const nodes = useAtomValue(nodesAtom)
   const setNodes = useSetAtom(nodesAtom)
+  const setManageNodes = useSetAtom(manageNodesAtom)
+  const isCreateMode = useAtomValue(isCreateModeAtom)
   const [time, setTime] = useState<ExtendedTimeValue | null>(
     data?.delay
       ? {
@@ -99,16 +103,30 @@ export default function TimeForm({
         position,
       }
 
-      setNodes((currentNodes) => [...currentNodes, newNode])
+      if (isCreateMode) {
+        setNodes((currentNodes) => [...currentNodes, newNode])
+      } else {
+        setManageNodes((currentNodes) => [...currentNodes, newNode])
+      }
       toast.success('Successfully added time delay')
     } else {
-      setNodes((currentNodes) =>
-        currentNodes.map((oldNode) =>
-          oldNode.id === node?.id
-            ? { ...oldNode, data: { ...oldNode.data, delay: totalMinutes } }
-            : oldNode
+      if (isCreateMode) {
+        setNodes((currentNodes) =>
+          currentNodes.map((oldNode) =>
+            oldNode.id === node?.id
+              ? { ...oldNode, data: { ...oldNode.data, delay: totalMinutes } }
+              : oldNode
+          )
         )
-      )
+      } else {
+        setManageNodes((currentNodes) =>
+          currentNodes.map((oldNode) =>
+            oldNode.id === node?.id
+              ? { ...oldNode, data: { ...oldNode.data, delay: totalMinutes } }
+              : oldNode
+          )
+        )
+      }
     }
     onSuccess?.()
   }

@@ -20,8 +20,14 @@ import {
 import type { ColumnDef } from '@tanstack/react-table'
 import InfiniteScroll from '@rabbit/design-system/components/misc/infinite-scroll'
 import { cn } from '@rabbit/design-system/lib/utils'
-import { WorkflowIcon } from 'lucide-react'
+import { WorkflowIcon, ExternalLink } from 'lucide-react'
 import { Button } from '@rabbit/design-system/components/ui/button'
+import { useRouter } from 'next/navigation'
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@rabbit/design-system/components/ui/tooltip'
 
 export default function WorkflowsTable() {
   const {
@@ -36,8 +42,9 @@ export default function WorkflowsTable() {
     atom: workflowsAtoms,
     searchAtom: workflowsSearchAtom,
     filterFn: (workflow, search) =>
-      workflow.name.toLowerCase().includes(search.toLowerCase()),
+      workflow.title.toLowerCase().includes(search.toLowerCase()),
   })
+  const router = useRouter()
 
   if (isLoading) {
     return (
@@ -49,9 +56,9 @@ export default function WorkflowsTable() {
 
   const columns: ColumnDef<WorkflowWithItems>[] = [
     {
-      accessorKey: 'name',
+      accessorKey: 'title',
       header: ({ column }) => (
-        <TableColumnHeader column={column} title="Name" />
+        <TableColumnHeader column={column} title="Title" />
       ),
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
@@ -63,11 +70,27 @@ export default function WorkflowsTable() {
         </div>
       ),
     },
-    // {
-    //   accessorKey: 'edit',
-    //   header: () => null,
-    //   cell: ({ row }) => <ClientsTableDropdown client={row.original} />,
-    // },
+    {
+      accessorKey: 'edit',
+      header: () => null,
+      cell: ({ row }) => (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              className="ml-auto size-8 p-2"
+              size="icon"
+              onClick={() =>
+                router.push(`/dashboard/workflow/${row.original.id}`)
+              }
+            >
+              <ExternalLink className="size-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>View Workflow</TooltipContent>
+        </Tooltip>
+      ),
+    },
   ]
 
   return (
@@ -104,14 +127,14 @@ export default function WorkflowsTable() {
             </TableHeader>
             <TableBody>
               {({ row }) => (
-                <TableRow key={row.id} row={row} className="cursor-pointer">
+                <TableRow key={row.id} row={row} className="w-full">
                   {({ cell }) => (
                     <TableCell
                       key={cell.id}
                       cell={cell}
                       className={cn(
-                        cell.column.id === 'disconnectButton' &&
-                          'justify-end flex items-center'
+                        cell.column.id === 'edit' &&
+                          'justify-end flex items-center w-full'
                       )}
                     />
                   )}

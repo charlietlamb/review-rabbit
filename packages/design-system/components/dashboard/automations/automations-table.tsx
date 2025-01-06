@@ -28,6 +28,7 @@ import {
   TooltipContent,
 } from '@rabbit/design-system/components/ui/tooltip'
 import { getAutomations } from '@rabbit/design-system/actions/automations/get-automations'
+import { Badge } from '@rabbit/design-system/components/ui/badge'
 
 export default function AutomationsTable() {
   const {
@@ -69,6 +70,35 @@ export default function AutomationsTable() {
           </div>
         </div>
       ),
+    },
+    {
+      accessorKey: 'status',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Status" />
+      ),
+      cell: ({ row }) => {
+        const status = row.original.items.some(
+          (item) => item.status === 'failed'
+        )
+          ? 'Failed'
+          : row.original.items.some((item) => item.status === 'pending')
+            ? 'Pending'
+            : 'Success'
+        return (
+          <div className="flex items-center gap-2">
+            <div>
+              <Badge
+                className="small"
+                variant={
+                  status.toLowerCase() as 'success' | 'pending' | 'failed'
+                }
+              >
+                <span className="font-medium font-heading">{status}</span>
+              </Badge>
+            </div>
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'edit',

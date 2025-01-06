@@ -22,6 +22,7 @@ export const automationItems = pgTable('automation_items', {
   clicked: boolean('clicked').notNull().default(false),
   delayInMinutes: integer('delay_in_minutes').notNull(),
   time: timestamp('time').notNull(),
+  status: text('status').notNull().default('pending'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })

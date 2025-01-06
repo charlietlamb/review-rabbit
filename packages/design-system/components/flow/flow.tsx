@@ -39,7 +39,6 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    console.log('workflow', workflow)
     if (workflow) {
       setManageNodes([...initialNodes, ...getNodes(workflow)])
     } else {

@@ -65,63 +65,41 @@ export default function MessageForm({
     if (validate()) {
       if (!node) {
         const position = calculatePosition()
+        const newNode = {
+          id: uuidv4(),
+          type: NODE_TYPES.MESSAGE,
+          data: {
+            content,
+            messageType: type,
+            label: 'Message',
+            level,
+            type: NODE_TYPES.MESSAGE,
+          },
+          position,
+        }
         if (isCreateMode) {
-          setNodes((nodes) => [
-            ...nodes,
-            {
-              id: uuidv4(),
-              type: NODE_TYPES.MESSAGE,
-              data: {
-                content,
-                messageType: type,
-                label: 'Message',
-                level,
-                type: NODE_TYPES.MESSAGE,
-              },
-              position,
-            },
-          ])
+          setNodes((nodes) => [...nodes, newNode])
         } else {
-          setManageNodes((nodes) => [
-            ...nodes,
-            {
-              id: uuidv4(),
-              type: NODE_TYPES.MESSAGE,
-              data: {
-                content,
-                messageType: type,
-                label: 'Message',
-                level,
-                type: NODE_TYPES.MESSAGE,
-              },
-              position,
-            },
-          ])
+          setManageNodes((nodes) => [...nodes, newNode])
         }
         toast.success('Successfully added message', {
           description: 'Message added to the flow',
         })
       } else {
+        const newNode = {
+          ...node,
+          data: { ...node.data, content, messageType: type },
+        }
         if (isCreateMode) {
           setNodes((nodes) =>
             nodes.map((oldNode) =>
-              oldNode.id === node?.id
-                ? {
-                    ...oldNode,
-                    data: { ...oldNode.data, content, messageType: type },
-                  }
-                : oldNode
+              oldNode.id === node?.id ? newNode : oldNode
             )
           )
         } else {
           setManageNodes((nodes) =>
             nodes.map((oldNode) =>
-              oldNode.id === node?.id
-                ? {
-                    ...oldNode,
-                    data: { ...oldNode.data, content, messageType: type },
-                  }
-                : oldNode
+              oldNode.id === node?.id ? newNode : oldNode
             )
           )
         }

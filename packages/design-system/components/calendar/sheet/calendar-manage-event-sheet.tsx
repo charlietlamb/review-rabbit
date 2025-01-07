@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 
 export default function CalendarManageEventSheet() {
-  return
+  return null
   // const { manageEventSheetOpen, setManageEventSheetOpen, selectedEvent } =
   //   useCalendarContext()
 

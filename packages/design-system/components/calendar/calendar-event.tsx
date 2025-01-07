@@ -85,7 +85,7 @@ export default function CalendarEvent({
     <div
       key={event.id}
       className={cn(
-        `px-3 py-1.5 rounded-md truncate cursor-pointer transition-all duration-300 bg-${event.color}-500/10 hover:bg-${event.color}-500/20 border border-${event.color}-500`,
+        `px-3 py-1.5 rounded-md truncate cursor-pointer transition-all duration-300 bg-primary/10 hover:bg-primary/20 border border-primary`,
         !month && 'absolute',
         className
       )}
@@ -98,7 +98,7 @@ export default function CalendarEvent({
     >
       <div
         className={cn(
-          `flex flex-col w-full text-${event.color}-500`,
+          `flex flex-col w-full text-primary`,
           month && 'flex-row items-center justify-between'
         )}
       >

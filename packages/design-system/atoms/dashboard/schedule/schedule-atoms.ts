@@ -22,7 +22,6 @@ export const scheduleEventItemsAtom = atom<CalendarEvent[]>((get) => {
       title: automationItem.content,
       start,
       end,
-      color: 'blue',
     }
   })
   return events

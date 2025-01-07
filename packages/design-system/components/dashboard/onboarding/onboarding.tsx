@@ -1,6 +1,6 @@
 'use client'
 
-import { User } from '@rabbit/database/schema/users'
+import { User } from '@rabbit/database/schema/app/users'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { useState } from 'react'

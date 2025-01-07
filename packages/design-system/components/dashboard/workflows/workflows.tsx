@@ -1,22 +1,21 @@
-import DashboardContentHeader from '../header/dashboard-content-header'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import WorkflowsTable from './workflows-table'
+import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
 
 export default function Workflows() {
   return (
-    <div className="flex flex-col divide-y flex-grow">
-      <DashboardContentHeader
-        title="Workflows"
-        subtitle="Manage your workflows"
-        right={
-          <Button className="ml-auto" variant="shine">
-            Create Workflow
-          </Button>
-        }
-      />
-      <div>
+    <DashboardWrap
+      title="Workflows"
+      subtitle="Manage your workflows"
+      right={
+        <Button className="ml-auto" variant="shine">
+          Create Workflow
+        </Button>
+      }
+    >
+      <div className="flex-grow">
         <WorkflowsTable />
       </div>
-    </div>
+    </DashboardWrap>
   )
 }

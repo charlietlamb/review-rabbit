@@ -1,6 +1,5 @@
 'use client'
 
-import DashboardContentHeader from '../header/dashboard-content-header'
 import { clientsSearchAtom } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
 import ClientsTable from './clients-table'
 import ClientsNewDialog from './clients-new-dialog'

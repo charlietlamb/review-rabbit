@@ -25,10 +25,11 @@ import InfiniteScroll from '@rabbit/design-system/components/misc/infinite-scrol
 import { Users } from 'lucide-react'
 import ClientsTableDropdown from './clients-table-dropdown'
 import { Button } from '@rabbit/design-system/components/ui/button'
-import Spinner from '@rabbit/design-system/components/misc/spinner'
 import ClientAvatar from './client-avatar'
 import { useRouter } from 'next/navigation'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+import TableLoading from '@rabbit/design-system/components/dashboard/table/table-loading'
+
 export default function ClientsTable() {
   const {
     items: clients,
@@ -48,11 +49,7 @@ export default function ClientsTable() {
   const router = useRouter()
 
   if (isLoading && !clients.length) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Spinner />
-      </div>
-    )
+    return <TableLoading />
   }
 
   const columns: ColumnDef<Client>[] = [
@@ -63,7 +60,7 @@ export default function ClientsTable() {
       ),
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <ClientAvatar client={row.original} />
+          <ClientAvatar className="text-foreground" client={row.original} />
           <div className="flex flex-col"></div>
           <div>
             <span className="font-medium font-heading">
@@ -82,7 +79,7 @@ export default function ClientsTable() {
         <TableColumnHeader column={column} title="Phone Number" />
       ),
       cell: ({ row }) => (
-        <p className="text-muted-foreground">{row.original.phoneNumber}</p>
+        <p className="text-muted-foreground">{row.original.phone}</p>
       ),
     },
     {

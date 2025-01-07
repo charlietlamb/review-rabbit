@@ -14,7 +14,7 @@ export default function Workflows() {
           </Button>
         }
       />
-      <div className="p-4">
+      <div>
         <WorkflowsTable />
       </div>
     </div>

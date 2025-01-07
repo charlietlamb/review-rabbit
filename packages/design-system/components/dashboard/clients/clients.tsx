@@ -22,7 +22,7 @@ export default function Clients() {
           <Button variant="shine">Add New Client</Button>
         </ClientsNewDialog>
       </div>
-      <div className="p-4 overflow-y-auto flex-grow">
+      <div className="overflow-y-auto flex-grow">
         <ClientsTable />
       </div>
     </div>

@@ -16,7 +16,7 @@ export function triggerWorkflow(
         clients.map((client) => ({
           payload: {
             to: [client.email],
-            subject: workflowItem.content,
+            subject: 'placeholder subject',
             delayInMinutes: workflowItem.time,
             content: workflowItem.content,
             client,

@@ -8,7 +8,7 @@ export default function Automations() {
         title="Automations"
         subtitle="Manage and schedule your automations"
       />
-      <div className="p-4 flex-grow">
+      <div className="flex-grow">
         <AutomationsTable />
       </div>
     </div>

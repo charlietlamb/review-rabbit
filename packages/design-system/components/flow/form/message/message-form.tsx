@@ -120,7 +120,7 @@ export default function MessageForm({
         required
       />
       <Button variant="shine" className="w-full" onClick={handleSubmit}>
-        Add Action
+        {isCreateMode ? 'Add Message' : 'Update Message'}
       </Button>
     </FormProvider>
   )

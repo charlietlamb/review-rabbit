@@ -23,6 +23,7 @@ export const workflowFormSchema = z.object({
         id: true,
         content: true,
         type: true,
+        method: true,
         x: true,
         y: true,
         time: true,

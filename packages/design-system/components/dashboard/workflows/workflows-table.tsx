@@ -63,9 +63,7 @@ export default function WorkflowsTable() {
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
           <div>
-            <span className="font-medium font-heading">
-              {row.original.title}
-            </span>
+            <span>{row.original.title}</span>
           </div>
         </div>
       ),
@@ -104,7 +102,7 @@ export default function WorkflowsTable() {
           <TableProvider
             columns={columns}
             data={workflows}
-            className="border overflow-y-auto"
+            className="overflow-y-auto"
           >
             <TableHeader>
               {({ headerGroup }) => (
@@ -133,8 +131,9 @@ export default function WorkflowsTable() {
                       key={cell.id}
                       cell={cell}
                       className={cn(
-                        cell.column.id === 'edit' &&
-                          'justify-end flex items-center w-full'
+                        cell.column.id === 'edit'
+                          ? 'justify-end flex items-center w-full'
+                          : 'w-full'
                       )}
                     />
                   )}

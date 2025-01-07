@@ -23,7 +23,7 @@ export default function Business() {
           <Button variant="shine">Add New Business</Button>
         </BusinessFormDialog>
       </div>
-      <div className="p-4 overflow-y-auto flex-grow">
+      <div className="overflow-y-auto flex-grow">
         <BusinessTable />
       </div>
     </div>

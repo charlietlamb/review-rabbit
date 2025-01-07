@@ -64,9 +64,7 @@ export default function AutomationsTable() {
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
           <div>
-            <span className="font-medium font-heading">
-              {row.original.title}
-            </span>
+            <span>{row.original.title}</span>
           </div>
         </div>
       ),
@@ -85,18 +83,11 @@ export default function AutomationsTable() {
             ? 'Pending'
             : 'Success'
         return (
-          <div className="flex items-center gap-2">
-            <div>
-              <Badge
-                className="small"
-                variant={
-                  status.toLowerCase() as 'success' | 'pending' | 'failed'
-                }
-              >
-                <span className="font-medium font-heading">{status}</span>
-              </Badge>
-            </div>
-          </div>
+          <Badge
+            variant={status.toLowerCase() as 'success' | 'pending' | 'failed'}
+          >
+            <span className="font-medium font-heading">{status}</span>
+          </Badge>
         )
       },
     },
@@ -134,7 +125,7 @@ export default function AutomationsTable() {
           <TableProvider
             columns={columns}
             data={automations}
-            className="border overflow-y-auto"
+            className="overflow-y-auto"
           >
             <TableHeader>
               {({ headerGroup }) => (
@@ -143,28 +134,20 @@ export default function AutomationsTable() {
                   headerGroup={headerGroup}
                 >
                   {({ header }) => (
-                    <TableHead
-                      key={header.id}
-                      header={header}
-                      className={cn(
-                        header.column.id === 'disconnectButton' &&
-                          'justify-end flex items-center'
-                      )}
-                    />
+                    <TableHead key={header.id} header={header} />
                   )}
                 </TableHeaderGroup>
               )}
             </TableHeader>
             <TableBody>
               {({ row }) => (
-                <TableRow key={row.id} row={row} className="w-full">
+                <TableRow key={row.id} row={row}>
                   {({ cell }) => (
                     <TableCell
                       key={cell.id}
                       cell={cell}
                       className={cn(
-                        cell.column.id === 'edit' &&
-                          'justify-end flex items-center w-full'
+                        cell.column.id === 'edit' && 'justify-end flex'
                       )}
                     />
                   )}

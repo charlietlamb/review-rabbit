@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@rabbit/design-system/components/ui/button'
-import { Rocket } from 'lucide-react'
+import { Plus, Rocket } from 'lucide-react'
 import AutomationFormDialog from '@rabbit/design-system/components/dashboard/automations/automation-form-dialog'
 
 export default function DashboardHeaderActions() {
@@ -10,10 +10,9 @@ export default function DashboardHeaderActions() {
       <AutomationFormDialog>
         <Button
           variant="shine"
-          className="h-8 flex items-center gap-2 fill-background text-background"
+          className="h-8 flex items-center gap-2 fill-foreground text-foreground"
         >
-          <Rocket className="fill-background" />
-          New Automation
+          <Rocket /> New Automation
         </Button>
       </AutomationFormDialog>
     </div>

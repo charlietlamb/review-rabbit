@@ -92,6 +92,65 @@ export default function AutomationsTable() {
       },
     },
     {
+      accessorKey: 'clicks',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Clicks" />
+      ),
+      cell: ({ row }) => (
+        <span>{row.original.items.filter((item) => item.clicked).length}</span>
+      ),
+    },
+    {
+      accessorKey: 'click-percentage',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Click %" />
+      ),
+      cell: ({ row }) => (
+        <span>
+          {Math.round(
+            (row.original.items.filter((item) => item.clicked).length /
+              (row.original.items.length ? row.original.items.length : 1)) *
+              100
+          )}
+          %
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'initially-run',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Initially Run" />
+      ),
+      cell: ({ row }) => (
+        <span>
+          {new Date(row.original.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </span>
+      ),
+    },
+    {
+      accessorKey: 'last-run',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Last Run" />
+      ),
+      cell: ({ row }) => (
+        <span>
+          {row.original.items.length > 0
+            ? new Date(
+                row.original.items[row.original.items.length - 1].createdAt
+              ).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })
+            : 'N/A'}
+        </span>
+      ),
+    },
+    {
       accessorKey: 'edit',
       header: () => null,
       cell: ({ row }) => (

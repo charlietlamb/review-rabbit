@@ -19,7 +19,7 @@ export default function AuthLayout({
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;Managing mediations has become seamless and efficient,
+              &ldquo;Managing automations has become seamless and efficient,
               allowing our team to focus on delivering excellent service to our
               clients.&rdquo;
             </p>

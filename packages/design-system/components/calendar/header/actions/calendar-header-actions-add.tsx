@@ -11,7 +11,7 @@ export default function CalendarHeaderActionsAdd() {
       onClick={() => setNewEventSheetOpen(true)}
     >
       <Plus />
-      New Mediation
+      New Automation
     </Button>
   )
 }

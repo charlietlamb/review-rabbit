@@ -70,12 +70,12 @@ const MessageIcon = () => {
       {!open ? (
         <Tooltip>
           <TooltipTrigger>{iconSvg}</TooltipTrigger>
-          <TooltipContent>Mediations</TooltipContent>
+          <TooltipContent>Automations</TooltipContent>
         </Tooltip>
       ) : (
         iconSvg
       )}
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Mediations</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>Automations</p>
     </div>
   )
 }

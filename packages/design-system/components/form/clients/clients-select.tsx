@@ -4,7 +4,7 @@ import ClientMultiSelect from './client-multi-select'
 import { useAtomValue } from 'jotai'
 import { clientsSelectAtom } from '@rabbit/design-system/atoms/dashboard/clients/client-select-atoms'
 import { useEffect } from 'react'
-import { MediationData } from '@rabbit/design-system/components/dashboard/mediation/mediation-types'
+import { AutomationData } from '@rabbit/design-system/components/dashboard/automation/automation-types'
 import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function ClientsSelect({
@@ -18,7 +18,7 @@ export default function ClientsSelect({
 
   useEffect(() => {
     const currentClients =
-      (form.getFieldValue('clients') as MediationData['data']) || []
+      (form.getFieldValue('clients') as AutomationData['data']) || []
 
     const currentClientIds = new Set(currentClients.map((c) => c.clientId))
     const newClientIds = new Set(clients.map((c) => c.id))

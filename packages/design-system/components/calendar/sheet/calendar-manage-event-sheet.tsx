@@ -19,22 +19,22 @@ export default function CalendarManageEventSheet() {
   // )
 
   // useEffect(() => {
-  //   async function fetchMediation() {
+  //   async function fetchAutomation() {
   //     if (selectedEvent) {
   //       const automationItem = await getAutomationItemById(selectedEvent.id)
   //       setAutomationItem(automationItem)
   //     }
   //   }
-  //   fetchMediation()
+  //   fetchAutomation()
   // }, [selectedEvent])
 
   // return (
   //   <Sheet open={manageEventSheetOpen} onOpenChange={setManageEventSheetOpen}>
   //     <SheetContent className="flex flex-col divide-y p-0 gap-0">
   //       <SheetHeader className="p-4">
-  //         <SheetTitle>Manage Mediation</SheetTitle>
+  //         <SheetTitle>Manage Automation</SheetTitle>
   //         <SheetDescription>
-  //           Edit the details of this mediation
+  //           Edit the details of this automation
   //         </SheetDescription>
   //       </SheetHeader>
   //       {automationItem ? (

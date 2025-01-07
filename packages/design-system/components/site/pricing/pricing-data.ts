@@ -16,7 +16,7 @@ export const pricingTiers: PricingTier[] = [
     title: 'Basic',
     price: 30,
     description: 'Essential features for small projects',
-    features: ['Analytic Reports', 'Email', 'Schedule Mediations'],
+    features: ['Analytic Reports', 'Email', 'Schedule Automations'],
     buttonText: 'Get Started',
     priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
     plan: 'basic',
@@ -24,12 +24,12 @@ export const pricingTiers: PricingTier[] = [
   {
     title: 'Pro',
     price: 50,
-    description: 'Advanced features for mediations',
+    description: 'Advanced features for automations',
     features: [
       'Analytic Reports',
       'Email',
       'Note Editor',
-      'Schedule Mediations',
+      'Schedule Automations',
       'Calendar Integrations',
       'Stripe Payments',
     ],

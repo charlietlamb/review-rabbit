@@ -6,7 +6,7 @@ import {
   SheetTitle,
 } from '@rabbit/design-system/components/ui/sheet'
 import { useCalendarContext } from '../calendar-context'
-// import MediationForm from '@rabbit/design-system/components/dashboard/mediation/mediation-form'
+// import AutomationForm from '@rabbit/design-system/components/dashboard/automation/automation-form'
 
 export default function CalendarNewEventSheet() {
   const { newEventSheetOpen, setNewEventSheetOpen } = useCalendarContext()
@@ -14,12 +14,12 @@ export default function CalendarNewEventSheet() {
     <Sheet open={newEventSheetOpen} onOpenChange={setNewEventSheetOpen}>
       <SheetContent className="flex flex-col divide-y p-0 gap-0">
         <SheetHeader className="p-4">
-          <SheetTitle>New Mediation</SheetTitle>
+          <SheetTitle>New Automation</SheetTitle>
           <SheetDescription>
-            Create a new mediation to add to your calendar
+            Create a new automation to add to your calendar
           </SheetDescription>
         </SheetHeader>
-        {/* <MediationForm /> */}
+        {/* <AutomationForm /> */}
       </SheetContent>
     </Sheet>
   )

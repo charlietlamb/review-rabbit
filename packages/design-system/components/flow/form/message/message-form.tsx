@@ -81,7 +81,7 @@ export default function MessageForm({
           type: NODE_TYPES.MESSAGE,
           data: {
             content,
-            subject,
+            subject: type === MESSAGE_TYPES.EMAIL ? subject : '',
             messageType: type,
             label: 'Message',
             level,

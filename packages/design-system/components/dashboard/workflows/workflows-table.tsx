@@ -146,7 +146,12 @@ export default function WorkflowsTable() {
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <WorkflowIcon className="w-10 h-10 text-muted-foreground" />
           <p className="font-heading">We couldn't find any workflows...</p>
-          <Button variant="shine">Add New Workflow</Button>
+          <Button
+            variant="shine"
+            onClick={() => router.push('/dashboard/workflow/create')}
+          >
+            Add New Workflow
+          </Button>
         </div>
       )}
     </>

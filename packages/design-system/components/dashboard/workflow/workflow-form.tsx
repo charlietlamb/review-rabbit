@@ -24,7 +24,7 @@ export default function WorkflowForm({
   workflow?: WorkflowWithItems
 }) {
   const [nodes, setNodes] = useAtom(nodesAtom)
-  const [manageNodes, setManageNodes] = useAtom(manageNodesAtom)
+  const manageNodes = useAtomValue(manageNodesAtom)
   const isCreateMode = useAtomValue(isCreateModeAtom)
   const router = useRouter()
   function validate() {

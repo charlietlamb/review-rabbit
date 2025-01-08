@@ -6,7 +6,7 @@ export default function CalendarHeaderActionsAdd() {
   const { setNewEventSheetOpen } = useCalendarContext()
   return (
     <Button
-      className="flex items-center gap-1 bg-primary text-background"
+      className="flex items-center gap-1"
       variant="shine"
       onClick={() => setNewEventSheetOpen(true)}
     >

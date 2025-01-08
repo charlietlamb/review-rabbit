@@ -29,7 +29,7 @@ export default function FlowFormDialog({
       >
         {children}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent size="lg">
         <DialogHeader>
           <DialogTitle>Send A Message</DialogTitle>
           <DialogDescription>Send a message to a user.</DialogDescription>

@@ -84,6 +84,42 @@ export const getAutomationById = createRoute({
 
 export type GetAutomationByIdRoute = typeof getAutomationById
 
+export const getAutomationItemsByDate = createRoute({
+  path: '/automations/items/by-date',
+  method: 'post',
+  summary: 'Get automation items by date',
+  tags,
+  request: {
+    body: {
+      description: 'Pagination parameters',
+      content: {
+        'application/json': {
+          schema: z.object({
+            startDate: z.string(),
+            endDate: z.string(),
+            search: z.string().optional(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(automationWithItems),
+      'Automation items fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch automation items'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetAutomationItemsByDateRoute = typeof getAutomationItemsByDate
+
 export const createAutomation = createRoute({
   path: '/automations/create',
   method: 'post',

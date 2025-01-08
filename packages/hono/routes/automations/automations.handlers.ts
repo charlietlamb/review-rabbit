@@ -13,8 +13,10 @@ import {
   GetAutomationsRoute,
   CreateAutomationRoute,
   GetAutomationByIdRoute,
+  GetAutomationsByDateRoute,
+  GetAutomationItemsByDateRoute,
 } from './automations.routes'
-import { eq, sql, and, or } from 'drizzle-orm'
+import { eq, sql, and, or, gte, lte } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
 import { triggerWorkflow } from '@rabbit/trigger'
@@ -81,6 +83,43 @@ export const getAutomationById: AppRouteHandler<
     console.error('Error fetching automation:', error)
     return c.json(
       { error: 'Failed to fetch automation' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getAutomationItemsByDate: AppRouteHandler<
+  GetAutomationItemsByDateRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { startDate, endDate } = await c.req.valid('json')
+  try {
+    const automationResults = await db.query.automationItems.findMany({
+      where: and(
+        eq(automationItems.userId, user.id),
+        gte(automationItems.workflowItemId, new Date(startDate)),
+        lte(automationItems.time, new Date(endDate))
+      ),
+      with: {
+        automation: true,
+        client: true,
+        workflowItem: true,
+      },
+    })
+    if (!automationResults) {
+      return c.json(
+        { error: 'Automation not found' },
+        HttpStatusCodes.NOT_FOUND
+      )
+    }
+    return c.json(automationResults, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching automation items:', error)
+    return c.json(
+      { error: 'Failed to fetch automation items' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

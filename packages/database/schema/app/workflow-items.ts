@@ -2,6 +2,7 @@ import { pgTable, text, timestamp, integer } from 'drizzle-orm/pg-core'
 import { workflows } from './workflows'
 import { relations } from 'drizzle-orm'
 
+// update implementation to use new schema
 export const workflowItems = pgTable('workflow_items', {
   id: text('id').primaryKey(),
   workflowId: text('workflow_id').references(() => workflows.id, {
@@ -17,6 +18,7 @@ export const workflowItems = pgTable('workflow_items', {
   level: integer('level').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  scheduledFor: timestamp('scheduled_for').notNull(),
 })
 
 export const workflowItemsRelations = relations(workflowItems, ({ one }) => ({

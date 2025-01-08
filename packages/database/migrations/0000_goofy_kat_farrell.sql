@@ -1,14 +1,12 @@
 CREATE TABLE IF NOT EXISTS "automation_items" (
 	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" text NOT NULL,
 	"automation_id" text NOT NULL,
 	"client_id" text NOT NULL,
+	"workflow_item_id" text NOT NULL,
 	"task_id" text NOT NULL,
-	"method" text NOT NULL,
-	"type" text NOT NULL,
-	"content" text NOT NULL,
 	"clicked" boolean DEFAULT false NOT NULL,
 	"delay_in_minutes" integer NOT NULL,
-	"time" timestamp NOT NULL,
 	"status" text DEFAULT 'pending' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
@@ -66,7 +64,8 @@ CREATE TABLE IF NOT EXISTS "workflow_items" (
 	"time" integer NOT NULL,
 	"level" integer NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"scheduled_for" timestamp NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "workflows" (
@@ -191,6 +190,12 @@ CREATE TABLE IF NOT EXISTS "subscription_schedules" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "automation_items" ADD CONSTRAINT "automation_items_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "automation_items" ADD CONSTRAINT "automation_items_automation_id_automations_id_fk" FOREIGN KEY ("automation_id") REFERENCES "public"."automations"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -198,6 +203,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "automation_items" ADD CONSTRAINT "automation_items_client_id_clients_id_fk" FOREIGN KEY ("client_id") REFERENCES "public"."clients"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "automation_items" ADD CONSTRAINT "automation_items_workflow_item_id_workflow_items_id_fk" FOREIGN KEY ("workflow_item_id") REFERENCES "public"."workflow_items"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

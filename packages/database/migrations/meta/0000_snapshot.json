@@ -1,5 +1,5 @@
 {
-  "id": "a2894f42-3b53-41fe-b06d-145772973e9c",
+  "id": "607f4ae8-5fb9-4a15-9493-6fb59ac3a7b9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -15,6 +15,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "automation_id": {
           "name": "automation_id",
           "type": "text",
@@ -27,26 +33,14 @@
           "primaryKey": false,
           "notNull": true
         },
+        "workflow_item_id": {
+          "name": "workflow_item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "task_id": {
           "name": "task_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "method": {
-          "name": "method",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -61,12 +55,6 @@
         "delay_in_minutes": {
           "name": "delay_in_minutes",
           "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "time": {
-          "name": "time",
-          "type": "timestamp",
           "primaryKey": false,
           "notNull": true
         },
@@ -94,6 +82,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "automation_items_user_id_users_id_fk": {
+          "name": "automation_items_user_id_users_id_fk",
+          "tableFrom": "automation_items",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "automation_items_automation_id_automations_id_fk": {
           "name": "automation_items_automation_id_automations_id_fk",
           "tableFrom": "automation_items",
@@ -113,6 +114,19 @@
           "tableTo": "clients",
           "columnsFrom": [
             "client_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "automation_items_workflow_item_id_workflow_items_id_fk": {
+          "name": "automation_items_workflow_item_id_workflow_items_id_fk",
+          "tableFrom": "automation_items",
+          "tableTo": "workflow_items",
+          "columnsFrom": [
+            "workflow_item_id"
           ],
           "columnsTo": [
             "id"
@@ -492,6 +506,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "scheduled_for": {
+          "name": "scheduled_for",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},

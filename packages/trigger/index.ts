@@ -3,7 +3,6 @@ import { MESSAGE_TYPES } from '@rabbit/design-system/components/flow/lib/types'
 import { sendEmailTask } from './tasks/send-email-task'
 import { Client } from '@rabbit/database/schema/app/clients'
 import { Business } from '@rabbit/database/schema/app/businesses'
-import { TASK_TTL } from './task-data'
 
 export function triggerWorkflow(
   workflowItem: WorkflowItem,
@@ -24,7 +23,6 @@ export function triggerWorkflow(
           },
           options: {
             delay: `${workflowItem.time}m`,
-            ttl: TASK_TTL,
           },
         }))
       )

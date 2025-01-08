@@ -94,6 +94,7 @@ export const createWorkflow: AppRouteHandler<CreateWorkflowRoute> = async (
             id: item.id || uuidv4(),
             workflowId,
             content: item.content,
+            subject: item.subject,
             type: item.type,
             method: item.method,
             x: item.x,
@@ -185,6 +186,7 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
             id: item.id || uuidv4(),
             workflowId: id,
             content: item.content,
+            subject: item.subject,
             type: item.type,
             method: item.method,
             x: item.x,
@@ -202,8 +204,9 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
           await tx
             .update(workflowItems)
             .set({
-              content: itemData.content,
               type: itemData.type,
+              content: itemData.content,
+              subject: itemData.subject,
               x: itemData.x,
               y: itemData.y,
               time: itemData.time,

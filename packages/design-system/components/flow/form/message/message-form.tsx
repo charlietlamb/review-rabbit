@@ -20,6 +20,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'sonner'
 import { calculateNodePosition } from '../../lib/add-create-nodes'
 import { CustomNode } from '../../lib/types'
+import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
+import { MailIcon } from 'lucide-react'
 
 const VERTICAL_SPACING = 200
 
@@ -41,17 +43,26 @@ export default function MessageForm({
   const setManageNodes = useSetAtom(manageNodesAtom)
   const isCreateMode = useAtomValue(isCreateModeAtom)
   const [content, setContent] = useState(data?.content || '')
+  const [subject, setSubject] = useState(data?.subject || '')
 
   function validate() {
+    setAttemptSubmitted(true)
     if (!content.length) {
-      setAttemptSubmitted(true)
+      toast.error('Content is required', {
+        description: 'Please enter a message',
+      })
+      return false
+    }
+    if (type === MESSAGE_TYPES.EMAIL && !subject.length) {
+      toast.error('Subject is required to send an email', {
+        description: 'Please enter a subject',
+      })
       return false
     }
     return true
   }
 
   function calculatePosition() {
-    // Get nodes at the current level
     const nodesAtLevel = nodes.filter((node) => node.data.level === level)
     const nodesCount = nodesAtLevel.length
 
@@ -70,6 +81,7 @@ export default function MessageForm({
           type: NODE_TYPES.MESSAGE,
           data: {
             content,
+            subject,
             messageType: type,
             label: 'Message',
             level,
@@ -111,6 +123,18 @@ export default function MessageForm({
   return (
     <FormProvider value={{ attemptSubmitted }}>
       <MessageTypeSelect type={type} setType={setType} />
+      {type === MESSAGE_TYPES.EMAIL && (
+        <InputWithIconState
+          type="text"
+          value={subject}
+          onChange={setSubject}
+          name="subject"
+          label="Subject"
+          placeholder="Enter your subject..."
+          required
+          icon={<MailIcon />}
+        />
+      )}
       <TextareaInputState
         value={content}
         setValue={setContent}
@@ -118,6 +142,7 @@ export default function MessageForm({
         label="Content"
         placeholder="Enter your message..."
         required
+        textAreaClassName="min-h-60"
       />
       <Button variant="shine" className="w-full" onClick={handleSubmit}>
         {isCreateMode ? 'Add Message' : 'Update Message'}

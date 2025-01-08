@@ -8,6 +8,7 @@ export const workflowItems = pgTable('workflow_items', {
     onDelete: 'cascade',
   }),
   content: text('content').notNull(),
+  subject: text('subject').notNull().default(''),
   type: text('type').notNull(),
   method: text('method').notNull(),
   x: integer('x').notNull(),

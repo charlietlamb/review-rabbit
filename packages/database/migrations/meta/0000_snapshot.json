@@ -1,5 +1,5 @@
 {
-  "id": "7a8a1e3c-0f82-4345-bb01-833998d71509",
+  "id": "a2894f42-3b53-41fe-b06d-145772973e9c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -69,6 +69,13 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
         },
         "created_at": {
           "name": "created_at",
@@ -428,6 +435,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
         },
         "type": {
           "name": "type",

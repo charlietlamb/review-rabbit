@@ -22,6 +22,7 @@ export const workflowFormSchema = z.object({
       .pick({
         id: true,
         content: true,
+        subject: true,
         type: true,
         method: true,
         x: true,

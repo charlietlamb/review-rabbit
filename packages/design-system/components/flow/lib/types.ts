@@ -39,6 +39,7 @@ export type CreateTimeNodeData = BaseNodeData & {
 export type MessageNodeData = BaseNodeData & {
   type: typeof NODE_TYPES.MESSAGE
   content: string
+  subject: string
   messageType: MessageType
 }
 

@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS "automation_items" (
 	"clicked" boolean DEFAULT false NOT NULL,
 	"delay_in_minutes" integer NOT NULL,
 	"time" timestamp NOT NULL,
+	"status" text DEFAULT 'pending' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
@@ -57,6 +58,7 @@ CREATE TABLE IF NOT EXISTS "workflow_items" (
 	"id" text PRIMARY KEY NOT NULL,
 	"workflow_id" text,
 	"content" text NOT NULL,
+	"subject" text DEFAULT '' NOT NULL,
 	"type" text NOT NULL,
 	"method" text NOT NULL,
 	"x" integer NOT NULL,

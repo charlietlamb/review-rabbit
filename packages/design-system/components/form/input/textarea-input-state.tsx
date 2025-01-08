@@ -11,6 +11,7 @@ export default function TextareaInputState({
   placeholder,
   required = false,
   className,
+  textAreaClassName,
 }: {
   value: string
   setValue: (value: string) => void
@@ -19,6 +20,7 @@ export default function TextareaInputState({
   placeholder: string
   required?: boolean
   className?: string
+  textAreaClassName?: string
 }) {
   const { attemptSubmitted } = useFormContext()
   return (
@@ -29,6 +31,7 @@ export default function TextareaInputState({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
+        className={cn('', textAreaClassName)}
       />
       {attemptSubmitted && !value && (
         <p className="text-sm text-red-500">This field is required</p>

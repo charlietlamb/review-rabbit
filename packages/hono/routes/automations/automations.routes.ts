@@ -253,3 +253,38 @@ export const updateAutomationItem = createRoute({
 })
 
 export type UpdateAutomationItemRoute = typeof updateAutomationItem
+
+export const updateAutomationItemStatus = createRoute({
+  path: '/automations/items/update-status',
+  method: 'post',
+  summary: 'Update a automation item status',
+  tags,
+  request: {
+    body: {
+      description: 'Automation item data',
+      content: {
+        'application/json': {
+          schema: z.object({
+            id: z.string(),
+            status: z.enum(['success', 'failed', 'pending']),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.boolean(),
+      'Automation item status updated.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to update automation item status'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type UpdateAutomationItemStatusRoute = typeof updateAutomationItemStatus

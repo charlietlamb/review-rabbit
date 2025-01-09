@@ -2,7 +2,6 @@ import { task } from '@trigger.dev/sdk/v3'
 import { EmailTaskType } from '../types/email-type'
 import { sendEmailString } from '@rabbit/email/actions/send-email-string'
 import { TASK_IDS } from '../task-data'
-import { updateAutomationItem } from '@rabbit/design-system/actions/automations/update-automation-item'
 
 export const sendEmailTask = task({
   id: TASK_IDS.EMAIL,
@@ -12,20 +11,15 @@ export const sendEmailTask = task({
 
     const success = await sendEmailString(to, subject, content)
 
-    if (success) {
-      await updateAutomationItem(
-        {
-          status: 'success',
-        },
-        payload.automationItemId
-      )
-    } else {
-      await updateAutomationItem(
-        {
-          status: 'failed',
-        },
-        payload.automationItemId
-      )
-    }
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/automations/items/update-status`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          id: payload.automationItemId,
+          status: success ? 'success' : 'failed',
+        }),
+      }
+    )
   },
 })

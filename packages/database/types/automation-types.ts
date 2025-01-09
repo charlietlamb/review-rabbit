@@ -24,6 +24,9 @@ export const automationItemWithData = automationItem.extend({
   workflowItem: workflowItem,
 })
 
+export const automationItemPartial = automationItem.partial()
+export type AutomationItemPartial = z.infer<typeof automationItemPartial>
+
 export const automationFormSchema = z.object({
   clientIds: z.array(z.string().uuid()),
   businessId: z.string().uuid(),

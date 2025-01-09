@@ -1,13 +1,9 @@
-import { businessSelectSchema, clientSchema } from '@rabbit/database'
 import { z } from 'zod'
-
-export const emailTaskType = z.object({
+import { clientAutomation } from './task-types'
+export const emailTaskType = clientAutomation.extend({
   to: z.array(z.string()),
   subject: z.string(),
   content: z.string(),
-  client: clientSchema,
-  business: businessSelectSchema,
-  delayInMinutes: z.number().optional(),
 })
 
 export type EmailTaskType = z.infer<typeof emailTaskType>

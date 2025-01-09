@@ -194,7 +194,16 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
 
           await tx.insert(automationItems).values(automationItemsToInsert)
 
-          triggerWorkflow(item, matchingClients, business)
+          const clientsWithAutomationItemIds = automationItemsToInsert.map(
+            (automationItem) => ({
+              client: matchingClients.find(
+                (client) => client.id === automationItem.clientId
+              )!,
+              automationItemId: automationItem.id,
+            })
+          )
+
+          triggerWorkflow(item, clientsWithAutomationItemIds)
         }
       }
     })

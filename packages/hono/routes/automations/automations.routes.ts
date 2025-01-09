@@ -267,6 +267,7 @@ export const updateAutomationItemStatus = createRoute({
           schema: z.object({
             id: z.string(),
             status: z.enum(['success', 'failed', 'pending']),
+            key: z.string(),
           }),
         },
       },

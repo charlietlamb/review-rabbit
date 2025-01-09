@@ -21,6 +21,7 @@ import { eq, sql, and, or, gte, lte } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
 import { triggerWorkflow } from '@rabbit/trigger'
+import { getEnv } from '@rabbit/env'
 
 export const getAutomations: AppRouteHandler<GetAutomationsRoute> = async (
   c
@@ -243,11 +244,10 @@ export const updateAutomationItem: AppRouteHandler<
 export const updateAutomationItemStatus: AppRouteHandler<
   UpdateAutomationItemStatusRoute
 > = async (c) => {
-  const user = c.get('user')
-  if (!user) {
+  const { id, status, key } = await c.req.valid('json')
+  if (key !== getEnv().TRIGGER_SECRET_KEY) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { id, status } = await c.req.valid('json')
   try {
     await db
       .update(automationItems)

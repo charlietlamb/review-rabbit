@@ -1,8 +1,8 @@
 import { task } from '@trigger.dev/sdk/v3'
 import { EmailTaskType } from '../types/email-type'
-import { getReviewEmail } from '@rabbit/email/components/review-email'
 import { sendEmailString } from '@rabbit/email/actions/send-email-string'
 import { TASK_IDS } from '../task-data'
+import { updateAutomationItem } from '@rabbit/design-system/actions/automations/update-automation-item'
 
 export const sendEmailTask = task({
   id: TASK_IDS.EMAIL,
@@ -10,12 +10,22 @@ export const sendEmailTask = task({
   run: async (payload: EmailTaskType, { ctx }) => {
     const { to, subject, content } = payload
 
-    const component = getReviewEmail(payload)
+    const success = await sendEmailString(to, subject, content)
 
-    const status = await sendEmailString(to, subject, content)
-
-    return {
-      status,
+    if (success) {
+      await updateAutomationItem(
+        {
+          status: 'success',
+        },
+        payload.automationItemId
+      )
+    } else {
+      await updateAutomationItem(
+        {
+          status: 'failed',
+        },
+        payload.automationItemId
+      )
     }
   },
 })

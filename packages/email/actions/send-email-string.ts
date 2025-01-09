@@ -1,6 +1,5 @@
 import { getEnv } from '@rabbit/env'
 import { Resend } from 'resend'
-import { HttpStatusCodes } from '@rabbit/http'
 
 const resend = new Resend(getEnv().RESEND_API_KEY)
 
@@ -21,7 +20,7 @@ export async function sendEmailString(
     throw new Error('Failed to send email')
   }
   if (!data) {
-    return HttpStatusCodes.INTERNAL_SERVER_ERROR
+    return false
   }
-  return HttpStatusCodes.OK
+  return true
 }

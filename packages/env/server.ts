@@ -37,6 +37,9 @@ export const server = {
   // Twilio
   TWILIO_ACCOUNT_SID: z.string().min(1),
   TWILIO_AUTH_TOKEN: z.string().min(1),
+
+  // Trigger
+  TRIGGER_SECRET_KEY: z.string().min(1),
 } as const
 
 export const dbOnlyServer = { DATABASE_URL: z.string().min(1).url() }

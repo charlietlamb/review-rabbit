@@ -2,6 +2,7 @@ import { task } from '@trigger.dev/sdk/v3'
 import { EmailTaskType } from '../types/email-type'
 import { sendEmailString } from '@rabbit/email/actions/send-email-string'
 import { TASK_IDS } from '../task-data'
+import { getEnv } from '@rabbit/env'
 
 export const sendEmailTask = task({
   id: TASK_IDS.EMAIL,
@@ -18,6 +19,7 @@ export const sendEmailTask = task({
         body: JSON.stringify({
           id: payload.automationItemId,
           status: success ? 'success' : 'failed',
+          key: getEnv().,
         }),
       }
     )

@@ -37,6 +37,9 @@ export function getMainEnv() {
       // Google OAuth
       GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
+      // Trigger
+      TRIGGER_SECRET_KEY: process.env.TRIGGER_SECRET_KEY,
+
       // Client
       NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
       NEXT_PUBLIC_WEB: process.env.NEXT_PUBLIC_WEB,

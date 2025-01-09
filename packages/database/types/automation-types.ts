@@ -14,11 +14,15 @@ export type Automation = typeof automation
 
 export const automationWithItems = automation.extend({
   items: z.array(automationItem),
-  client: clientSchema,
-  workflowItem: workflowItem,
+  business: businessSelectSchema,
 })
 
 export type AutomationWithItems = z.infer<typeof automationWithItems>
+
+export const automationItemWithData = automationItem.extend({
+  client: clientSchema,
+  workflowItem: workflowItem,
+})
 
 export const automationFormSchema = z.object({
   clientIds: z.array(z.string().uuid()),

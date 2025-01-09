@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
 import {
   automationFormSchema,
+  automationItemWithData,
   automationWithItems,
 } from '@rabbit/database/types/automation-types'
 
@@ -105,7 +106,7 @@ export const getAutomationItemsByDate = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.array(automationWithItems),
+      z.array(automationItemWithData),
       'Automation items fetched.'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(

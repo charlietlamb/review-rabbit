@@ -14,6 +14,8 @@ import { businessIdAtom } from '@rabbit/design-system/atoms/dashboard/business/b
 import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
 import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'
+import { useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 
 export default function AutomationForm({
   onSuccess,
@@ -26,6 +28,7 @@ export default function AutomationForm({
   const [date, setDate] = useState<Date | null>(null)
   const [title, setTitle] = useState<string>('')
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
+  const queryClient = useQueryClient()
 
   function validate() {
     if (!title) {
@@ -73,6 +76,7 @@ export default function AutomationForm({
           'Initial automations will run now. You can edit future automations in the automations page.',
       })
       setSelectedClients([])
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.AUTOMATIONS })
       onSuccess?.()
     } else {
       toast.error('Failed to create automation', {

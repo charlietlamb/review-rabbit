@@ -9,27 +9,33 @@ export function triggerWorkflow(
   clients: Client[],
   business: Business
 ) {
-  switch (workflowItem.method) {
-    case MESSAGE_TYPES.EMAIL:
-      sendEmailTask.batchTrigger(
-        clients.map((client) => ({
-          payload: {
-            to: [client.email],
-            subject: workflowItem.subject,
-            delayInMinutes: workflowItem.time,
-            content: workflowItem.content,
-            client,
-            business,
-          },
-          options: {
-            delay: `${workflowItem.time}m`,
-          },
-        }))
-      )
-      break
-    case MESSAGE_TYPES.SMS:
-      break
-    case MESSAGE_TYPES.WHATSAPP:
-      break
+  let status = 'success'
+  try {
+    switch (workflowItem.method) {
+      case MESSAGE_TYPES.EMAIL:
+        sendEmailTask.batchTrigger(
+          clients.map((client) => ({
+            payload: {
+              to: [client.email],
+              subject: workflowItem.subject,
+              delayInMinutes: workflowItem.time,
+              content: workflowItem.content,
+              client,
+              business,
+            },
+            options: {
+              delay: `${workflowItem.time}m`,
+            },
+          }))
+        )
+        break
+      case MESSAGE_TYPES.SMS:
+        break
+      case MESSAGE_TYPES.WHATSAPP:
+        break
+    }
+  } catch {
+    status = 'failed'
+  } finally {
   }
 }

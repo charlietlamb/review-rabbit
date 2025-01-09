@@ -14,6 +14,7 @@ import {
   CreateAutomationRoute,
   GetAutomationByIdRoute,
   GetAutomationItemsByDateRoute,
+  UpdateAutomationItemRoute,
 } from './automations.routes'
 import { eq, sql, and, or, gte, lte } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
@@ -203,6 +204,27 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
     console.error('Error adding automation:', error)
     return c.json(
       { error: 'Failed to add automation' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const updateAutomationItem: AppRouteHandler<
+  UpdateAutomationItemRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { id, ...data } = await c.req.valid('json')
+
+  try {
+    await db.update(automationItems).set(data).where(eq(automationItems.id, id))
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error updating automation item:', error)
+    return c.json(
+      { error: 'Failed to update automation item' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

@@ -29,6 +29,7 @@ import {
 } from '@rabbit/design-system/components/ui/tooltip'
 import { getAutomations } from '@rabbit/design-system/actions/automations/get-automations'
 import { Badge } from '@rabbit/design-system/components/ui/badge'
+import AutomationFormDialog from './automation-form-dialog'
 
 export default function AutomationsTable() {
   const {
@@ -219,7 +220,9 @@ export default function AutomationsTable() {
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <WorkflowIcon className="w-10 h-10 text-muted-foreground" />
           <p className="font-heading">We couldn't find any automations...</p>
-          <Button variant="shine">Add New Automation</Button>
+          <AutomationFormDialog>
+            <Button variant="shine">Add New Automation</Button>
+          </AutomationFormDialog>
         </div>
       )}
     </>

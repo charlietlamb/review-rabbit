@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
 import {
   automationFormSchema,
+  automationItem,
   automationItemWithData,
   automationWithItems,
 } from '@rabbit/database/types/automation-types'
@@ -221,3 +222,34 @@ export const deleteAutomation = createRoute({
 })
 
 export type DeleteAutomationRoute = typeof deleteAutomation
+
+export const updateAutomationItem = createRoute({
+  path: '/automations/items/update',
+  method: 'post',
+  summary: 'Update a automation item',
+  tags,
+  request: {
+    body: {
+      description: 'Automation item data',
+      content: {
+        'application/json': {
+          schema: automationItem.partial().extend({
+            id: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Automation item updated.'),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to update automation item'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type UpdateAutomationItemRoute = typeof updateAutomationItem

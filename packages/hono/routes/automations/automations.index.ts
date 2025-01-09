@@ -6,5 +6,7 @@ const router = createRouter()
   .openapi(routes.createAutomation, handlers.createAutomation)
   .openapi(routes.getAutomations, handlers.getAutomations)
   .openapi(routes.getAutomationById, handlers.getAutomationById)
+  .openapi(routes.getAutomationItemsByDate, handlers.getAutomationItemsByDate)
+  .openapi(routes.updateAutomationItem, handlers.updateAutomationItem)
 
 export default router

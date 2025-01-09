@@ -19,7 +19,7 @@ export const sendEmailTask = task({
         body: JSON.stringify({
           id: payload.automationItemId,
           status: success ? 'success' : 'failed',
-          key: getEnv().RESEND_API_KEY,
+          secretKey: getEnv().TRIGGER_SECRET_KEY,
         }),
       }
     )

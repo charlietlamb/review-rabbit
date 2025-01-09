@@ -244,8 +244,8 @@ export const updateAutomationItem: AppRouteHandler<
 export const updateAutomationItemStatus: AppRouteHandler<
   UpdateAutomationItemStatusRoute
 > = async (c) => {
-  const { id, status, key } = await c.req.valid('json')
-  if (key !== getEnv().RESEND_API_KEY) {
+  const { id, status, secretKey } = await c.req.json()
+  if (secretKey !== getEnv().TRIGGER_SECRET_KEY) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   try {

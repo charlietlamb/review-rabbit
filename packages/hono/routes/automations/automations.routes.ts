@@ -108,6 +108,12 @@ export const getAutomationItemsByDate = createRoute({
       z.array(automationWithItems),
       'Automation items fetched.'
     ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Automation not found'
+    ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
       z.object({
         error: z.string(),

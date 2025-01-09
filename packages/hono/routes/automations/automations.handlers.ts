@@ -13,7 +13,6 @@ import {
   GetAutomationsRoute,
   CreateAutomationRoute,
   GetAutomationByIdRoute,
-  GetAutomationsByDateRoute,
   GetAutomationItemsByDateRoute,
 } from './automations.routes'
 import { eq, sql, and, or, gte, lte } from 'drizzle-orm'
@@ -100,8 +99,8 @@ export const getAutomationItemsByDate: AppRouteHandler<
     const automationResults = await db.query.automationItems.findMany({
       where: and(
         eq(automationItems.userId, user.id),
-        gte(automationItems.workflowItemId, new Date(startDate)),
-        lte(automationItems.time, new Date(endDate))
+        gte(automationItems.scheduledFor, new Date(startDate)),
+        lte(automationItems.scheduledFor, new Date(endDate))
       ),
       with: {
         automation: true,
@@ -180,14 +179,16 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
 
           const automationItemsToInsert = clientIds.map((clientId) => ({
             id: uuidv4(),
+            userId: user.id,
             automationId,
             clientId,
+            workflowItemId: item.id,
             taskId: item.id,
             method: item.method,
             type: item.type,
             content: item.content,
             delayInMinutes,
-            time: baseTime,
+            scheduledFor: baseTime,
           }))
 
           await tx.insert(automationItems).values(automationItemsToInsert)

@@ -18,7 +18,6 @@ export const workflowItems = pgTable('workflow_items', {
   level: integer('level').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
-  scheduledFor: timestamp('scheduled_for').notNull(),
 })
 
 export const workflowItemsRelations = relations(workflowItems, ({ one }) => ({

@@ -23,6 +23,7 @@ export const automationItems = pgTable('automation_items', {
   workflowItemId: text('workflow_item_id')
     .references(() => workflowItems.id)
     .notNull(),
+  scheduledFor: timestamp('scheduled_for').notNull(),
   taskId: text('task_id').notNull(),
   clicked: boolean('clicked').notNull().default(false),
   delayInMinutes: integer('delay_in_minutes').notNull(),

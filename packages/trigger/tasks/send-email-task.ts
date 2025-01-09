@@ -12,16 +12,13 @@ export const sendEmailTask = task({
 
     const success = await sendEmailString(to, subject, content)
 
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/automations/items/update-status`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          id: payload.automationItemId,
-          status: success ? 'success' : 'failed',
-          key: getEnv().TRIGGER_SECRET_KEY,
-        }),
-      }
-    )
+    await fetch(`${getEnv().NEXT_PUBLIC_API}/automations/items/update-status`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: payload.automationItemId,
+        status: success ? 'success' : 'failed',
+        key: getEnv().TRIGGER_SECRET_KEY,
+      }),
+    })
   },
 })

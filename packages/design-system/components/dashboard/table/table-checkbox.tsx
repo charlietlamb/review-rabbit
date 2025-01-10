@@ -7,12 +7,36 @@ interface WithId {
 }
 
 export function getTableCheckboxColumn<T extends WithId>(
+  items: T[],
   selectedItemsAtom: Atom<T[]>,
   setSelectedItems: (items: T[]) => void
 ) {
   return {
     accessorKey: 'checkbox',
-    header: () => null,
+    header: () => {
+      const selectedItems = useAtomValue(selectedItemsAtom)
+      const allSelected =
+        items.length > 0 &&
+        items.every((item) =>
+          selectedItems.some((selected) => selected.id === item.id)
+        )
+
+      return (
+        <div className="flex items-center justify-center">
+          <Checkbox
+            onClick={(e) => e.stopPropagation()}
+            checked={allSelected}
+            onCheckedChange={(checked) => {
+              if (checked) {
+                setSelectedItems(items)
+              } else {
+                setSelectedItems([])
+              }
+            }}
+          />
+        </div>
+      )
+    },
     cell: ({ row }: { row: Row<T> }) => {
       const selectedItems = useAtomValue(selectedItemsAtom)
 

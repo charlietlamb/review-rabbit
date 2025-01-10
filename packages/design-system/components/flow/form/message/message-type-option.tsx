@@ -16,7 +16,7 @@ export default function MessageTypeOption({
   return (
     <div
       className={cn(
-        'flex flex-col border rounded-md cursor-pointer divide-y transition-all duration-300 ',
+        'flex flex-col border-2 rounded-md cursor-pointer divide-y transition-all duration-300 ',
         selected && 'border-primary'
       )}
       onClick={() => setType(type)}

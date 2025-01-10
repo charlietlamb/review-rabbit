@@ -53,7 +53,7 @@ export default function ClientsTable() {
   const [selectedClients, setSelectedClients] = useAtom(clientsSelectedAtoms)
 
   const columns: ColumnDef<Client>[] = [
-    getTableCheckboxColumn(clientsSelectedAtoms, setSelectedClients),
+    getTableCheckboxColumn(clients, clientsSelectedAtoms, setSelectedClients),
     {
       accessorKey: 'details',
       header: ({ column }) => (

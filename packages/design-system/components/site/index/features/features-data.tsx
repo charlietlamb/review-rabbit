@@ -1,71 +1,75 @@
 import {
-  CreditCard,
-  Webhook,
-  Globe,
-  Shield,
+  Star,
+  MessageSquare,
+  TrendingUp,
+  Bell,
   Zap,
   BarChart,
   Settings,
-  Clock,
+  Users,
 } from 'lucide-react'
 
 export const featuresData = [
   {
-    icon: CreditCard,
-    title: 'Payment Processing',
+    icon: Star,
+    title: 'Review Management',
     description:
-      'Accept payments globally with support for multiple currencies and payment methods.',
+      'Easily monitor and respond to all your Google Reviews from one dashboard.',
     position: 'top' as const,
     className: 'lg:border-r lg:border-l lg:border-b',
   },
   {
-    icon: Webhook,
-    title: 'Webhook Management',
+    icon: TrendingUp,
+    title: 'Reputation Growth',
     description:
-      'Automated webhook handling with retry logic and event persistence.',
+      'Proven strategies to increase your positive reviews and overall rating.',
     position: 'top' as const,
     className: 'lg:border-r lg:border-b',
   },
   {
-    icon: Globe,
-    title: 'Global Coverage',
+    icon: MessageSquare,
+    title: 'Smart Responses',
     description:
-      'Support for international payments and regional payment methods.',
+      'AI-powered response suggestions help you engage with customers professionally and quickly.',
     position: 'top' as const,
     className: 'lg:border-r lg:border-b',
   },
   {
-    icon: Shield,
-    title: 'Secure Transactions',
-    description: 'Built-in fraud prevention and PCI compliance.',
+    icon: Users,
+    title: 'Customer Insights',
+    description:
+      'Understand customer sentiment and identify trends in feedback.',
     position: 'top' as const,
     className: 'lg:border-r lg:border-b',
   },
   {
-    icon: Zap,
-    title: 'Real-time Events',
-    description: 'Instant notifications for payment and webhook events.',
+    icon: Bell,
+    title: 'Instant Alerts',
+    description:
+      'Get notified immediately when new reviews need your attention.',
     position: 'bottom' as const,
     className: 'lg:border-r lg:border-l',
   },
   {
-    icon: Clock,
+    icon: Zap,
     title: 'Quick Setup',
-    description: 'Get started with Stripe integration in minutes.',
+    description: 'Connect your Google Business Profile in a couple of clicks.',
     position: 'bottom' as const,
     className: 'lg:border-r',
   },
   {
     icon: BarChart,
-    title: 'Analytics',
-    description: 'Track payment metrics and webhook performance.',
+    title: 'Performance Metrics',
+    description:
+      'Track your rating growth and response times with easy reports.',
     position: 'bottom' as const,
     className: 'lg:border-r',
   },
   {
     icon: Settings,
     title: 'Customizable',
-    description: 'Flexible configuration for your payment needs.',
+    description:
+      'Tailor notification settings and response templates to your needs.',
     position: 'bottom' as const,
     className: 'lg:border-r',
   },

@@ -7,6 +7,7 @@
     "@dnd-kit/modifiers": "^8.0.0",
     "@faker-js/faker": "^9.3.0",
     "@hookform/resolvers": "^3.9.1",
+    "@number-flow/react": "^0.5.1",
     "@rabbit/analytics": "workspace:*",
     "@rabbit/auth": "workspace:*",
     "@rabbit/env": "workspace:*",

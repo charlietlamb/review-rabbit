@@ -1,37 +1,79 @@
-import { LucideIcon } from 'lucide-react'
+import {
+  LucideIcon,
+  Star,
+  MessageSquare,
+  TrendingUp,
+  Bell,
+  Zap,
+  BarChart,
+  Settings,
+  Users,
+} from 'lucide-react'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { motion } from 'framer-motion'
 
-type FeatureCardProps = {
+export interface Feature {
   icon: LucideIcon
   title: string
   description: string
-  position: 'top' | 'bottom'
-  className?: string
 }
 
-export function FeatureCard({
+interface FeatureIconProps {
+  icon: LucideIcon
+  isActive: boolean
+  onClick: () => void
+}
+
+export function FeatureIcon({
   icon: Icon,
-  title,
-  description,
-  position,
-  className = '',
-}: FeatureCardProps) {
+  isActive,
+  onClick,
+}: FeatureIconProps) {
   return (
-    <div className={`group/feature relative flex flex-col py-10 ${className}`}>
-      <div
-        className={`pointer-events-none absolute inset-0 size-full from-primary/20 to-transparent opacity-0 transition duration-200 group-hover/feature:opacity-100 ${
-          position === 'top' ? 'bg-gradient-to-t' : 'bg-gradient-to-b'
-        }`}
+    <button
+      onClick={onClick}
+      className={cn(
+        'group relative flex h-16 w-16 items-center justify-center rounded-xl border transition-all duration-200 hover:border-primary/50',
+        isActive ? 'border-primary bg-primary/5' : 'border-border'
+      )}
+    >
+      <Icon
+        size={24}
+        className={cn(
+          'transition-colors duration-200',
+          isActive
+            ? 'text-primary'
+            : 'text-muted-foreground group-hover:text-primary'
+        )}
       />
-      <div className="relative z-10 mb-4 px-10">
-        <Icon size={24} className="text-primary" />
+    </button>
+  )
+}
+
+interface FeatureContentProps {
+  feature: Feature
+}
+
+export function FeatureContent({ feature }: FeatureContentProps) {
+  const Icon = feature.icon
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="absolute inset-0 flex flex-col items-center justify-center text-center"
+    >
+      <div className="mb-6 rounded-full bg-primary/10 p-4">
+        <Icon size={32} className="text-primary" />
       </div>
-      <div className="relative z-10 mb-2 px-10 text-lg font-bold">
-        <div className="absolute inset-y-0 left-0 h-6 w-1 origin-center rounded-r-full bg-neutral-300 transition-all duration-200 group-hover/feature:h-8 group-hover/feature:bg-primary" />
-        <span className="inline-block text-foreground">{title}</span>
-      </div>
-      <p className="relative z-10 max-w-xs px-10 text-sm text-muted-foreground">
-        {description}
+      <h3 className="mb-4 text-2xl font-bold text-foreground">
+        {feature.title}
+      </h3>
+      <p className="max-w-xl text-lg text-muted-foreground">
+        {feature.description}
       </p>
-    </div>
+    </motion.div>
   )
 }

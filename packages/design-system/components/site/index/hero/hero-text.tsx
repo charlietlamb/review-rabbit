@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
+import { ArrowBigUpDash, ArrowRight } from 'lucide-react'
 import Balancer from 'react-wrap-balancer'
 import { Badge } from '@rabbit/design-system/components/ui/badge'
 import { useRouter } from 'next/navigation'
@@ -12,9 +12,10 @@ export function HeroText() {
     <div className="flex flex-col lg:items-start items-center gap-2 w-full">
       <Badge
         variant="outline"
-        className="cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+        className="cursor-pointer text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
         onClick={() => router.push('/signup')}
       >
+        <ArrowBigUpDash size={16} />
         Start outranking your competitors today
         <ArrowRight size={16} />
       </Badge>

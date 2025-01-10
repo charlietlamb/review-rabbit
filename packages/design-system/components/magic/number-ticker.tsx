@@ -1,55 +1,56 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useInView, useMotionValue, useSpring } from 'motion/react'
+import NumberFlow from '@number-flow/react'
+import { type Format } from '@number-flow/react'
+import { useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
-import { cn } from '@rabbit/design-system/lib/utils'
-
-export function NumberTicker({
-  value,
-  direction = 'up',
-  delay = 0,
-  className,
-  decimalPlaces = 0,
-}: {
+interface NumberFlowProps {
   value: number
-  direction?: 'up' | 'down'
-  className?: string
-  delay?: number // delay in s
-  decimalPlaces?: number
-}) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const motionValue = useMotionValue(direction === 'down' ? value : 0)
-  const springValue = useSpring(motionValue, {
-    damping: 60,
-    stiffness: 100,
-  })
-  const isInView = useInView(ref, { once: true, margin: '0px' })
+  format?: Format
+  locales?: string | string[]
+  prefix?: string
+  suffix?: string
+  spinTiming?: EffectTiming
+  willChange?: boolean
+}
+
+function NumberFlowWrapper({
+  value,
+  format = {},
+  locales,
+  prefix,
+  suffix,
+  spinTiming,
+  willChange = false,
+}: NumberFlowProps) {
+  return (
+    <NumberFlow
+      value={value}
+      format={format}
+      locales={locales}
+      prefix={prefix}
+      suffix={suffix}
+      spinTiming={spinTiming}
+      willChange={willChange}
+    />
+  )
+}
+
+export function NumberTicker({ spinTiming }: { spinTiming: EffectTiming }) {
+  const [value, setValue] = useState(9)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
 
   useEffect(() => {
-    isInView &&
-      setTimeout(() => {
-        motionValue.set(direction === 'down' ? 1 : value)
-      }, delay * 1000)
-  }, [motionValue, isInView, delay, value, direction])
-
-  useEffect(
-    () =>
-      springValue.on('change', (latest) => {
-        if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat('en-US', {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)))
-        }
-      }),
-    [springValue, decimalPlaces]
-  )
+    if (isInView) {
+      setValue(1)
+    }
+  }, [isInView])
 
   return (
-    <span
-      className={cn('inline-block tabular-nums tracking-wider', className)}
-      ref={ref}
-    />
+    <span ref={ref}>
+      <NumberFlowWrapper spinTiming={spinTiming} value={value} />
+    </span>
   )
 }

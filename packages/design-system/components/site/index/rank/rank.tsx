@@ -8,11 +8,11 @@ export default function Rank() {
       <span className="text-primary font-bold text-center uppercase">
         Rank on Google
       </span>
-      <div className="inline items-center text-center justify-center font-heading font-bold gap-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl pb-6">
+      <div className="inline-flex items-center text-center justify-center font-heading font-bold gap-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl pb-6">
         Easily Rank
-        <span className="text-primary px-2">
+        <span className="text-primary inline-flex items-center gap-1">
           No.
-          <NumberTicker value={100} direction="down" />
+          <NumberTicker spinTiming={{ duration: 1000, easing: 'ease-out' }} />
         </span>
         In Your Area
       </div>

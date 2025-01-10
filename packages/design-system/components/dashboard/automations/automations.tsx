@@ -1,5 +1,5 @@
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
-import AutomationsTable from './automations-table'
+import AutomationsTable from './table/automations-table'
 
 export default function Automations() {
   return (
@@ -10,6 +10,7 @@ export default function Automations() {
       <div className="flex-grow">
         <AutomationsTable />
       </div>
+      <AutomationsTableFooter />
     </DashboardWrap>
   )
 }

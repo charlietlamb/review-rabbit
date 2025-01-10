@@ -29,7 +29,10 @@ import {
 } from '@rabbit/design-system/components/ui/tooltip'
 import { getAutomations } from '@rabbit/design-system/actions/automations/get-automations'
 import { Badge } from '@rabbit/design-system/components/ui/badge'
-import AutomationFormDialog from './automation-form-dialog'
+import { useAtom } from 'jotai'
+import AutomationFormDialog from '../automation-form-dialog'
+import { automationsSelectedAtoms } from '@rabbit/design-system/atoms/dashboard/automations/automation-atoms'
+import { getTableCheckboxColumn } from '@rabbit/design-system/components/dashboard/table/table-checkbox'
 
 export default function AutomationsTable() {
   const {
@@ -47,6 +50,9 @@ export default function AutomationsTable() {
       automation.title.toLowerCase().includes(search.toLowerCase()),
   })
   const router = useRouter()
+  const [selectedAutomations, setSelectedAutomations] = useAtom(
+    automationsSelectedAtoms
+  )
 
   if (isLoading) {
     return (
@@ -57,6 +63,11 @@ export default function AutomationsTable() {
   }
 
   const columns: ColumnDef<AutomationWithItems>[] = [
+    getTableCheckboxColumn(
+      automations,
+      automationsSelectedAtoms,
+      setSelectedAutomations
+    ),
     {
       accessorKey: 'title',
       header: ({ column }) => (

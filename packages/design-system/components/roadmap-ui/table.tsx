@@ -137,7 +137,7 @@ export const TableHeader = ({ className, children }: TableHeaderProps) => {
   const { table } = useContext(TableContext)
 
   return (
-    <TableHeaderRaw className={className}>
+    <TableHeaderRaw className={cn(className)}>
       {table?.getHeaderGroups().map((headerGroup) => children({ headerGroup }))}
     </TableHeaderRaw>
   )

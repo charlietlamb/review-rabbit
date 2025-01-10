@@ -7,7 +7,7 @@ export function Faq() {
     <section className="sm:gap-7 container flex flex-col items-center gap-6 py-24">
       <div className="flex flex-col gap-3">
         <span className="text-primary font-bold text-center uppercase">
-          Faq
+          FAQ
         </span>
         <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center text-foreground">
           Frequently Asked Questions
@@ -20,9 +20,10 @@ export function Faq() {
         type="single"
         collapsible
         className="w-full max-w-3xl mt-6 divide-y"
+        defaultValue="1"
       >
         {faqData.map((item) => (
-          <FaqItem key={item.value} {...item} />
+          <FaqItem key={item.id} {...item} />
         ))}
       </Accordion>
     </section>

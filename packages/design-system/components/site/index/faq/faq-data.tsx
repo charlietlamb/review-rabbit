@@ -1,38 +1,112 @@
-export const faqData = [
+import {
+  Star,
+  MessageSquare,
+  TrendingUp,
+  Bell,
+  Zap,
+  BarChart,
+  Settings,
+  Users,
+  HelpCircle,
+  Shield,
+  Gauge,
+  CircleDashed,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+
+interface FaqCollapsible {
+  title: string
+  content: string
+  icon: LucideIcon
+  open?: boolean
+}
+
+interface FaqItem {
+  id: string
+  title: string
+  icon: LucideIcon
+  collapsibles: FaqCollapsible[]
+}
+
+export const faqData: FaqItem[] = [
   {
-    value: 'item-0',
-    question: 'How secure are the payment transactions?',
-    answer:
-      "All payment data is handled securely through Stripe's PCI-compliant infrastructure. We never store sensitive card data on our servers, and all transactions are encrypted end-to-end.",
+    id: '1',
+    title: 'How does Review Management work?',
+    icon: Star,
+    collapsibles: [
+      {
+        title: 'What reviews can I manage?',
+        content:
+          'Our platform currently supports Google Reviews management, allowing you to monitor, respond to, and analyze all your Google Reviews from a centralized dashboard.',
+        icon: HelpCircle,
+        open: true,
+      },
+      {
+        title: 'How does the response system work?',
+        content:
+          'Our AI-powered system helps craft professional responses while maintaining your brand voice. You can also create custom templates and manually edit any response before sending.',
+        icon: MessageSquare,
+      },
+    ],
   },
   {
-    value: 'item-1',
-    question: 'How do webhooks help with payment processing?',
-    answer:
-      'Webhooks provide real-time notifications about payment events like successful charges, failed payments, or refunds. Our system automatically handles these events, updates your database, and can trigger custom business logic.',
+    id: '2',
+    title: 'Tell me about Reputation Growth features',
+    icon: TrendingUp,
+    collapsibles: [
+      {
+        title: 'How does the review request timing work?',
+        content:
+          'Our smart timing system analyzes customer interaction patterns to identify the optimal moment to request reviews, maximizing response rates and positive feedback.',
+        icon: Gauge,
+        open: true,
+      },
+      {
+        title: 'What strategies are implemented?',
+        content:
+          'We use a combination of automated review requests, personalized follow-ups, and sentiment analysis to consistently improve your rating and review quality.',
+        icon: CircleDashed,
+      },
+    ],
   },
   {
-    value: 'item-2',
-    question: 'What happens if a webhook fails?',
-    answer:
-      'Our platform includes automatic retry logic for failed webhooks. We store events securely and attempt redelivery with exponential backoff. You can monitor webhook status and manually retry if needed.',
+    id: '3',
+    title: 'How secure is the platform?',
+    icon: Shield,
+    collapsibles: [
+      {
+        title: 'How is my data protected?',
+        content:
+          'We implement enterprise-grade security measures to protect your data, including encryption at rest and in transit, regular security audits, and strict access controls.',
+        icon: Shield,
+        open: true,
+      },
+      {
+        title: 'What about customer privacy?',
+        content:
+          'We handle all customer data in compliance with GDPR and other privacy regulations. Your customer data is never shared or sold to third parties.',
+        icon: Users,
+      },
+    ],
   },
   {
-    value: 'item-3',
-    question: 'What payment methods are supported?',
-    answer:
-      'Through Stripe, we support all major credit cards, digital wallets like Apple Pay and Google Pay, and local payment methods. The available methods can be customized based on your region and business needs.',
+    id: '4',
+    title: 'What analytics and reporting features are available?',
+    icon: BarChart,
+    collapsibles: [
+      {
+        title: 'What metrics can I track?',
+        content:
+          'Track key metrics including response times, rating trends, sentiment scores, and customer satisfaction levels. Compare your performance against industry benchmarks.',
+        icon: Gauge,
+        open: true,
+      },
+      {
+        title: 'How can I use the insights?',
+        content:
+          'Our analytics dashboard provides actionable insights to improve your service quality, identify patterns in customer feedback, and make data-driven business decisions.',
+        icon: CircleDashed,
+      },
+    ],
   },
-  {
-    value: 'item-4',
-    question: 'Can I customize the payment flow?',
-    answer:
-      'Yes! You can customize the checkout experience, add your branding, configure payment methods, and set up specific business rules. Our webhook system can also be configured to trigger custom actions based on payment events.',
-  },
-  {
-    value: 'item-5',
-    question: 'How do I monitor payment and webhook activity?',
-    answer:
-      'Our dashboard provides real-time monitoring of payment transactions and webhook events. You can track successful payments, view failed webhooks, analyze performance metrics, and export detailed reports.',
-  },
-] as const
+]

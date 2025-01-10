@@ -8,69 +8,55 @@ import {
   Settings,
   Users,
 } from 'lucide-react'
+import type { Feature } from './feature-card'
 
-export const featuresData = [
+export const featuresData: Feature[] = [
   {
     icon: Star,
     title: 'Review Management',
     description:
-      'Easily monitor and respond to all your Google Reviews from one dashboard.',
-    position: 'top' as const,
-    className: 'lg:border-r lg:border-l lg:border-b',
+      'Take control of your online reputation with our comprehensive review management dashboard. Monitor, respond, and analyze all your Google Reviews in one centralized place, saving you hours of manual work each week.',
   },
   {
     icon: TrendingUp,
     title: 'Reputation Growth',
     description:
-      'Proven strategies to increase your positive reviews and overall rating.',
-    position: 'top' as const,
-    className: 'lg:border-r lg:border-b',
+      'Implement proven strategies that consistently increase your positive reviews and overall rating. Our smart timing system identifies the perfect moment to request reviews, leading to higher response rates and better ratings.',
   },
   {
     icon: MessageSquare,
     title: 'Smart Responses',
     description:
-      'AI-powered response suggestions help you engage with customers professionally and quickly.',
-    position: 'top' as const,
-    className: 'lg:border-r lg:border-b',
+      'Let AI handle the heavy lifting of crafting professional responses to reviews. Our system learns your brand voice and generates personalized, context-aware replies while maintaining a natural, human touch in every interaction.',
   },
   {
     icon: Users,
     title: 'Customer Insights',
     description:
-      'Understand customer sentiment and identify trends in feedback.',
-    position: 'top' as const,
-    className: 'lg:border-r lg:border-b',
+      'Transform customer feedback into actionable business intelligence with our advanced sentiment analysis. Identify patterns in customer experiences and track sentiment trends over time to make data-driven improvements to your service.',
   },
   {
     icon: Bell,
     title: 'Instant Alerts',
     description:
-      'Get notified immediately when new reviews need your attention.',
-    position: 'bottom' as const,
-    className: 'lg:border-r lg:border-l',
+      'Never miss a critical review with our real-time notification system. Customize alert priorities and receive instant notifications across multiple channels, ensuring you can address urgent feedback within minutes.',
   },
   {
     icon: Zap,
     title: 'Quick Setup',
-    description: 'Connect your Google Business Profile in a couple of clicks.',
-    position: 'bottom' as const,
-    className: 'lg:border-r',
+    description:
+      'Get up and running in minutes with our streamlined onboarding process. Connect your Google Business Profile with just a few clicks and start managing your reviews immediately, no technical expertise required.',
   },
   {
     icon: BarChart,
     title: 'Performance Metrics',
     description:
-      'Track your rating growth and response times with easy reports.',
-    position: 'bottom' as const,
-    className: 'lg:border-r',
+      'Gain deep insights into your review performance with comprehensive analytics and reporting. Track key metrics like response times, rating trends, and sentiment scores while comparing your performance against industry benchmarks.',
   },
   {
     icon: Settings,
-    title: 'Customizable',
+    title: 'Customizable Workflow',
     description:
-      'Tailor notification settings and response templates to your needs.',
-    position: 'bottom' as const,
-    className: 'lg:border-r',
+      'Tailor the platform to match your unique business needs with flexible customization options. Create custom response templates, set up automated workflows, and configure notification rules to streamline your review management process.',
   },
-] as const
+]

@@ -63,17 +63,19 @@ export function FeatureContent({ feature }: FeatureContentProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
-      className="absolute inset-0 flex flex-col items-center justify-center text-center"
+      className="absolute inset-0 flex items-start justify-center text-center gap-8"
     >
       <div className="mb-6 rounded-full bg-primary/10 p-4">
         <Icon size={32} className="text-primary" />
       </div>
-      <h3 className="mb-4 text-2xl font-bold text-foreground">
-        {feature.title}
-      </h3>
-      <p className="max-w-xl text-lg text-muted-foreground">
-        {feature.description}
-      </p>
+      <div className="flex flex-col items-start text-left">
+        <h3 className="mb-4 text-2xl font-bold text-foreground">
+          {feature.title}
+        </h3>
+        <p className="max-w-xl text-lg text-muted-foreground">
+          {feature.description}
+        </p>
+      </div>
     </motion.div>
   )
 }

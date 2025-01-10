@@ -23,7 +23,7 @@ import {
 import { useAtom } from 'jotai'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
 import { Client } from '@rabbit/database/schema/app/clients'
-import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
+import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/avatar/client-avatar'
 import { useState } from 'react'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'

@@ -8,10 +8,7 @@ export default function DashboardHeaderActions() {
   return (
     <div className="flex items-center ml-auto h-full pr-2">
       <AutomationFormDialog>
-        <Button
-          variant="shine"
-          className="h-8 flex items-center gap-2 fill-foreground text-foreground"
-        >
+        <Button variant="shine" className="h-8 flex items-center gap-2">
           <Rocket /> New Automation
         </Button>
       </AutomationFormDialog>

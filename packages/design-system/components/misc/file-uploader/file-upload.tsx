@@ -1,40 +1,25 @@
-import { uploadMedia } from '@rabbit/design-system/actions/media/upload-media'
-import { uploadsLastUpdatedAtom } from '@rabbit/design-system/atoms/dashboard/upload/uploads-atom'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import { Button } from '@rabbit/design-system/components/ui/button'
-import { useSetAtom } from 'jotai'
 import { Upload } from 'lucide-react'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'sonner'
 
 export default function FileUpload({
   files,
-  durations,
   setFiles,
-  setOpen,
-  setProgress,
+  buttonText = 'Upload Files',
+  onSuccess,
 }: {
   files: File[] | undefined
-  durations: Record<string, number>
   setFiles: Dispatch<SetStateAction<File[] | undefined>>
-  setOpen?: Dispatch<SetStateAction<boolean>>
-  setProgress: Dispatch<SetStateAction<Record<string, number>>>
+  buttonText?: string
+  onSuccess?: () => void
 }) {
   const [loading, setLoading] = useState(false)
-  const setLastUpdated = useSetAtom(uploadsLastUpdatedAtom)
 
   async function handleUpload() {
     if (!files?.length) return
     setLoading(true)
-    const ids = await uploadMedia(files, durations, setProgress)
-    if (!ids || ids.length !== files.length) {
-      toast.error('Failed to upload files', {
-        description: 'Please try again.',
-      })
-      setOpen?.(false)
-      setLoading(false)
-      return
-    }
     setFiles([])
     toast.success(
       `${files.length} file${
@@ -45,9 +30,8 @@ export default function FileUpload({
         icon: <Upload />,
       }
     )
-    setLastUpdated(new Date())
     setLoading(false)
-    setOpen?.(false)
+    onSuccess?.()
   }
   return (
     <Button
@@ -56,7 +40,7 @@ export default function FileUpload({
       disabled={!files?.length || loading}
       onClick={handleUpload}
     >
-      {loading ? <Spinner /> : 'Upload Files'}
+      {loading ? <Spinner /> : buttonText}
     </Button>
   )
 }

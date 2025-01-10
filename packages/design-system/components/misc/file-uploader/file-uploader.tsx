@@ -29,6 +29,7 @@ export function FileUploader(props: FileUploaderProps) {
     maxFileCount = 1,
     multiple = false,
     disabled = false,
+    showUploadButton = true,
     setOpen,
     className,
     noPreview = false,
@@ -186,14 +187,8 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         </ScrollArea>
       ) : null}
-      {!noPreview && (
-        <FileUpload
-          files={files}
-          durations={durations}
-          setFiles={setFiles}
-          setOpen={setOpen}
-          setProgress={setProgress}
-        />
+      {!noPreview && showUploadButton && (
+        <FileUpload files={files} setFiles={setFiles} />
       )}
     </div>
   )

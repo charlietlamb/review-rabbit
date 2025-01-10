@@ -6,15 +6,12 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@rabbit/design-system/components/ui/dialog'
-import ClientsNewForm from './clients-form'
-import { Client } from '@rabbit/database'
+import ClientsNewForm from '../form/clients-form'
 import { useState } from 'react'
 
-export default function ClientsEditDialog({
-  client,
+export default function ClientsNewDialog({
   children,
 }: {
-  client: Client
   children: React.ReactNode
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -23,12 +20,12 @@ export default function ClientsEditDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Client</DialogTitle>
+          <DialogTitle>Add New Client</DialogTitle>
+          <DialogDescription>
+            Add a new client to your account.
+          </DialogDescription>
         </DialogHeader>
-        <DialogDescription>
-          Edit the details of {client.name}.
-        </DialogDescription>
-        <ClientsNewForm client={client} setIsOpen={setIsOpen} />
+        <ClientsNewForm setIsOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   )

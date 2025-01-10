@@ -1,5 +1,5 @@
 import { Client } from '@rabbit/database'
-import ClientAvatar from './client-avatar'
+import ClientAvatar from './avatar/client-avatar'
 import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function ClientMultiAvatar({

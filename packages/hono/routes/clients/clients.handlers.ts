@@ -7,9 +7,11 @@ import {
   UpdateClientRoute,
   DeleteClientRoute,
   GetClientByIdRoute,
+  AddBulkClientsRoute,
 } from './clients.routes'
 import { eq, sql, and, or } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
+import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
 
 export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   const user = c.get('user')
@@ -120,6 +122,31 @@ export const deleteClient: AppRouteHandler<DeleteClientRoute> = async (c) => {
     console.error('Error deleting client:', error)
     return c.json(
       { error: 'Failed to delete client' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
+  c
+) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const bulkClientData = await c.req.json()
+  try {
+    await db.insert(clients).values(
+      bulkClientData.map((client: ClientFormData) => ({
+        ...client,
+        userId: user.id,
+      }))
+    )
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error adding clients:', error)
+    return c.json(
+      { error: 'Failed to add clients' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

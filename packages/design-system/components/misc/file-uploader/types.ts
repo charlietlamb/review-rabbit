@@ -71,6 +71,14 @@ export interface FileUploaderProps
   multiple?: boolean
 
   /**
+   * Whether the uploader should show the upload button.
+   * @type boolean
+   * @default true
+   * @example showUploadButton
+   */
+  showUploadButton?: boolean
+
+  /**
    * Whether the uploader is disabled.
    * @type boolean
    * @default false

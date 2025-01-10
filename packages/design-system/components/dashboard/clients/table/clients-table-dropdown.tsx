@@ -1,5 +1,4 @@
-import ClientsEditDialog from './clients-edit-dialog'
-
+import ClientsEditDialog from '../dialog/clients-edit-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +10,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { MoreHorizontal, Pencil, FileText } from 'lucide-react'
 import { Client } from '@rabbit/database/schema/app/clients'
 import { useState } from 'react'
-import AutomationFormDialog from '../automations/automation-form-dialog'
+import AutomationFormDialog from '@rabbit/design-system/components/dashboard/automations/automation-form-dialog'
 
 export default function ClientsTableDropdown({ client }: { client: Client }) {
   const [open, setOpen] = useState(false)
@@ -50,7 +49,7 @@ export default function ClientsTableDropdown({ client }: { client: Client }) {
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-border m-0" />
         <DropdownMenuItem asChild>
-          <AutomationFormDialog client={client}>
+          <AutomationFormDialog>
             <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-border transition-colors">
               <FileText className="mr-2 h-4 w-4" />
               New Automation

@@ -166,3 +166,32 @@ export const deleteClient = createRoute({
 })
 
 export type DeleteClientRoute = typeof deleteClient
+
+export const addBulkClients = createRoute({
+  path: '/clients/add-bulk',
+  method: 'post',
+  summary: 'Add multiple clients',
+  tags,
+  request: {
+    body: {
+      description: 'Client data',
+      content: {
+        'application/json': {
+          schema: z.array(clientValidationSchema),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Clients added.'),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to add clients'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type AddBulkClientsRoute = typeof addBulkClients

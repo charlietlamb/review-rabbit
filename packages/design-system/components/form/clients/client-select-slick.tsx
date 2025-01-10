@@ -6,13 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@rabbit/design-system/components/ui/select'
-import ClientMultiAvatar from '@rabbit/design-system/components/dashboard/clients/client-multi-avatar'
+import ClientMultiAvatar from '@rabbit/design-system/components/dashboard/clients/avatar/client-multi-avatar'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
 import { clientsAtoms } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
 import { clientsSearchAtom } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
 import InfiniteScroll from '@rabbit/design-system/components/misc/infinite-scroll'
-import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
+import ClientAvatar from 'components/dashboard/clients/avatar/client-avatar'
 import { Client } from '@rabbit/database/schema/app/clients'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { QUERY_KEYS } from 'data/query-keys'

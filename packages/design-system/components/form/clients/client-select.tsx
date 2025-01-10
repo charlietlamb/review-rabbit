@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@rabbit/design-system/components/ui/popover'
-import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/client-avatar'
+import ClientAvatar from 'components/dashboard/clients/avatar/client-avatar'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 import {

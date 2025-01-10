@@ -13,7 +13,7 @@ import FieldInfo from '../field-info'
 import { useFormContext } from '../form-context'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
-const colors = [
+const colorsData = [
   { value: 'blue', label: 'Blue', class: 'bg-blue-500 border-blue-500' },
   {
     value: 'indigo',
@@ -35,7 +35,17 @@ const colors = [
   },
 ] as const
 
-type Color = (typeof colors)[number]['value']
+export const colors = [
+  'blue',
+  'indigo',
+  'pink',
+  'red',
+  'orange',
+  'amber',
+  'emerald',
+] as const
+const colorSchema = z.enum(colors)
+type Color = z.infer<typeof colorSchema>
 
 interface ColorPickerProps {
   form: TanstackForm<any>
@@ -85,7 +95,7 @@ export default function ColorPicker({
             defaultValue={field.state.value ?? 'blue'}
             onValueChange={(value) => field.handleChange(value as Color)}
           >
-            {colors.map((color) => (
+            {colorsData.map((color) => (
               <RadioGroupItem
                 key={color.value}
                 value={color.value}
@@ -105,15 +115,3 @@ export default function ColorPicker({
     </form.Field>
   )
 }
-
-export const colorSchema = z.enum([
-  'blue',
-  'indigo',
-  'pink',
-  'red',
-  'orange',
-  'amber',
-  'emerald',
-])
-
-export type ColorType = z.infer<typeof colorSchema>

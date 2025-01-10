@@ -1,5 +1,8 @@
+'use client'
+
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
 import AutomationsTable from './table/automations-table'
+import AutomationsTableFooter from './table/automations-table-footer'
 
 export default function Automations() {
   return (

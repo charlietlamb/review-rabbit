@@ -15,7 +15,7 @@ export const automationItems = pgTable('automation_items', {
     .references(() => users.id)
     .notNull(),
   automationId: text('automation_id')
-    .references(() => automations.id)
+    .references(() => automations.id, { onDelete: 'cascade' })
     .notNull(),
   clientId: text('client_id')
     .references(() => clients.id, { onDelete: 'cascade' })

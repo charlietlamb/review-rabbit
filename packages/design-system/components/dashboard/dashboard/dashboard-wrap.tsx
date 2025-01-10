@@ -17,7 +17,12 @@ export default function DashboardWrap({
   children: React.ReactNode
 }) {
   return (
-    <div className={cn('flex flex-col divide-y h-full flex-grow', className)}>
+    <div
+      className={cn(
+        'flex flex-col divide-y h-full flex-grow relative overflow-hidden bg-muted/50',
+        className
+      )}
+    >
       <DashboardContentHeader
         title={title}
         subtitle={subtitle}

@@ -8,6 +8,7 @@ import { useAtom } from 'jotai'
 import TableSearch from '@rabbit/design-system/components/dashboard/table/table-search'
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
 import ClientsBulkDialog from './dialog/clients-bulk-dialog'
+import ClientsTableFooter from './table/clients-table-footer'
 
 export default function Clients() {
   const [search, setSearch] = useAtom(clientsSearchAtom)
@@ -30,6 +31,7 @@ export default function Clients() {
       <div className="overflow-y-auto flex-grow">
         <ClientsTable />
       </div>
+      <ClientsTableFooter />
     </DashboardWrap>
   )
 }

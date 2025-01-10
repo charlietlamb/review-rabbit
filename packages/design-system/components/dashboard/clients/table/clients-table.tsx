@@ -16,6 +16,7 @@ import { format } from 'date-fns'
 import {
   clientsAtoms,
   clientsSearchAtom,
+  clientsSelectedAtoms,
 } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
 import { Client } from '@rabbit/database/schema/app/clients'
 import ClientsNewDialog from '../dialog/clients-new-dialog'
@@ -29,6 +30,8 @@ import ClientAvatar from '../avatar/client-avatar'
 import { useRouter } from 'next/navigation'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 import TableLoading from '@rabbit/design-system/components/dashboard/table/table-loading'
+import { useAtom } from 'jotai'
+import { getTableCheckboxColumn } from '@rabbit/design-system/components/dashboard/table/table-checkbox'
 
 export default function ClientsTable() {
   const {
@@ -47,12 +50,10 @@ export default function ClientsTable() {
       (client.email?.toLowerCase().includes(search.toLowerCase()) ?? false),
   })
   const router = useRouter()
-
-  if (isLoading && !clients.length) {
-    return <TableLoading />
-  }
+  const [selectedClients, setSelectedClients] = useAtom(clientsSelectedAtoms)
 
   const columns: ColumnDef<Client>[] = [
+    getTableCheckboxColumn(clientsSelectedAtoms, setSelectedClients),
     {
       accessorKey: 'details',
       header: ({ column }) => (
@@ -100,6 +101,10 @@ export default function ClientsTable() {
     },
   ]
 
+  if (isLoading && !clients.length) {
+    return <TableLoading />
+  }
+
   return (
     <>
       {clients.length > 0 ? (
@@ -134,16 +139,7 @@ export default function ClientsTable() {
             </TableHeader>
             <TableBody>
               {({ row }) => (
-                <TableRow
-                  key={row.id}
-                  row={row}
-                  className="cursor-pointer"
-                  onClick={() => {
-                    router.push(
-                      `/dashboard/client/${(row.original as Client).id}`
-                    )
-                  }}
-                >
+                <TableRow key={row.id} row={row} className="cursor-pointer">
                   {({ cell }) => (
                     <TableCell
                       key={cell.id}

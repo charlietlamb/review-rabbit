@@ -1,5 +1,5 @@
 import { FormProvider } from '@rabbit/design-system/components/form/form-context'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import WorkflowSelect from '@rabbit/design-system/components/form/workflow/workflow-select'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { toast } from 'sonner'
@@ -16,11 +16,14 @@ import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+import { Client } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationForm({
   onSuccess,
+  selectedClientsInitial = [],
 }: {
   onSuccess?: () => void
+  selectedClientsInitial?: Client[]
 }) {
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
   const businessId = useAtomValue(businessIdAtom)
@@ -29,6 +32,12 @@ export default function AutomationForm({
   const [title, setTitle] = useState<string>('')
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (selectedClientsInitial.length) {
+      setSelectedClients(selectedClientsInitial)
+    }
+  }, [selectedClientsInitial])
 
   function validate() {
     if (!title) {

@@ -8,10 +8,13 @@ import {
 } from '@rabbit/design-system/components/ui/dialog'
 import AutomationForm from './automation-form'
 import { useState } from 'react'
+import { Client } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationFormDialog({
+  selectedClients = [],
   children,
 }: {
+  selectedClients?: Client[]
   children: React.ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -25,7 +28,10 @@ export default function AutomationFormDialog({
             Schedule an email, text or whatsapp message to your clients.
           </DialogDescription>
         </DialogHeader>
-        <AutomationForm onSuccess={() => setOpen(false)} />
+        <AutomationForm
+          onSuccess={() => setOpen(false)}
+          selectedClientsInitial={selectedClients}
+        />
       </DialogContent>
     </Dialog>
   )

@@ -68,8 +68,7 @@ export function Features() {
         ))}
       </div>
 
-      {/* Feature Content */}
-      <div className="relative h-[300px] w-full max-w-4xl">
+      <div className="relative w-full max-w-4xl h-[160px]">
         <AnimatePresence mode="wait">
           <FeatureContent feature={featuresData[activeFeature]} />
         </AnimatePresence>

@@ -12,5 +12,6 @@ const router = createRouter()
     routes.updateAutomationItemStatus,
     handlers.updateAutomationItemStatus
   )
-
+  .openapi(routes.deleteBulkAutomations, handlers.deleteBulkAutomations)
+  .openapi(routes.deleteAutomation, handlers.deleteAutomation)
 export default router

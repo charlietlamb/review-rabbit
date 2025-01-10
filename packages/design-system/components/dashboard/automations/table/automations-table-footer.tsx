@@ -3,11 +3,11 @@ import { ListChecks } from 'lucide-react'
 import TableFooter from '@rabbit/design-system/components/dashboard/table/table-footer'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
-import { deleteBulkAutomations } from '@rabbit/design-system/actions/automations/bulk-delete-automations'
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 import { automationsSelectedAtoms } from 'atoms/dashboard/automations/automation-atoms'
+import { deleteBulkAutomations } from '@rabbit/design-system/actions/automations/bulk-delete-automations'
 
 export default function AutomationsTableFooter() {
   const [selectedAutomations, setSelectedAutomations] = useAtom(

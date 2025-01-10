@@ -16,8 +16,10 @@ import {
   GetAutomationItemsByDateRoute,
   UpdateAutomationItemRoute,
   UpdateAutomationItemStatusRoute,
+  DeleteAutomationRoute,
+  DeleteBulkAutomationsRoute,
 } from './automations.routes'
-import { eq, sql, and, or, gte, lte } from 'drizzle-orm'
+import { eq, sql, and, or, gte, lte, inArray } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
 import { triggerWorkflow } from '@rabbit/trigger'
@@ -215,6 +217,44 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
     console.error('Error adding automation:', error)
     return c.json(
       { error: 'Failed to add automation' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const deleteAutomation: AppRouteHandler<DeleteAutomationRoute> = async (
+  c
+) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { id } = await c.req.json()
+  try {
+    await db.delete(automations).where(eq(automations.id, id))
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    return c.json(
+      { error: 'Failed to delete automation' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const deleteBulkAutomations: AppRouteHandler<
+  DeleteBulkAutomationsRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { ids } = await c.req.json()
+  try {
+    await db.delete(automations).where(inArray(automations.id, ids))
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    return c.json(
+      { error: 'Failed to delete automations' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

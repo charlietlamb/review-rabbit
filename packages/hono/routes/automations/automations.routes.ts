@@ -223,6 +223,36 @@ export const deleteAutomation = createRoute({
 
 export type DeleteAutomationRoute = typeof deleteAutomation
 
+export const deleteBulkAutomations = createRoute({
+  path: '/automations/delete-bulk',
+  method: 'post',
+  summary: 'Delete multiple automations',
+  tags,
+  request: {
+    body: {
+      description: 'Automation IDs',
+      content: {
+        'application/json': {
+          schema: z.object({
+            ids: z.array(z.string()),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Automations deleted.'),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to delete automations'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type DeleteBulkAutomationsRoute = typeof deleteBulkAutomations
 export const updateAutomationItem = createRoute({
   path: '/automations/items/update',
   method: 'post',

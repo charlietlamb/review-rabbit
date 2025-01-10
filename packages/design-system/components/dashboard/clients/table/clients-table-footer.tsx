@@ -42,7 +42,7 @@ export default function ClientsTableFooter() {
             setLoading(false)
           }}
         >
-          <Button variant="destructive">
+          <Button variant="destructive" className='font-header font-bold'>
             Delete {selectedClients.length} client
             {selectedClients.length > 1 ? 's' : ''}
           </Button>

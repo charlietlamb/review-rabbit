@@ -1,17 +1,12 @@
 import { Button } from '@rabbit/design-system/components/ui/button'
-import { Plus } from 'lucide-react'
-import { useCalendarContext } from '../../calendar-context'
+import AutomationFormDialog from '@rabbit/design-system/components/dashboard/automations/automation-form-dialog'
 
 export default function CalendarHeaderActionsAdd() {
-  const { setNewEventSheetOpen } = useCalendarContext()
   return (
-    <Button
-      className="flex items-center gap-1"
-      variant="shine"
-      onClick={() => setNewEventSheetOpen(true)}
-    >
-      <Plus />
-      New Automation
-    </Button>
+    <AutomationFormDialog>
+      <Button className="flex items-center gap-1" variant="shine">
+        New Automation
+      </Button>
+    </AutomationFormDialog>
   )
 }

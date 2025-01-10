@@ -19,7 +19,7 @@ export const scheduleEventItemsAtom = atom<CalendarEvent[]>((get) => {
     const end = addMinutes(start, 10)
     return {
       id: automationItem.id,
-      title: automationItem.content,
+      title: automationItem.automationId,
       start,
       end,
     }

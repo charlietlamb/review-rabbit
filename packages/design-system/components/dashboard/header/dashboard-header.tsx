@@ -4,7 +4,7 @@ import DashboardHeaderActions from './dashboard-header-actions'
 
 export default function DashboardHeader() {
   return (
-    <div className="md:h-12 h-10 border-b flex items-center gap-2 bg-background rounded-tl-lg">
+    <div className="md:h-16 h-10 border-b flex items-center gap-2 bg-background rounded-tl-lg">
       <DashboardSidebarToggle />
       <DashboardBreadcrumb />
       <DashboardHeaderActions />

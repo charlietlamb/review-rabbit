@@ -8,8 +8,9 @@ import {
   DeleteClientRoute,
   GetClientByIdRoute,
   AddBulkClientsRoute,
+  DeleteBulkClientsRoute,
 } from './clients.routes'
-import { eq, sql, and, or } from 'drizzle-orm'
+import { eq, sql, and, or, inArray } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
 
@@ -122,6 +123,26 @@ export const deleteClient: AppRouteHandler<DeleteClientRoute> = async (c) => {
     console.error('Error deleting client:', error)
     return c.json(
       { error: 'Failed to delete client' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const deleteBulkClients: AppRouteHandler<
+  DeleteBulkClientsRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { ids } = await c.req.json()
+  try {
+    await db.delete(clients).where(inArray(clients.id, ids))
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error deleting clients:', error)
+    return c.json(
+      { error: 'Failed to delete clients' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

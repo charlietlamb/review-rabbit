@@ -9,18 +9,21 @@ import {
 } from '@rabbit/design-system/components/ui/dialog'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { useState } from 'react'
+import Spinner from './spinner'
 
 export default function DangerDialog({
   title,
   description,
+  loading = false,
   variant = 'destructive',
   onClick,
   children,
 }: {
   title: string
   description: string
+  loading?: boolean
   variant?: 'destructive' | 'shine'
-  onClick: () => void
+  onClick: () => Promise<void> | void
   children: React.ReactNode
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,13 +40,14 @@ export default function DangerDialog({
             Cancel
           </Button>
           <Button
-            onClick={() => {
-              onClick()
+            onClick={async () => {
+              await onClick()
               setIsOpen(false)
             }}
             variant={variant}
+            disabled={loading}
           >
-            Confirm
+            {loading ? <Spinner /> : 'Confirm'}
           </Button>
         </DialogFooter>
       </DialogContent>

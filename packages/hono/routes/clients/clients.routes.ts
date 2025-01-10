@@ -167,6 +167,35 @@ export const deleteClient = createRoute({
 
 export type DeleteClientRoute = typeof deleteClient
 
+export const deleteBulkClients = createRoute({
+  path: '/clients/delete-bulk',
+  method: 'post',
+  summary: 'Delete multiple clients',
+  tags,
+  request: {
+    body: {
+      description: 'Client IDs',
+      content: {
+        'application/json': {
+          schema: z.object({ ids: z.array(z.string()) }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Clients deleted.'),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to delete clients'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type DeleteBulkClientsRoute = typeof deleteBulkClients
+
 export const addBulkClients = createRoute({
   path: '/clients/add-bulk',
   method: 'post',

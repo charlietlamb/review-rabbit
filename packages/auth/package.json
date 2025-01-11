@@ -6,7 +6,7 @@
     "@rabbit/database": "workspace:*",
     "@rabbit/email": "workspace:*",
     "@rabbit/env": "workspace:*",
-    "better-auth": "^1.0.20"
+    "better-auth": "^1.1.10"
   },
   "devDependencies": {
     "@rabbit/typescript-config": "workspace:*",

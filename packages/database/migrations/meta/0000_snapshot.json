@@ -1,5 +1,5 @@
 {
-  "id": "e9f12efc-dfae-49ad-bbdb-bd474609a54f",
+  "id": "a752f814-6842-428d-bc41-cd72259f1a92",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -111,7 +111,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "automation_items_client_id_clients_id_fk": {

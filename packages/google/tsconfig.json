@@ -1,0 +1,13 @@
+{
+  "extends": "@rabbit/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@rabbit/hono/*": ["./*"]
+    }
+  },
+  "include": ["./*.ts", "./*.tsx", "trigger.config.ts"],
+  "exclude": ["node_modules"]
+}

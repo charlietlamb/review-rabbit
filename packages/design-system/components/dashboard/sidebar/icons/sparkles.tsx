@@ -15,11 +15,6 @@ import {
 } from '@rabbit/design-system/components/ui/tooltip'
 import { cn } from '@rabbit/design-system/lib/utils'
 
-const transition: Transition = {
-  duration: 0.6,
-  ease: [0.42, 0, 0.58, 1],
-}
-
 const variants: Variants = {
   normal: {
     scale: 1,
@@ -74,12 +69,12 @@ const SparklesIcon = () => {
       {!open ? (
         <Tooltip>
           <TooltipTrigger>{iconSvg}</TooltipTrigger>
-          <TooltipContent>Media</TooltipContent>
+          <TooltipContent>Reviews</TooltipContent>
         </Tooltip>
       ) : (
         iconSvg
       )}
-      <p className={cn(iconTextClassName, !open && 'hidden')}>Media</p>
+      <p className={cn(iconTextClassName, !open && 'hidden')}>Reviews</p>
     </div>
   )
 }

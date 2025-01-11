@@ -8,5 +8,6 @@ const router = createRouter()
   .openapi(routes.getById, handlers.getById)
   .openapi(routes.update, handlers.update)
   .openapi(routes.deleteBusiness, handlers.deleteBusiness)
+  .openapi(routes.callback, handlers.callback)
 
 export default router

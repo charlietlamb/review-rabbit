@@ -143,3 +143,35 @@ export const deleteBusiness = createRoute({
 })
 
 export type DeleteBusinessRoute = typeof deleteBusiness
+
+export const callback = createRoute({
+  path: '/business/callback/success',
+  method: 'get',
+  summary: 'Handle Google OAuth callback for business scope',
+  tags,
+  request: {
+    query: z.object({
+      code: z.string(),
+      state: z.string(),
+    }),
+  },
+  responses: {
+    [HttpStatusCodes.MOVED_TEMPORARILY]: {
+      description: 'Redirect to dashboard',
+    },
+    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Invalid callback request'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to handle callback'
+    ),
+  },
+})
+
+export type CallbackRoute = typeof callback

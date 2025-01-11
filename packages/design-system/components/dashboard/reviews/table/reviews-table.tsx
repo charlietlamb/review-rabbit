@@ -33,7 +33,7 @@ import {
 import { Badge } from '@rabbit/design-system/components/ui/badge'
 import { useAtom } from 'jotai'
 import { getTableCheckboxColumn } from '@rabbit/design-system/components/dashboard/table/table-checkbox'
-import { getReviews } from '@rabbit/google/get-reviews'
+import { getReviews } from '@rabbit/google/lib/get-reviews'
 import { Account } from '@rabbit/database/schema/auth/accounts'
 
 export default function ReviewsTable({ account }: { account: Account }) {

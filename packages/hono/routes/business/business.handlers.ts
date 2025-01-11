@@ -5,11 +5,14 @@ import {
   GetBusinessByIdRoute,
   UpdateBusinessRoute,
   DeleteBusinessRoute,
+  CallbackRoute,
 } from '@rabbit/hono/routes/business/business.routes'
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
 import { db } from '@rabbit/database'
-import { businesses } from '@rabbit/database/schema/app/businesses'
+import { businesses, accounts } from '@rabbit/database/schema'
 import { and, eq } from 'drizzle-orm'
+import { getEnv } from '@rabbit/env'
+import { OAuth2Client } from 'google-auth-library'
 
 export const create: AppRouteHandler<CreateBusinessRoute> = async (c) => {
   const user = await c.get('user')
@@ -111,6 +114,68 @@ export const deleteBusiness: AppRouteHandler<DeleteBusinessRoute> = async (
   } catch (error) {
     return c.json(
       { error: 'Failed to delete business' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
+  const { code, state } = c.req.query()
+
+  if (!code || !state) {
+    return c.json(
+      { error: 'Missing required parameters' },
+      HttpStatusCodes.BAD_REQUEST
+    )
+  }
+
+  try {
+    const oauth2Client = new OAuth2Client(
+      getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      getEnv().GOOGLE_CLIENT_SECRET,
+      `${getEnv().NEXT_PUBLIC_API}/business/callback/success`
+    )
+
+    const { tokens } = await oauth2Client.getToken(code)
+
+    if (!tokens.access_token) {
+      return c.json(
+        { error: 'Failed to get access token' },
+        HttpStatusCodes.INTERNAL_SERVER_ERROR
+      )
+    }
+
+    // Get existing account to check current scopes
+    const existingAccount = await db.query.accounts.findFirst({
+      where: eq(accounts.id, state),
+    })
+
+    // Combine existing and new scopes while ensuring uniqueness
+    const existingScopes =
+      existingAccount?.scope?.split(',').filter(Boolean) || []
+    const newScopes = tokens.scope?.split(',').filter(Boolean) || []
+    const uniqueScopes = [...new Set([...existingScopes, ...newScopes])].join(
+      ','
+    )
+
+    await db
+      .update(accounts)
+      .set({
+        accessToken: tokens.access_token,
+        accessTokenExpiresAt: tokens.expiry_date
+          ? new Date(tokens.expiry_date)
+          : null,
+        refreshToken: tokens.refresh_token || undefined,
+        scope: uniqueScopes || undefined,
+        idToken: tokens.id_token || undefined,
+      })
+      .where(eq(accounts.id, state))
+
+    return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/dashboard/reviews`)
+  } catch (error) {
+    console.error('Error in callback:', error)
+    return c.json(
+      { error: 'Failed to handle callback' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

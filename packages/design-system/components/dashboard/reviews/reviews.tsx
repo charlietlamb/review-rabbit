@@ -1,12 +1,14 @@
-import { Account } from '@rabbit/database/schema/auth/accounts'
 import DashboardWrap from '../dashboard/dashboard-wrap'
 import ReviewsTable from './table/reviews-table'
+import { useAtomValue } from 'jotai'
+import { accountAtom } from '@rabbit/design-system/atoms/user/user-atom'
 
-export default function Reviews({ account }: { account: Account }) {
+export default function Reviews() {
+  const account = useAtomValue(accountAtom)
   return (
     <DashboardWrap title="Reviews" subtitle="Manage and respond to reviews">
       <div className="flex-grow">
-        <ReviewsTable account={account} />
+        {account && <ReviewsTable account={account} />}
       </div>
     </DashboardWrap>
   )

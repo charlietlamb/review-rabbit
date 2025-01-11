@@ -13,7 +13,7 @@ import { businesses, accounts } from '@rabbit/database/schema'
 import { and, eq } from 'drizzle-orm'
 import { getEnv } from '@rabbit/env'
 import { OAuth2Client } from 'google-auth-library'
-
+import { GOOGLE_BUSINESS_SCOPE } from '@rabbit/google/data'
 export const create: AppRouteHandler<CreateBusinessRoute> = async (c) => {
   const user = await c.get('user')
   if (!user) {
@@ -139,10 +139,7 @@ export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
     const { tokens } = await oauth2Client.getToken(code)
 
     if (!tokens.access_token) {
-      return c.json(
-        { error: 'Failed to get access token' },
-        HttpStatusCodes.INTERNAL_SERVER_ERROR
-      )
+      return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/dashboard`)
     }
 
     // Get existing account to check current scopes
@@ -150,13 +147,11 @@ export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
       where: eq(accounts.id, state),
     })
 
-    // Combine existing and new scopes while ensuring uniqueness
     const existingScopes =
       existingAccount?.scope?.split(',').filter(Boolean) || []
-    const newScopes = tokens.scope?.split(',').filter(Boolean) || []
-    const uniqueScopes = [...new Set([...existingScopes, ...newScopes])].join(
-      ','
-    )
+    const uniqueScopes = [
+      ...new Set([...existingScopes, GOOGLE_BUSINESS_SCOPE]),
+    ].join(',')
 
     await db
       .update(accounts)

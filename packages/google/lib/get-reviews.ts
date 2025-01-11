@@ -1,15 +1,9 @@
 import { Review } from '../types'
 import { Account } from '@rabbit/database/schema/auth/accounts'
 import { getEnv } from '@rabbit/env'
-import { addBusinessScope } from './add-business-scope'
-
+import { addBusinessScope } from './business/add-business-scope'
+import { hasBusinessScope } from './business/has-business-scope'
 const PAGE_SIZE = 100
-const REQUIRED_SCOPE = 'https://www.googleapis.com/auth/business.manage'
-
-function hasRequiredScope(account: Account): boolean {
-  if (!account.scope) return false
-  return account.scope.split(' ').includes(REQUIRED_SCOPE)
-}
 
 export function redirectToAuth(returnUrl?: string): never {
   if (typeof window !== 'undefined') {
@@ -27,7 +21,7 @@ export async function getReviews(
   page: number = 1,
   account: Account
 ): Promise<Review[]> {
-  if (!hasRequiredScope(account)) {
+  if (!hasBusinessScope(account)) {
     await addBusinessScope(account)
   }
 

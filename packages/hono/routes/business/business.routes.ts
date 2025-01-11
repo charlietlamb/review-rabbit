@@ -151,8 +151,8 @@ export const callback = createRoute({
   tags,
   request: {
     query: z.object({
-      code: z.string(),
-      state: z.string(),
+      code: z.string().optional(),
+      state: z.string().optional(),
     }),
   },
   responses: {

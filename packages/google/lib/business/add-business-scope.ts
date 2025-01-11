@@ -1,6 +1,6 @@
 import { getEnv } from '@rabbit/env'
 import { Account } from '@rabbit/database'
-import { GOOGLE_BUSINESS_SCOPE } from '../data'
+import { GOOGLE_BUSINESS_SCOPE } from '../../data'
 
 export async function addBusinessScope(account: Account): Promise<Account> {
   const params = new URLSearchParams({

@@ -14,5 +14,16 @@ export async function getGoogleAccount(): Promise<Account | null> {
     console.error(data.error)
     return null
   }
-  return data
+  return {
+    ...data,
+    createdAt: new Date(data.createdAt),
+    updatedAt: new Date(data.updatedAt),
+    accessTokenExpiresAt: data.accessTokenExpiresAt
+      ? new Date(data.accessTokenExpiresAt)
+      : null,
+    refreshTokenExpiresAt: data.refreshTokenExpiresAt
+      ? new Date(data.refreshTokenExpiresAt)
+      : null,
+    expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
+  }
 }

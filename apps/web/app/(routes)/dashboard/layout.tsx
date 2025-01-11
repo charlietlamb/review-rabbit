@@ -4,9 +4,7 @@ import SessionProvider from '@rabbit/design-system/components/providers/session-
 import { SidebarProvider } from '@rabbit/design-system/components/ui/sidebar'
 import useAuth from '@rabbit/design-system/hooks/use-auth'
 import useIsUser from '@rabbit/design-system/hooks/use-is-user'
-import ThemeProvider from '@rabbit/design-system/components/providers/theme-provider'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
-import CustomThemeProvider from '@rabbit/design-system/components/providers/custom-theme-provider'
 
 export default async function layout({
   children,

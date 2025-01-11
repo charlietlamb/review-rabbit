@@ -149,7 +149,7 @@ export const resetPassword = createRoute({
 export type ResetPasswordRoute = typeof resetPassword
 
 export const getAccount = createRoute({
-  path: '/user/get/account/:provider',
+  path: '/account/get/:provider',
   method: 'get',
   summary: 'Get a user account',
   tags,

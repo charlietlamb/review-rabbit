@@ -58,11 +58,6 @@ export const auth = betterAuth({
         required: true,
         input: false,
       },
-      currency: {
-        type: 'string',
-        defaultValue: 'usd',
-        required: true,
-      },
     },
   },
   emailVerification: {

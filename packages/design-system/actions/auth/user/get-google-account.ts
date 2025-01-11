@@ -3,7 +3,7 @@ import { Account } from '@rabbit/database/schema/auth/accounts'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
 export async function getGoogleAccount(): Promise<Account | null> {
-  const response = await client.user.get['account'][':provider'].$get(
+  const response = await client.account.get[':provider'].$get(
     {
       param: { provider: 'google' },
     },

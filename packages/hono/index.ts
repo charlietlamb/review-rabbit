@@ -10,6 +10,8 @@ import workflows from '@rabbit/hono/routes/workflows/workflows.index'
 import automations from '@rabbit/hono/routes/automations/automations.index'
 
 const app = createApp()
+configure(app)
+
 const routes = [
   index,
   users,
@@ -20,8 +22,6 @@ const routes = [
   workflows,
   automations,
 ] as const
-
-configure(app)
 
 routes.forEach((route) => {
   app.route('/', route)

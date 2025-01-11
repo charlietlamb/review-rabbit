@@ -7,5 +7,6 @@ const router = createRouter()
   .openapi(routes.update, handlers.update)
   .openapi(routes.updateCurrency, handlers.updateCurrency)
   .openapi(routes.resetPassword, handlers.resetPassword)
+  .openapi(routes.getAccount, handlers.getAccount)
 
 export default router

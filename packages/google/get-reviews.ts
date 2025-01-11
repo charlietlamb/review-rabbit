@@ -1,45 +1,26 @@
-import { google } from 'googleapis'
-
-interface Review {
-  name: string
-  reviewId: string
-  reviewer: {
-    displayName: string
-    profilePhotoUrl?: string
-  }
-  starRating: 'ONE' | 'TWO' | 'THREE' | 'FOUR' | 'FIVE'
-  comment: string
-  createTime: string
-  updateTime: string
-  reviewReply?: {
-    comment: string
-    updateTime: string
-  }
-}
-
-interface ReviewsResponse {
-  reviews: Review[]
-  averageRating: number
-  totalReviewCount: number
-}
+import { Review } from './types'
+import { Account } from '@rabbit/database/schema/auth/accounts'
+const PAGE_SIZE = 100
 
 export async function getReviews(
-  accountId: string,
-  accessToken: string
-): Promise<ReviewsResponse> {
+  page: number = 1,
+  account: Account
+): Promise<Review[]> {
   try {
     const reviews: Review[] = []
     let nextPageToken: string | undefined
     let totalRating = 0
+    let allReviews: Review[] = []
+    const targetPage = page - 1 // Convert to 0-based index
 
     do {
       const response = await fetch(
-        `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/-/reviews?pageSize=100${
+        `https://mybusiness.googleapis.com/v4/accounts/${account.accountId}/locations/-/reviews?pageSize=100${
           nextPageToken ? `&pageToken=${nextPageToken}` : ''
         }`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${account.accessToken}`,
             'Content-Type': 'application/json',
           },
         }
@@ -51,9 +32,13 @@ export async function getReviews(
 
       const reviewsData = await response.json()
       if (reviewsData.reviews) {
-        const typedReviews = reviewsData.reviews as Review[]
-        reviews.push(...typedReviews)
-        typedReviews.forEach((review) => {
+        const typedReviews = reviewsData.reviews as Omit<Review, 'id'>[]
+        const reviewsWithId = typedReviews.map((review) => ({
+          ...review,
+          id: review.reviewId,
+        }))
+        allReviews.push(...reviewsWithId)
+        reviewsWithId.forEach((review) => {
           totalRating +=
             ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE'].indexOf(review.starRating) +
             1
@@ -63,13 +48,11 @@ export async function getReviews(
       nextPageToken = reviewsData.nextPageToken
     } while (nextPageToken)
 
-    const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0
+    const startIndex = targetPage * PAGE_SIZE
+    const endIndex = startIndex + PAGE_SIZE
+    reviews.push(...allReviews.slice(startIndex, endIndex))
 
-    return {
-      reviews,
-      averageRating,
-      totalReviewCount: reviews.length,
-    }
+    return reviews
   } catch (error) {
     console.error('Error fetching Google Business Profile reviews:', error)
     throw error

@@ -4,6 +4,7 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { updateUserSchema } from './user.schema'
 import { selectUserSchema } from '@rabbit/database/schema/auth/users'
 import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
+import { selectAccountSchema } from '@rabbit/database/schema/auth/accounts'
 
 const tags = ['Users']
 
@@ -146,3 +147,22 @@ export const resetPassword = createRoute({
 })
 
 export type ResetPasswordRoute = typeof resetPassword
+
+export const getAccount = createRoute({
+  path: '/user/get/account/:provider',
+  method: 'get',
+  summary: 'Get a user account',
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(selectAccountSchema, 'User account.'),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'User account not found'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetAccountRoute = typeof getAccount

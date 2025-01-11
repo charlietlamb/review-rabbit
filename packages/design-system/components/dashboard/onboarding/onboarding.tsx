@@ -1,10 +1,10 @@
 'use client'
 
-import { User } from '@rabbit/database/schema/app/users'
+import { User } from '@rabbit/database/schema/auth/users'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { useState } from 'react'
-import { ArrowRight, Wallet } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import OnboardingTheme from '../settings/theme/theme'
 import OnboardingStripe from './onboarding-stripe'

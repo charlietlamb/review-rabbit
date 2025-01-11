@@ -1,6 +1,7 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from '@rabbit/database/schema/auth/users'
 import { sql } from 'drizzle-orm'
+import { createSelectSchema } from 'drizzle-zod'
 
 export const accounts = pgTable('accounts', {
   id: text('id')
@@ -22,3 +23,6 @@ export const accounts = pgTable('accounts', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })
+
+export const selectAccountSchema = createSelectSchema(accounts)
+export type Account = typeof accounts.$inferSelect

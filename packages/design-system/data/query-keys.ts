@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   AUTOMATIONS: ['automations'] as const,
   WORKFLOWS: ['workflows'] as const,
   WORKFLOW_SELECT: ['workflow-select'] as const,
+  REVIEWS: ['reviews'] as const,
 } as const

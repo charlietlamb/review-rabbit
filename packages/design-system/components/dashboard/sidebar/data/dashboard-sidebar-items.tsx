@@ -6,6 +6,7 @@ import { RabbitIcon } from '../icons/rabbit'
 import { ClockIcon } from '../icons/clock'
 import { SquareStackIcon } from '../icons/square-stack'
 import { SquarePenIcon } from '../icons/square-pen'
+import { SparklesIcon } from '../icons/sparkles'
 
 export const dashboardSidebarItemsTop = [
   {
@@ -25,6 +26,13 @@ export const dashboardSidebarItemsTop = [
 ]
 
 export const dashboardSidebarItems = [
+  {
+    title: 'Reviews',
+    icon: <SparklesIcon />,
+    href: '/dashboard/reviews',
+    key: 'reviews',
+    match: ['reviews'],
+  },
   {
     title: 'Automations',
     icon: <RabbitIcon />,

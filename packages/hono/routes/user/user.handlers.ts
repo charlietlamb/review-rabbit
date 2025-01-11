@@ -1,4 +1,5 @@
 import {
+  GetAccountRoute,
   GetUserRoute,
   ResetPasswordRoute,
   UpdateCurrencyRoute,
@@ -6,7 +7,7 @@ import {
 } from '@rabbit/hono/routes/user/user.routes'
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
 import { db } from '@rabbit/database'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { users } from '@rabbit/database/schema/auth/users'
 import { updateUserSchema } from '@rabbit/hono/routes/user/user.schema'
 import { HttpStatusCodes } from '@rabbit/http'
@@ -95,4 +96,22 @@ export const resetPassword: AppRouteHandler<ResetPasswordRoute> = async (c) => {
     .set({ password: hashedPassword })
     .where(eq(accounts.userId, user.id))
   return c.json({ success: true }, HttpStatusCodes.OK)
+}
+
+export const getAccount: AppRouteHandler<GetAccountRoute> = async (c) => {
+  const authUser = await c.get('user')
+  const provider = c.req.param('provider')
+  if (!authUser) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const account = await db.query.accounts.findFirst({
+    where: and(
+      eq(accounts.userId, authUser.id),
+      eq(accounts.providerId, provider)
+    ),
+  })
+  if (!account) {
+    return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
+  }
+  return c.json(account, HttpStatusCodes.OK)
 }

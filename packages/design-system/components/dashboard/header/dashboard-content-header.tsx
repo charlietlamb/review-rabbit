@@ -1,3 +1,5 @@
+import DashboardSidebarToggle from '../sidebar/toggle/dashboard-sidebar-toggle'
+
 export default function DashboardContentHeader({
   title,
   subtitle,
@@ -11,6 +13,7 @@ export default function DashboardContentHeader({
 }) {
   return (
     <div className="flex items-center px-4 py-2">
+      <DashboardSidebarToggle className="mr-4" />
       {left}
       <div>
         <h1 className="text-lg font-bold font-heading truncate">{title}</h1>

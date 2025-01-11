@@ -1,4 +1,3 @@
-import DashboardHeader from '@rabbit/design-system/components/dashboard/header/dashboard-header'
 import DashboardSidebar from '@rabbit/design-system/components/dashboard/sidebar/dashboard-sidebar'
 import SessionProvider from '@rabbit/design-system/components/providers/session-provider'
 import { SidebarProvider } from '@rabbit/design-system/components/ui/sidebar'
@@ -20,7 +19,6 @@ export default async function layout({
           {user && !user.onboardingCompleted && false && (
             <Onboarding user={user} />
           )}
-          <DashboardHeader />
           <div className="w-full flex-grow flex overflow-hidden divide-x relative">
             <DashboardSidebar />
             <div className="flex flex-col flex-grow overflow-y-auto bg-background">

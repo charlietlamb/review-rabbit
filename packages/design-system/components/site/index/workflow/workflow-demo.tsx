@@ -15,7 +15,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import Flow from '@rabbit/design-system/components/flow/flow'
 import { ReactFlowProvider } from '@xyflow/react'
 import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
-import { MessageSquare, Clock, Users, Play } from 'lucide-react'
+import { MessageSquare, Clock, Users, Play, Rocket } from 'lucide-react'
 import { useState } from 'react'
 import {
   Tooltip,
@@ -23,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@rabbit/design-system/components/ui/tooltip'
+import Balancer from 'react-wrap-balancer'
 
 const demoWorkflows: Record<string, WorkflowWithItems> = {
   onboarding: {
@@ -204,90 +205,72 @@ export function WorkflowDemo() {
   }
 
   return (
-    <div className="w-full py-12">
-      <div className="text-center space-y-4 mb-12">
-        <h2 className="text-3xl font-bold">Powerful Workflow Automation</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Build sophisticated customer engagement flows with our visual workflow
-          builder. From onboarding to retention, automate your customer
-          communications with ease.
+    <div className="container relative flex flex-col items-center gap-8 py-24 sm:py-32">
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/05 via-primary/5 to-background pointer-events-none" />
+      <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col gap-4 text-center">
+          <span className="text-primary font-bold text-center uppercase">
+            Easy Automations
+          </span>
+          <Balancer>
+            <h2 className="font-heading max-w-3xl bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl xl:text-6xl">
+              Automate Your Review Collection Process
+            </h2>
+          </Balancer>
+        </div>
+        <p className="max-w-3xl text-center text-lg text-muted-foreground sm:text-xl">
+          Create smart review collection workflows that automatically engage
+          your customers at the perfect moment. Watch as your positive reviews
+          grow while you focus on running your business.
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto w-full">
         <Tabs defaultValue="onboarding" className="w-full">
-          <div className="flex items-end justify-between bg-background">
-            <TabsList className="w-fit bg-transparent justify-start h-8 pb-0 pl-0">
-              <TabsTrigger
-                value="onboarding"
-                className="rounded-none border-x border-t data-[state=active]:bg-background"
-              >
-                <Users
-                  className="-ms-0.5 me-1.5 opacity-60"
-                  size={16}
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-                Onboarding Flow
-              </TabsTrigger>
-              <TabsTrigger
-                value="feedback"
-                className="rounded-none border-x border-t data-[state=active]:bg-background"
-              >
-                <MessageSquare
-                  className="-ms-0.5 me-1.5 opacity-60"
-                  size={16}
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-                Feedback Flow
-              </TabsTrigger>
-              <TabsTrigger
-                value="retention"
-                className="rounded-none border-x border-t data-[state=active]:bg-background"
-              >
-                <Clock
-                  className="-ms-0.5 me-1.5 opacity-60"
-                  size={16}
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-                Retention Flow
-              </TabsTrigger>
-            </TabsList>
-
-            <div className="relative w-[300px] h-fit flex items-end">
-              <Input
-                type="email"
-                placeholder="Enter email to test workflow"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="border-b-0 rounded-b-none pr-10"
+          <TabsList className="w-fit bg-transparent justify-start h-10 pb-0 pl-0">
+            <TabsTrigger
+              value="onboarding"
+              className="rounded-none border-x border-t data-[state=active]:bg-background data-[state=active]:border-b-0"
+            >
+              <Users
+                className="-ms-0.5 me-1.5 opacity-60"
+                size={16}
+                strokeWidth={2}
+                aria-hidden="true"
               />
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={handleTrigger}
-                      disabled={!email}
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                    >
-                      <Play className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Trigger Workflow</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </div>
+              Welcome Flow
+            </TabsTrigger>
+            <TabsTrigger
+              value="feedback"
+              className="rounded-none border-x border-t data-[state=active]:bg-background data-[state=active]:border-b-0"
+            >
+              <MessageSquare
+                className="-ms-0.5 me-1.5 opacity-60"
+                size={16}
+                strokeWidth={2}
+                aria-hidden="true"
+              />
+              Review Request
+            </TabsTrigger>
+            <TabsTrigger
+              value="retention"
+              className="rounded-none border-x border-t data-[state=active]:bg-background data-[state=active]:border-b-0"
+            >
+              <Clock
+                className="-ms-0.5 me-1.5 opacity-60"
+                size={16}
+                strokeWidth={2}
+                aria-hidden="true"
+              />
+              Follow-up Flow
+            </TabsTrigger>
+          </TabsList>
 
           {Object.entries(demoWorkflows).map(([key, workflow]) => (
             <TabsContent
               key={key}
               value={key}
-              className="border rounded-b-lg mt-0"
+              className="border rounded-b-lg mt-0 shadow-sm"
             >
               <div className="bg-background">
                 <ReactFlowProvider>
@@ -299,6 +282,24 @@ export function WorkflowDemo() {
             </TabsContent>
           ))}
         </Tabs>
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
+          <Input
+            type="email"
+            placeholder="Enter your email to try it out"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="max-w-xs text-base"
+          />
+          <Button
+            variant="shine"
+            onClick={handleTrigger}
+            className="text-base font-medium flex items-center gap-2  shadow-sm"
+          >
+            Try Welcome Flow
+            <Rocket className="size-5" />
+          </Button>
+        </div>
       </div>
     </div>
   )

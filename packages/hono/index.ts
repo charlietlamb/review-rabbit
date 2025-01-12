@@ -8,6 +8,7 @@ import review from '@rabbit/hono/routes/review/review.index'
 import clients from '@rabbit/hono/routes/clients/clients.index'
 import workflows from '@rabbit/hono/routes/workflows/workflows.index'
 import automations from '@rabbit/hono/routes/automations/automations.index'
+import google from '@rabbit/hono/routes/google/google.index'
 
 const app = createApp()
 configure(app)
@@ -21,6 +22,7 @@ const routes = [
   clients,
   workflows,
   automations,
+  google,
 ] as const
 
 routes.forEach((route) => {

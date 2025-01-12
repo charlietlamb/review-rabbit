@@ -1,141 +1,146 @@
+'use server'
+
 import { Review } from '../types'
 import { Account } from '@rabbit/database/schema/auth/accounts'
-import { getEnv } from '@rabbit/env'
 import { addBusinessScope } from './business/add-business-scope'
 import { hasBusinessScope } from './business/has-business-scope'
-import { OAuth2Client } from 'google-auth-library'
-import { db } from '@rabbit/database'
-import { eq } from 'drizzle-orm'
-import { accounts } from '@rabbit/database/schema/auth/accounts'
+import { refreshAccessToken } from './auth/refresh-access-token'
+import { GOOGLE_BUSINESS_SCOPE } from './data'
 
 const PAGE_SIZE = 100
+const MAX_RETRIES = 2
+const RATE_LIMIT_DELAY = 1000 // 1 second delay between requests
 
-async function refreshAccessToken(account: Account): Promise<Account> {
-  if (!account.refreshToken) {
-    throw new Error('No refresh token available')
-  }
-
-  const oauth2Client = new OAuth2Client(
-    getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    getEnv().GOOGLE_CLIENT_SECRET,
-    `${getEnv().NEXT_PUBLIC_API}/business/callback/success`
-  )
-
-  oauth2Client.setCredentials({
-    refresh_token: account.refreshToken,
-  })
-
-  try {
-    const { credentials } = await oauth2Client.refreshAccessToken()
-
-    // Update the account in the database with new tokens
-    const updatedAccount = await db
-      .update(accounts)
-      .set({
-        accessToken: credentials.access_token,
-        accessTokenExpiresAt: credentials.expiry_date
-          ? new Date(credentials.expiry_date)
-          : null,
-        refreshToken: credentials.refresh_token || account.refreshToken, // Keep old refresh token if new one not provided
-      })
-      .where(eq(accounts.id, account.id))
-      .returning()
-
-    return updatedAccount[0]
-  } catch (error) {
-    console.error('Error refreshing access token:', error)
-    throw new Error('Failed to refresh access token')
-  }
-}
-
-export function redirectToAuth(returnUrl?: string): never {
-  if (typeof window !== 'undefined') {
-    const params = new URLSearchParams()
-    if (returnUrl) {
-      params.append('returnTo', returnUrl)
-    }
-    params.append('provider', 'google')
-    window.location.href = `${getEnv().NEXT_PUBLIC_API}/api/auth/signin/google?${params.toString()}`
-  }
-  throw new Error('Redirecting to auth...')
+async function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export async function getReviews(
   page: number = 1,
   account: Account
 ): Promise<Review[]> {
-  if (!hasBusinessScope(account)) {
-    await addBusinessScope(account)
-  }
+  try {
+    // Validate input
+    if (page < 1) {
+      throw new Error('Page must be greater than 0')
+    }
 
-  let currentAccount = account
-  let retryCount = 0
-  const MAX_RETRIES = 1
+    if (!account.accessToken) {
+      throw new Error('No access token available')
+    }
 
-  while (retryCount <= MAX_RETRIES) {
-    try {
-      const reviews: Review[] = []
-      let nextPageToken: string | undefined
-      let totalRating = 0
-      let allReviews: Review[] = []
-      const targetPage = page - 1
+    // Check for business scope
+    if (!hasBusinessScope(account)) {
+      await addBusinessScope(account)
+      return [] // Return empty array since we're redirecting for scope
+    }
 
-      do {
-        const response = await fetch(
-          `https://mybusiness.googleapis.com/v4/accounts/${currentAccount.accountId}/locations/-/reviews?pageSize=100${
-            nextPageToken ? `&pageToken=${nextPageToken}` : ''
-          }`,
-          {
-            headers: {
-              Authorization: `Bearer ${currentAccount.accessToken}`,
-              'Content-Type': 'application/json',
-            },
+    let currentAccount = account
+    let retryCount = 0
+
+    while (retryCount <= MAX_RETRIES) {
+      try {
+        const allReviews: Review[] = []
+        let nextPageToken: string | undefined
+
+        do {
+          // Add rate limiting delay between requests
+          if (allReviews.length > 0) {
+            await delay(RATE_LIMIT_DELAY)
           }
-        )
 
-        if (response.status === 401 && retryCount < MAX_RETRIES) {
-          // Token is expired or invalid, try to refresh it
-          currentAccount = await refreshAccessToken(currentAccount)
-          retryCount++
-          break // Break the do-while loop to retry with new token
-        }
+          const response = await fetch(
+            `https://mybusiness.googleapis.com/v4/accounts/${currentAccount.accountId}/locations/-/reviews?pageSize=${PAGE_SIZE}${
+              nextPageToken ? `&pageToken=${nextPageToken}` : ''
+            }`,
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${currentAccount.accessToken}`,
+                'Content-Type': 'application/json',
+                'Cache-Control': 'max-age=60', // Cache for 1 minute
+              },
+            }
+          )
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch reviews: ${response.statusText}`)
-        }
+          // Handle auth errors
+          if (response.status === 401 || response.status === 403) {
+            if (retryCount >= MAX_RETRIES) {
+              throw new Error('Authentication failed after max retries')
+            }
 
-        const reviewsData = await response.json()
-        if (reviewsData.reviews) {
+            // Refresh token and retry
+            currentAccount = await refreshAccessToken(currentAccount)
+            retryCount++
+            break // Break do-while loop to retry with new token
+          }
+
+          // Handle rate limiting
+          if (response.status === 429) {
+            const retryAfter = parseInt(
+              response.headers.get('Retry-After') || '60',
+              10
+            )
+            await delay(retryAfter * 1000)
+            continue // Retry the same request
+          }
+
+          // Handle other errors
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}))
+            throw new Error(
+              `Failed to fetch reviews: ${response.statusText} (${
+                response.status
+              }) ${JSON.stringify(errorData)}`
+            )
+          }
+
+          const reviewsData = await response.json()
+
+          if (!reviewsData.reviews) {
+            break // No more reviews to fetch
+          }
+
           const typedReviews = reviewsData.reviews as Omit<Review, 'id'>[]
           const reviewsWithId = typedReviews.map((review) => ({
             ...review,
             id: review.reviewId,
           }))
+
           allReviews.push(...reviewsWithId)
-          reviewsWithId.forEach((review) => {
-            totalRating +=
-              ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE'].indexOf(
-                review.starRating
-              ) + 1
-          })
+          nextPageToken = reviewsData.nextPageToken
+        } while (nextPageToken)
+
+        // Calculate pagination
+        const startIndex = (page - 1) * PAGE_SIZE
+        const endIndex = startIndex + PAGE_SIZE
+
+        // Return paginated results
+        return allReviews.slice(startIndex, endIndex)
+      } catch (error) {
+        if (
+          error instanceof Error &&
+          error.message.includes('Authentication failed')
+        ) {
+          throw error // Don't retry auth failures
         }
 
-        nextPageToken = reviewsData.nextPageToken
-      } while (nextPageToken)
+        if (retryCount === MAX_RETRIES) {
+          console.error(
+            'Error fetching Google Business Profile reviews:',
+            error
+          )
+          throw new Error('Failed to fetch reviews after max retries')
+        }
 
-      const startIndex = targetPage * PAGE_SIZE
-      const endIndex = startIndex + PAGE_SIZE
-      reviews.push(...allReviews.slice(startIndex, endIndex))
-
-      return reviews
-    } catch (error) {
-      if (retryCount === MAX_RETRIES) {
-        console.error('Error fetching Google Business Profile reviews:', error)
-        throw error
+        await delay(Math.pow(2, retryCount) * 1000) // Exponential backoff
+        retryCount++
       }
-      retryCount++
     }
-  }
 
-  throw new Error('Failed to fetch reviews after max retries')
+    throw new Error('Failed to fetch reviews after max retries')
+  } catch (error) {
+    console.error('Error in getReviews:', error)
+    throw error
+  }
 }

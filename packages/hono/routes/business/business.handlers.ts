@@ -13,7 +13,7 @@ import { businesses, accounts } from '@rabbit/database/schema'
 import { and, eq } from 'drizzle-orm'
 import { getEnv } from '@rabbit/env'
 import { OAuth2Client } from 'google-auth-library'
-import { GOOGLE_BUSINESS_SCOPE } from '@rabbit/google/data'
+import { GOOGLE_BUSINESS_SCOPE } from '@rabbit/google/lib/data'
 export const create: AppRouteHandler<CreateBusinessRoute> = async (c) => {
   const user = await c.get('user')
   if (!user) {

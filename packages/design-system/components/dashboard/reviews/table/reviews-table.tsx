@@ -32,7 +32,7 @@ import {
 } from '@rabbit/design-system/components/ui/tooltip'
 import { useAtom } from 'jotai'
 import { getTableCheckboxColumn } from '@rabbit/design-system/components/dashboard/table/table-checkbox'
-import { getReviews } from '@rabbit/google/lib/get-reviews'
+import { getGoogleReviews } from '@rabbit/design-system/actions/google/get-google-reviews'
 import { Account } from '@rabbit/database'
 
 export default function ReviewsTable({ account }: { account: Account }) {
@@ -44,7 +44,7 @@ export default function ReviewsTable({ account }: { account: Account }) {
     isLoading,
   } = useInfiniteQueryWithAtom({
     queryKey: QUERY_KEYS.REVIEWS,
-    fetchFn: (page) => getReviews(page, account),
+    fetchFn: (page) => getGoogleReviews(page + 1),
     atom: reviewsAtom,
     searchAtom: reviewsSearchAtom,
     filterFn: (review, search) =>

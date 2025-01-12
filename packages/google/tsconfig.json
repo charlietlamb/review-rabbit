@@ -8,6 +8,12 @@
       "@rabbit/hono/*": ["./*"]
     }
   },
-  "include": ["./*.ts", "./*.tsx", "trigger.config.ts", "lib/get-reviews.ts"],
+  "include": [
+    "./*.ts",
+    "./*.tsx",
+    "trigger.config.ts",
+    "lib/get-reviews.ts",
+    "lib/data.ts"
+  ],
   "exclude": ["node_modules"]
 }

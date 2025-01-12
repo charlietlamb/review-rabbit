@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { featuresData } from './features-data'
 import { FeatureIcon, FeatureContent } from './feature-card'
+import Balancer from 'react-wrap-balancer'
 
 const AUTO_PLAY_INTERVAL = 5000 // 5 seconds
 const AUTO_PLAY_RESET_DELAY = 30000 // 30 seconds
@@ -38,43 +39,62 @@ export function Features() {
   }
 
   return (
-    <section className="container flex flex-col items-center gap-10 py-24">
-      {/* Header */}
-      <div className="flex flex-col gap-3">
-        <span className="text-primary font-bold text-center uppercase">
-          Features
-        </span>
-        <h2 className="font-heading sm:text-4xl text-balance text-3xl font-semibold tracking-tight text-center text-foreground">
-          Powerful Review Management
-        </h2>
-      </div>
+    <section className="relative overflow-hidden py-24 sm:py-32">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
 
-      {/* Description */}
-      <p className="text-muted-foreground text-balance max-w-2xl text-lg text-center">
-        Our platform combines intelligent review management with powerful
-        automation, giving you everything you need to grow your online
-        reputation effectively.
-      </p>
+      <div className="container relative flex flex-col items-center gap-8">
+        {/* Header */}
+        <div className="flex flex-col gap-4 text-center">
+          <span className="text-primary font-bold text-center uppercase">
+            Review Management
+          </span>
+          <Balancer>
+            <h2 className="font-heading max-w-2xl bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+              Everything You Need to Grow
+            </h2>
+          </Balancer>
+        </div>
 
-      {/* Feature Navigation */}
-      <div className="flex flex-wrap justify-center gap-4 px-4">
-        {featuresData.map((feature, index) => (
-          <FeatureIcon
-            key={feature.title}
-            icon={feature.icon}
-            isActive={activeFeature === index}
-            onClick={() => handleFeatureClick(index)}
-          />
-        ))}
-      </div>
+        {/* Description */}
+        <p className="max-w-2xl text-center text-lg text-muted-foreground sm:text-xl">
+          Our platform combines intelligent review management with powerful
+          automation, helping you build a stellar online reputation
+          effortlessly.
+        </p>
 
-      <div className="relative w-full max-w-4xl h-[160px]">
-        <AnimatePresence mode="wait">
-          <FeatureContent
-            key={activeFeature}
-            feature={featuresData[activeFeature]}
-          />
-        </AnimatePresence>
+        {/* Feature Navigation */}
+        <div className="relative w-full max-w-5xl">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-8 px-4">
+            {featuresData.map((feature, index) => (
+              <FeatureIcon
+                key={feature.title}
+                icon={feature.icon}
+                isActive={activeFeature === index}
+                onClick={() => handleFeatureClick(index)}
+              />
+            ))}
+          </div>
+
+          {/* Feature Content */}
+          <div className="relative mt-12 h-[160px] w-full">
+            <AnimatePresence mode="wait">
+              <FeatureContent
+                key={activeFeature}
+                feature={featuresData[activeFeature]}
+              />
+            </AnimatePresence>
+          </div>
+
+          {/* Progress Indicator */}
+          <div className="absolute -bottom-4 left-0 right-0 h-1 bg-border/50 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary transition-all duration-[5000ms] ease-linear"
+              style={{
+                width: `${((activeFeature + 1) / featuresData.length) * 100}%`,
+              }}
+            />
+          </div>
+        </div>
       </div>
     </section>
   )

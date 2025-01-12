@@ -4,6 +4,8 @@ import {
 } from '@rabbit/design-system/components/flow/lib/types'
 import MessageTypeOption from './message-type-option'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
+import { useAtomValue } from 'jotai'
+import { isDemoAtom } from '@rabbit/design-system/atoms/flow/flow-atoms'
 
 export default function MessageTypeSelect({
   type,
@@ -12,6 +14,7 @@ export default function MessageTypeSelect({
   type: MessageType
   setType: (type: MessageType) => void
 }) {
+  const isDemo = useAtomValue(isDemoAtom)
   return (
     <div className="flex flex-col gap-2">
       <RequiredLabel>Message Type</RequiredLabel>
@@ -22,6 +25,7 @@ export default function MessageTypeSelect({
             key={messageType}
             type={messageType}
             setType={setType}
+            disabled={isDemo && messageType !== MESSAGE_TYPES.EMAIL}
           />
         ))}
       </div>

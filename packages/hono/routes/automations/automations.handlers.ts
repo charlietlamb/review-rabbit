@@ -18,6 +18,7 @@ import {
   UpdateAutomationItemStatusRoute,
   DeleteAutomationRoute,
   DeleteBulkAutomationsRoute,
+  TriggerDemoAutomationRoute,
 } from './automations.routes'
 import { eq, sql, and, or, gte, lte, inArray } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
@@ -297,6 +298,38 @@ export const updateAutomationItemStatus: AppRouteHandler<
   } catch (error) {
     return c.json(
       { error: 'Failed to update automation item status' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const triggerDemoAutomation: AppRouteHandler<
+  TriggerDemoAutomationRoute
+> = async (c) => {
+  const { email, workflow } = await c.req.valid('json')
+  try {
+    for (const item of workflow.items) {
+      if (!item.content.length) continue
+      triggerWorkflow(item, [
+        {
+          client: {
+            name: 'Demo User',
+            email,
+            id: '1',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: '1',
+            phone: '1234567890',
+            color: 'red',
+          },
+          automationItemId: item.id,
+        },
+      ])
+    }
+    return c.json(true, HttpStatusCodes.OK)
+  } catch (error) {
+    return c.json(
+      { error: 'Failed to trigger demo automation' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

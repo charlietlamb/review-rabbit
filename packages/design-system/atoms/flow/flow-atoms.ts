@@ -25,3 +25,4 @@ export const edgesAtom = atom<Edge[]>((get) =>
 export const manageEdgesAtom = atom<Edge[]>((get) =>
   generateEdges(get(manageNodesWithAddsAtom))
 )
+export const isDemoAtom = atom<boolean>(false)

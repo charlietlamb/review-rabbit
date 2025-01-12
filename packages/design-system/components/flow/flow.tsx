@@ -15,12 +15,14 @@ import {
   manageNodesWithAddsAtom,
   manageEdgesAtom,
   isCreateModeAtom,
+  isDemoAtom,
 } from '@rabbit/design-system/atoms/flow/flow-atoms'
-import { useAtomValue, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 import { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { getNodes } from './lib/get-nodes'
 import ResetFlow from './reset-flow'
+import { usePathname } from 'next/navigation'
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
@@ -35,8 +37,10 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
   const manageNodesWithAdds = useAtomValue(manageNodesWithAddsAtom)
   const edges = useAtomValue(edgesAtom)
   const manageEdges = useAtomValue(manageEdgesAtom)
+  const [isDemo, setIsDemo] = useAtom(isDemoAtom)
   const setIsCreateMode = useSetAtom(isCreateModeAtom)
   const { resolvedTheme } = useTheme()
+  const pathname = usePathname()
 
   useEffect(() => {
     if (workflow) {
@@ -48,6 +52,14 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
     }
     setIsCreateMode(workflow ? false : true)
   }, [workflow])
+
+  useEffect(() => {
+    if (!pathname.includes('dashboard')) {
+      setIsDemo(true)
+    } else {
+      setIsDemo(false)
+    }
+  }, [pathname])
 
   return (
     <ReactFlow
@@ -61,7 +73,7 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
       className="flex-grow"
       fitView
       fitViewOptions={{
-        padding: 1,
+        padding: isDemo ? 0.1 : 0.5,
       }}
       snapToGrid
       snapGrid={[20, 20]}

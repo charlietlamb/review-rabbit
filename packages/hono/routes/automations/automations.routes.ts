@@ -9,6 +9,7 @@ import {
   automationItemWithData,
   automationWithItems,
 } from '@rabbit/database/types/automation-types'
+import { workflow, workflowItem } from '@rabbit/database/types/workflow-types'
 
 const tags = ['Automations']
 
@@ -319,3 +320,34 @@ export const updateAutomationItemStatus = createRoute({
 })
 
 export type UpdateAutomationItemStatusRoute = typeof updateAutomationItemStatus
+
+export const triggerDemoAutomation = createRoute({
+  path: '/automations/trigger-demo',
+  method: 'post',
+  summary: 'Trigger a demo automation',
+  tags,
+  request: {
+    body: {
+      description: 'Automation ID',
+      content: {
+        'application/json': {
+          schema: z.object({
+            email: z.string(),
+            workflow: workflow.extend({ items: z.array(workflowItem) }),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.boolean(), 'Automation triggered.'),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to trigger automation'
+    ),
+  },
+})
+
+export type TriggerDemoAutomationRoute = typeof triggerDemoAutomation

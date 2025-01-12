@@ -36,6 +36,12 @@ export const config: NextConfig = withVercelToolbar()({
         port: '',
         pathname: '/a/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   experimental: {

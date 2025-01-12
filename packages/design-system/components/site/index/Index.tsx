@@ -8,7 +8,7 @@ import Rank from './rank/rank'
 
 export default function Index() {
   return (
-    <>
+    <div className="flex flex-col divide-y">
       <Hero />
       <Rank />
       <SocialProof />
@@ -16,6 +16,6 @@ export default function Index() {
       <Testimonials />
       <Faq />
       <CtaSection />
-    </>
+    </div>
   )
 }

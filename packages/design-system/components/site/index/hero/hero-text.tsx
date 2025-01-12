@@ -21,7 +21,7 @@ export function HeroText() {
         </div>
         <ArrowRight size={16} />
       </Badge>
-      <h1 className="font-heading text-5xl font-semibold sm:text-6xl tracking-tight text-foreground text-center lg:text-left">
+      <h1 className="font-heading text-5xl font-bold sm:text-6xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/80 to-foreground/50 text-center lg:text-left">
         <Balancer>Google Reviews Made Easy</Balancer>
       </h1>
       <p className="sm:max-w-lg max-w-md text-center text-lg text-muted-foreground sm:text-xl lg:text-left">

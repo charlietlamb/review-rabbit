@@ -1,6 +1,7 @@
 import { cn } from '@rabbit/design-system/lib/utils'
 import { Marquee } from '@rabbit/design-system/components/magic/marquee'
 import { faker } from '@faker-js/faker'
+import { TestimonialCard } from '../testimonials/testimonial-card'
 
 const realPeople = [
   {
@@ -88,65 +89,43 @@ function generateReview(person: (typeof realPeople)[0]) {
 
   return {
     name: person.name,
-    username: `${person.business} ${person.type}`,
-    body,
-    img: person.image,
+    handle: `${person.business} ${person.type}`,
+    quote: body,
+    imageUrl: person.image,
   }
 }
 
 const reviews = realPeople.map(generateReview)
-
 const firstRow = reviews.slice(0, reviews.length / 2)
 const secondRow = reviews.slice(reviews.length / 2)
-
-const ReviewCard = ({
-  img,
-  name,
-  username,
-  body,
-}: {
-  img: string
-  name: string
-  username: string
-  body: string
-}) => {
-  return (
-    <figure
-      className={cn(
-        'relative w-64 cursor-pointer overflow-hidden rounded-lg p-6 border bg-card'
-      )}
-    >
-      <div className="flex flex-row items-center gap-3">
-        <img
-          className="rounded-full object-cover"
-          width="48"
-          height="48"
-          alt={`${name}'s profile picture`}
-          src={img}
-        />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-semibold text-foreground">
-            {name}
-          </figcaption>
-          <p className="text-xs text-muted-foreground">{username}</p>
-        </div>
-      </div>
-      <blockquote className="mt-3 text-sm leading-relaxed">{body}</blockquote>
-    </figure>
-  )
-}
 
 export function HeroTestimonials() {
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg z-20">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
+          <div key={review.handle} className="mx-3 min-w-[280px] max-w-[400px]">
+            <TestimonialCard
+              {...review}
+              showStars={false}
+              reverse={true}
+              showSeparator={false}
+              className="h-[200px]"
+            />
+          </div>
         ))}
       </Marquee>
       <Marquee reverse pauseOnHover className="[--duration:20s]">
         {secondRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
+          <div key={review.handle} className="mx-3 min-w-[280px] max-w-[400px]">
+            <TestimonialCard
+              {...review}
+              showStars={false}
+              reverse={true}
+              showSeparator={false}
+              className="h-[200px]"
+            />
+          </div>
         ))}
       </Marquee>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-background"></div>

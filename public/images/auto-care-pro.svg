@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Car icon -->
+  <path d="M15 25H35M20 20H30L32 25L18 25L20 20ZM18 25V30H20V25M32 25V30H30V25" fill="none" stroke="#3ECF8E" stroke-width="2"/>
+  <!-- Wrench -->
+  <path d="M35 15C38 12 40 15 38 18L35 21L32 18L35 15Z" fill="#3ECF8E"/>
+  <!-- Text -->
+  <text x="45" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2B3A4A">
+    Auto Care Pro
+  </text>
+</svg> 

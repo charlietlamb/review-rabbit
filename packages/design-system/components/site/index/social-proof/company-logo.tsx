@@ -7,8 +7,14 @@ type CompanyLogoProps = {
 
 export function CompanyLogo({ src, className = '' }: CompanyLogoProps) {
   return (
-    <div className={`relative h-11 flex-1 sm:h-10 ${className}`}>
-      <Image alt="Company Logo" src={src} fill className="object-contain" />
+    <div className={`flex items-center justify-center ${className}`}>
+      <Image
+        alt="Company Logo"
+        src={src}
+        width={160}
+        height={40}
+        className="object-contain"
+      />
     </div>
   )
 }

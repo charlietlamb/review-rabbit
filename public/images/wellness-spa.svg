@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lotus flower icon -->
+  <path d="M25 15C20 20 15 25 25 30C35 25 30 20 25 15Z" fill="#B88FDA"/>
+  <path d="M15 20C20 15 25 15 25 25C25 15 30 15 35 20" fill="#B88FDA"/>
+  <!-- Text -->
+  <text x="45" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2B3A4A">
+    Wellness Spa
+  </text>
+</svg> 

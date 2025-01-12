@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hotel building icon -->
+  <path d="M15 35V15H35V35H15Z" stroke="#F4B942" stroke-width="2" fill="none"/>
+  <path d="M20 20H30V25H20V20Z" stroke="#F4B942" stroke-width="2" fill="none"/>
+  <path d="M20 28H25V35H20V28Z" stroke="#F4B942" stroke-width="2" fill="none"/>
+  <!-- Text -->
+  <text x="45" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2B3A4A">
+    Boutique Hotel
+  </text>
+</svg> 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fork icon -->
+  <path d="M20 10V40M25 10V40M15 10C15 15 20 20 22.5 20C25 20 30 15 30 10" stroke="#FF6B6B" stroke-width="2"/>
+  <!-- Text -->
+  <text x="40" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2B3A4A">
+    Urban Eats
+  </text>
+</svg> 

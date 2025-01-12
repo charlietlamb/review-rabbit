@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tooth icon -->
+  <path d="M25 10C28 10 30 12 30 15C30 20 28 25 25 30C22 25 20 20 20 15C20 12 22 10 25 10Z" fill="#4B9CE9"/>
+  <!-- Plus symbol -->
+  <path d="M35 15H40V20H35V15ZM37 13V22H38V13H37Z" fill="#4B9CE9"/>
+  <!-- Text -->
+  <text x="50" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2B3A4A">
+    Dental Plus
+  </text>
+</svg> 

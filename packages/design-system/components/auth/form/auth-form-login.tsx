@@ -64,17 +64,9 @@ export default function AuthFormLogin({ className }: { className?: string }) {
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <div
-        className={cn(
-          'flex flex-col gap-4 w-full max-w-2xl mx-auto',
-          className
-        )}
-      >
+      <div className={cn('flex flex-col gap-4 w-full mx-auto', className)}>
         <form
-          className={cn(
-            'flex flex-col gap-2 w-full max-w-2xl mx-auto',
-            className
-          )}
+          className={cn('flex flex-col gap-2 w-full mx-auto', className)}
           onSubmit={(e) => {
             setAttemptSubmitted(true)
             e.preventDefault()

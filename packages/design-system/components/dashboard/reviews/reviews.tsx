@@ -1,3 +1,5 @@
+'use client'
+
 import DashboardWrap from '../dashboard/dashboard-wrap'
 import ReviewsTable from './table/reviews-table'
 import { useAtomValue } from 'jotai'

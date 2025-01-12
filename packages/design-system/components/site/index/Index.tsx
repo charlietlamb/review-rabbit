@@ -5,6 +5,7 @@ import { Testimonials } from './testimonials/testimonials'
 import { Faq } from './faq/faq-section'
 import CtaSection from './cta-section'
 import Rank from './rank/rank'
+import { WorkflowDemo } from './workflow/workflow-demo'
 
 export default function Index() {
   return (
@@ -13,6 +14,7 @@ export default function Index() {
       <Rank />
       <SocialProof />
       <Features />
+      <WorkflowDemo />
       <Testimonials />
       <Faq />
       <CtaSection />

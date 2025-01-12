@@ -31,7 +31,7 @@ export function TestimonialCard({
         'bg-gradient-to-br from-primary/10 via-primary/5 to-transparent',
         'border-2 rounded-3xl',
         'border-primary/20 hover:border-primary',
-        reverse ? 'flex-col-reverse gap-8' : 'flex-col gap-8',
+        reverse ? 'flex-col-reverse gap-4 justify-end' : 'flex-col gap-4',
         className
       )}
     >

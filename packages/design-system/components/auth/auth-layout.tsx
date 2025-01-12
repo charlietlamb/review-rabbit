@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { buttonVariants } from '@rabbit/design-system/components/ui/button'
-import { cn } from '@rabbit/design-system/lib/utils'
 import { Logo } from '@rabbit/design-system/components/site/header/logo'
 
 export default function AuthLayout({
@@ -28,9 +26,9 @@ export default function AuthLayout({
         </div>
       </div>
       <div className="flex h-full items-center p-4 lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[500px] items-center">
           {children}
-          <p className="px-8 text-center text-sm text-muted-foreground">
+          <p className="px-8 text-center text-sm text-muted-foreground max-w-sm">
             By clicking continue, you agree to our{' '}
             <Link
               href="/terms"

@@ -41,8 +41,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         name,
         email,
         password,
-        imageUploaded: false,
-        plan: 'free',
       })
       if (error) {
         toast.error('Something went wrong', {
@@ -68,12 +66,7 @@ export default function AuthFormSignup({ className }: { className?: string }) {
 
   return (
     <FormProvider value={{ attemptSubmitted }}>
-      <div
-        className={cn(
-          'flex flex-col gap-4 w-full max-w-2xl mx-auto',
-          className
-        )}
-      >
+      <div className={cn('flex flex-col gap-4 w-full mx-auto', className)}>
         <form
           className={cn(
             'flex flex-col gap-2 w-full max-w-2xl mx-auto',

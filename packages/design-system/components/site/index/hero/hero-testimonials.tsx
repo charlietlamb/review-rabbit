@@ -110,7 +110,7 @@ export function HeroTestimonials() {
               showStars={false}
               reverse={true}
               showSeparator={false}
-              className="h-[200px]"
+              className="h-[188px]"
             />
           </div>
         ))}

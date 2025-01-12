@@ -30,10 +30,7 @@ export default function CtaSection() {
             variant="shine"
             className="group relative px-8 py-6 text-lg bg-primary hover:bg-primary/90 transition-colors"
           >
-            <Link
-              href="/dashboard/onboarding"
-              className="flex items-center gap-2"
-            >
+            <Link href="/dashboard" className="flex items-center gap-2">
               Start Growing Reviews
               <ArrowRight className="h-5 w-5 transition-transform duration-200 ease-out group-hover:translate-x-1" />
             </Link>

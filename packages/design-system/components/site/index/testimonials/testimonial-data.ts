@@ -1,44 +1,44 @@
 export const testimonials = [
   {
     quote:
-      'The payment processing integration was seamless. We were able to start accepting international payments within hours of setup.',
+      'Our Google rating jumped from 3.8 to 4.7 stars in just two months. The automated review requests are perfectly timed and the response rate is incredible.',
     name: 'Sarah Chen',
-    handle: 'CTO, TechStart',
+    handle: 'Owner, Urban Bistro',
     imageUrl: '/images/testimonial-1.avif',
   },
   {
     quote:
-      "The webhook handling system is robust and reliable. We haven't missed a single payment event since implementation.",
+      'The AI-powered response system saves us hours every week. It captures our brand voice perfectly and helps us maintain meaningful conversations with customers.',
     name: 'Michael Rodriguez',
-    handle: 'Lead Developer, PayFlow',
+    handle: 'Manager, Fitness Plus',
     imageUrl: '/images/testimonial-2.avif',
   },
   {
     quote:
-      'Their automated retry logic for webhooks saved us countless hours of manual intervention. The dashboard makes tracking events a breeze.',
+      "Since using review-rabbit, we've seen a 300% increase in monthly reviews. The dashboard makes it easy to track our progress and identify areas for improvement.",
     name: 'Emma Thompson',
-    handle: 'Engineering Manager, ShopWave',
+    handle: 'Director, Smile Dental',
     imageUrl: '/images/testimonial-3.avif',
   },
   {
     quote:
-      'The real-time payment notifications and webhook monitoring have greatly improved our customer service response times.',
+      'The instant notifications and mobile app help us address customer feedback within minutes. Our response time has improved dramatically.',
     name: 'David Park',
-    handle: 'Product Lead, FastPay',
+    handle: 'Owner, Park Auto Care',
     imageUrl: '/images/testimonial-4.avif',
   },
   {
     quote:
-      "The analytics dashboard gives us valuable insights into our payment flows and webhook performance. It's been crucial for optimization.",
+      'We love how the platform helps us identify trends in customer feedback. The insights have been invaluable for training our staff and improving service.',
     name: 'Rachel Foster',
-    handle: 'Data Analyst, PaymentPro',
+    handle: 'GM, The Grand Hotel',
     imageUrl: '/images/testimonial-5.avif',
   },
   {
     quote:
-      'Setting up Stripe payments was incredibly simple. The documentation and support made the integration process smooth and hassle-free.',
+      'The review request automation is brilliant. It knows exactly when to ask customers for reviews, and the results speak for themselves - 50+ new reviews per month.',
     name: 'James Wilson',
-    handle: 'Founder, QuickCharge',
+    handle: 'Owner, Wilson Realty',
     imageUrl: '/images/testimonial-6.avif',
   },
 ] as const

@@ -27,7 +27,7 @@ export default function CtaSection() {
           <Button
             size="lg"
             asChild
-            variant="default"
+            variant="shine"
             className="group relative px-8 py-6 text-lg bg-primary hover:bg-primary/90 transition-colors"
           >
             <Link

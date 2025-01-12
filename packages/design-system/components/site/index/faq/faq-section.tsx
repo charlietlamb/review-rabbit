@@ -8,8 +8,6 @@ import Balancer from 'react-wrap-balancer'
 export function Faq() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
-
       <div className="container relative flex flex-col items-center gap-8">
         {/* Header */}
         <div className="flex flex-col gap-4 text-center">

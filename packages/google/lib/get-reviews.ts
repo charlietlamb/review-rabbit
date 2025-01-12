@@ -1,11 +1,10 @@
-'use server'
-
 import { Review } from '../types'
 import { Account } from '@rabbit/database/schema/auth/accounts'
 import { addBusinessScope } from './business/add-business-scope'
 import { hasBusinessScope } from './business/has-business-scope'
 import { refreshAccessToken } from './auth/refresh-access-token'
-import { GOOGLE_BUSINESS_SCOPE } from './data'
+import { isTokenExpired } from './auth/is-token-expired'
+import { listBusinessAccounts } from './business/list-accounts'
 
 const PAGE_SIZE = 100
 const MAX_RETRIES = 2
@@ -20,23 +19,38 @@ export async function getReviews(
   account: Account
 ): Promise<Review[]> {
   try {
-    // Validate input
     if (page < 1) {
       throw new Error('Page must be greater than 0')
     }
-
     if (!account.accessToken) {
       throw new Error('No access token available')
     }
-
-    // Check for business scope
     if (!hasBusinessScope(account)) {
       await addBusinessScope(account)
-      return [] // Return empty array since we're redirecting for scope
+      console.log('-- No business scope')
+      throw new Error('No business scope')
     }
 
     let currentAccount = account
     let retryCount = 0
+
+    // Check if token is expired before making the request
+    if (isTokenExpired(currentAccount)) {
+      currentAccount = await refreshAccessToken(currentAccount)
+    }
+
+    // Get list of business accounts
+    const businessAccounts = await listBusinessAccounts(currentAccount)
+    if (!businessAccounts.length) {
+      throw new Error('No business accounts found')
+    }
+
+    // Use the first business account's ID from the name field
+    // The name field format is "accounts/{accountId}"
+    const accountId = businessAccounts[0].name.split('/')[1]
+    if (!accountId) {
+      throw new Error('Invalid account ID format')
+    }
 
     while (retryCount <= MAX_RETRIES) {
       try {
@@ -50,7 +64,7 @@ export async function getReviews(
           }
 
           const response = await fetch(
-            `https://mybusiness.googleapis.com/v4/accounts/${currentAccount.accountId}/locations/-/reviews?pageSize=${PAGE_SIZE}${
+            `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/-/reviews?pageSize=${PAGE_SIZE}${
               nextPageToken ? `&pageToken=${nextPageToken}` : ''
             }`,
             {
@@ -65,14 +79,18 @@ export async function getReviews(
 
           // Handle auth errors
           if (response.status === 401 || response.status === 403) {
-            if (retryCount >= MAX_RETRIES) {
-              throw new Error('Authentication failed after max retries')
+            // Only refresh token if it's expired
+            if (isTokenExpired(currentAccount)) {
+              if (retryCount >= MAX_RETRIES) {
+                throw new Error('Authentication failed after max retries')
+              }
+              currentAccount = await refreshAccessToken(currentAccount)
+              retryCount++
+              break // Break do-while loop to retry with new token
+            } else {
+              // If token is not expired but we still get auth error, something else is wrong
+              throw new Error('Authentication failed with valid token')
             }
-
-            // Refresh token and retry
-            currentAccount = await refreshAccessToken(currentAccount)
-            retryCount++
-            break // Break do-while loop to retry with new token
           }
 
           // Handle rate limiting
@@ -120,9 +138,10 @@ export async function getReviews(
       } catch (error) {
         if (
           error instanceof Error &&
-          error.message.includes('Authentication failed')
+          (error.message.includes('Authentication failed with valid token') ||
+            error.message.includes('Authentication failed after max retries'))
         ) {
-          throw error // Don't retry auth failures
+          throw error // Don't retry these specific auth failures
         }
 
         if (retryCount === MAX_RETRIES) {

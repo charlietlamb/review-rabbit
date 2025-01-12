@@ -21,10 +21,13 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
   if (!account) {
     return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
   }
+  console.log('-- Attempting to fetch reviews')
   try {
     const reivews = await getReviews(page, account)
+    console.log('-- Fetched reviews', reivews)
     return c.json(reivews, HttpStatusCodes.OK)
   } catch (error) {
+    console.log('-- Fetched reviews failed')
     console.error('Error fetching clients:', error)
     return c.json(
       { error: 'Failed to fetch clients' },

@@ -70,7 +70,10 @@ export function Features() {
 
       <div className="relative w-full max-w-4xl h-[160px]">
         <AnimatePresence mode="wait">
-          <FeatureContent feature={featuresData[activeFeature]} />
+          <FeatureContent
+            key={activeFeature}
+            feature={featuresData[activeFeature]}
+          />
         </AnimatePresence>
       </div>
     </section>

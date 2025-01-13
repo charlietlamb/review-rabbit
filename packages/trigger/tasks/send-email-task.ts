@@ -7,21 +7,23 @@ import { getEnv } from '@rabbit/env'
 export const sendEmailTask = task({
   id: TASK_IDS.EMAIL,
   maxDuration: 60,
-  run: async (payload: EmailTaskType, { ctx }) => {
-    const { to, subject, content } = payload
+  run: async (payload: EmailTaskType & { demo: boolean }, { ctx }) => {
+    const { to, subject, content, demo } = payload
 
     const success = await sendEmailString(to, subject, content)
 
-    const response = await fetch(
-      `${getEnv().NEXT_PUBLIC_API}/automations/items/update-status`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          id: payload.automationItemId,
-          status: success ? 'success' : 'failed',
-          secretKey: getEnv().TRIGGER_SECRET_KEY,
-        }),
-      }
-    )
+    if (!demo) {
+      const response = await fetch(
+        `${getEnv().NEXT_PUBLIC_API}/automations/items/update-status`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            id: payload.automationItemId,
+            status: success ? 'success' : 'failed',
+            secretKey: getEnv().TRIGGER_SECRET_KEY,
+          }),
+        }
+      )
+    }
   },
 })

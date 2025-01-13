@@ -5,7 +5,8 @@ import { ClientAutomation } from './types/task-types'
 
 export async function triggerWorkflow(
   workflowItem: WorkflowItem,
-  clientsWithAutomationItemIds: ClientAutomation[]
+  clientsWithAutomationItemIds: ClientAutomation[],
+  demo: boolean = false
 ) {
   switch (workflowItem.method) {
     case MESSAGE_TYPES.EMAIL:
@@ -17,6 +18,7 @@ export async function triggerWorkflow(
             content: workflowItem.content,
             client: clientWithAutomationItemId.client,
             automationItemId: clientWithAutomationItemId.automationItemId,
+            demo,
           },
           options: {
             delay: `${workflowItem.time}m`,

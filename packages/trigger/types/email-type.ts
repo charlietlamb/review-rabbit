@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { clientAutomation } from './task-types'
+
 export const emailTaskType = clientAutomation.extend({
   to: z.array(z.string()),
   subject: z.string(),

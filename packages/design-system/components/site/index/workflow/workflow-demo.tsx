@@ -129,12 +129,7 @@ export function WorkflowDemo() {
                     onClick={() =>
                       triggerDemoAutomation(email, {
                         title: 'Demo Workflow',
-                        items: getWorkflowData(manageNodes).items.map(
-                          (item) => ({
-                            ...item,
-                            subject: 'Welcome to Review Rabbit! 🐰',
-                          })
-                        ),
+                        items: getWorkflowData(manageNodes).items,
                       })
                     }
                     className="gap-2 text-base font-medium shadow-sm"

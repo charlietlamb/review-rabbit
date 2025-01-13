@@ -55,7 +55,7 @@ export default function getWorkflowData(
             method: node.data.messageType,
             x: node.position.x,
             y: node.position.y,
-            subject: messageData.subject,
+            subject: messageData.subject || '',
             content: messageData.content,
             time: timeFromPreviousLevels,
             level: node.data.level,

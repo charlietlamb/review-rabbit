@@ -333,7 +333,8 @@ export const triggerDemoAutomation: AppRouteHandler<
             },
             automationItemId: itemId,
           },
-        ]
+        ],
+        true
       )
     }
     return c.json(true, HttpStatusCodes.OK)

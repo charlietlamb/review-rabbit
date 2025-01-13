@@ -122,7 +122,7 @@ export function Features() {
         >
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4"
+            className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-4 sm:gap-4 max-w-lg sm:max-w-none mx-auto"
           >
             {featuresData.map((feature, index) => (
               <motion.div
@@ -130,6 +130,7 @@ export function Features() {
                 variants={iconVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center"
               >
                 <FeatureIcon
                   icon={feature.icon}

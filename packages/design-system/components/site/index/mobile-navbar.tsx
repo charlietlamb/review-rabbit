@@ -2,6 +2,7 @@
 
 import { Menu, X } from 'lucide-react'
 import { ReactNode, useEffect, useState } from 'react'
+import { cn } from '@rabbit/design-system/lib/utils'
 
 export function MobileNavbar({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,21 +24,28 @@ export function MobileNavbar({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <>
+    <div className="md:hidden">
       <button
-        className="md:hidden text-foreground mr-4"
+        className="flex items-center justify-center h-14 w-14 text-foreground hover:bg-accent"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isOpen}
       >
-        {isOpen ? <X /> : <Menu />}
+        {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
+
       {isOpen && (
         <div
-          className="fixed inset-0 top-[48px] z-40 size-full overflow-auto bg-black/40 animate-in slide-in-from-bottom-24 md:hidden"
-          onClick={() => setIsOpen(false)}
+          className={cn(
+            'fixed left-0 right-0 top-14 bottom-0 z-40',
+            'bg-background/80 backdrop-blur-sm',
+            'animate-in fade-in-0 slide-in-from-top-5 duration-300'
+          )}
         >
-          {children}
+          <div className="absolute inset-0" onClick={() => setIsOpen(false)} />
+          <div className="relative bg-background border-t">{children}</div>
         </div>
       )}
-    </>
+    </div>
   )
 }

@@ -4,10 +4,10 @@ import { NavLinks } from './nav-links'
 export function MobileNav({ loggedIn }: { loggedIn: boolean }) {
   return (
     <MobileNavbar>
-      <div className="rounded-b-lg bg-background py-4 container text-foreground shadow-xl gap-4">
+      <div className="p-4 space-y-4">
         <NavLinks
-          className="flex flex-col pt-2"
-          linkClassName="flex w-full cursor-pointer items-center rounded-md p-2 font-medium text-muted-foreground hover:text-foreground font-heading"
+          className="flex flex-col-reverse space-y-2 space-y-reverse"
+          linkClassName="flex w-full items-center rounded-md px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors duration-200"
           loggedIn={loggedIn}
         />
       </div>

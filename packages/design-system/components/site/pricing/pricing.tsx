@@ -8,7 +8,7 @@ import { Faq } from '../index/faq/faq-section'
 
 export function Pricing() {
   return (
-    <div className="container flex flex-col px-4 py-16 mx-auto">
+    <div className="container flex flex-col px-8 py-16 mx-auto">
       <motion.span
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

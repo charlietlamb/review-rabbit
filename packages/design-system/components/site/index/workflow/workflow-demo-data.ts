@@ -24,7 +24,7 @@ export const workflow = {
       type: 'message',
       content:
         "Hey!\n\nWelcome to Review Rabbit - we can't wait to finally give your business the recognition it deserves!\n\nBest,\nCharlie",
-      subject: 'Welcome to Review Rabbit!',
+      subject: 'Welcome to Review Rabbit! 🎉',
       method: 'email',
       x: 0,
       y: 200,

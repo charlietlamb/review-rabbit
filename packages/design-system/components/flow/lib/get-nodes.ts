@@ -13,6 +13,7 @@ export const getNodes = (workflow: WorkflowWithItems): CustomNode[] => {
             label: item.content,
             level: item.level,
             content: item.content,
+            subject: item.subject,
             messageType: 'email' as MessageType,
           },
           position: { x: item.x, y: item.y },

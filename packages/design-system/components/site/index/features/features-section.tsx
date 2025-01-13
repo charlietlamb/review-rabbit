@@ -74,7 +74,7 @@ export function Features() {
   }
 
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
 
       <motion.div
@@ -82,23 +82,23 @@ export function Features() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="container relative flex flex-col items-center gap-8"
+        className="container relative flex flex-col items-center gap-6 sm:gap-8 lg:gap-10"
       >
         {/* Header */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col gap-4 text-center"
+          className="flex flex-col gap-3 sm:gap-4 text-center"
         >
           <motion.span
             variants={itemVariants}
-            className="text-primary font-bold text-center uppercase"
+            className="text-primary font-bold text-center uppercase text-sm sm:text-base"
           >
             Review Management
           </motion.span>
           <Balancer>
             <motion.h2
               variants={itemVariants}
-              className="font-heading max-w-2xl bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl"
+              className="font-heading max-w-2xl bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-transparent"
             >
               Everything You Need to Grow
             </motion.h2>
@@ -108,7 +108,7 @@ export function Features() {
         {/* Description */}
         <motion.p
           variants={itemVariants}
-          className="max-w-2xl text-center text-lg text-muted-foreground sm:text-xl"
+          className="max-w-2xl text-center text-base sm:text-lg lg:text-xl text-muted-foreground"
         >
           Our platform combines intelligent review management with powerful
           automation, helping you build a stellar online reputation
@@ -118,11 +118,11 @@ export function Features() {
         {/* Feature Navigation */}
         <motion.div
           variants={containerVariants}
-          className="relative w-full max-w-5xl"
+          className="relative w-full max-w-[85rem] px-4 sm:px-6"
         >
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-8 px-4"
+            className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4"
           >
             {featuresData.map((feature, index) => (
               <motion.div
@@ -141,7 +141,7 @@ export function Features() {
           </motion.div>
 
           {/* Feature Content */}
-          <div className="relative mt-12 h-[160px] w-full">
+          <div className="mt-8 sm:mt-10 lg:mt-12 min-h-[200px] sm:min-h-[180px]">
             <AnimatePresence mode="wait">
               <FeatureContent
                 key={activeFeature}
@@ -151,7 +151,7 @@ export function Features() {
           </div>
 
           {/* Progress Indicator */}
-          <div className="absolute -bottom-4 left-0 right-0 h-1 bg-border/50 rounded-full overflow-hidden">
+          <div className="mt-8 h-1 bg-border/50 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-primary"
               initial={{ width: '0%' }}

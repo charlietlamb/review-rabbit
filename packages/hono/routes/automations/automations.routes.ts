@@ -9,7 +9,11 @@ import {
   automationItemWithData,
   automationWithItems,
 } from '@rabbit/database/types/automation-types'
-import { workflow, workflowItem } from '@rabbit/database/types/workflow-types'
+import {
+  workflow,
+  workflowFormSchema,
+  workflowItem,
+} from '@rabbit/database/types/workflow-types'
 
 const tags = ['Automations']
 
@@ -333,7 +337,7 @@ export const triggerDemoAutomation = createRoute({
         'application/json': {
           schema: z.object({
             email: z.string(),
-            workflow: workflow.extend({ items: z.array(workflowItem) }),
+            workflow: workflowFormSchema,
           }),
         },
       },

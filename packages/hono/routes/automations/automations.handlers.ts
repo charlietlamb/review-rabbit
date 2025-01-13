@@ -310,21 +310,31 @@ export const triggerDemoAutomation: AppRouteHandler<
   try {
     for (const item of workflow.items) {
       if (!item.content.length) continue
-      triggerWorkflow(item, [
+      const itemId = item.id || uuidv4()
+      triggerWorkflow(
         {
-          client: {
-            name: 'Demo User',
-            email,
-            id: '1',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            userId: '1',
-            phone: '1234567890',
-            color: 'red',
-          },
-          automationItemId: item.id,
+          ...item,
+          id: itemId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          workflowId: null,
         },
-      ])
+        [
+          {
+            client: {
+              name: 'Demo User',
+              email,
+              id: '1',
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              userId: '1',
+              phone: '1234567890',
+              color: 'red',
+            },
+            automationItemId: itemId,
+          },
+        ]
+      )
     }
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {

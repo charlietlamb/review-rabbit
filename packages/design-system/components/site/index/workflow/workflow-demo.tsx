@@ -14,53 +14,15 @@ import {
 } from '@rabbit/design-system/components/ui/tooltip'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { motion } from 'framer-motion'
-
-const workflow = {
-  id: 'demo-onboarding',
-  title: 'Customer Onboarding',
-  userId: 'demo',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  items: [
-    {
-      id: '1',
-      type: 'init',
-      content: '',
-      subject: '',
-      method: 'init',
-      x: 0,
-      y: 0,
-      time: 0,
-      level: 1,
-      workflowId: 'demo-onboarding',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: 'a167f4ee-5655-43be-b925-3959f3e9e7d8',
-      type: 'message',
-      content:
-        "Hey!\n\nWelcome to Review Rabbit - we can't wait to finally give your business the recognition it deserves!\n\nBest,\nCharlie",
-      subject: 'Welcome to Review Rabbit!',
-      method: 'email',
-      x: 0,
-      y: 200,
-      time: 0,
-      level: 2,
-      workflowId: 'demo-onboarding',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ],
-}
+import { triggerDemoAutomation } from '@rabbit/design-system/actions/automations/trigger-demo-automation'
+import { workflow } from './workflow-demo-data'
+import { manageNodesAtom } from '@rabbit/design-system/atoms/flow/flow-atoms'
+import { useAtom } from 'jotai'
+import getWorkflowData from '@rabbit/design-system/components/flow/lib/get-workflow-data'
 
 export function WorkflowDemo() {
   const [email, setEmail] = useState('')
-
-  const handleTrigger = () => {
-    // In a real implementation, this would trigger the workflow
-    console.log('Triggering workflow for:', email)
-  }
+  const [manageNodes, setManageNodes] = useAtom(manageNodesAtom)
 
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
@@ -164,7 +126,12 @@ export function WorkflowDemo() {
                   <Button
                     variant="shine"
                     size="lg"
-                    onClick={handleTrigger}
+                    onClick={() =>
+                      triggerDemoAutomation(email, {
+                        title: 'Demo Workflow',
+                        items: getWorkflowData(manageNodes).items,
+                      })
+                    }
                     className="gap-2 text-base font-medium shadow-sm"
                   >
                     Try it now

@@ -64,7 +64,7 @@ export default function Rank() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="container mx-auto px-4 py-32 relative"
+        className="container mx-auto px-8 py-32 relative"
       >
         {/* Header Section */}
         <motion.div

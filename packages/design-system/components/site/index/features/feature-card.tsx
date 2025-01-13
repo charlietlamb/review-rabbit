@@ -69,7 +69,7 @@ export function FeatureContent({ feature }: FeatureContentProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
-      className="w-full flex flex-col sm:flex-row items-start gap-8 sm:gap-10"
+      className="w-full flex flex-col sm:flex-row items-start gap-6"
     >
       <div className="rounded-2xl bg-primary/10 p-4 md:p-6 flex-shrink-0">
         <Icon size={40} className="text-primary md:w-14 md:h-14 w-10 h-10" />

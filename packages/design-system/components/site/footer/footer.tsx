@@ -81,7 +81,7 @@ export function Footer() {
         {/* Copyright Section */}
         <motion.div
           variants={itemVariants}
-          className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-border/40 pt-8 sm:flex-row"
+          className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-border/40 pt-8 sm:items-center sm:flex-row"
         >
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Review Rabbit. All rights reserved.

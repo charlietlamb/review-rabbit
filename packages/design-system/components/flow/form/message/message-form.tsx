@@ -22,6 +22,7 @@ import { calculateNodePosition } from '../../lib/add-create-nodes'
 import { CustomNode } from '../../lib/types'
 import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
 import { MailIcon } from 'lucide-react'
+import deleteNode from '../../lib/delete-node'
 
 const VERTICAL_SPACING = 200
 
@@ -39,6 +40,7 @@ export default function MessageForm({
   )
   const level = useAtomValue(levelAtom)
   const nodes = useAtomValue(nodesAtom)
+  const manageNodes = useAtomValue(manageNodesAtom)
   const setNodes = useSetAtom(nodesAtom)
   const setManageNodes = useSetAtom(manageNodesAtom)
   const isCreateMode = useAtomValue(isCreateModeAtom)
@@ -120,6 +122,40 @@ export default function MessageForm({
     }
   }
 
+  function handleDelete() {
+    if (!node) return
+
+    const setNodesFunction = isCreateMode ? setNodes : setManageNodes
+    const currentNodes = isCreateMode ? nodes : manageNodes
+
+    if (node.data.type === NODE_TYPES.INIT) {
+      toast.error('Cannot delete init node', {
+        description: 'The initial node is required and cannot be removed',
+      })
+      return
+    }
+
+    // Get the maximum level from all non-create nodes
+    const maxLevel = Math.max(
+      ...currentNodes
+        .filter((n) => !n.data.type.startsWith('create-'))
+        .map((n) => n.data.level)
+    )
+
+    if (node.data.level !== maxLevel) {
+      toast.error('Cannot delete this node', {
+        description: 'Only nodes on the last level can be deleted',
+      })
+      return
+    }
+
+    deleteNode(node, currentNodes, setNodesFunction)
+    toast.success('Successfully deleted message', {
+      description: 'Message deleted from the flow',
+    })
+    onSuccess?.()
+  }
+
   return (
     <FormProvider value={{ attemptSubmitted }}>
       <MessageTypeSelect type={type} setType={setType} />
@@ -144,9 +180,14 @@ export default function MessageForm({
         required
         textAreaClassName="min-h-60"
       />
-      <Button variant="shine" className="w-full" onClick={handleSubmit}>
-        {isCreateMode ? 'Add Message' : 'Update Message'}
-      </Button>
+      <div className="flex items-center gap-4">
+        <Button variant="destructive" className="w-full" onClick={handleDelete}>
+          Delete Message
+        </Button>
+        <Button variant="shine" className="w-full" onClick={handleSubmit}>
+          {isCreateMode ? 'Add Message' : 'Update Message'}
+        </Button>
+      </div>
     </FormProvider>
   )
 }

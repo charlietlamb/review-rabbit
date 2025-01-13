@@ -19,10 +19,21 @@ import { workflow } from './workflow-demo-data'
 import { manageNodesAtom } from '@rabbit/design-system/atoms/flow/flow-atoms'
 import { useAtom } from 'jotai'
 import getWorkflowData from '@rabbit/design-system/components/flow/lib/get-workflow-data'
+import { toast } from 'sonner'
 
 export function WorkflowDemo() {
   const [email, setEmail] = useState('')
   const [manageNodes, setManageNodes] = useAtom(manageNodesAtom)
+
+  async function handleTryItNow() {
+    await triggerDemoAutomation(email, {
+      title: 'Demo Workflow',
+      items: getWorkflowData(manageNodes).items,
+    })
+    toast.success('Welcome Flow Triggered', {
+      description: 'Check your email for a welcome message',
+    })
+  }
 
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
@@ -126,12 +137,7 @@ export function WorkflowDemo() {
                   <Button
                     variant="shine"
                     size="lg"
-                    onClick={() =>
-                      triggerDemoAutomation(email, {
-                        title: 'Demo Workflow',
-                        items: getWorkflowData(manageNodes).items,
-                      })
-                    }
+                    onClick={handleTryItNow}
                     className="gap-2 text-base font-medium shadow-sm"
                   >
                     Try it now

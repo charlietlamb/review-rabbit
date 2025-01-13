@@ -16,6 +16,7 @@ import TimeInputState from '@rabbit/design-system/components/form/time/time-inpu
 import { TimeValue } from 'react-aria-components'
 import { CustomNode, TimeNodeData } from '../../lib/types'
 import { Time } from '@internationalized/date'
+import deleteNode from '../../lib/delete-node'
 
 interface ExtendedTimeValue {
   time: TimeValue | null
@@ -36,6 +37,7 @@ export default function TimeForm({
   const level = useAtomValue(levelAtom)
   const nodes = useAtomValue(nodesAtom)
   const setNodes = useSetAtom(nodesAtom)
+  const manageNodes = useAtomValue(manageNodesAtom)
   const setManageNodes = useSetAtom(manageNodesAtom)
   const isCreateMode = useAtomValue(isCreateModeAtom)
   const [time, setTime] = useState<ExtendedTimeValue | null>(
@@ -66,6 +68,40 @@ export default function TimeForm({
       x: calculateNodePosition(nodesCount + 1, nodesCount),
       y: (level - 1) * VERTICAL_SPACING,
     }
+  }
+
+  function handleDelete() {
+    if (!node) return
+
+    const setNodesFunction = isCreateMode ? setNodes : setManageNodes
+    const currentNodes = isCreateMode ? nodes : manageNodes
+
+    if (node.data.type === NODE_TYPES.INIT) {
+      toast.error('Cannot delete init node', {
+        description: 'The initial node is required and cannot be removed',
+      })
+      return
+    }
+
+    // Get the maximum level from all non-create nodes
+    const maxLevel = Math.max(
+      ...currentNodes
+        .filter((n) => !n.data.type.startsWith('create-'))
+        .map((n) => n.data.level)
+    )
+
+    if (node.data.level !== maxLevel) {
+      toast.error('Cannot delete this node', {
+        description: 'Only nodes on the last level can be deleted',
+      })
+      return
+    }
+
+    deleteNode(node, currentNodes, setNodesFunction)
+    toast.success('Successfully deleted time delay', {
+      description: 'Time delay deleted from the flow',
+    })
+    onSuccess?.()
   }
 
   function handleSubmit() {
@@ -140,9 +176,14 @@ export default function TimeForm({
         name="time"
         required
       />
-      <Button variant="shine" className="w-full" onClick={handleSubmit}>
-        Add Time Delay
-      </Button>
+      <div className="flex items-center gap-4">
+        <Button variant="destructive" className="w-full" onClick={handleDelete}>
+          Delete Time Delay
+        </Button>
+        <Button variant="shine" className="w-full" onClick={handleSubmit}>
+          {node ? 'Update Time Delay' : 'Add Time Delay'}
+        </Button>
+      </div>
     </FormProvider>
   )
 }

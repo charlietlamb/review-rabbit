@@ -13,7 +13,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
         'z-50 h-14 md:h-12',
         'flex items-center justify-between',
         'bg-background/80 backdrop-blur-sm',
-        'border-b rounded-b-lg'
+        'border-b rounded-b-lg overflow-hidden'
       )}
     >
       <Logo className="px-4 h-full" />

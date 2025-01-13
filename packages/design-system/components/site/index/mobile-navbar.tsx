@@ -26,7 +26,7 @@ export function MobileNavbar({ children }: { children: ReactNode }) {
   return (
     <div className="md:hidden">
       <button
-        className="flex items-center justify-center h-14 w-14 text-foreground hover:bg-accent"
+        className="flex items-center justify-center h-14 w-14 text-foreground hover:bg-accent transition-colors duration-300"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}

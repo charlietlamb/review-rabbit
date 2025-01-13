@@ -10,16 +10,18 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
     <header
       className={cn(
         'fixed top-0 left-0 right-0',
-        'z-50 h-14 md:h-12',
-        'flex items-center justify-between',
+        'z-50 h-14 md:h-12 w-full',
+        'flex items-center md:justify-between',
         'bg-background/80 backdrop-blur-sm',
-        'border-b rounded-b-lg overflow-hidden'
+        'border-b rounded-b-lg'
       )}
     >
-      <Logo className="px-4 h-full" />
-      <div className="flex items-center">
-        <DesktopNav loggedIn={loggedIn} />
-        <MobileNav loggedIn={loggedIn} />
+      <div className="flex items-center justify-between w-full">
+        <Logo className="h-full" />
+        <div className="flex items-center">
+          <DesktopNav loggedIn={loggedIn} />
+          <MobileNav loggedIn={loggedIn} />
+        </div>
       </div>
     </header>
   )

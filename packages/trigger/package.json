@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@trigger.dev/sdk": "^3.3.7",
+    "@trigger.dev/sdk": "3.3.10",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@rabbit/typescript-config": "workspace:*",
-    "@trigger.dev/build": "^3.3.7",
+    "@trigger.dev/build": "3.3.10",
     "@types/node": "22.9.0",
     "typescript": "^5.6.3"
   }

@@ -6,6 +6,9 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 
 export const authMiddleware = createMiddleware<AppBindings>(async (c, next) => {
+  const json = await c.req.json()
+  console.log(json)
+  console.log(json.workflow.items)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
   if (!session) {
     c.set('user', null)

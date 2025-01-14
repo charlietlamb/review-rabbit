@@ -54,13 +54,18 @@ export default function DashboardSidebarHeader() {
   const currentBusiness = businesses?.find((b) => b.id === selectedBusiness)
 
   return (
-    <SidebarHeader className={cn('p-0 h-[65px] border-b', !open && 'p-1')}>
+    <SidebarHeader
+      className={cn(
+        'p-0 h-[65px] border-b group/header hover:text-primary',
+        !open && 'p-1'
+      )}
+    >
       {open ? (
         <Select value={selectedBusiness} onValueChange={setSelectedBusiness}>
           <SelectTrigger
             className={cn(
               'w-full h-full border-0 rounded-none bg-gradient-to-l from-background via-background to-primary/5',
-              'hover:to-primary/10 transition-all duration-300 group px-3 [&>svg]:hidden'
+              'hover:to-primary/10 transition-all duration-300 px-3 [&>svg]:hidden'
             )}
           >
             <div className="flex items-center gap-3 w-full">
@@ -75,10 +80,10 @@ export default function DashboardSidebarHeader() {
                   </div>
                 )}
               </div>
-              <p className="text-sm font-medium group-hover:text-primary transition-colors font-heading text-muted-foreground">
+              <p className="text-sm font-medium font-heading text-muted-foreground group-hover/header:text-primary">
                 <SelectValue placeholder="Select a business" />
               </p>
-              <ChevronDown className="ml-auto h-4 w-4 shrink-0 opacity-50 group-hover:text-primary group-hover:opacity-100 transition-all" />
+              <ChevronDown className="ml-auto h-4 w-4 shrink-0 opacity-50 group-hover/header:text-primary group-hover/header:opacity-100 transition-all" />
             </div>
           </SelectTrigger>
           <SelectContent>
@@ -117,9 +122,9 @@ export default function DashboardSidebarHeader() {
         </div>
       ) : (
         <BusinessFormDialog>
-          <div className="h-full w-full flex items-center justify-center">
+          <div className="h-full w-full flex items-center justify-center group">
             <button className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors">
-              <Plus className="h-4 w-4 text-primary" />
+              <Plus className="h-4 w-4 text-primary group-hover:text-primary/80" />
             </button>
           </div>
         </BusinessFormDialog>

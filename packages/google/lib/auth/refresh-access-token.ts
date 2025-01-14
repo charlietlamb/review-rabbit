@@ -6,7 +6,6 @@ import { accounts } from '@rabbit/database/schema/auth/accounts'
 import { getEnv } from '@rabbit/env'
 
 export async function refreshAccessToken(account: Account): Promise<Account> {
-  console.log('-- Refreshing access token')
   if (!account.refreshToken) {
     throw new Error('No refresh token available')
   }

@@ -27,7 +27,6 @@ export async function getReviews(
     }
     if (!hasBusinessScope(account)) {
       await addBusinessScope(account)
-      console.log('-- No business scope')
       throw new Error('No business scope')
     }
 

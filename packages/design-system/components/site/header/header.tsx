@@ -17,7 +17,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
       )}
     >
       <div className="flex items-center justify-between w-full">
-        <Logo className="h-full" />
+        <Logo className="h-full ml-4" />
         <div className="flex items-center">
           <DesktopNav loggedIn={loggedIn} />
           <MobileNav loggedIn={loggedIn} />

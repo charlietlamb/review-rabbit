@@ -16,8 +16,9 @@ export default function OAuth() {
         size="icon"
         onClick={() => {
           setLoading(true)
-          toast('Signing in with Google...', {
-            description: 'Redirecting to Google...',
+          toast('Signing in with Google', {
+            description: 'Redirecting...',
+            icon: <RiGoogleFill />,
           })
           authClient.signIn.social({ provider: 'google' })
           setLoading(false)

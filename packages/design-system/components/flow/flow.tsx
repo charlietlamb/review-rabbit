@@ -61,10 +61,6 @@ export default function Flow({ workflow }: { workflow?: WorkflowWithItems }) {
     }
   }, [pathname])
 
-  useEffect(() => {
-    console.log(manageNodesWithAdds)
-  }, [manageNodesWithAdds])
-
   return (
     <ReactFlow
       nodes={workflow ? manageNodesWithAdds : nodesWithAdds}

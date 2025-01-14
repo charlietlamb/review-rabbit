@@ -14,7 +14,6 @@ export function calculateNodePosition(nodesInLevel: number, nodeIndex: number) {
 }
 
 export function getCreateNodes(nodes: CustomNode[]): CustomNode[] {
-  console.log(nodes)
   const initNode = nodes.find((node) => node.data.type === NODE_TYPES.INIT)
   if (!initNode) return nodes
 

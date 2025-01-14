@@ -12,7 +12,7 @@ export default function DashboardContentHeader({
   right?: React.ReactNode
 }) {
   return (
-    <div className="flex items-center px-4 h-16">
+    <div className="flex items-center px-4 h-16 min-h-16">
       <DashboardSidebarToggle className="mr-4" />
       {left}
       <div>

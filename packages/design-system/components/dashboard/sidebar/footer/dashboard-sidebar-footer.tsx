@@ -23,7 +23,7 @@ export default function DashboardSidebarFooter() {
   const user = useUser()
   if (!user) return null
   return (
-    <SidebarFooter>
+    <SidebarFooter className="border-t">
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>

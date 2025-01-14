@@ -40,7 +40,7 @@ export default function DashboardSidebarHeader() {
 
   if (isLoading) {
     return (
-      <SidebarHeader className="p-0 h-14 border-b">
+      <SidebarHeader className="p-0 h-[65px] border-b">
         <div className="flex items-center gap-2 p-3">
           <Skeleton className="h-8 w-8 rounded-md" />
           <div className="flex-1">
@@ -54,12 +54,12 @@ export default function DashboardSidebarHeader() {
   const currentBusiness = businesses?.find((b) => b.id === selectedBusiness)
 
   return (
-    <SidebarHeader className={cn('p-0 h-14 border-b', !open && 'p-1')}>
+    <SidebarHeader className={cn('p-0 h-[65px] border-b', !open && 'p-1')}>
       {open ? (
         <Select value={selectedBusiness} onValueChange={setSelectedBusiness}>
           <SelectTrigger
             className={cn(
-              'w-full h-full border-0 rounded-none bg-gradient-to-r from-background via-background to-primary/5',
+              'w-full h-full border-0 rounded-none bg-gradient-to-l from-background via-background to-primary/5',
               'hover:to-primary/10 transition-all duration-300 group px-3 [&>svg]:hidden'
             )}
           >
@@ -112,12 +112,16 @@ export default function DashboardSidebarHeader() {
           </SelectContent>
         </Select>
       ) : currentBusiness ? (
-        <BusinessAvatar business={currentBusiness} className="h-8 w-8" />
+        <div className="h-full w-full flex items-center justify-center">
+          <BusinessAvatar business={currentBusiness} className="h-8 w-8" />
+        </div>
       ) : (
         <BusinessFormDialog>
-          <button className="h-8 w-8 rounded-md flex items-center justify-center hover:bg-accent">
-            <Plus className="h-4 w-4" />
-          </button>
+          <div className="h-full w-full flex items-center justify-center">
+            <button className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors">
+              <Plus className="h-4 w-4 text-primary" />
+            </button>
+          </div>
         </BusinessFormDialog>
       )}
     </SidebarHeader>

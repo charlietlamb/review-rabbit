@@ -23,7 +23,7 @@ export default function DashboardSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-none">
       <DashboardSidebarHeader />
-      <SidebarContent>
+      <SidebarContent className="py-2">
         <SidebarMenu>
           <SidebarGroupLabel className={cn(!open && 'hidden')}>
             Home

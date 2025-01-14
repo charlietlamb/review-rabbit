@@ -1,10 +1,5 @@
 import { atom } from 'jotai'
-import { Business } from '@rabbit/database/schema/app/businesses'
-import { atomWithLocalStorage } from '@rabbit/design-system/atoms/utility/atom-with-local-storage'
 
-export const businessesAtom = atom<Business[]>([])
-export const businessSearchAtom = atom<string>('')
-export const businessIdAtom = atomWithLocalStorage<string | null>(
-  'businessId',
-  null
-)
+export const businessSearchAtom = atom('')
+export const businessesAtom = atom<any[]>([])
+export const selectedBusinessAtom = atom<string | undefined>(undefined)

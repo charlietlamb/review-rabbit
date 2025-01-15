@@ -79,7 +79,7 @@ export default function DashboadSettingsAccountForm() {
           e.stopPropagation()
           form.handleSubmit()
         }}
-        className="p-4"
+        className="grid grid-cols-1 gap-4"
       >
         <div className="grid grid-cols-1 gap-4">
           <InputWithIcon

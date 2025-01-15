@@ -2,14 +2,41 @@ import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 import DashboardSettingsAccountContent from './dashboard-settings-account-content'
 import Theme from '../theme/theme'
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
+import { Separator } from '@rabbit/design-system/components/ui/separator'
 
 export default function DashboardSettingsAccount() {
   return (
     <DashboardWrap title="Account" subtitle="Manage your account settings">
-      <DashboadSettingsAccountForm />
-      <DashboardSettingsAccountContent />
-      <div className="p-4">
-        <Theme />
+      <div className="flex flex-col divide-y">
+        <section className="px-4 py-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold font-heading">Profile</h2>
+            <p className="text-sm text-muted-foreground">
+              Update your personal information and profile picture
+            </p>
+          </div>
+          <DashboadSettingsAccountForm />
+        </section>
+
+        <section className="px-4 py-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold font-heading">Security</h2>
+            <p className="text-sm text-muted-foreground">
+              Manage your account security and verification
+            </p>
+          </div>
+          <DashboardSettingsAccountContent />
+        </section>
+
+        <section className="px-4 py-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold font-heading">Appearance</h2>
+            <p className="text-sm text-muted-foreground">
+              Customize how Review Rabbit looks on your device
+            </p>
+          </div>
+          <Theme />
+        </section>
       </div>
     </DashboardWrap>
   )

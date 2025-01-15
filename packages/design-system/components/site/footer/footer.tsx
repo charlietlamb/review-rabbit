@@ -87,14 +87,17 @@ export function Footer() {
             © {new Date().getFullYear()} Review Rabbit. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a
+              href="/policy"
+              className="hover:text-foreground transition-colors"
+            >
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a
+              href="/terms"
+              className="hover:text-foreground transition-colors"
+            >
               Terms of Service
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Cookie Policy
             </a>
           </div>
         </motion.div>

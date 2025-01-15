@@ -1,52 +1,77 @@
-export const termsData = [
+interface TermsSection {
+  title: string
+  content: string
+}
+
+export const termsData: TermsSection[] = [
   {
     title: 'Acceptance of Terms',
     content:
-      'By accessing this website, you agree to be bound by these terms and conditions.',
+      'By accessing and using Review Rabbit, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. These terms govern your access to and use of our review management services, including our implementation of Google APIs.',
   },
   {
-    title: 'Use License',
+    title: 'Service Description',
     content:
-      'Permission is granted to temporarily download one copy of the materials on our website for personal, non-commercial transitory viewing only.',
+      'Review Rabbit provides review management services through Google APIs, enabling users to manage and respond to their Google Business Profile reviews. Our service strictly adheres to Google API Services User Data Policy and Terms of Service. We provide these services solely for authorized business purposes and review management functionality.',
   },
   {
-    title: 'Disclaimer',
+    title: 'Google API Usage',
     content:
-      'The materials on our website are provided on an "as is" basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties.',
+      "Our service integrates with Google APIs under strict compliance with Google's API Services User Data Policy. By using our service, you authorize us to access your Google Business Profile data through official Google APIs, limited to review management purposes. You acknowledge that our access is subject to Google's terms and technical requirements.",
   },
   {
-    title: 'Limitations',
+    title: 'Data Usage Restrictions',
     content:
-      'In no event shall we or our suppliers be liable for any damages arising out of the use or inability to use the materials on our website.',
+      "We process your Google Business Profile data strictly in accordance with Google's Limited Use requirements. Your data will only be used for: 1) Displaying reviews in our dashboard, 2) Generating authorized analytics, and 3) Facilitating review responses. We explicitly prohibit any unauthorized data usage, including but not limited to advertising, marketing, or data resale.",
   },
   {
-    title: 'Revisions and Errata',
+    title: 'User Obligations',
     content:
-      'The materials appearing on our website could include technical, typographical, or photographic errors. We do not warrant that any of the materials on our website are accurate, complete, or current.',
+      "You agree to: 1) Provide accurate information when using our service, 2) Maintain the security of your account credentials, 3) Use the service in compliance with all applicable laws and Google's policies, 4) Not attempt to circumvent any technical restrictions or security measures, and 5) Not use the service for any unauthorized or unlawful purposes.",
   },
   {
-    title: 'Links',
+    title: 'Service Access and Authorization',
     content:
-      'We have not reviewed all of the sites linked to our website and are not responsible for the contents of any such linked site.',
+      "Access to our service requires authorization through Google's OAuth2.0 process. You maintain control over this authorization and may revoke it at any time through Google's security settings or our dashboard. We implement secure token management and never store your Google credentials.",
   },
   {
-    title: 'Site Terms of Use Modifications',
+    title: 'Technical Limitations',
     content:
-      'We may revise these terms of use for our website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these Terms and Conditions of Use.',
+      "Our service operates within the technical limitations and requirements set by Google's APIs. We may modify our service to maintain compliance with Google's technical specifications or policy requirements. Service availability may be affected by Google API availability or changes to Google's policies.",
   },
   {
-    title: 'Governing Law',
+    title: 'Security Measures',
     content:
-      'Any claim relating to our website shall be governed by the laws of the country in which we operate without regard to its conflict of law provisions.',
+      "We implement comprehensive security measures including encryption, access controls, and monitoring. You agree to notify us immediately of any unauthorized access or security concerns. We maintain incident reporting procedures in accordance with Google's security requirements.",
   },
   {
-    title: 'User Account',
+    title: 'Intellectual Property',
     content:
-      'If you create an account on our website, you are responsible for maintaining the security of your account and the confidentiality of your password.',
+      "Review Rabbit's software, design, and content are protected by intellectual property rights. Our service respects Google's intellectual property rights and brand guidelines. You may not modify, distribute, or create derivative works from our service or Google's content without proper authorization.",
+  },
+  {
+    title: 'Service Modifications',
+    content:
+      "We reserve the right to modify these terms or our service to maintain compliance with Google's requirements or improve functionality. We will notify users of significant changes. Continued use of the service after modifications constitutes acceptance of updated terms.",
   },
   {
     title: 'Termination',
     content:
-      'We may terminate or suspend access to our service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.',
+      "You may terminate your use of our service at any time by revoking API access and closing your account. We may suspend or terminate access for violations of these terms or Google's policies. Upon termination, we follow secure data deletion protocols as specified in our Privacy Policy.",
+  },
+  {
+    title: 'Limitation of Liability',
+    content:
+      'Review Rabbit provides this service on an "as is" basis. We are not responsible for Google API availability or changes to Google\'s policies that may affect our service. Our liability is limited to the extent permitted by applicable law.',
+  },
+  {
+    title: 'Governing Law',
+    content:
+      "These terms are governed by applicable laws, including data protection regulations such as GDPR and CCPA where applicable. Any disputes shall be resolved in accordance with these laws while maintaining compliance with Google's requirements.",
+  },
+  {
+    title: 'Contact Information',
+    content:
+      'For questions about these terms or our technical implementation, please contact charlie@review-rabbit.com. For urgent technical matters or compliance concerns, we maintain responsive support channels as detailed in our Privacy Policy.',
   },
 ]

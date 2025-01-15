@@ -8,17 +8,11 @@ export default function DashboardSettingsAccount() {
   return (
     <DashboardWrap title="Account" subtitle="Manage your account settings">
       <div className="flex flex-col divide-y">
-        <section className="px-4 py-6">
-          <div className="mb-4">
-            <h2 className="text-lg font-bold font-heading">Profile</h2>
-            <p className="text-sm text-muted-foreground">
-              Update your personal information and profile picture
-            </p>
-          </div>
+        <section className="px-4 pt-2 pb-4">
           <DashboadSettingsAccountForm />
         </section>
 
-        <section className="px-4 py-6">
+        <section className="px-4 pt-2 pb-4">
           <div className="mb-4">
             <h2 className="text-lg font-bold font-heading">Security</h2>
             <p className="text-sm text-muted-foreground">
@@ -28,14 +22,14 @@ export default function DashboardSettingsAccount() {
           <DashboardSettingsAccountContent />
         </section>
 
-        <section className="px-4 py-6">
+        <section className="px-4 pt-2 pb-4">
           <div className="mb-4">
             <h2 className="text-lg font-bold font-heading">Appearance</h2>
             <p className="text-sm text-muted-foreground">
               Customize how Review Rabbit looks on your device
             </p>
           </div>
-          <Theme />
+          <Theme showLabel={false} />
         </section>
       </div>
     </DashboardWrap>

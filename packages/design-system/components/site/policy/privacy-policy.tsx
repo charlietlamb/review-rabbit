@@ -71,23 +71,12 @@ export function PrivacyPolicy() {
         <div className="mt-16 pt-8 border-t border-border">
           <div className="text-center space-y-4">
             <p className="text-sm text-muted-foreground">
-              For technical questions about our implementation, contact our
-              engineering team at{' '}
+              For technical questions about our implementation, please contact{' '}
               <a
-                href="mailto:engineering@review-rabbit.com"
+                href="mailto:charlie@review-rabbit.com"
                 className="text-primary hover:underline"
               >
-                engineering@review-rabbit.com
-              </a>
-            </p>
-            <p className="text-sm text-muted-foreground">
-              For technical compliance inquiries, contact our Technical
-              Compliance Lead at{' '}
-              <a
-                href="mailto:compliance@review-rabbit.com"
-                className="text-primary hover:underline"
-              >
-                compliance@review-rabbit.com
+                charlie@review-rabbit.com
               </a>
             </p>
           </div>

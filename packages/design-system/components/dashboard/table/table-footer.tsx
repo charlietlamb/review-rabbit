@@ -19,7 +19,7 @@ export default function TableFooter({
             duration: 0.3,
             ease: 'easeInOut',
           }}
-          className="absolute bottom-0 left-0 right-0 p-4 flex items-center z-50 bg-background justify-between"
+          className="absolute bottom-0 left-0 right-0 p-4 flex items-center z-50 bg-background justify-between h-16"
         >
           {children}
         </motion.div>

@@ -23,7 +23,7 @@ export default function DashboardSidebarFooter() {
   const user = useUser()
   if (!user) return null
   return (
-    <SidebarFooter className="border-t bg-gradient-to-b from-background via-background to-muted/20">
+    <SidebarFooter className="border-t bg-gradient-to-b from-background via-background to-muted/20 h-16">
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>

@@ -48,7 +48,7 @@ export function PricingCard({
   tier: PricingTier
   allTiers: PricingTier[]
 }) {
-  const isPro = tier.title === 'Pro'
+  const isPro = tier.highlighted
   const isEnterprise = tier.title === 'Enterprise'
   const features = getFeaturesToShow(tier, allTiers)
   const { data: session } = authClient.useSession()

@@ -5,7 +5,9 @@ import { pricingTiers } from './pricing-data'
 import { PricingCard } from './pricing-card'
 import PricingCta from './pricing-cta'
 import { Faq } from '../index/faq/faq-section'
-import { Button } from '../../ui/button'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { cn } from '@rabbit/design-system/lib/utils'
+import { ArrowRight } from 'lucide-react'
 
 export function Pricing() {
   return (
@@ -50,22 +52,46 @@ export function Pricing() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="mt-16 text-center p-8 rounded-lg bg-muted/50"
-      >
-        <h2 className="font-heading text-3xl font-bold mb-4">Enterprise</h2>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-          Need a custom solution? Our enterprise plan offers tailored features,
-          dedicated support, and custom integrations to meet your organization's
-          specific needs.
-        </p>
-        <Button size="lg" variant="default">
-          Contact Sales
-        </Button>
-      </motion.div>
+      <div className="w-full pt-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className={cn(
+            'relative overflow-hidden border-0 bg-card/50 backdrop-blur-sm transition-all duration-600 py-12',
+            'before:absolute before:inset-0 before:rounded-[calc(var(--radius)+1px)] before:p-[1px]',
+            'before:bg-gradient-to-b before:from-primary/40 before:to-secondary/40',
+            'after:absolute after:inset-[1px] after:rounded-[var(--radius)] after:bg-gradient-to-b after:from-background/90 after:to-background/50',
+            'hover:before:from-primary/50 hover:before:to-secondary/50',
+            'shadow-xl shadow-primary/20',
+            'z-10'
+          )}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 px-8 md:px-16">
+            <div className="flex flex-col items-start text-left">
+              <h2 className="font-heading text-3xl font-bold mb-2">
+                Enterprise
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Need a custom solution? Let's talk about your specific needs.
+              </p>
+            </div>
+            <Button
+              size="lg"
+              variant="expandIcon"
+              colors="primary"
+              Icon={ArrowRight}
+              iconPlacement="right"
+              className="bg-primary hover:bg-primary/90 font-heading font-bold min-w-[200px]"
+              onClick={() =>
+                (window.location.href = 'mailto:charlie@reviewrabbit.uk')
+              }
+            >
+              Contact Sales
+            </Button>
+          </div>
+        </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}

@@ -34,6 +34,7 @@ export const pricingTiers: PricingTier[] = [
     buttonText: 'Upgrade to Basic',
     priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     plan: 'basic',
+    highlighted: true,
   },
   {
     title: 'Pro',
@@ -50,6 +51,5 @@ export const pricingTiers: PricingTier[] = [
     buttonText: 'Upgrade to Pro',
     priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
     plan: 'pro',
-    highlighted: true,
   },
 ]

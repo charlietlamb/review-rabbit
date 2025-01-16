@@ -40,6 +40,10 @@ export const server = {
 
   // Trigger
   TRIGGER_SECRET_KEY: z.string().min(1),
+
+  // Upstash
+  UPSTASH_REDIS_REST_URL: z.string().min(1),
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
 } as const
 
 export const dbOnlyServer = { DATABASE_URL: z.string().min(1).url() }

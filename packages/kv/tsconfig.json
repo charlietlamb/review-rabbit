@@ -1,0 +1,14 @@
+{
+  "extends": "@rabbit/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@rabbit/database/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "paths": {
+    "@/*": ["/*"]
+  }
+}

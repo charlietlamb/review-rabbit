@@ -2,7 +2,6 @@ import DashboadSettingsAccountForm from './dashboard-settings-account-form'
 import DashboardSettingsAccountContent from './dashboard-settings-account-content'
 import Theme from '../theme/theme'
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
-import { Separator } from '@rabbit/design-system/components/ui/separator'
 
 export default function DashboardSettingsAccount() {
   return (

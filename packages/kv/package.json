@@ -8,5 +8,5 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": { "@upstash/redis": "^1.34.3" }
 }

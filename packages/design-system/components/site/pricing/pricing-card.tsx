@@ -13,7 +13,7 @@ import { ArrowRight, Check, X } from 'lucide-react'
 import { checkout } from '@rabbit/design-system/actions/stripe/checkout'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { getEnv } from '@rabbit/env'
 function getFeaturesToShow(
   currentTier: PricingTier,

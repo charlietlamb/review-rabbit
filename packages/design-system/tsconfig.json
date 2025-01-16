@@ -12,6 +12,6 @@
       "@rabbit/*": ["../*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "../stripe/lib/sync-stripe-data-to-kv.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { getEnv } from '@rabbit/env'
 
 export default function OneTapProvider({

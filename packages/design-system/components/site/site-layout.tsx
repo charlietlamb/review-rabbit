@@ -2,7 +2,7 @@ import React from 'react'
 import { Footer } from '@rabbit/design-system/components/site/footer/footer'
 import { Header } from '@rabbit/design-system/components/site/header/header'
 import { cn } from '@rabbit/design-system/lib/utils'
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 
 export default async function SiteLayout({
   home,

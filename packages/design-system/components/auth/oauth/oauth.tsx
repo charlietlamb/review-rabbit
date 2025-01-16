@@ -1,6 +1,6 @@
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { RiGoogleFill } from '@remixicon/react'
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import Spinner from '@rabbit/design-system/components/misc/spinner'

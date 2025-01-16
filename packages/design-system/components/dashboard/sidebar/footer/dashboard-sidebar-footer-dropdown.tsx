@@ -1,4 +1,4 @@
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,

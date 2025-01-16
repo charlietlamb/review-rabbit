@@ -1,6 +1,6 @@
 'use client'
 
-import { authClient } from '@rabbit/design-system/lib/authClient'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import useUser from '@rabbit/design-system/hooks/use-user'
 import { useState } from 'react'

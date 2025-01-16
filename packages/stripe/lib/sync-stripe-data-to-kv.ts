@@ -1,3 +1,5 @@
+'use server'
+
 import { kv } from '@rabbit/kv'
 import { stripe } from '@rabbit/stripe'
 

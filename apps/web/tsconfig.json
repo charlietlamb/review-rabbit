@@ -14,7 +14,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../../packages/design-system/actions/media/client.ts",
-    "../../packages/design-system/lib/authClient.ts",
+    "../../packages/design-system/lib/auth-client.ts",
     "../../packages/design-system/constants.ts"
   ]
 }

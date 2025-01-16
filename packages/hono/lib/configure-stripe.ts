@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
 import { getEnv } from '@rabbit/env'
-import { handleStripeEvent } from '@rabbit/stripe'
 import { AppOpenAPI } from './types'
+import { handleStripeEvent } from '@rabbit/stripe'
 
 export default async function configureStripe(app: AppOpenAPI) {
   app.post('/webhook', async (context) => {
@@ -19,7 +19,7 @@ export default async function configureStripe(app: AppOpenAPI) {
         STRIPE_WEBHOOK_SECRET
       )
 
-      handleStripeEvent(event)
+      await handleStripeEvent(event)
       return context.text('', 200)
     } catch (err) {
       const errorMessage = `⚠️  Webhook signature verification failed. ${

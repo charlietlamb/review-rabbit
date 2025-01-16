@@ -136,7 +136,7 @@ export function PricingCard({
               )
             } else {
               if (session?.user) {
-                checkout(tier.priceId, tier.plan)
+                checkout(session.user, tier.priceId, tier.plan)
               } else {
                 router.push('/signup')
               }

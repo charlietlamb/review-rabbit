@@ -12,6 +12,8 @@ export type PricingTier = {
   highlighted?: boolean
 }
 
+const env = getEnv()
+
 export const pricingTiers: PricingTier[] = [
   {
     title: 'Free',
@@ -32,13 +34,13 @@ export const pricingTiers: PricingTier[] = [
       'API Access',
     ],
     buttonText: 'Upgrade to Basic',
-    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     plan: 'basic',
     highlighted: true,
   },
   {
     title: 'Pro',
-    price: 50,
+    price: 90,
     description: 'Advanced features for growing teams',
     features: [
       'Enterprise Analytics',
@@ -49,7 +51,7 @@ export const pricingTiers: PricingTier[] = [
       'Team Collaboration',
     ],
     buttonText: 'Upgrade to Pro',
-    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
     plan: 'pro',
   },
 ]

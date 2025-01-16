@@ -5,6 +5,7 @@ import { pricingTiers } from './pricing-data'
 import { PricingCard } from './pricing-card'
 import PricingCta from './pricing-cta'
 import { Faq } from '../index/faq/faq-section'
+import { Button } from '../../ui/button'
 
 export function Pricing() {
   return (
@@ -48,17 +49,35 @@ export function Pricing() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="mt-16 text-center p-8 rounded-lg bg-muted/50"
+      >
+        <h2 className="font-heading text-3xl font-bold mb-4">Enterprise</h2>
+        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+          Need a custom solution? Our enterprise plan offers tailored features,
+          dedicated support, and custom integrations to meet your organization's
+          specific needs.
+        </p>
+        <Button size="lg" variant="default">
+          Contact Sales
+        </Button>
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
       >
         <Faq />
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
       >
         <PricingCta />
       </motion.div>

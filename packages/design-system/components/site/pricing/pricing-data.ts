@@ -3,47 +3,53 @@ import { Plan } from '@rabbit/hono/lib/types'
 
 export type PricingTier = {
   title: string
-  price: number
+  price: number | null
   description: string
   features: string[]
   buttonText: string
-  priceId: string
+  priceId?: string
   plan: Plan
+  highlighted?: boolean
 }
 
 export const pricingTiers: PricingTier[] = [
   {
+    title: 'Free',
+    price: 0,
+    description: 'Perfect for getting started',
+    features: ['Basic Analytics', 'Email Support', 'Limited Automations'],
+    buttonText: 'Get Started',
+    plan: 'free',
+  },
+  {
     title: 'Basic',
     price: 30,
     description: 'Essential features for small projects',
-    features: ['Analytic Reports', 'Email', 'Schedule Automations'],
-    buttonText: 'Get Started',
-    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_1_PRICE_ID,
+    features: [
+      'Advanced Analytics',
+      'Priority Email Support',
+      'Full Automations',
+      'API Access',
+    ],
+    buttonText: 'Upgrade to Basic',
+    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     plan: 'basic',
   },
   {
     title: 'Pro',
     price: 50,
-    description: 'Advanced features for automations',
+    description: 'Advanced features for growing teams',
     features: [
-      'Analytic Reports',
-      'Email',
-      'Note Editor',
-      'Schedule Automations',
-      'Calendar Integrations',
-      'Stripe Payments',
+      'Enterprise Analytics',
+      'Priority Support',
+      'Advanced Automations',
+      'Unlimited API Access',
+      'Custom Integrations',
+      'Team Collaboration',
     ],
     buttonText: 'Upgrade to Pro',
-    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_2_PRICE_ID,
+    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
     plan: 'pro',
-  },
-  {
-    title: 'Enterprise',
-    price: 99,
-    description: 'Contact Sales for Custom Features',
-    features: ['Custom Features'],
-    buttonText: 'Contact Sales',
-    priceId: getEnv().NEXT_PUBLIC_STRIPE_PLAN_3_PRICE_ID,
-    plan: 'enterprise',
+    highlighted: true,
   },
 ]

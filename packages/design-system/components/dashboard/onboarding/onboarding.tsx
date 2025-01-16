@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import OnboardingTheme from '../settings/theme/theme'
-import OnboardingStripe from './onboarding-stripe'
 
 const steps = [
   {
@@ -36,7 +35,7 @@ const steps = [
   {
     title: 'Connect Your Stripe Account',
     description: 'Start accepting payments from your clients',
-    content: () => <OnboardingStripe />,
+    content: () => <></>,
   },
 ]
 

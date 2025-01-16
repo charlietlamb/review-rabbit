@@ -23,7 +23,6 @@ export const server = {
   // Stripe
   STRIPE_SECRET_KEY: z.string().min(1).startsWith('sk_live_'),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).startsWith('whsec_'),
-  STRIPE_CLIENT_ID: z.string().min(1),
 
   // Bundle Analyzer
   ANALYZE: z.string().optional().default('false'),

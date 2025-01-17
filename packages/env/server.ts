@@ -21,7 +21,7 @@ export const server = {
   BETTER_AUTH_BASE_PATH: z.string().min(1).startsWith('/'),
 
   // Stripe
-  STRIPE_SECRET_KEY: z.string().min(1).startsWith('sk_live_'),
+  STRIPE_SECRET_KEY: z.string().min(1).startsWith('sk_'),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).startsWith('whsec_'),
 
   // Bundle Analyzer

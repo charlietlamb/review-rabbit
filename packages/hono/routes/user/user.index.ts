@@ -5,7 +5,6 @@ import * as routes from '@rabbit/hono/routes/user/user.routes'
 const router = createRouter()
   .openapi(routes.get, handlers.get)
   .openapi(routes.update, handlers.update)
-  .openapi(routes.updateCurrency, handlers.updateCurrency)
   .openapi(routes.resetPassword, handlers.resetPassword)
   .openapi(routes.getAccount, handlers.getAccount)
 

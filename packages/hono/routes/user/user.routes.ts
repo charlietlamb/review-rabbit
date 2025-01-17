@@ -70,42 +70,6 @@ export const update = createRoute({
 
 export type UpdateUserRoute = typeof update
 
-export const updateCurrency = createRoute({
-  path: '/user/update-currency',
-  method: 'post',
-  summary: 'Update a user currency',
-  tags,
-  request: {
-    body: {
-      description: 'User currency',
-      content: {
-        'application/json': {
-          schema: z.object({
-            currency: z.string(),
-          }),
-        },
-      },
-    },
-  },
-  responses: {
-    [HttpStatusCodes.OK]: jsonContent(
-      z.object({
-        success: z.boolean(),
-      }),
-      'User currency updated.'
-    ),
-    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
-      z.object({
-        error: z.string(),
-      }),
-      'Internal server error'
-    ),
-    ...unauthorizedSchema,
-  },
-})
-
-export type UpdateCurrencyRoute = typeof updateCurrency
-
 export const resetPassword = createRoute({
   path: '/user/reset-password',
   method: 'post',

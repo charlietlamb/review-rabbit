@@ -3,7 +3,6 @@ import { Logo } from '@rabbit/design-system/components/site/header/logo'
 import { getEnv } from '@rabbit/env'
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
-import { Badge } from '@rabbit/design-system/components/ui/badge'
 
 export function Success({ plan }: { plan: string }) {
   return (
@@ -29,15 +28,10 @@ export function Success({ plan }: { plan: string }) {
             <h1 className="font-heading text-2xl font-semibold tracking-tight">
               Payment Successful
             </h1>
-            <div className="flex flex-col items-center gap-2">
-              <Badge variant="secondary" className="capitalize">
-                {plan} Plan
-              </Badge>
-              <p className="text-muted-foreground text-sm">
-                Welcome to Review Rabbit! You now have access to all {plan} plan
-                features. You'll receive a confirmation email shortly.
-              </p>
-            </div>
+            <p className="text-muted-foreground text-sm">
+              Thank you for your purchase! You'll receive a confirmation email
+              shortly.
+            </p>
           </div>
 
           <div className="pt-4 flex flex-col gap-3">

@@ -8,7 +8,7 @@ interface FailureProps {
   message?: string
 }
 
-export function Failure({ message = 'Payment failed' }: FailureProps) {
+export function Failed({ message = 'Payment failed' }: FailureProps) {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Gradient Background */}

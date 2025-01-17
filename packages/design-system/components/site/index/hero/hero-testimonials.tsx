@@ -1,4 +1,3 @@
-import { cn } from '@rabbit/design-system/lib/utils'
 import { Marquee } from '@rabbit/design-system/components/magic/marquee'
 import { TestimonialCard } from '../testimonials/testimonial-card'
 import { staticTestimonials } from '../testimonials/testimonial-data'

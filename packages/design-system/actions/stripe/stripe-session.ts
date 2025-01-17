@@ -16,8 +16,8 @@ export const postStripeSession = async ({
   priceId: string
   plan: Plan
 }) => {
-  const successUrl = `${getEnv().NEXT_PUBLIC_WEB}/welcome?plan=${plan}`
-  const cancelUrl = `${getEnv().NEXT_PUBLIC_WEB}/cancel?session_id={CHECKOUT_SESSION_ID}`
+  const successUrl = `${getEnv().NEXT_PUBLIC_WEB}/success?plan=${plan}`
+  const cancelUrl = `${getEnv().NEXT_PUBLIC_WEB}/failed`
 
   let stripeCustomerId = (await kv.get('stripeCustomerId')) as string | null
   if (!stripeCustomerId) {

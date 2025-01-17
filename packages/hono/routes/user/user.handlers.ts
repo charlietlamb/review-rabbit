@@ -2,7 +2,6 @@ import {
   GetAccountRoute,
   GetUserRoute,
   ResetPasswordRoute,
-  UpdateCurrencyRoute,
   UpdateUserRoute,
 } from '@rabbit/hono/routes/user/user.routes'
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
@@ -55,18 +54,6 @@ export const update: AppRouteHandler<UpdateUserRoute> = async (c) => {
   }
 
   return c.json(user, HttpStatusCodes.OK)
-}
-
-export const updateCurrency: AppRouteHandler<UpdateCurrencyRoute> = async (
-  c
-) => {
-  const authUser = await c.get('user')
-  if (!authUser) {
-    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
-  }
-  const { currency } = await c.req.valid('json')
-  await db.update(users).set({ currency }).where(eq(users.id, authUser.id))
-  return c.json({ success: true }, HttpStatusCodes.OK)
 }
 
 export const resetPassword: AppRouteHandler<ResetPasswordRoute> = async (c) => {

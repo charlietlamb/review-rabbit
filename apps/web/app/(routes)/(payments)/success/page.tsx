@@ -5,13 +5,18 @@ import { redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
-export default async function success() {
+export default async function success({
+  searchParams,
+}: {
+  searchParams: { plan: string }
+}) {
   const session = await authClient.getSession()
+  const { plan } = await searchParams
 
   if (!session?.data?.user) {
     redirect('/')
   }
 
   await syncStripeDataToKV(session.data.user.id)
-  return <Success />
+  return <Success plan={plan} />
 }

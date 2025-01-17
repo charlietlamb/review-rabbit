@@ -1,6 +1,5 @@
-import { Failure } from '@rabbit/design-system/components/site/index/failure/failure'
+import { Failed } from '@rabbit/design-system/components/site/payments/failed'
 import SiteLayout from '@rabbit/design-system/components/site/site-layout'
-
 export const dynamic = 'force-dynamic'
 
 export default function FailedPage({
@@ -10,7 +9,7 @@ export default function FailedPage({
 }) {
   return (
     <SiteLayout>
-      <Failure message={searchParams.message} />
+      <Failed message={searchParams.message} />
     </SiteLayout>
   )
 }

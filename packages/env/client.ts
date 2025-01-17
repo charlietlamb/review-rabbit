@@ -11,9 +11,12 @@ export const client = {
   // Stripe Public Keys
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).startsWith('pk_'),
   NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID: z.string().min(1).startsWith('price_'),
-  NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_TEST: z.string().min(1).startsWith('price_'),
+  NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY: z
+    .string()
+    .min(1)
+    .startsWith('price_'),
   NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO: z.string().min(1).startsWith('price_'),
-  NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_TEST: z
+  NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_YEARLY: z
     .string()
     .min(1)
     .startsWith('price_'),

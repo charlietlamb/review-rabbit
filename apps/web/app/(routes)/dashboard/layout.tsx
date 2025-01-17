@@ -6,7 +6,7 @@ import useAuth from '@rabbit/design-system/hooks/use-auth'
 import useIsUser from '@rabbit/design-system/hooks/use-is-user'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
 import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
-import { kv } from '@rabbit/kv'
+import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
 
 export default async function layout({
   children,
@@ -15,10 +15,8 @@ export default async function layout({
 }) {
   const [user, account] = await Promise.all([useAuth(), getGoogleAccount()])
   useIsUser(user)
-  const stripeCustomerId = await kv.get(`stripe:user:${user.id}`)
-  console.log(stripeCustomerId)
-  const stripeData = await kv.get(`stripe:customer:${stripeCustomerId}`)
-  console.log(stripeData)
+  const stripeDetails = await getStripeDetails(user.id)
+  console.log(stripeDetails)
   return (
     <SessionProvider user={user} account={account}>
       <SidebarProvider className="flex w-full flex-grow">

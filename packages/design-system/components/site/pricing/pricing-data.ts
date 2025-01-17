@@ -75,35 +75,29 @@ export const features: FeatureAvailability = {
   },
 }
 
-export const getPricingTiers = (isDevelopment: boolean): PricingTier[] => {
-  return [
-    {
-      title: 'Free',
-      price: 0,
-      description: 'Perfect for getting started',
-      buttonText: 'Get Started',
-      plan: 'free',
-    },
-    {
-      title: 'Plus',
-      price: 30,
-      description: 'Essential features for small projects',
-      buttonText: 'Upgrade to Plus',
-      priceId: isDevelopment
-        ? env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_TEST
-        : env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
-      plan: 'basic',
-      highlighted: true,
-    },
-    {
-      title: 'Pro',
-      price: 90,
-      description: 'Advanced features for growing teams',
-      buttonText: 'Upgrade to Pro',
-      priceId: isDevelopment
-        ? env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_TEST
-        : env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
-      plan: 'pro',
-    },
-  ]
-}
+export const pricingTiers = [
+  {
+    title: 'Free',
+    price: 0,
+    description: 'Perfect for getting started',
+    buttonText: 'Get Started',
+    plan: 'free',
+  },
+  {
+    title: 'Plus',
+    price: 30,
+    description: 'Essential features for small projects',
+    buttonText: 'Upgrade to Plus',
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
+    plan: 'basic',
+    highlighted: true,
+  },
+  {
+    title: 'Pro',
+    price: 90,
+    description: 'Advanced features for growing teams',
+    buttonText: 'Upgrade to Pro',
+    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
+    plan: 'pro',
+  },
+] as PricingTier[]

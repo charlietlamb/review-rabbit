@@ -12,6 +12,12 @@
       "@rabbit/*": ["../*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "../stripe/lib/sync-stripe-data-to-kv.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../stripe/lib/sync-stripe-data-to-kv.ts",
+    "../stripe/lib/subscription.ts",
+    "../stripe/lib/get-stripe-details.ts"
+  ],
   "exclude": ["node_modules"]
 }

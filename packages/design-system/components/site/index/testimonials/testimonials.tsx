@@ -1,7 +1,7 @@
 'use client'
 
 import { TestimonialCard } from './testimonial-card'
-import { testimonials } from './testimonial-data'
+import { staticTestimonials } from '../../testimonials/testimonial-data'
 import Balancer from 'react-wrap-balancer'
 import { motion } from 'framer-motion'
 
@@ -82,16 +82,16 @@ export function Testimonials() {
 
         <motion.div
           variants={containerVariants}
-          className="grid gap-8 pt-8 md:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 pt-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
         >
-          {testimonials.map((testimonial, index) => (
+          {staticTestimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               variants={cardVariants}
               whileHover={{ scale: 1.02 }}
-              className="flex"
+              className="h-full"
             >
-              <TestimonialCard {...testimonial} />
+              <TestimonialCard {...testimonial} className="h-full" />
             </motion.div>
           ))}
         </motion.div>

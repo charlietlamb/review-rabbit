@@ -7,7 +7,7 @@ import {
   CardContent,
   CardFooter,
 } from '@rabbit/design-system/components/ui/card'
-import { PricingTier } from './pricing-data'
+import { PricingTier, features, PlanAvailability } from './pricing-data'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { ArrowRight, Check, X } from 'lucide-react'
 import { checkout } from '@rabbit/design-system/actions/stripe/checkout'
@@ -15,42 +15,26 @@ import { cn } from '@rabbit/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { getEnv } from '@rabbit/env'
-function getFeaturesToShow(
-  currentTier: PricingTier,
-  pricingTiers: PricingTier[]
-): { feature: string; included: boolean }[] {
-  if (currentTier.title === 'Basic') {
-    const proTier = pricingTiers.find((tier) => tier.title === 'Pro')
-    if (!proTier) return []
-    const includedFeatures = currentTier.features.map((feature) => ({
-      feature,
-      included: true,
-    }))
-    const missingFeatures = proTier.features
-      .filter((feature) => !currentTier.features.includes(feature))
-      .map((feature) => ({
-        feature,
-        included: false,
-      }))
-    return [...includedFeatures, ...missingFeatures]
-  } else {
-    return currentTier.features.map((feature) => ({
-      feature,
-      included: true,
-    }))
-  }
+import { User } from '@rabbit/database'
+import { Plan } from '@rabbit/hono/lib/types'
+
+function isValidUser(user: any): user is User {
+  return (
+    typeof user === 'object' &&
+    user !== null &&
+    typeof user.id === 'string' &&
+    typeof user.name === 'string' &&
+    typeof user.email === 'string'
+  )
 }
 
-export function PricingCard({
-  tier,
-  allTiers,
-}: {
-  tier: PricingTier
-  allTiers: PricingTier[]
-}) {
+function hasFeature(availability: PlanAvailability, plan: Plan): boolean {
+  return plan === 'enterprise' || availability[plan]
+}
+
+export function PricingCard({ tier }: { tier: PricingTier }) {
   const isPro = tier.highlighted
   const isEnterprise = tier.title === 'Enterprise'
-  const features = getFeaturesToShow(tier, allTiers)
   const { data: session } = authClient.useSession()
   const router = useRouter()
 
@@ -96,22 +80,38 @@ export function PricingCard({
         <div>
           <h4 className="font-medium mb-2">Features:</h4>
           <ul className="space-y-2">
-            {features.map(({ feature, included }, index) => (
-              <li key={index} className="flex items-center">
-                {included ? (
-                  <Check className="mr-2 h-4 w-4 text-primary" />
-                ) : (
-                  <X className="mr-2 h-4 w-4 text-muted-foreground/70" />
+            {isEnterprise
+              ? // For enterprise, show all features as included
+                Object.keys(features).map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <Check className="mr-2 h-4 w-4 text-primary" />
+                    <span className="text-foreground/80">{feature}</span>
+                  </li>
+                ))
+              : // For other plans, show based on availability
+                Object.entries(features).map(
+                  ([feature, availability], index) => {
+                    const isIncluded = hasFeature(availability, tier.plan)
+                    return (
+                      <li key={index} className="flex items-center">
+                        {isIncluded ? (
+                          <Check className="mr-2 h-4 w-4 text-primary" />
+                        ) : (
+                          <X className="mr-2 h-4 w-4 text-muted-foreground/70" />
+                        )}
+                        <span
+                          className={cn(
+                            isIncluded
+                              ? 'text-foreground/80'
+                              : 'text-muted-foreground/70'
+                          )}
+                        >
+                          {feature}
+                        </span>
+                      </li>
+                    )
+                  }
                 )}
-                <span
-                  className={cn(
-                    included ? 'text-foreground/80' : 'text-muted-foreground/70'
-                  )}
-                >
-                  {feature}
-                </span>
-              </li>
-            ))}
           </ul>
         </div>
       </CardContent>
@@ -134,12 +134,23 @@ export function PricingCard({
                 `mailto:contact@${getEnv().NEXT_PUBLIC_DOMAIN}`,
                 '_blank'
               )
-            } else {
-              if (session?.user) {
-                checkout(session.user, tier.priceId, tier.plan)
+            } else if (session?.user && isValidUser(session.user)) {
+              const user: User = {
+                ...session.user,
+                currency: 'gbp',
+                imageExpiresAt: session.user.imageExpiresAt
+                  ? new Date(session.user.imageExpiresAt)
+                  : null,
+                createdAt: new Date(session.user.createdAt || Date.now()),
+                updatedAt: new Date(session.user.updatedAt || Date.now()),
+              }
+              if (tier.priceId) {
+                checkout(user, tier.priceId, tier.plan)
               } else {
                 router.push('/signup')
               }
+            } else {
+              router.push('/signup')
             }
           }}
         >

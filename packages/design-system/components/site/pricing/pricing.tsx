@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { pricingTiers } from './pricing-data'
+import { getPricingTiers } from './pricing-data'
 import { PricingCard } from './pricing-card'
 import PricingCta from './pricing-cta'
 import { Faq } from '../index/faq/faq-section'
@@ -9,7 +9,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { ArrowRight } from 'lucide-react'
 
-export function Pricing() {
+export function Pricing({ isDevelopment }: { isDevelopment: boolean }) {
   return (
     <div className="container flex flex-col px-8 py-16 mx-auto">
       <motion.span
@@ -37,7 +37,7 @@ export function Pricing() {
         Choose the plan that best suits your needs.
       </motion.p>
       <div className="md:grid-cols-3 grid grid-cols-1 gap-8 py-8">
-        {pricingTiers.map((tier, index) => (
+        {getPricingTiers(isDevelopment).map((tier, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 30 }}
@@ -46,7 +46,7 @@ export function Pricing() {
             className="h-full"
           >
             <div className="h-full flex-1">
-              <PricingCard tier={tier} allTiers={pricingTiers} />
+              <PricingCard tier={tier} />
             </div>
           </motion.div>
         ))}

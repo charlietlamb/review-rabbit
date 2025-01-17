@@ -10,7 +10,7 @@ import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/clien
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
 import { createAutomation } from '@rabbit/design-system/actions/automations/create-automation'
-import { businessIdAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
+import { selectedBusinessAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
 import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
 import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'
@@ -26,7 +26,7 @@ export default function AutomationForm({
   selectedClientsInitial?: Client[]
 }) {
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
-  const businessId = useAtomValue(businessIdAtom)
+  const businessId = useAtomValue(selectedBusinessAtom)
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null)
   const [date, setDate] = useState<Date | null>(null)
   const [title, setTitle] = useState<string>('')

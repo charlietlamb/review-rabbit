@@ -3,7 +3,7 @@ import { HttpStatusCodes } from '@rabbit/http'
 import { getReviews } from '@rabbit/google/lib/get-reviews'
 import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
-import { accounts } from '@rabbit/database/schema'
+import { accounts, reviews } from '@rabbit/database/schema'
 import { GetReviewsRoute } from '@rabbit/hono/routes/google/google.routes'
 
 const mockReviews = [
@@ -163,11 +163,13 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
 
-  // For now, return mock reviews directly
-  return c.json(mockReviews, HttpStatusCodes.OK)
-
   // Commented out original implementation for now
   const { page } = await c.req.json()
+  if (page === 1) {
+    return c.json(mockReviews, HttpStatusCodes.OK)
+  } else {
+    return c.json([], HttpStatusCodes.OK)
+  }
 
   const account = await db.query.accounts.findFirst({
     where: eq(accounts.userId, user.id),
@@ -176,8 +178,9 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
     return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
   }
   try {
-    const reivews = await getReviews(page, account)
-    return c.json(reivews, HttpStatusCodes.OK)
+    // const reivews = await getReviews(page, account)
+    const reivews = mockReviews
+    return c.json(newReviews, HttpStatusCodes.OK)
   } catch (error) {
     return c.json(
       { error: 'Failed to fetch clients' },

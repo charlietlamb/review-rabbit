@@ -28,49 +28,49 @@ const env = getEnv()
 // Features are ordered by availability (most widely available first)
 export const features: FeatureAvailability = {
   // Available in all plans
+  'Onboarding Support': {
+    free: true,
+    plus: true,
+    pro: true,
+  },
   Analytics: {
     free: true,
     plus: true,
     pro: true,
   },
-  'Email Support': {
-    free: true,
-    plus: true,
-    pro: true,
-  },
-  Automations: {
+  'Email Automations': {
     free: true,
     plus: true,
     pro: true,
   },
   // Available in Plus and Pro
-  'Priority Support': {
+  'SMS Automations': {
     free: false,
     plus: true,
     pro: true,
   },
-  'Advanced Automations': {
+  'WhatsApp Automations': {
     free: false,
     plus: true,
     pro: true,
   },
-  'API Access': {
+  'Continuous Review Updates From Google (Daily)': {
     free: false,
     plus: true,
     pro: true,
   },
   // Pro only features
-  'Unlimited API Access': {
+  'Update Reviews On Demand': {
     free: false,
     plus: false,
     pro: true,
   },
-  'Custom Integrations': {
+  'Multiple Locations': {
     free: false,
     plus: false,
     pro: true,
   },
-  'Team Collaboration': {
+  'Priority Support': {
     free: false,
     plus: false,
     pro: true,
@@ -82,7 +82,7 @@ export const pricingTiers = [
     title: 'Free',
     monthlyPrice: 0,
     yearlyPrice: 0,
-    description: 'Perfect for getting started',
+    description: 'All you need to get to know the platform.',
     buttonText: 'Get Started',
     plan: 'free',
   },
@@ -90,7 +90,7 @@ export const pricingTiers = [
     title: 'Plus',
     monthlyPrice: 30,
     yearlyPrice: 300,
-    description: 'Essential features for small projects',
+    description: 'Essential features for small to medium size businesses.',
     buttonText: 'Upgrade to Plus',
     monthlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     yearlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY,
@@ -101,7 +101,7 @@ export const pricingTiers = [
     title: 'Pro',
     monthlyPrice: 90,
     yearlyPrice: 900,
-    description: 'Advanced features for growing teams',
+    description: 'Perfect for agencies or large businesses.',
     buttonText: 'Upgrade to Pro',
     monthlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
     yearlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_YEARLY,

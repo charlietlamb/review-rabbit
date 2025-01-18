@@ -1,5 +1,5 @@
 {
-  "id": "203af1f0-5d77-42cc-bbec-68511daf410e",
+  "id": "870f9cab-ae04-4301-ad10-459bfbb59e51",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -327,6 +327,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "automation_item_id": {
+          "name": "automation_item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "method": {
           "name": "method",
           "type": "text",
@@ -356,6 +362,19 @@
           "tableTo": "businesses",
           "columnsFrom": [
             "business_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "clicks_automation_item_id_automation_items_id_fk": {
+          "name": "clicks_automation_item_id_automation_items_id_fk",
+          "tableFrom": "clicks",
+          "tableTo": "automation_items",
+          "columnsFrom": [
+            "automation_item_id"
           ],
           "columnsTo": [
             "id"

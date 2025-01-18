@@ -1,11 +1,17 @@
-import { Review } from '@rabbit/database/schema/app/reviews'
-import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
-
-function normalizeForComparison(name: string): string {
+/**
+ * Normalizes a name string for comparison by converting to lowercase and trimming whitespace
+ */
+export function normalizeForComparison(name: string): string {
   return name.toLowerCase().trim()
 }
 
-function getNameParts(fullName: string): { first: string; last?: string } {
+/**
+ * Splits a full name into first and optional last name parts
+ */
+export function getNameParts(fullName: string): {
+  first: string
+  last?: string
+} {
   const parts = normalizeForComparison(fullName).split(' ').filter(Boolean)
   return {
     first: parts[0],
@@ -21,7 +27,10 @@ function getNameParts(fullName: string): { first: string; last?: string } {
  * 2 = First name match + last name initial match
  * 3 = Full name match
  */
-function getNameMatchScore(clientName: string, reviewerName: string): number {
+export function getNameMatchScore(
+  clientName: string,
+  reviewerName: string
+): number {
   const clientParts = getNameParts(clientName)
   const reviewerParts = getNameParts(reviewerName)
 
@@ -65,26 +74,4 @@ function getNameMatchScore(clientName: string, reviewerName: string): number {
   }
 
   return 0
-}
-
-export function attemptReviewMatch(client: ClientFormData, reviews: Review[]) {
-  const matches = reviews.map((review) => ({
-    review,
-    matchScore: getNameMatchScore(client.name, review.reviewerName),
-  }))
-
-  // Return the best match if any
-  const bestMatch = matches.reduce(
-    (best, current) => (current.matchScore > best.matchScore ? current : best),
-    { matchScore: 0, review: null as Review | null }
-  )
-
-  if (bestMatch.matchScore > 0) {
-    return {
-      review: bestMatch.review!,
-      matchScore: bestMatch.matchScore,
-    }
-  }
-
-  return null
 }

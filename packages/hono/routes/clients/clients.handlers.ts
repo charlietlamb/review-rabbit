@@ -13,7 +13,7 @@ import {
 import { eq, sql, and, or, inArray } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
-import { attemptReviewMatch } from '@rabbit/google/lib/matching/attempt-review-match'
+import { attemptReviewMatchClient } from '@rabbit/google/lib/matching/attempt-review-match-client'
 
 function transformClient(client: any) {
   return {
@@ -97,7 +97,7 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
   const reviewData = await db.query.reviews.findMany({
     where: eq(reviews.userId, user.id),
   })
-  const matchedReview = attemptReviewMatch(newClient, reviewData)
+  const matchedReview = attemptReviewMatchClient(newClient, reviewData)
   if (matchedReview?.matchScore && matchedReview.review) {
     await db
       .insert(reviewMatches)
@@ -140,7 +140,7 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
     const reviewData = await db.query.reviews.findMany({
       where: eq(reviews.userId, user.id),
     })
-    const matchedReview = attemptReviewMatch(clientData, reviewData)
+    const matchedReview = attemptReviewMatchClient(clientData, reviewData)
     if (matchedReview?.matchScore && matchedReview.review) {
       await db
         .insert(reviewMatches)
@@ -236,7 +236,7 @@ export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
     })
 
     const reviewMatchPromises = insertedClients.map(async (client) => {
-      const matchedReview = attemptReviewMatch(client, reviewData)
+      const matchedReview = attemptReviewMatchClient(client, reviewData)
       if (matchedReview?.matchScore && matchedReview.review) {
         await db
           .insert(reviewMatches)

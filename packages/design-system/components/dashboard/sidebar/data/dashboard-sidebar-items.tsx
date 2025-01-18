@@ -14,7 +14,7 @@ export const dashboardSidebarItemsTop = [
     icon: <HomeIcon />,
     href: '/dashboard',
     key: 'overview',
-    match: [''],
+    match: ['', undefined],
   },
   {
     title: 'Schedule',

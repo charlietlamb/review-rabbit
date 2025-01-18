@@ -15,9 +15,10 @@ export default function DashboardSidebarMenuItem({
 }: {
   item: DashboardSidebarItem
 }) {
-  const pathname = usePathname()
-  const isActive = item.match.some((match) => pathname.includes(match))
-  const { open, setOpenMobile } = useSidebar()
+  const pathname = usePathname().split('/dashboard/')[1]
+  console.log(pathname)
+  const isActive = item.match.some((match) => pathname === match)
+  const { setOpenMobile } = useSidebar()
 
   return (
     <SidebarMenuItem>

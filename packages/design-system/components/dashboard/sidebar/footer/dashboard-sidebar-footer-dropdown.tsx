@@ -1,27 +1,35 @@
+'use client'
+
 import { authClient } from '@rabbit/design-system/lib/auth-client'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@rabbit/design-system/components/ui/dropdown-menu'
-import { Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from 'lucide-react'
+import { Sparkles, BadgeCheck, CreditCard, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useStripeDetails } from '@rabbit/design-system/hooks/use-stripe-details'
 
 export default function DashboardSidebarFooterDropdown() {
   const router = useRouter()
+  const stripeDetails = useStripeDetails()
+  const isPro =
+    stripeDetails?.status === 'active' && stripeDetails?.plan === 'pro'
   return (
     <>
-      <DropdownMenuGroup>
-        <DropdownMenuItem
-          onClick={() => router.push('/pricing')}
-          className="cursor-pointer group/item"
-        >
-          <Sparkles className="mr-2 size-4 text-primary" />
-          <span className="font-medium group-hover/item:text-primary transition-colors">
-            Upgrade to Pro
-          </span>
-        </DropdownMenuItem>
-      </DropdownMenuGroup>
+      {!isPro && (
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            onClick={() => router.push('/pricing')}
+            className="cursor-pointer group/item"
+          >
+            <Sparkles className="mr-2 size-4 text-primary" />
+            <span className="font-medium group-hover/item:text-primary transition-colors">
+              Upgrade to Pro
+            </span>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      )}
       <DropdownMenuSeparator className="bg-border/50" />
       <DropdownMenuGroup>
         <DropdownMenuItem
@@ -39,16 +47,7 @@ export default function DashboardSidebarFooterDropdown() {
         >
           <CreditCard className="mr-2 size-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
           <span className="group-hover/item:text-primary transition-colors">
-            Billing
-          </span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => router.push('/dashboard/settings/notifications')}
-          className="cursor-pointer group/item"
-        >
-          <Bell className="mr-2 size-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
-          <span className="group-hover/item:text-primary transition-colors">
-            Notifications
+            Billing & Plans
           </span>
         </DropdownMenuItem>
       </DropdownMenuGroup>

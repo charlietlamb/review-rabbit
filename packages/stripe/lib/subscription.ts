@@ -14,6 +14,7 @@ export const subscription = z.object({
     brand: z.string(),
     last4: z.string(),
   }),
+  stripeCustomerPortalUrl: z.string().optional(),
 })
 
 export type Subscription = z.infer<typeof subscription>

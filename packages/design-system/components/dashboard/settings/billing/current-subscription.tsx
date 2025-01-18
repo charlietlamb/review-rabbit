@@ -21,7 +21,7 @@ export function CurrentSubscription({
     return format(date, 'MMMM d, yyyy')
   }
 
-  const price = currentPlan?.price ?? null
+  const price = currentPlan?.monthlyPrice ?? null
   const isFree = price === null || price === 0
 
   return (
@@ -30,33 +30,39 @@ export function CurrentSubscription({
         <Badge
           variant={subscription?.status === 'active' ? 'default' : 'secondary'}
         >
-          {subscription?.status === 'active' ? 'Active' : 'Inactive'}
+          {isFree
+            ? 'Free Plan'
+            : subscription?.status === 'active'
+              ? 'Active'
+              : 'Inactive'}
         </Badge>
       </div>
 
-      {subscription && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-sm font-medium">Current Plan</p>
-              <p className="text-2xl font-bold">
-                {currentPlan?.title}{' '}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <p className="text-sm font-medium">Current Plan</p>
+            <p className="text-2xl font-bold">
+              {currentPlan?.title}{' '}
+              {!isFree && subscription && (
                 <span className="text-muted-foreground">
-                  {formatCurrency(price, subscription.currency)}
-                  {!isFree && '/month'}
+                  {formatCurrency(price, subscription.currency)}/
+                  {subscription.interval || 'month'}
                 </span>
-              </p>
-            </div>
-            {subscription.paymentMethod && (
-              <div className="flex items-center space-x-2">
-                <CreditCard className="h-4 w-4" />
-                <span className="text-sm text-muted-foreground">
-                  •••• {subscription.paymentMethod.last4}
-                </span>
-              </div>
-            )}
+              )}
+            </p>
           </div>
+          {subscription?.paymentMethod && (
+            <div className="flex items-center space-x-2">
+              <CreditCard className="h-4 w-4" />
+              <span className="text-sm text-muted-foreground">
+                •••• {subscription.paymentMethod.last4}
+              </span>
+            </div>
+          )}
+        </div>
 
+        {subscription && !isFree && (
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">
               Current period ends on {formatDate(subscription.currentPeriodEnd)}
@@ -68,8 +74,8 @@ export function CurrentSubscription({
               </p>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </Card>
   )
 }

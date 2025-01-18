@@ -14,7 +14,6 @@ import { checkout } from '@rabbit/design-system/actions/stripe/checkout'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@rabbit/design-system/lib/auth-client'
-import { getEnv } from '@rabbit/env'
 import { User } from '@rabbit/database'
 import { Plan } from '@rabbit/hono/lib/types'
 import { NumberTicker } from './number-ticker'
@@ -42,7 +41,6 @@ export function PricingCard({
   isYearly: boolean
 }) {
   const isPro = tier.highlighted
-  const isEnterprise = tier.title === 'Enterprise'
   const { data: session } = authClient.useSession()
   const router = useRouter()
 
@@ -79,51 +77,47 @@ export function PricingCard({
         )}
         <CardTitle className="font-heading text-2xl">{tier.title}</CardTitle>
         <div className="text-3xl font-bold">
-          {isEnterprise ? (
-            <p className="text-muted-foreground font-normal">Custom Pricing</p>
-          ) : (
-            <motion.div
-              layout
-              className="flex flex-col"
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div layout className="flex items-baseline gap-1">
-                <NumberTicker
-                  value={displayPrice}
-                  prefix="£"
-                  className="tabular-nums"
-                />
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={isYearly ? 'yearly' : 'monthly'}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="text-sm font-normal text-muted-foreground/80"
-                  >
-                    / {isYearly ? 'year' : 'month'}
-                  </motion.span>
-                </AnimatePresence>
-              </motion.div>
-              <AnimatePresence>
-                {isYearly && displayPrice > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="text-sm font-normal text-muted-foreground/80"
-                  >
-                    <NumberTicker
-                      value={Math.round(displayPrice / 12)}
-                      prefix="£"
-                      suffix=" per month"
-                      className="tabular-nums"
-                    />
-                  </motion.div>
-                )}
+          <motion.div
+            layout
+            className="flex flex-col"
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div layout className="flex items-baseline gap-1">
+              <NumberTicker
+                value={displayPrice}
+                prefix="£"
+                className="tabular-nums"
+              />
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={isYearly ? 'yearly' : 'monthly'}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="text-sm font-normal text-muted-foreground/80"
+                >
+                  / {isYearly ? 'year' : 'month'}
+                </motion.span>
               </AnimatePresence>
             </motion.div>
-          )}
+            <AnimatePresence>
+              {isYearly && displayPrice > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="text-sm font-normal text-muted-foreground/80"
+                >
+                  <NumberTicker
+                    value={Math.round(displayPrice / 12)}
+                    prefix="£"
+                    suffix=" per month"
+                    className="tabular-nums"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </CardHeader>
       <CardContent className="relative z-10 flex-grow">
@@ -131,48 +125,33 @@ export function PricingCard({
         <div>
           <h4 className="font-medium mb-2">Features:</h4>
           <ul className="space-y-2">
-            {isEnterprise
-              ? Object.keys(features).map((feature, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center"
-                  >
+            {Object.entries(features).map(([feature, availability], index) => {
+              const isIncluded = hasFeature(availability, tier.plan)
+              return (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-center"
+                >
+                  {isIncluded ? (
                     <Check className="mr-2 h-4 w-4 text-primary" />
-                    <span className="text-foreground/80">{feature}</span>
-                  </motion.li>
-                ))
-              : Object.entries(features).map(
-                  ([feature, availability], index) => {
-                    const isIncluded = hasFeature(availability, tier.plan)
-                    return (
-                      <motion.li
-                        key={index}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-center"
-                      >
-                        {isIncluded ? (
-                          <Check className="mr-2 h-4 w-4 text-primary" />
-                        ) : (
-                          <X className="mr-2 h-4 w-4 text-muted-foreground/70" />
-                        )}
-                        <span
-                          className={cn(
-                            isIncluded
-                              ? 'text-foreground/80'
-                              : 'text-muted-foreground/70'
-                          )}
-                        >
-                          {feature}
-                        </span>
-                      </motion.li>
-                    )
-                  }
-                )}
+                  ) : (
+                    <X className="mr-2 h-4 w-4 text-muted-foreground/70" />
+                  )}
+                  <span
+                    className={cn(
+                      isIncluded
+                        ? 'text-foreground/80'
+                        : 'text-muted-foreground/70'
+                    )}
+                  >
+                    {feature}
+                  </span>
+                </motion.li>
+              )
+            })}
           </ul>
         </div>
       </CardContent>
@@ -190,12 +169,7 @@ export function PricingCard({
               : 'bg-primary/90 hover:bg-primary/100'
           )}
           onClick={() => {
-            if (isEnterprise) {
-              window.open(
-                `mailto:contact@${getEnv().NEXT_PUBLIC_DOMAIN}`,
-                '_blank'
-              )
-            } else if (session?.user && isValidUser(session.user)) {
+            if (session?.user && isValidUser(session.user)) {
               const user: User = {
                 ...session.user,
                 currency: 'gbp',

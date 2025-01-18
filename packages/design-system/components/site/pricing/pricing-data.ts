@@ -94,7 +94,7 @@ export const pricingTiers = [
     buttonText: 'Upgrade to Plus',
     monthlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     yearlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY,
-    plan: 'basic',
+    plan: 'plus',
     highlighted: true,
   },
   {

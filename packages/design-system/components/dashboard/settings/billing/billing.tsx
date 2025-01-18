@@ -2,24 +2,35 @@
 
 import { useState } from 'react'
 import { pricingTiers } from '@rabbit/design-system/components/site/pricing/pricing-data'
-import { Subscription } from '@rabbit/stripe/lib/subscription'
 import { toast } from 'sonner'
 import { postStripeSession } from '@rabbit/design-system/actions/stripe/stripe-session'
 import useUser from '@rabbit/design-system/hooks/use-user'
 import { CurrentSubscription } from './current-subscription'
 import { PricingTierCard } from './pricing-tier-card'
+import { Button } from '@rabbit/design-system/components/ui/button'
+import { ExternalLink } from 'lucide-react'
+import { stripeDetailsAtom } from '@rabbit/design-system/atoms/user/user-atom'
+import { useAtomValue } from 'jotai'
 
-interface BillingProps {
-  subscription?: Subscription | null
-}
-
-export function Billing({ subscription }: BillingProps) {
+export function Billing() {
+  const subscription = useAtomValue(stripeDetailsAtom)
+  console.log('subscription', subscription)
   const [isLoading, setIsLoading] = useState(false)
+  const [isYearly, setIsYearly] = useState(false)
   const user = useUser()
 
   const currentPlan = pricingTiers.find(
     (tier) => tier.plan === (subscription?.plan || 'free')
   )
+
+  // Filter tiers to only show upgrades
+  const availableTiers = pricingTiers.filter((tier) => {
+    const currentIndex = pricingTiers.findIndex(
+      (t) => t.plan === (subscription?.plan || 'free')
+    )
+    const tierIndex = pricingTiers.findIndex((t) => t.plan === tier.plan)
+    return tierIndex > currentIndex
+  })
 
   async function handleUpgrade(priceId: string) {
     if (!user) {
@@ -41,14 +52,34 @@ export function Billing({ subscription }: BillingProps) {
     }
   }
 
+  function handleManageSubscription() {
+    if (subscription?.stripeCustomerPortalUrl) {
+      window.open(subscription.stripeCustomerPortalUrl, '_blank')
+    } else {
+      toast.error('Unable to access billing portal')
+    }
+  }
+
   return (
     <div className="flex flex-col divide-y">
       <section className="px-4 pt-2 pb-4">
-        <div className="mb-4">
-          <h2 className="text-lg font-bold font-heading">Current Plan</h2>
-          <p className="text-sm text-muted-foreground">
-            View and manage your current subscription
-          </p>
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-bold font-heading">Current Plan</h2>
+            <p className="text-sm text-muted-foreground">
+              View and manage your current subscription
+            </p>
+          </div>
+          {subscription?.status === 'active' && (
+            <Button
+              variant="outline"
+              onClick={handleManageSubscription}
+              className="flex items-center gap-2"
+            >
+              Manage Subscription
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          )}
         </div>
         <CurrentSubscription
           subscription={subscription}
@@ -56,25 +87,50 @@ export function Billing({ subscription }: BillingProps) {
         />
       </section>
 
-      <section className="px-4 pt-2 pb-4">
-        <div className="mb-4">
-          <h2 className="text-lg font-bold font-heading">Available Plans</h2>
-          <p className="text-sm text-muted-foreground">
-            Compare plans and choose the best option for you
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {pricingTiers.map((tier) => (
-            <PricingTierCard
-              key={tier.title}
-              tier={tier}
-              subscription={subscription}
-              isLoading={isLoading}
-              onUpgrade={handleUpgrade}
-            />
-          ))}
-        </div>
-      </section>
+      {availableTiers.length > 0 && (
+        <section className="px-4 pt-2 pb-4">
+          <div className="mb-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold font-heading">
+                  Upgrade Options
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Choose a plan that better suits your needs
+                </p>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border p-1">
+                <Button
+                  variant={isYearly ? 'ghost' : 'secondary'}
+                  size="sm"
+                  onClick={() => setIsYearly(false)}
+                >
+                  Monthly
+                </Button>
+                <Button
+                  variant={isYearly ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setIsYearly(true)}
+                >
+                  Yearly
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {availableTiers.map((tier) => (
+              <PricingTierCard
+                key={tier.title}
+                tier={tier}
+                subscription={subscription}
+                isLoading={isLoading}
+                onUpgrade={handleUpgrade}
+                isYearly={isYearly}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

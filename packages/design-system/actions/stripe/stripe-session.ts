@@ -19,7 +19,9 @@ export const postStripeSession = async ({
   const successUrl = `${getEnv().NEXT_PUBLIC_WEB}/success?plan=${plan}`
   const cancelUrl = `${getEnv().NEXT_PUBLIC_WEB}/failed`
 
-  let stripeCustomerId = (await kv.get('stripeCustomerId')) as string | null
+  let stripeCustomerId = (await kv.get(`stripe:user:${user.id}`)) as
+    | string
+    | null
   if (!stripeCustomerId) {
     const newCustomer = await stripe.customers.create({
       email: user.email,

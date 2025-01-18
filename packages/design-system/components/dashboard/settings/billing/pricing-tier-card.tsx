@@ -17,6 +17,7 @@ interface PricingTierCardProps {
   tier: PricingTier
   subscription: Subscription | null | undefined
   isLoading: boolean
+  isYearly: boolean
   onUpgrade: (priceId: string) => void
 }
 
@@ -24,6 +25,7 @@ export function PricingTierCard({
   tier,
   subscription,
   isLoading,
+  isYearly,
   onUpgrade,
 }: PricingTierCardProps) {
   function getPlanAvailability(
@@ -44,7 +46,10 @@ export function PricingTierCard({
     }
   }
 
-  const isFree = tier.price === null || tier.price === 0
+  const price = isYearly ? tier.yearlyPrice : tier.monthlyPrice
+  const priceId = isYearly ? tier.yearlyPriceId : tier.monthlyPriceId
+  const isFree = price === null || price === 0
+  const interval = isYearly ? 'year' : 'month'
 
   return (
     <Card
@@ -54,13 +59,19 @@ export function PricingTierCard({
         <div>
           <h3 className="text-xl font-bold">{tier.title}</h3>
           <p className="text-3xl font-bold">
-            {formatCurrency(tier.price, subscription?.currency)}
+            {formatCurrency(price, subscription?.currency)}
             {!isFree && (
               <span className="text-base font-normal text-muted-foreground">
-                /month
+                /{interval}
               </span>
             )}
           </p>
+          {isYearly && !isFree && (
+            <p className="text-sm text-muted-foreground">
+              {formatCurrency(price ? price / 12 : 0, subscription?.currency)}
+              /month
+            </p>
+          )}
         </div>
 
         <Separator />
@@ -84,7 +95,7 @@ export function PricingTierCard({
           })}
         </ul>
 
-        {tier.priceId && (
+        {priceId && (
           <Button
             className="w-full"
             disabled={
@@ -92,7 +103,7 @@ export function PricingTierCard({
               subscription?.plan === tier.plan ||
               (subscription?.status === 'active' && tier.plan === 'free')
             }
-            onClick={() => onUpgrade(tier.priceId!)}
+            onClick={() => onUpgrade(priceId)}
           >
             {isLoading ? (
               <>

@@ -10,6 +10,7 @@ export async function getStripeDetails(
   if (!customerId) {
     return null
   }
+  console.log('customerId', customerId)
   const stripeSubscription: StripeSubscription | null = await kv.get(
     `stripe:customer:${customerId}`
   )
@@ -17,6 +18,7 @@ export async function getStripeDetails(
   if (!stripeSubscription) {
     return null
   }
+  console.log('stripeSubscription', stripeSubscription)
   const env = getEnv()
   const plusPriceIds = [
     env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,

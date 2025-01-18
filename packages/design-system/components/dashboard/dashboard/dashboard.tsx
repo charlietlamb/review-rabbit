@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { toast } from 'sonner'
 import DashboardWrap from './dashboard-wrap'
 import useUser from '@rabbit/design-system/hooks/use-user'
-import DashboardOverview from '../overview/dashboard-overview'
+import DashboardOverview from '../overview/overview'
 
 export default function Dashboard({ status }: { status?: string }) {
   const user = useUser()

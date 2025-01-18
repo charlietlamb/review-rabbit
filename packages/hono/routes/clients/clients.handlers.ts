@@ -133,12 +133,21 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
     })
     const matchedReview = attemptReviewMatch(clientData, reviewData)
     if (matchedReview?.matchScore && matchedReview.review) {
-      await db.insert(reviewMatches).values({
-        userId: user.id,
-        reviewId: matchedReview.review.id,
-        clientId: cilentData.id,
-        matchScore: matchedReview.matchScore,
-      })
+      await db
+        .insert(reviewMatches)
+        .values({
+          userId: user.id,
+          reviewId: matchedReview.review.id,
+          clientId: id,
+          matchScore: matchedReview.matchScore,
+        })
+        .onConflictDoUpdate({
+          target: [reviewMatches.reviewId, reviewMatches.clientId],
+          set: {
+            matchScore: matchedReview.matchScore,
+            updatedAt: new Date(),
+          },
+        })
     }
 
     await db

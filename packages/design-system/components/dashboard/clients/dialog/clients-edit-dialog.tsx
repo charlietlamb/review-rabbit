@@ -7,14 +7,14 @@ import {
   DialogDescription,
 } from '@rabbit/design-system/components/ui/dialog'
 import ClientsNewForm from '../form/clients-form'
-import { Client } from '@rabbit/database'
+import { ClientWithReviewMatches } from '@rabbit/database'
 import { useState } from 'react'
 
 export default function ClientsEditDialog({
   client,
   children,
 }: {
-  client: Client
+  client: ClientWithReviewMatches
   children: React.ReactNode
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false)

@@ -13,7 +13,7 @@ import { clientsAtoms } from '@rabbit/design-system/atoms/dashboard/clients/clie
 import { clientsSearchAtom } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
 import InfiniteScroll from '@rabbit/design-system/components/misc/infinite-scroll'
 import ClientAvatar from 'components/dashboard/clients/avatar/client-avatar'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { QUERY_KEYS } from 'data/query-keys'
 
@@ -22,8 +22,8 @@ export default function ClientSelectSlick({
   setValue,
   className,
 }: {
-  value: Client | undefined
-  setValue: (value: Client | undefined) => void
+  value: ClientWithReviewMatches | undefined
+  setValue: (value: ClientWithReviewMatches | undefined) => void
   className?: string
 }) {
   const {

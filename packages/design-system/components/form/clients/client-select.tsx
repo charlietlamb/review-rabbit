@@ -1,4 +1,4 @@
-import { Client } from '@rabbit/database'
+import { ClientWithReviewMatches } from '@rabbit/database'
 import { Check, ChevronDown } from 'lucide-react'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { Button } from '@rabbit/design-system/components/ui/button'
@@ -29,12 +29,13 @@ import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-for
 import { useFormContext } from '@rabbit/design-system/components/form/form-context'
 import FieldInfo from '@rabbit/design-system/components/form/field-info'
 import { z } from 'zod'
+import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 
 interface ClientSelectProps {
   form: TanstackForm<any>
-  selectedClient: Client | null
-  setSelectedClient: (client: Client | null) => void
+  selectedClient: ClientWithReviewMatches | null
+  setSelectedClient: (client: ClientWithReviewMatches | null) => void
   className?: string
 }
 
@@ -46,7 +47,7 @@ export default function ClientSelect({
 }: ClientSelectProps) {
   const { attemptSubmitted } = useFormContext()
   const { items: clients, isLoading } = useInfiniteQueryWithAtom({
-    queryKey: 'clients-select',
+    queryKey: QUERY_KEYS.CLIENTS_SELECT,
     fetchFn: fetchClients,
     atom: clientsSelectAtom,
     searchAtom: clientsSelectSearchAtom,

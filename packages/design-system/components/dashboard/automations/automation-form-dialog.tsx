@@ -8,13 +8,13 @@ import {
 } from '@rabbit/design-system/components/ui/dialog'
 import AutomationForm from './automation-form'
 import { useState } from 'react'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationFormDialog({
   selectedClients = [],
   children,
 }: {
-  selectedClients?: Client[]
+  selectedClients?: ClientWithReviewMatches[]
   children: React.ReactNode
 }) {
   const [open, setOpen] = useState(false)

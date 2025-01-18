@@ -1,12 +1,12 @@
-import { Client } from '@rabbit/database'
-import ClientAvatar from './avatar/client-avatar'
+import { ClientWithReviewMatches } from '@rabbit/database'
 import { cn } from '@rabbit/design-system/lib/utils'
+import ClientAvatar from './client-avatar'
 
 export default function ClientMultiAvatar({
   clients,
   className,
 }: {
-  clients: Client[]
+  clients: ClientWithReviewMatches[]
   className?: string
 }) {
   return (

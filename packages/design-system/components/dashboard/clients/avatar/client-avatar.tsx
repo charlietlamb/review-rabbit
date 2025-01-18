@@ -1,4 +1,4 @@
-import { Client } from '@rabbit/database'
+import { ClientWithReviewMatches } from '@rabbit/database'
 import {
   Avatar,
   AvatarFallback,
@@ -18,7 +18,7 @@ export default function ClientAvatar({
   size: propSize,
   className,
 }: {
-  client: Client
+  client: ClientWithReviewMatches
   size?: 'xs' | 'sm' | 'md' | 'lg'
   className?: string
 }) {

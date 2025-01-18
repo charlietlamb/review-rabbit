@@ -1,10 +1,6 @@
 'use client'
 
-import { Client as ClientType } from '@rabbit/database/schema/app/clients'
-import { useSetAtom } from 'jotai'
-import { breadcrumbOverrideAtom } from '@rabbit/design-system/atoms/dashboard/breadcrumb/breadcrumb-atom'
-import { useEffect } from 'react'
-import { clientAtom } from '@rabbit/design-system/atoms/dashboard/client/client-atom'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import ClientAvatar from '../clients/avatar/client-avatar'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import ClientsForm from '../clients/form/clients-form'
@@ -12,18 +8,12 @@ import { useRouter } from 'next/navigation'
 import AutomationFormDialog from '../automations/automation-form-dialog'
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
 
-export default function Client({ client }: { client: ClientType }) {
-  const breadcrumbOverride = useSetAtom(breadcrumbOverrideAtom)
-  const setClient = useSetAtom(clientAtom)
+export default function Client({
+  client,
+}: {
+  client: ClientWithReviewMatches
+}) {
   const router = useRouter()
-
-  useEffect(() => {
-    breadcrumbOverride(client.name)
-  }, [client.name])
-
-  useEffect(() => {
-    setClient(client)
-  }, [client])
 
   return (
     <DashboardWrap

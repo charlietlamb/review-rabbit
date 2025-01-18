@@ -1,4 +1,4 @@
-import { Client } from '@rabbit/database'
+import { ClientWithReviewMatches } from '@rabbit/database'
 import { Check, ChevronDown } from 'lucide-react'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { Button } from '@rabbit/design-system/components/ui/button'
@@ -25,7 +25,6 @@ import {
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
-import { TanstackForm } from '@rabbit/design-system/components/form/tanstack-form'
 import { useFormContext } from '@rabbit/design-system/components/form/form-context'
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
@@ -36,8 +35,8 @@ export default function ClientSelect({
   required = true,
   className,
 }: {
-  selectedClient: Client | null
-  setSelectedClient: (client: Client | null) => void
+  selectedClient: ClientWithReviewMatches | null
+  setSelectedClient: (client: ClientWithReviewMatches | null) => void
   required?: boolean
   className?: string
 }) {

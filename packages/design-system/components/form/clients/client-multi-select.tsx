@@ -22,7 +22,7 @@ import {
 } from '@rabbit/design-system/atoms/dashboard/client/client-multi-select-atoms'
 import { useAtom } from 'jotai'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import ClientAvatar from '@rabbit/design-system/components/dashboard/clients/avatar/client-avatar'
 import { useState } from 'react'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
@@ -60,7 +60,7 @@ export default function ClientMultiSelect({
     }
   }
 
-  const toggleOption = (option: Client) => {
+  const toggleOption = (option: ClientWithReviewMatches) => {
     const newSelectedValues = selectedClients.some(
       (client) => client.id === option.id
     )

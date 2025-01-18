@@ -18,7 +18,7 @@ import {
   clientsSearchAtom,
   clientsSelectedAtoms,
 } from '@rabbit/design-system/atoms/dashboard/clients/clients-atoms'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import ClientsNewDialog from '../dialog/clients-new-dialog'
 import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infinite-query-with-atom'
 import { fetchClients } from '@rabbit/design-system/actions/clients/fetch-clients'
@@ -52,7 +52,7 @@ export default function ClientsTable() {
   const router = useRouter()
   const [selectedClients, setSelectedClients] = useAtom(clientsSelectedAtoms)
 
-  const columns: ColumnDef<Client>[] = [
+  const columns: ColumnDef<ClientWithReviewMatches>[] = [
     getTableCheckboxColumn(clients, clientsSelectedAtoms, setSelectedClients),
     {
       accessorKey: 'details',
@@ -81,6 +81,17 @@ export default function ClientsTable() {
       ),
       cell: ({ row }) => (
         <p className="text-muted-foreground">{row.original.phone}</p>
+      ),
+    },
+    {
+      accessorKey: 'reviewMatches',
+      header: ({ column }) => (
+        <TableColumnHeader column={column} title="Review Matches" />
+      ),
+      cell: ({ row }) => (
+        <p className="text-muted-foreground">
+          {row.original.reviewMatches.length}
+        </p>
       ),
     },
     {

@@ -8,11 +8,15 @@ import {
 } from '@rabbit/design-system/components/ui/dropdown-menu'
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { MoreHorizontal, Pencil, FileText } from 'lucide-react'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import { useState } from 'react'
 import AutomationFormDialog from '@rabbit/design-system/components/dashboard/automations/automation-form-dialog'
 
-export default function ClientsTableDropdown({ client }: { client: Client }) {
+export default function ClientsTableDropdown({
+  client,
+}: {
+  client: ClientWithReviewMatches
+}) {
   const [open, setOpen] = useState(false)
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>

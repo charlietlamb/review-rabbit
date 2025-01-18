@@ -9,9 +9,7 @@ export default function Reviews() {
   const account = useAtomValue(accountAtom)
   return (
     <DashboardWrap title="Reviews" subtitle="Manage and respond to reviews">
-      <div className="flex-grow">
-        {account && <ReviewsTable account={account} />}
-      </div>
+      {account && <ReviewsTable account={account} />}
     </DashboardWrap>
   )
 }

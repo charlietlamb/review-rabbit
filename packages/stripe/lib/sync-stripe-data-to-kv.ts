@@ -26,6 +26,7 @@ export async function syncStripeDataToKV(customerId: string) {
     currentPeriodEnd: subscription.current_period_end,
     currentPeriodStart: subscription.current_period_start,
     cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    currency: subscription.currency,
     paymentMethod:
       subscription.default_payment_method &&
       typeof subscription.default_payment_method !== 'string'

@@ -3,6 +3,7 @@ export const stripeSubscription = z.object({
   subscriptionId: z.string(),
   status: z.enum(['active', 'inactive', 'trialing']),
   priceId: z.string(),
+  currency: z.enum(['usd', 'eur', 'gbp', 'cad', 'aud']),
   currentPeriodEnd: z.date(),
   currentPeriodStart: z.date(),
   cancelAtPeriodEnd: z.boolean(),

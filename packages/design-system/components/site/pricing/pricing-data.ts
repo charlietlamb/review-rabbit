@@ -3,10 +3,12 @@ import { Plan } from '@rabbit/hono/lib/types'
 
 export type PricingTier = {
   title: string
-  price: number | null
+  monthlyPrice: number | null
+  yearlyPrice: number | null
   description: string
   buttonText: string
-  priceId?: string
+  monthlyPriceId?: string
+  yearlyPriceId?: string
   plan: Plan
   highlighted?: boolean
 }
@@ -78,26 +80,31 @@ export const features: FeatureAvailability = {
 export const pricingTiers = [
   {
     title: 'Free',
-    price: 0,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     description: 'Perfect for getting started',
     buttonText: 'Get Started',
     plan: 'free',
   },
   {
     title: 'Plus',
-    price: 30,
+    monthlyPrice: 30,
+    yearlyPrice: 300,
     description: 'Essential features for small projects',
     buttonText: 'Upgrade to Plus',
-    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
+    monthlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
+    yearlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY,
     plan: 'basic',
     highlighted: true,
   },
   {
     title: 'Pro',
-    price: 90,
+    monthlyPrice: 90,
+    yearlyPrice: 900,
     description: 'Advanced features for growing teams',
     buttonText: 'Upgrade to Pro',
-    priceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
+    monthlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO,
+    yearlyPriceId: env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_YEARLY,
     plan: 'pro',
   },
 ] as PricingTier[]

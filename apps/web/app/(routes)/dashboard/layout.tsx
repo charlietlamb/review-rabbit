@@ -16,9 +16,12 @@ export default async function layout({
   const [user, account] = await Promise.all([useAuth(), getGoogleAccount()])
   useIsUser(user)
   const stripeDetails = await getStripeDetails(user.id)
-  console.log(stripeDetails)
   return (
-    <SessionProvider user={user} account={account}>
+    <SessionProvider
+      user={user}
+      account={account}
+      stripeDetails={stripeDetails}
+    >
       <SidebarProvider className="flex w-full flex-grow">
         <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
           {user && !user.onboardingCompleted && false && (

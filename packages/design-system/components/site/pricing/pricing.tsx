@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 import { pricingTiers } from './pricing-data'
 import { PricingCard } from './pricing-card'
 import PricingCta from './pricing-cta'
@@ -10,6 +11,8 @@ import { cn } from '@rabbit/design-system/lib/utils'
 import { ArrowRight } from 'lucide-react'
 
 export function Pricing() {
+  const [isYearly, setIsYearly] = useState(true)
+
   return (
     <div className="container flex flex-col px-8 py-16 mx-auto">
       <motion.span
@@ -36,6 +39,83 @@ export function Pricing() {
       >
         Choose the plan that best suits your needs.
       </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.25 }}
+        className="flex items-center justify-center gap-4 mb-8"
+      >
+        <motion.div
+          layout
+          className={cn(
+            'flex items-stretch relative',
+            'p-1.5 rounded-full',
+            'bg-card/50 backdrop-blur-sm',
+            'before:absolute before:inset-0 before:rounded-full before:p-[1px]',
+            'before:bg-gradient-to-b before:from-primary/40 before:to-secondary/40',
+            'after:absolute after:inset-[1px] after:rounded-full after:bg-gradient-to-b after:from-background/90 after:to-background/50',
+            'hover:before:from-primary/50 hover:before:to-secondary/50',
+            'shadow-lg shadow-primary/20',
+            'transition-all duration-300'
+          )}
+        >
+          <motion.div
+            layout
+            className={cn(
+              'absolute inset-y-1.5 rounded-full bg-background/80 backdrop-blur-sm shadow-sm',
+              !isYearly ? 'left-1.5' : 'left-[50%]',
+              'w-[calc(50%_-_0.75rem)]',
+              'border border-primary/20'
+            )}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 30,
+            }}
+          />
+          <div className="grid grid-cols-2 gap-3 relative z-10">
+            <motion.button
+              layout
+              onClick={() => setIsYearly(false)}
+              className={cn(
+                'px-6 py-2 rounded-full text-sm font-medium',
+                !isYearly
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Monthly
+            </motion.button>
+            <motion.button
+              layout
+              onClick={() => setIsYearly(true)}
+              className={cn(
+                'px-6 py-2 rounded-full text-sm font-medium',
+                isYearly
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="flex items-center justify-center gap-1.5">
+                <span>Yearly</span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium whitespace-nowrap"
+                >
+                  2 months free
+                </motion.span>
+              </span>
+            </motion.button>
+          </div>
+        </motion.div>
+      </motion.div>
+
       <div className="md:grid-cols-3 grid grid-cols-1 gap-8 py-8">
         {pricingTiers.map((tier, index) => (
           <motion.div
@@ -46,7 +126,7 @@ export function Pricing() {
             className="h-full"
           >
             <div className="h-full flex-1">
-              <PricingCard tier={tier} />
+              <PricingCard tier={tier} isYearly={isYearly} />
             </div>
           </motion.div>
         ))}

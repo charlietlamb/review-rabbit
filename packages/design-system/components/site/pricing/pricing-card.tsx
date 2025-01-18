@@ -17,6 +17,8 @@ import { authClient } from '@rabbit/design-system/lib/auth-client'
 import { getEnv } from '@rabbit/env'
 import { User } from '@rabbit/database'
 import { Plan } from '@rabbit/hono/lib/types'
+import { NumberTicker } from './number-ticker'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function isValidUser(user: any): user is User {
   return (
@@ -32,11 +34,21 @@ function hasFeature(availability: PlanAvailability, plan: Plan): boolean {
   return plan === 'enterprise' || availability[plan]
 }
 
-export function PricingCard({ tier }: { tier: PricingTier }) {
+export function PricingCard({
+  tier,
+  isYearly,
+}: {
+  tier: PricingTier
+  isYearly: boolean
+}) {
   const isPro = tier.highlighted
   const isEnterprise = tier.title === 'Enterprise'
   const { data: session } = authClient.useSession()
   const router = useRouter()
+
+  const price = isYearly ? tier.yearlyPrice : tier.monthlyPrice
+  const priceId = isYearly ? tier.yearlyPriceId : tier.monthlyPriceId
+  const displayPrice = price ?? 0
 
   return (
     <Card
@@ -57,21 +69,60 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
     >
       <CardHeader className="relative z-10">
         {isPro && (
-          <span className="absolute top-12 right-6 rounded-full bg-primary/90 px-3 py-1 text-xs text-background font-heading font-bold z-50">
+          <motion.span
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="absolute top-12 right-6 rounded-full bg-primary/90 px-3 py-1 text-xs text-background font-heading font-bold z-50"
+          >
             Popular
-          </span>
+          </motion.span>
         )}
         <CardTitle className="font-heading text-2xl">{tier.title}</CardTitle>
         <div className="text-3xl font-bold">
           {isEnterprise ? (
             <p className="text-muted-foreground font-normal">Custom Pricing</p>
           ) : (
-            <>
-              £{tier.price}
-              <span className="text-sm font-normal text-muted-foreground/80">
-                / month
-              </span>
-            </>
+            <motion.div
+              layout
+              className="flex flex-col"
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div layout className="flex items-baseline gap-1">
+                <NumberTicker
+                  value={displayPrice}
+                  prefix="£"
+                  className="tabular-nums"
+                />
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={isYearly ? 'yearly' : 'monthly'}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="text-sm font-normal text-muted-foreground/80"
+                  >
+                    / {isYearly ? 'year' : 'month'}
+                  </motion.span>
+                </AnimatePresence>
+              </motion.div>
+              <AnimatePresence>
+                {isYearly && displayPrice > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="text-sm font-normal text-muted-foreground/80"
+                  >
+                    <NumberTicker
+                      value={Math.round(displayPrice / 12)}
+                      prefix="£"
+                      suffix=" per month"
+                      className="tabular-nums"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           )}
         </div>
       </CardHeader>
@@ -81,19 +132,29 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
           <h4 className="font-medium mb-2">Features:</h4>
           <ul className="space-y-2">
             {isEnterprise
-              ? // For enterprise, show all features as included
-                Object.keys(features).map((feature, index) => (
-                  <li key={index} className="flex items-center">
+              ? Object.keys(features).map((feature, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center"
+                  >
                     <Check className="mr-2 h-4 w-4 text-primary" />
                     <span className="text-foreground/80">{feature}</span>
-                  </li>
+                  </motion.li>
                 ))
-              : // For other plans, show based on availability
-                Object.entries(features).map(
+              : Object.entries(features).map(
                   ([feature, availability], index) => {
                     const isIncluded = hasFeature(availability, tier.plan)
                     return (
-                      <li key={index} className="flex items-center">
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center"
+                      >
                         {isIncluded ? (
                           <Check className="mr-2 h-4 w-4 text-primary" />
                         ) : (
@@ -108,7 +169,7 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
                         >
                           {feature}
                         </span>
-                      </li>
+                      </motion.li>
                     )
                   }
                 )}
@@ -144,8 +205,8 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
                 createdAt: new Date(session.user.createdAt || Date.now()),
                 updatedAt: new Date(session.user.updatedAt || Date.now()),
               }
-              if (tier.priceId) {
-                checkout(user, tier.priceId, tier.plan)
+              if (priceId) {
+                checkout(user, priceId, tier.plan)
               } else {
                 router.push('/signup')
               }

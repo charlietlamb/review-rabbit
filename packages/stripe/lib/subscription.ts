@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const subscription = z.object({
   plan: z.enum(['free', 'plus', 'pro']),
   status: z.enum(['active', 'inactive', 'trialing']),
+  currency: z.enum(['usd', 'eur', 'gbp', 'cad', 'aud']),
   subscriptionId: z.string(),
   priceId: z.string(),
   interval: z.enum(['month', 'year']),

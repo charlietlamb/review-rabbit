@@ -10,6 +10,7 @@ import workflows from '@rabbit/hono/routes/workflows/workflows.index'
 import automations from '@rabbit/hono/routes/automations/automations.index'
 import google from '@rabbit/hono/routes/google/google.index'
 import clicks from '@rabbit/hono/routes/clicks/clicks.index'
+
 const app = createApp()
 configure(app)
 

@@ -12,7 +12,7 @@ export const review = createRoute({
   request: {
     query: z.object({
       businessId: z.string(),
-      method: z.enum(['phone', 'email']),
+      method: z.enum(['sms', 'email', 'whatsapp']),
     }),
   },
   responses: {

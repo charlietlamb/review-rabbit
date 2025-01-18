@@ -99,12 +99,21 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
   })
   const matchedReview = attemptReviewMatch(newClient, reviewData)
   if (matchedReview?.matchScore && matchedReview.review) {
-    await db.insert(reviewMatches).values({
-      userId: user.id,
-      reviewId: matchedReview.review.id,
-      clientId: newClient.id,
-      matchScore: matchedReview.matchScore,
-    })
+    await db
+      .insert(reviewMatches)
+      .values({
+        userId: user.id,
+        reviewId: matchedReview.review.id,
+        clientId: newClient.id,
+        matchScore: matchedReview.matchScore,
+      })
+      .onConflictDoUpdate({
+        target: [reviewMatches.reviewId, reviewMatches.clientId],
+        set: {
+          matchScore: matchedReview.matchScore,
+          updatedAt: new Date(),
+        },
+      })
   }
   try {
     await db.insert(clients).values({ ...newClient, userId: user.id })
@@ -212,12 +221,43 @@ export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
   }
   const bulkClientData = await c.req.json()
   try {
-    await db.insert(clients).values(
-      bulkClientData.map((client: ClientFormData) => ({
-        ...client,
-        userId: user.id,
-      }))
-    )
+    const insertedClients = await db
+      .insert(clients)
+      .values(
+        bulkClientData.map((client: ClientFormData) => ({
+          ...client,
+          userId: user.id,
+        }))
+      )
+      .returning()
+
+    const reviewData = await db.query.reviews.findMany({
+      where: eq(reviews.userId, user.id),
+    })
+
+    const reviewMatchPromises = insertedClients.map(async (client) => {
+      const matchedReview = attemptReviewMatch(client, reviewData)
+      if (matchedReview?.matchScore && matchedReview.review) {
+        await db
+          .insert(reviewMatches)
+          .values({
+            userId: user.id,
+            reviewId: matchedReview.review.id,
+            clientId: client.id,
+            matchScore: matchedReview.matchScore,
+          })
+          .onConflictDoUpdate({
+            target: [reviewMatches.reviewId, reviewMatches.clientId],
+            set: {
+              matchScore: matchedReview.matchScore,
+              updatedAt: new Date(),
+            },
+          })
+      }
+    })
+
+    await Promise.all(reviewMatchPromises)
+
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error adding clients:', error)

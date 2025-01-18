@@ -6,6 +6,7 @@ export const subscription = z.object({
   currency: z.enum(['usd', 'eur', 'gbp', 'cad', 'aud']),
   subscriptionId: z.string(),
   priceId: z.string(),
+  customerId: z.string(),
   interval: z.enum(['month', 'year']),
   currentPeriodStart: z.date(),
   currentPeriodEnd: z.date(),

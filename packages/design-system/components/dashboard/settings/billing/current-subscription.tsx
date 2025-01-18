@@ -17,8 +17,10 @@ export function CurrentSubscription({
   subscription,
   currentPlan,
 }: CurrentSubscriptionProps) {
-  function formatDate(date: Date) {
-    return format(date, 'MMMM d, yyyy')
+  function formatDate(date: Date | number) {
+    // Convert Unix timestamp (seconds) to milliseconds for Date object
+    const dateObj = typeof date === 'number' ? new Date(date * 1000) : date
+    return format(dateObj, 'MMMM d, yyyy')
   }
 
   const price = currentPlan?.monthlyPrice ?? null
@@ -26,20 +28,8 @@ export function CurrentSubscription({
 
   return (
     <Card className="p-4">
-      <div className="flex items-center justify-end">
-        <Badge
-          variant={subscription?.status === 'active' ? 'default' : 'secondary'}
-        >
-          {isFree
-            ? 'Free Plan'
-            : subscription?.status === 'active'
-              ? 'Active'
-              : 'Inactive'}
-        </Badge>
-      </div>
-
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-sm font-medium">Current Plan</p>
             <p className="text-2xl font-bold">
@@ -52,14 +42,27 @@ export function CurrentSubscription({
               )}
             </p>
           </div>
-          {subscription?.paymentMethod && (
-            <div className="flex items-center space-x-2">
-              <CreditCard className="h-4 w-4" />
-              <span className="text-sm text-muted-foreground">
-                •••• {subscription.paymentMethod.last4}
-              </span>
-            </div>
-          )}
+          <div className="space-y-2 text-right">
+            <Badge
+              variant={
+                subscription?.status === 'active' ? 'default' : 'secondary'
+              }
+            >
+              {isFree
+                ? 'Free Plan'
+                : subscription?.status === 'active'
+                  ? 'Active'
+                  : 'Inactive'}
+            </Badge>
+            {subscription?.paymentMethod && (
+              <div className="flex items-center justify-end space-x-2">
+                <CreditCard className="h-4 w-4" />
+                <span className="text-sm text-muted-foreground">
+                  •••• {subscription.paymentMethod.last4}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
         {subscription && !isFree && (

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { pricingTiers } from '@rabbit/design-system/components/site/pricing/pricing-data'
 import { toast } from 'sonner'
 import { postStripeSession } from '@rabbit/design-system/actions/stripe/stripe-session'
+import { postBillingPortalSession } from '@rabbit/design-system/actions/stripe/billing-portal-session'
 import useUser from '@rabbit/design-system/hooks/use-user'
 import { CurrentSubscription } from './current-subscription'
 import { PricingTierCard } from './pricing-tier-card'
@@ -11,19 +12,21 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import { ExternalLink } from 'lucide-react'
 import { stripeDetailsAtom } from '@rabbit/design-system/atoms/user/user-atom'
 import { useAtomValue } from 'jotai'
+import { useRouter } from 'next/navigation'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
 
 export function Billing() {
   const subscription = useAtomValue(stripeDetailsAtom)
-  console.log('subscription', subscription)
   const [isLoading, setIsLoading] = useState(false)
+  const [isRedirecting, setIsRedirecting] = useState(false)
   const [isYearly, setIsYearly] = useState(false)
+  const router = useRouter()
   const user = useUser()
 
   const currentPlan = pricingTiers.find(
     (tier) => tier.plan === (subscription?.plan || 'free')
   )
 
-  // Filter tiers to only show upgrades
   const availableTiers = pricingTiers.filter((tier) => {
     const currentIndex = pricingTiers.findIndex(
       (t) => t.plan === (subscription?.plan || 'free')
@@ -52,11 +55,23 @@ export function Billing() {
     }
   }
 
-  function handleManageSubscription() {
-    if (subscription?.stripeCustomerPortalUrl) {
-      window.open(subscription.stripeCustomerPortalUrl, '_blank')
-    } else {
-      toast.error('Unable to access billing portal')
+  async function handleManageSubscription() {
+    if (!subscription) {
+      toast.error('You must be subscribed to manage your subscription', {
+        description: 'Upgrade to a plan to manage your subscription',
+      })
+      return
+    }
+
+    try {
+      setIsRedirecting(true)
+      const url = await postBillingPortalSession(subscription.customerId)
+      console.log(url)
+      router.push(url)
+    } catch (error) {
+      toast.error('Failed to open billing portal')
+    } finally {
+      setIsRedirecting(false)
     }
   }
 
@@ -75,9 +90,16 @@ export function Billing() {
               variant="outline"
               onClick={handleManageSubscription}
               className="flex items-center gap-2"
+              disabled={isRedirecting}
             >
-              Manage Subscription
-              <ExternalLink className="h-4 w-4" />
+              {isRedirecting ? (
+                <Spinner />
+              ) : (
+                <>
+                  Manage Subscription
+                  <ExternalLink className="h-4 w-4" />
+                </>
+              )}
             </Button>
           )}
         </div>

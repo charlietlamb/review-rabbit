@@ -18,6 +18,7 @@ import { User } from '@rabbit/database'
 import { Plan } from '@rabbit/hono/lib/types'
 import { NumberTicker } from './number-ticker'
 import { motion, AnimatePresence } from 'framer-motion'
+import { toast } from 'sonner'
 
 function isValidUser(user: any): user is User {
   return (
@@ -182,7 +183,10 @@ export function PricingCard({
               if (priceId) {
                 checkout(user, priceId, tier.plan)
               } else {
-                router.push('/signup')
+                toast.error(
+                  'There was an error creating your checkout session.',
+                  { description: 'Please contact support for help.' }
+                )
               }
             } else {
               router.push('/signup')

@@ -10,7 +10,6 @@ export async function getStripeDetails(
   if (!customerId) {
     return null
   }
-  console.log('customerId', customerId)
   const stripeSubscription: StripeSubscription | null = await kv.get(
     `stripe:customer:${customerId}`
   )
@@ -47,6 +46,7 @@ export async function getStripeDetails(
     status: stripeSubscription.status,
     subscriptionId: stripeSubscription.subscriptionId,
     priceId: stripeSubscription.priceId,
+    customerId,
     interval,
     currentPeriodStart: stripeSubscription.currentPeriodStart,
     currentPeriodEnd: stripeSubscription.currentPeriodEnd,

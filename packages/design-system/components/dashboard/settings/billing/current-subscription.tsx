@@ -91,7 +91,7 @@ export function CurrentSubscription({
               </span>
             </p>
             {subscription.cancelAtPeriodEnd && (
-              <div className="flex items-center gap-1.5 text-sm font-medium text-destructive">
+              <div className="flex items-center gap-1.5 text-sm font-medium text-destructive bg-red-500/10 text-red-500 rounded-md p-2">
                 <AlertCircle className="h-4 w-4" />
                 Your subscription will end on{' '}
                 {formatDate(subscription.currentPeriodEnd)}

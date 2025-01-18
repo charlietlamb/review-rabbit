@@ -139,14 +139,16 @@ export function Billing() {
               </div>
             </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div
+            className={`grid gap-4 ${availableTiers.length === 1 ? '' : 'md:grid-cols-2'}`}
+          >
             {availableTiers.map((tier) => (
               <PricingTierCard
                 key={tier.title}
                 tier={tier}
                 subscription={subscription}
                 isLoading={isLoading}
-                onUpgrade={handleUpgrade}
+                onUpgrade={(priceId) => handleUpgrade(priceId)}
                 isYearly={isYearly}
               />
             ))}

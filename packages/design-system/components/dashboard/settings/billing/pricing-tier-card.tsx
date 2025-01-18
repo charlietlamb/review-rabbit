@@ -39,8 +39,6 @@ export function PricingTierCard({
         return availability.basic
       case 'pro':
         return availability.pro
-      case 'enterprise':
-        return availability.pro // Enterprise users get all pro features
       default:
         return false
     }
@@ -98,6 +96,7 @@ export function PricingTierCard({
         {priceId && (
           <Button
             className="w-full"
+            variant="shine"
             disabled={
               isLoading ||
               subscription?.plan === tier.plan ||

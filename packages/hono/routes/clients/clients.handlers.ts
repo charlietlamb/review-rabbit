@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@rabbit/http'
-import { db } from '@rabbit/database'
+import { db, reviewMatches, reviews } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetClientsRoute,
@@ -13,6 +13,7 @@ import {
 import { eq, sql, and, or, inArray } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
+import { attemptReviewMatch } from '@rabbit/google/lib/matching/attempt-review-match'
 
 function transformClient(client: any) {
   return {
@@ -93,6 +94,18 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const newClient = await c.req.json()
+  const reviewData = await db.query.reviews.findMany({
+    where: eq(reviews.userId, user.id),
+  })
+  const matchedReview = attemptReviewMatch(newClient, reviewData)
+  if (matchedReview?.matchScore && matchedReview.review) {
+    await db.insert(reviewMatches).values({
+      userId: user.id,
+      reviewId: matchedReview.review.id,
+      clientId: newClient.id,
+      matchScore: matchedReview.matchScore,
+    })
+  }
   try {
     await db.insert(clients).values({ ...newClient, userId: user.id })
     return c.json(true, HttpStatusCodes.OK)
@@ -114,6 +127,19 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
   try {
     const data = await c.req.valid('json')
     const { id, ...clientData } = data
+
+    const reviewData = await db.query.reviews.findMany({
+      where: eq(reviews.userId, user.id),
+    })
+    const matchedReview = attemptReviewMatch(clientData, reviewData)
+    if (matchedReview?.matchScore && matchedReview.review) {
+      await db.insert(reviewMatches).values({
+        userId: user.id,
+        reviewId: matchedReview.review.id,
+        clientId: cilentData.id,
+        matchScore: matchedReview.matchScore,
+      })
+    }
 
     await db
       .update(clients)

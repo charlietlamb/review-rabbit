@@ -1,10 +1,14 @@
 'use server'
 
-import { Client } from '@rabbit/database/schema/app/clients'
+import {
+  ClientWithReviewMatches,
+} from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
-export async function getClientById(id: string): Promise<Client> {
+export async function getClientById(
+  id: string
+): Promise<ClientWithReviewMatches> {
   const response = await client.clients['get-by-id'].$post(
     {
       json: {

@@ -14,27 +14,50 @@ import { eq, sql, and, or, inArray } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
 
+function transformDate(date: Date): string {
+  return date.toISOString()
+}
+
+function transformClient(client: any) {
+  return {
+    ...client,
+    createdAt: transformDate(client.createdAt),
+    updatedAt: transformDate(client.updatedAt),
+    reviewMatches: client.reviewMatches.map((match: any) => ({
+      ...match,
+      createdAt: transformDate(match.createdAt),
+      updatedAt: transformDate(match.updatedAt),
+    })),
+  }
+}
+
 export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   const user = c.get('user')
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, search } = await c.req.json()
+  const { offset, limit, search } = await c.req.valid('json')
 
   try {
     const results = await db.query.clients.findMany({
       where: and(
         eq(clients.userId, user.id),
-        or(
-          sql`LOWER(${clients.name}) LIKE ${`%${search?.toLowerCase()}%`}`,
-          sql`LOWER(${clients.email}) LIKE ${`%${search?.toLowerCase()}%`}`
-        )
+        search
+          ? or(
+              sql`LOWER(${clients.name}) LIKE ${`%${search.toLowerCase()}%`}`,
+              sql`LOWER(${clients.email}) LIKE ${`%${search.toLowerCase()}%`}`
+            )
+          : undefined
       ),
       offset,
       limit,
+      with: {
+        reviewMatches: true,
+      },
       orderBy: (clients, { desc }) => [desc(clients.createdAt)],
     })
-    return c.json(results, HttpStatusCodes.OK)
+
+    return c.json(results.map(transformClient), HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error fetching clients:', error)
     return c.json(
@@ -53,11 +76,14 @@ export const getClientById: AppRouteHandler<GetClientByIdRoute> = async (c) => {
   try {
     const client = await db.query.clients.findFirst({
       where: and(eq(clients.id, id), eq(clients.userId, user.id)),
+      with: {
+        reviewMatches: true,
+      },
     })
     if (!client) {
       return c.json({ error: 'Client not found' }, HttpStatusCodes.NOT_FOUND)
     }
-    return c.json(client, HttpStatusCodes.OK)
+    return c.json(transformClient(client), HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error fetching client:', error)
     return c.json(

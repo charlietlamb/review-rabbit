@@ -3,8 +3,9 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { unauthorizedSchema } from '@rabbit/hono/lib/configure-auth'
 import { z } from 'zod'
 import { createRoute } from '@hono/zod-openapi'
-import { clientSchema } from '@rabbit/database/schema/app/clients'
+import { clientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import { clientValidationSchema } from '@rabbit/design-system/components/dashboard/clients/client-schema'
+
 const tags = ['Clients']
 
 export const getClients = createRoute({
@@ -28,7 +29,7 @@ export const getClients = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.array(clientSchema),
+      z.array(clientWithReviewMatches),
       'Clients fetched.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
@@ -59,7 +60,10 @@ export const getClientById = createRoute({
     },
   },
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(clientSchema, 'Client fetched.'),
+    [HttpStatusCodes.OK]: jsonContent(
+      clientWithReviewMatches,
+      'Client fetched.'
+    ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
       z.object({
         error: z.string(),

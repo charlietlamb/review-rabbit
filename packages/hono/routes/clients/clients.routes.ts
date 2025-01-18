@@ -228,3 +228,35 @@ export const addBulkClients = createRoute({
 })
 
 export type AddBulkClientsRoute = typeof addBulkClients
+
+export const getClientsByDateRange = createRoute({
+  path: '/clients/get-by-date-range',
+  method: 'post',
+  summary: 'Get clients by date range',
+  tags,
+  request: {
+    body: {
+      description: 'Date range',
+      content: {
+        'application/json': {
+          schema: z.object({ from: z.date(), to: z.date() }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(clientWithReviewMatches),
+      'Clients fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch clients'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetClientsByDateRangeRoute = typeof getClientsByDateRange

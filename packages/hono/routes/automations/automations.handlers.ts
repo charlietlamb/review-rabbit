@@ -19,8 +19,9 @@ import {
   DeleteAutomationRoute,
   DeleteBulkAutomationsRoute,
   TriggerDemoAutomationRoute,
+  GetAutomationsByDateRangeRoute,
 } from './automations.routes'
-import { eq, sql, and, or, gte, lte, inArray } from 'drizzle-orm'
+import { eq, sql, and, or, gte, lte, inArray, between } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
 import { triggerWorkflow } from '@rabbit/trigger'
@@ -341,6 +342,35 @@ export const triggerDemoAutomation: AppRouteHandler<
   } catch (error) {
     return c.json(
       { error: 'Failed to trigger demo automation' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getAutomationsByDateRange: AppRouteHandler<
+  GetAutomationsByDateRangeRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { from, to } = await c.req.json()
+  try {
+    const automationData = await db.query.automations.findMany({
+      where: and(
+        eq(automations.userId, user.id),
+        between(automations.createdAt, from, to)
+      ),
+      with: {
+        items: true,
+        business: true,
+      },
+    })
+    return c.json(automationData, HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching automations by date range:', error)
+    return c.json(
+      { error: 'Failed to fetch automations by date range' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

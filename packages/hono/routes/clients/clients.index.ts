@@ -10,5 +10,6 @@ const router = createRouter()
   .openapi(routes.deleteClient, handlers.deleteClient)
   .openapi(routes.addBulkClients, handlers.addBulkClients)
   .openapi(routes.deleteBulkClients, handlers.deleteBulkClients)
+  .openapi(routes.getClientsByDateRange, handlers.getClientsByDateRange)
 
 export default router

@@ -1,10 +1,17 @@
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
 import { HttpStatusCodes } from '@rabbit/http'
-import { getReviews } from '@rabbit/google/lib/get-reviews'
 import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
-import { accounts, reviews } from '@rabbit/database/schema'
+import {
+  accounts,
+  clients,
+  Review,
+  reviewMatches,
+  reviews,
+} from '@rabbit/database/schema'
 import { GetReviewsRoute } from '@rabbit/hono/routes/google/google.routes'
+import { kv } from '@rabbit/kv'
+import { attemptReviewMatchReview } from '@rabbit/google/lib/matching/attempt-review-match-review'
 
 const mockReviews = [
   {
@@ -164,23 +171,58 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
   }
 
   // Commented out original implementation for now
-  const { page } = await c.req.json()
-  if (page === 1) {
-    return c.json(mockReviews, HttpStatusCodes.OK)
-  } else {
-    return c.json([], HttpStatusCodes.OK)
-  }
-
-  const account = await db.query.accounts.findFirst({
-    where: eq(accounts.userId, user.id),
-  })
-  if (!account) {
-    return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
-  }
   try {
+    let updatedAt: string | null = await kv.get(`review:updatedAt:${user.id}`)
+    if (!updatedAt) {
+      updatedAt = new Date(0).toISOString()
+    }
+    const { page } = await c.req.json()
+
+    const account = await db.query.accounts.findFirst({
+      where: eq(accounts.userId, user.id),
+    })
+    if (!account) {
+      return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
+    }
+
     // const reivews = await getReviews(page, account)
     const reivews = mockReviews
-    return c.json(newReviews, HttpStatusCodes.OK)
+    const updatedReviews = reivews.filter(
+      (review) => new Date(review.updateTime) > new Date(updatedAt)
+    )
+    const clientData = await db.query.clients.findMany({
+      where: eq(clients.userId, user.id),
+    })
+    for (const review of updatedReviews) {
+      const match = attemptReviewMatchReview(
+        review.reviewer.displayName,
+        clientData
+      )
+      if (match?.matchScore && match?.matchScore > 0) {
+        await db
+          .insert(reviewMatches)
+          .values({
+            reviewId: review.id,
+            clientId: match.client.id,
+            matchScore: match.matchScore,
+            userId: user.id,
+          })
+          .onConflictDoUpdate({
+            target: [reviewMatches.reviewId, reviewMatches.clientId],
+            set: {
+              matchScore: match.matchScore,
+            },
+          })
+      }
+    }
+
+    await kv.set(`review:updatedAt:${user.id}`, new Date().toISOString())
+    if (page === 1) {
+      return c.json(mockReviews, HttpStatusCodes.OK)
+    } else {
+      return c.json([], HttpStatusCodes.OK)
+    }
+    // return c.json(newReviews, HttpStatusCodes.OK)
   } catch (error) {
     return c.json(
       { error: 'Failed to fetch clients' },

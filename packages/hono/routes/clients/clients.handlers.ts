@@ -9,8 +9,9 @@ import {
   GetClientByIdRoute,
   AddBulkClientsRoute,
   DeleteBulkClientsRoute,
+  GetClientsByDateRangeRoute,
 } from './clients.routes'
-import { eq, sql, and, or, inArray } from 'drizzle-orm'
+import { eq, sql, and, or, inArray, between } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
 import { attemptReviewMatchClient } from '@rabbit/google/lib/matching/attempt-review-match-client'
@@ -263,6 +264,34 @@ export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
     console.error('Error adding clients:', error)
     return c.json(
       { error: 'Failed to add clients' },
+      HttpStatusCodes.INTERNAL_SERVER_ERROR
+    )
+  }
+}
+
+export const getClientsByDateRange: AppRouteHandler<
+  GetClientsByDateRangeRoute
+> = async (c) => {
+  const user = c.get('user')
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
+  }
+  const { from, to } = await c.req.json()
+  try {
+    const clientData = await db.query.clients.findMany({
+      where: and(
+        eq(clients.userId, user.id),
+        between(clients.createdAt, from, to)
+      ),
+      with: {
+        reviewMatches: true,
+      },
+    })
+    return c.json(clientData.map(transformClient), HttpStatusCodes.OK)
+  } catch (error) {
+    console.error('Error fetching clients by date range:', error)
+    return c.json(
+      { error: 'Failed to fetch clients by date range' },
       HttpStatusCodes.INTERNAL_SERVER_ERROR
     )
   }

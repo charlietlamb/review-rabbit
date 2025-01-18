@@ -54,17 +54,12 @@ export const features: FeatureAvailability = {
     plus: true,
     pro: true,
   },
-  'Continuous Review Updates From Google (Daily)': {
+  'Continuous Review Updates From Google': {
     free: false,
     plus: true,
     pro: true,
   },
   // Pro only features
-  'Update Reviews On Demand': {
-    free: false,
-    plus: false,
-    pro: true,
-  },
   'Multiple Locations': {
     free: false,
     plus: false,

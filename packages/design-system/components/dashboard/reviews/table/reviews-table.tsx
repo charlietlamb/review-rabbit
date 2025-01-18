@@ -174,23 +174,28 @@ export default function ReviewsTable({ account }: { account: Account }) {
   return (
     <>
       {reviews.length > 0 ? (
-        <TableProvider
-          columns={columns}
-          data={reviews}
-          className="overflow-hidden max-h-full"
+        <InfiniteScroll
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
         >
-          <TableHeader>
-            {({ headerGroup }) => (
-              <TableHeaderGroup key={headerGroup.id} headerGroup={headerGroup}>
-                {({ header }) => <TableHead key={header.id} header={header} />}
-              </TableHeaderGroup>
-            )}
-          </TableHeader>
-          <InfiniteScroll
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            fetchNextPage={fetchNextPage}
+          <TableProvider
+            columns={columns}
+            data={reviews}
+            className="overflow-hidden max-h-full"
           >
+            <TableHeader>
+              {({ headerGroup }) => (
+                <TableHeaderGroup
+                  key={headerGroup.id}
+                  headerGroup={headerGroup}
+                >
+                  {({ header }) => (
+                    <TableHead key={header.id} header={header} />
+                  )}
+                </TableHeaderGroup>
+              )}
+            </TableHeader>
             <TableBody className="overflow-y-auto">
               {({ row }) => (
                 <TableRow key={row.id} row={row}>
@@ -206,8 +211,8 @@ export default function ReviewsTable({ account }: { account: Account }) {
                 </TableRow>
               )}
             </TableBody>
-          </InfiniteScroll>
-        </TableProvider>
+          </TableProvider>
+        </InfiniteScroll>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 flex-grow h-full">
           <WorkflowIcon className="w-10 h-10 text-muted-foreground" />

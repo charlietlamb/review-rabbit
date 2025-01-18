@@ -1,11 +1,13 @@
 import { Client } from '@rabbit/database/schema/app/clients'
-import { Review } from '@rabbit/database/schema/app/reviews'
 import { getNameMatchScore } from './utils/name-matching'
 
-export function attemptReviewMatchReview(review: Review, clients: Client[]) {
+export function attemptReviewMatchReview(
+  reviewName: string,
+  clients: Client[]
+) {
   const matches = clients.map((client) => ({
     client,
-    matchScore: getNameMatchScore(client.name, review.reviewerName),
+    matchScore: getNameMatchScore(client.name, reviewName),
   }))
 
   // Return the best match if any

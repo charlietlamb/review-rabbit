@@ -355,3 +355,35 @@ export const triggerDemoAutomation = createRoute({
 })
 
 export type TriggerDemoAutomationRoute = typeof triggerDemoAutomation
+
+export const getAutomationsByDateRange = createRoute({
+  path: '/automations/get-by-date-range',
+  method: 'post',
+  summary: 'Get automations by date range',
+  tags,
+  request: {
+    body: {
+      description: 'Date range',
+      content: {
+        'application/json': {
+          schema: z.object({ from: z.date(), to: z.date() }),
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(automationWithItems),
+      'Automations fetched.'
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      z.object({
+        error: z.string(),
+      }),
+      'Failed to fetch automations'
+    ),
+    ...unauthorizedSchema,
+  },
+})
+
+export type GetAutomationsByDateRangeRoute = typeof getAutomationsByDateRange

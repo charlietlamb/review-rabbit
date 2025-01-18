@@ -15,4 +15,5 @@ const router = createRouter()
   .openapi(routes.deleteBulkAutomations, handlers.deleteBulkAutomations)
   .openapi(routes.deleteAutomation, handlers.deleteAutomation)
   .openapi(routes.triggerDemoAutomation, handlers.triggerDemoAutomation)
+  .openapi(routes.getAutomationsByDateRange, handlers.getAutomationsByDateRange)
 export default router

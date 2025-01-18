@@ -12,6 +12,7 @@ import {
 import { Plan } from '@rabbit/hono/lib/types'
 import { Subscription } from '@rabbit/stripe/lib/subscription'
 import { formatCurrency } from './format-currency'
+import Spinner from '@rabbit/design-system/components/misc/spinner'
 
 interface PricingTierCardProps {
   tier: PricingTier
@@ -35,8 +36,8 @@ export function PricingTierCard({
     switch (plan) {
       case 'free':
         return availability.free
-      case 'basic':
-        return availability.basic
+      case 'plus':
+        return availability.plus
       case 'pro':
         return availability.pro
       default:
@@ -56,14 +57,21 @@ export function PricingTierCard({
       <div className="space-y-4">
         <div>
           <h3 className="text-xl font-bold">{tier.title}</h3>
-          <p className="text-3xl font-bold">
-            {formatCurrency(price, subscription?.currency)}
-            {!isFree && (
-              <span className="text-base font-normal text-muted-foreground">
-                /{interval}
+          <div className="flex items-center gap-2">
+            <p className="text-3xl font-bold">
+              {formatCurrency(price, subscription?.currency)}
+              {!isFree && (
+                <span className="text-base font-normal text-muted-foreground">
+                  /{interval}
+                </span>
+              )}
+            </p>
+            {isYearly && !isFree && (
+              <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+                2 months free
               </span>
             )}
-          </p>
+          </div>
           {isYearly && !isFree && (
             <p className="text-sm text-muted-foreground">
               {formatCurrency(price ? price / 12 : 0, subscription?.currency)}
@@ -105,10 +113,7 @@ export function PricingTierCard({
             onClick={() => onUpgrade(priceId)}
           >
             {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Loading...
-              </>
+              <Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : subscription?.plan === tier.plan ? (
               'Current Plan'
             ) : (

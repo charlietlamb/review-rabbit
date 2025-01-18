@@ -19,7 +19,7 @@ export type AppRouteHandler<R extends RouteConfig> = RouteHandler<
   AppBindings
 >
 
-export const plans = ['free', 'basic', 'pro', 'enterprise'] as const
+export const plans = ['free', 'plus', 'pro', 'enterprise'] as const
 export type Plan = (typeof plans)[number]
 
 export const stripeMetaDataSchema = z.object({

@@ -14,10 +14,12 @@ import { stripeDetailsAtom } from '@rabbit/design-system/atoms/user/user-atom'
 import { useAtomValue } from 'jotai'
 import { useRouter } from 'next/navigation'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
+import { Plan } from '@rabbit/hono/lib/types'
 
 export function Billing() {
   const subscription = useAtomValue(stripeDetailsAtom)
   const [isLoading, setIsLoading] = useState(false)
+  const [upgradingPlan, setUpgradingPlan] = useState<Plan | null>(null)
   const [isRedirecting, setIsRedirecting] = useState(false)
   const [isYearly, setIsYearly] = useState(false)
   const router = useRouter()
@@ -35,7 +37,7 @@ export function Billing() {
     return tierIndex > currentIndex
   })
 
-  async function handleUpgrade(priceId: string) {
+  async function handleUpgrade(priceId: string, plan: Plan) {
     if (!user) {
       toast.error('You must be logged in to upgrade')
       return
@@ -43,6 +45,7 @@ export function Billing() {
 
     try {
       setIsLoading(true)
+      setUpgradingPlan(plan)
       await postStripeSession({
         user,
         priceId,
@@ -52,6 +55,7 @@ export function Billing() {
       toast.error('Failed to create checkout session')
     } finally {
       setIsLoading(false)
+      setUpgradingPlan(null)
     }
   }
 
@@ -123,14 +127,14 @@ export function Billing() {
               </div>
               <div className="flex items-center gap-2 rounded-lg border p-1">
                 <Button
-                  variant={isYearly ? 'ghost' : 'secondary'}
+                  variant={isYearly ? 'ghost' : 'default'}
                   size="sm"
                   onClick={() => setIsYearly(false)}
                 >
                   Monthly
                 </Button>
                 <Button
-                  variant={isYearly ? 'secondary' : 'ghost'}
+                  variant={isYearly ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setIsYearly(true)}
                 >
@@ -147,8 +151,8 @@ export function Billing() {
                 key={tier.title}
                 tier={tier}
                 subscription={subscription}
-                isLoading={isLoading}
-                onUpgrade={(priceId) => handleUpgrade(priceId)}
+                isLoading={isLoading && upgradingPlan === tier.plan}
+                onUpgrade={(priceId) => handleUpgrade(priceId, tier.plan)}
                 isYearly={isYearly}
               />
             ))}

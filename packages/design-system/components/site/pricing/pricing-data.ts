@@ -15,7 +15,7 @@ export type PricingTier = {
 
 export type PlanAvailability = {
   free: boolean
-  basic: boolean
+  plus: boolean
   pro: boolean
 }
 
@@ -30,49 +30,49 @@ export const features: FeatureAvailability = {
   // Available in all plans
   Analytics: {
     free: true,
-    basic: true,
+    plus: true,
     pro: true,
   },
   'Email Support': {
     free: true,
-    basic: true,
+    plus: true,
     pro: true,
   },
   Automations: {
     free: true,
-    basic: true,
+    plus: true,
     pro: true,
   },
   // Available in Plus and Pro
   'Priority Support': {
     free: false,
-    basic: true,
+    plus: true,
     pro: true,
   },
   'Advanced Automations': {
     free: false,
-    basic: true,
+    plus: true,
     pro: true,
   },
   'API Access': {
     free: false,
-    basic: true,
+    plus: true,
     pro: true,
   },
   // Pro only features
   'Unlimited API Access': {
     free: false,
-    basic: false,
+    plus: false,
     pro: true,
   },
   'Custom Integrations': {
     free: false,
-    basic: false,
+    plus: false,
     pro: true,
   },
   'Team Collaboration': {
     free: false,
-    basic: false,
+    plus: false,
     pro: true,
   },
 }

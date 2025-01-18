@@ -81,8 +81,8 @@ export function CurrentSubscription({
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-6">
-        {subscription && !isFree && (
+      {subscription && !isFree && (
+        <CardContent className="pt-6">
           <div className="space-y-2">
             <p className="text-sm text-muted-foreground">
               Current period ends on{' '}
@@ -98,8 +98,8 @@ export function CurrentSubscription({
               </div>
             )}
           </div>
-        )}
-      </CardContent>
+        </CardContent>
+      )}
     </Card>
   )
 }

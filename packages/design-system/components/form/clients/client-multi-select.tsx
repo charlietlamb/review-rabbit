@@ -30,7 +30,11 @@ import { useInfiniteQueryWithAtom } from '@rabbit/design-system/hooks/use-infini
 import { useFormContext } from '../form-context'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 
-export default function ClientMultiSelect() {
+export default function ClientMultiSelect({
+  className,
+}: {
+  className?: string
+}) {
   const [search, setSearch] = useAtom(clientsSelectSearchAtom)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
@@ -74,7 +78,10 @@ export default function ClientMultiSelect() {
       <PopoverTrigger asChild>
         <Button
           onClick={handleTogglePopover}
-          className="flex w-full p-1 rounded-md border min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto"
+          className={cn(
+            'flex w-full p-1 rounded-md border min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto',
+            className
+          )}
         >
           {selectedClients.length > 0 ? (
             <div className="flex items-center justify-between w-full">

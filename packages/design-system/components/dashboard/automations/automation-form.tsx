@@ -109,7 +109,7 @@ export default function AutomationForm({
         />
         <div className="flex flex-col gap-2">
           <RequiredLabel htmlFor="clients">Clients</RequiredLabel>
-          <ClientMultiSelect />
+          <ClientMultiSelect className="bg-background" />
         </div>
         <WorkflowSelect
           selectedWorkflow={selectedWorkflow}

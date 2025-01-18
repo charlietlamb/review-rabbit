@@ -12,6 +12,8 @@ export * from './app/automations'
 export * from './app/automation-items'
 export * from './app/workflows'
 export * from './app/workflow-items'
+export * from './app/review-matches'
+export * from './app/reviews'
 
 // Stripe
 export * from './stripe/events'

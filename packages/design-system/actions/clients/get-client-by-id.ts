@@ -1,8 +1,6 @@
 'use server'
 
-import {
-  ClientWithReviewMatches,
-} from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
@@ -26,5 +24,10 @@ export async function getClientById(
     ...clientResponse,
     createdAt: new Date(clientResponse.createdAt),
     updatedAt: new Date(clientResponse.updatedAt),
+    reviewMatches: clientResponse.reviewMatches.map((match) => ({
+      ...match,
+      createdAt: new Date(match.createdAt),
+      updatedAt: new Date(match.updatedAt),
+    })),
   }
 }

@@ -14,19 +14,13 @@ import { eq, sql, and, or, inArray } from 'drizzle-orm'
 import { clients } from '@rabbit/database/schema/app/clients'
 import { ClientFormData } from '@rabbit/design-system/components/dashboard/clients/client-schema'
 
-function transformDate(date: Date): string {
-  return date.toISOString()
-}
-
 function transformClient(client: any) {
   return {
     ...client,
-    createdAt: transformDate(client.createdAt),
-    updatedAt: transformDate(client.updatedAt),
     reviewMatches: client.reviewMatches.map((match: any) => ({
       ...match,
-      createdAt: transformDate(match.createdAt),
-      updatedAt: transformDate(match.updatedAt),
+      createdAt: new Date(match.createdAt),
+      updatedAt: new Date(match.updatedAt),
     })),
   }
 }

@@ -28,5 +28,10 @@ export async function fetchClients(
     ...client,
     createdAt: new Date(client.createdAt),
     updatedAt: new Date(client.updatedAt),
+    reviewMatches: client.reviewMatches.map((match) => ({
+      ...match,
+      createdAt: new Date(match.createdAt),
+      updatedAt: new Date(match.updatedAt),
+    })),
   }))
 }

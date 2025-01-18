@@ -33,9 +33,6 @@ export const clientWithReviewMatches = clientSchema.extend({
 export type ClientWithReviewMatches = z.infer<typeof clientWithReviewMatches>
 
 export const clientsRelations = relations(clients, ({ one, many }) => ({
-  user: one(users, {
-    fields: [clients.userId],
-    references: [users.id],
-  }),
+  user: one(users, { references: [users.id], fields: [clients.userId] }),
   reviewMatches: many(reviewMatches),
 }))

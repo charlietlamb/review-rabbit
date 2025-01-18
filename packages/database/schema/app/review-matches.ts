@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { reviews } from './reviews'
 import { clients } from './clients'
 import { users } from '../auth/users'
+import { relations } from 'drizzle-orm'
 
 export const reviewMatches = pgTable('review_matches', {
   id: text('id')
@@ -24,6 +25,21 @@ export const reviewMatches = pgTable('review_matches', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
+
+export const reviewMatchesRelations = relations(reviewMatches, ({ one }) => ({
+  user: one(users, {
+    fields: [reviewMatches.userId],
+    references: [users.id],
+  }),
+  review: one(reviews, {
+    fields: [reviewMatches.reviewId],
+    references: [reviews.id],
+  }),
+  client: one(clients, {
+    fields: [reviewMatches.clientId],
+    references: [clients.id],
+  }),
+}))
 
 export const reviewMatchSchema = createSelectSchema(reviewMatches)
 export const insertReviewMatchSchema = createInsertSchema(reviewMatches)

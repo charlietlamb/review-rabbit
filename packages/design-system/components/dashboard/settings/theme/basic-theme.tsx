@@ -37,7 +37,7 @@ export default function BasicTheme() {
   return (
     <fieldset className="flex flex-col gap-4">
       <RadioGroup
-        className="flex gap-3"
+        className="flex gap-3 w-full"
         defaultValue={theme}
         onValueChange={(value) => setTheme(value)}
       >

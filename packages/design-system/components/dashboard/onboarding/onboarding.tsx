@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import OnboardingTheme from '../settings/theme/theme'
+import { RiGoogleFill } from '@remixicon/react'
 
 const steps = [
   {
@@ -24,8 +25,8 @@ const steps = [
     title: 'Choose Your Theme',
     description: 'Select a color theme for your dashboard',
     content: () => (
-      <div className="flex flex-col gap-4">
-        <OnboardingTheme />
+      <div className="flex flex-col gap-4 w-full">
+        <OnboardingTheme showLabel={false} className="w-full" />
         <p className="text-muted-foreground text-sm">
           You can always change this later in your settings.
         </p>
@@ -33,9 +34,25 @@ const steps = [
     ),
   },
   {
-    title: 'Connect Your Stripe Account',
-    description: 'Start accepting payments from your clients',
-    content: () => <></>,
+    title: 'Connect Your Google Business Account',
+    description:
+      'Connect your Google Business account to start tracking your reviews.',
+    content: () => (
+      <div className="flex flex-col gap-4 w-full">
+        <div className="bg-primary/20 rounded-lg p-4 w-full flex justify-center text-xl font-heading font-bold items-center gap-2 hover:bg-primary/50 transition-all duration-300 cursor-pointer hover:scale-105">
+          <RiGoogleFill className="size-10" />
+          <p>Connect Google Business Account</p>
+        </div>
+        <p className="text-muted-foreground text-sm">
+          You can always connect to more Google Business accounts later.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: 'Add Your First Location',
+    description: 'Add your first location to start tracking your reviews.',
+    content: () => <div />,
   },
 ]
 
@@ -94,28 +111,24 @@ export default function Onboarding({ user }: { user: User }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="fixed inset-0 bg-background/20 backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 bg-background/20 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6 md:p-8"
     >
       <motion.div
         variants={containerVariants}
-        className="bg-background p-8 rounded-lg shadow-lg w-full max-w-md border border-border relative overflow-hidden"
+        className="bg-background rounded-xl shadow-lg w-full max-w-3xl border border-border relative overflow-hidden flex flex-col"
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.2 }}
-            className="space-y-6"
-          >
+        {/* Header Section */}
+        <div className="p-8 pb-0">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              variants={childVariants}
-              initial="hidden"
-              animate="visible"
+              key={`header-${currentStep}`}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.2 }}
               className="space-y-2"
             >
-              <motion.div className="flex items-center gap-2">
+              <motion.div className="flex items-center justify-between">
                 <motion.h1 className="text-2xl font-bold font-heading">
                   {steps[currentStep].title}
                 </motion.h1>
@@ -132,54 +145,68 @@ export default function Onboarding({ user }: { user: User }) {
                 {steps[currentStep].description}
               </motion.p>
             </motion.div>
+          </AnimatePresence>
+        </div>
 
+        {/* Content Section */}
+        <div className="flex-1 p-8 min-h-[400px] flex flex-col items-center justify-center">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              variants={childVariants}
-              initial="hidden"
-              animate="visible"
-              className="space-y-6"
+              key={`content-${currentStep}`}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.2 }}
+              className="flex-1 flex flex-col items-center justify-center w-full max-w-xl"
             >
-              {steps[currentStep].content()}
-
-              <div className="flex justify-between items-center">
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    setCurrentStep((prev) => Math.max(0, prev - 1))
-                  }
-                  disabled={currentStep === 0}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant="shine"
-                  onClick={() => {
-                    if (currentStep === steps.length - 1) {
-                      handleComplete()
-                    } else {
-                      setCurrentStep((prev) =>
-                        Math.min(steps.length - 1, prev + 1)
-                      )
-                    }
-                  }}
-                  className="gap-2"
-                >
-                  {currentStep === steps.length - 1 ? (
-                    'Get Started'
-                  ) : (
-                    <>
-                      Continue
-                      <ArrowRight className="size-4" />
-                    </>
-                  )}
-                </Button>
-              </div>
+              <motion.div
+                variants={childVariants}
+                initial="hidden"
+                animate="visible"
+                className="flex-1 w-full flex items-center justify-center"
+              >
+                {steps[currentStep].content()}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
 
+        {/* Footer Section */}
+        <div className="px-8 py-6 border-t border-border">
+          <div className="flex justify-between items-center">
+            <Button
+              variant="ghost"
+              onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
+              disabled={currentStep === 0}
+            >
+              Back
+            </Button>
+            <Button
+              variant="shine"
+              onClick={() => {
+                if (currentStep === steps.length - 1) {
+                  handleComplete()
+                } else {
+                  setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
+                }
+              }}
+              className="gap-2"
+            >
+              {currentStep === steps.length - 1 ? (
+                'Get Started'
+              ) : (
+                <>
+                  Continue
+                  <ArrowRight className="size-4" />
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
         <motion.div
-          className="absolute bottom-0 left-0 h-1 bg-primary"
+          className="absolute bottom-0 left-0 h-0.5 bg-primary"
           initial={{ width: '0%' }}
           animate={{
             width: `${((currentStep + 1) / steps.length) * 100}%`,

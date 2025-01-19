@@ -1,9 +1,16 @@
 import CustomTheme from './custom-theme'
 import BasicTheme from './basic-theme'
+import { cn } from '@rabbit/design-system/lib/utils'
 
-export default function Theme({ showLabel = true }: { showLabel?: boolean }) {
+export default function Theme({
+  showLabel = true,
+  className,
+}: {
+  showLabel?: boolean
+  className?: string
+}) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn('flex flex-col gap-4', className)}>
       {showLabel && (
         <div>
           <p className="font-heading font-bold">Theme</p>

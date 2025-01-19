@@ -26,9 +26,7 @@ export default async function layout({
       <AppProvider>
         <SidebarProvider className="flex w-full flex-grow">
           <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
-            {user && !user.onboardingCompleted && false && (
-              <Onboarding user={user} />
-            )}
+            {user && !user.onboardingCompleted && <Onboarding user={user} />}
             <DashboardHeader />
             <div className="w-full flex-grow flex overflow-hidden relative">
               <DashboardSidebar />

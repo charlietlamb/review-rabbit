@@ -111,14 +111,15 @@ export default function Onboarding({ user }: { user: User }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="fixed inset-0 bg-background/20 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6 md:p-8"
+      className="fixed inset-0 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8"
     >
+      <motion.div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10 backdrop-blur-sm" />
       <motion.div
         variants={containerVariants}
-        className="bg-background rounded-xl shadow-lg w-full max-w-3xl border border-border relative overflow-hidden flex flex-col"
+        className="bg-background border border-border/50 rounded-xl shadow-lg w-full max-w-3xl relative overflow-hidden flex flex-col"
       >
         {/* Header Section */}
-        <div className="p-8 pb-0">
+        <div className="px-8 py-6 border-b border-border">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`header-${currentStep}`}

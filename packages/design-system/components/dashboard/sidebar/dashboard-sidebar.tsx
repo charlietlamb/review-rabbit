@@ -21,9 +21,9 @@ import { cn } from '@rabbit/design-system/lib/utils'
 export default function DashboardSidebar() {
   const { open } = useSidebar()
   return (
-    <Sidebar collapsible="icon" className={cn('border-none', open && 'px-4')}>
+    <Sidebar collapsible="icon" className="border-none">
       <DashboardSidebarHeader />
-      <SidebarContent className="py-2">
+      <SidebarContent className={cn('py-2', open && 'px-4')}>
         <SidebarMenu>
           <SidebarGroupLabel className={cn(!open && 'hidden')}>
             Home

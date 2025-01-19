@@ -44,7 +44,7 @@ const steps = [
     description:
       'Connect your Google Business account to start tracking your reviews.',
     content: () => (
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full items-center">
         <div className="bg-primary/20 rounded-lg p-4 w-full flex justify-center text-xl font-heading font-bold items-center gap-2 hover:bg-primary/50 transition-all duration-300 cursor-pointer hover:scale-105">
           <RiGoogleFill className="size-10" />
           <p>Connect Google Business Account</p>

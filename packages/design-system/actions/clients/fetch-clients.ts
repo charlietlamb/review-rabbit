@@ -8,7 +8,9 @@ import { transformClient } from '@rabbit/design-system/lib/transforms/client-tra
 
 export async function fetchClients(
   page: number,
-  search?: string
+  businessId: string,
+  search?: string,
+  locationId?: string
 ): Promise<ClientWithData[]> {
   const response = await client.clients.$post(
     {
@@ -16,6 +18,8 @@ export async function fetchClients(
         offset: page * PAGE_SIZE,
         limit: PAGE_SIZE,
         search,
+        businessId,
+        locationId,
       },
     },
     await headersWithCookies()

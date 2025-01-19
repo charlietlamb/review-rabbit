@@ -5,6 +5,7 @@ import { DateRange } from 'react-day-picker'
 import { selectedBusinessAtom } from '../business/business-atoms'
 import { atomWithQuery } from 'jotai-tanstack-query'
 import { getClientsByDateRange } from '@rabbit/design-system/actions/clients/get-clients-by-date-range'
+import { selectedLocationAtom } from '../location/location-atoms'
 
 export const overviewDateRange = atom<DateRange | undefined>({
   from: startOfDay(addDays(new Date(), -30)),
@@ -35,10 +36,16 @@ export const overviewClientsAtom = atomWithQuery<ClientWithData[]>(
     ],
     queryFn: async () => {
       const business = get(selectedBusinessAtom)
+      const location = get(selectedLocationAtom)
       const dateRange = get(overviewDateRange)
       if (!business || !dateRange) return []
       if (!dateRange.from || !dateRange.to) return []
-      const clients = await getClientsByDateRange(dateRange.from, dateRange.to)
+      const clients = await getClientsByDateRange(
+        dateRange.from,
+        dateRange.to,
+        business.id,
+        location?.id
+      )
       return clients
     },
   })

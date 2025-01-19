@@ -32,7 +32,8 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { offset, limit, search } = await c.req.valid('json')
+  const { offset, limit, search, businessId, locationId } =
+    await c.req.valid('json')
 
   try {
     const results = await db.query.clients.findMany({
@@ -43,7 +44,9 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
               sql`LOWER(${clients.name}) LIKE ${`%${search.toLowerCase()}%`}`,
               sql`LOWER(${clients.email}) LIKE ${`%${search.toLowerCase()}%`}`
             )
-          : undefined
+          : undefined,
+        businessId ? eq(clients.businessId, businessId) : undefined,
+        locationId ? eq(clients.locationId, locationId) : undefined
       ),
       offset,
       limit,
@@ -287,12 +290,14 @@ export const getClientsByDateRange: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const { from, to } = await c.req.json()
+  const { from, to, businessId, locationId } = await c.req.json()
   try {
     const clientData = await db.query.clients.findMany({
       where: and(
         eq(clients.userId, user.id),
-        between(clients.createdAt, from, to)
+        between(clients.createdAt, from, to),
+        businessId ? eq(clients.businessId, businessId) : undefined,
+        locationId ? eq(clients.locationId, locationId) : undefined
       ),
       with: {
         reviewMatches: true,

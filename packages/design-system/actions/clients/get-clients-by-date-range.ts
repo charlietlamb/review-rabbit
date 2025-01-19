@@ -6,13 +6,17 @@ import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookie
 import { transformClient } from '@rabbit/design-system/lib/transforms/client-transform'
 export async function getClientsByDateRange(
   from: Date,
-  to: Date
+  to: Date,
+  businessId: string,
+  locationId?: string
 ): Promise<ClientWithData[]> {
   const response = await client.clients['get-by-date-range'].$post(
     {
       json: {
         from,
         to,
+        businessId,
+        locationId,
       },
     },
     await headersWithCookies()

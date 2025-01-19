@@ -32,8 +32,12 @@ import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
 import TableLoading from '@rabbit/design-system/components/dashboard/table/table-loading'
 import { useAtom } from 'jotai'
 import { getTableCheckboxColumn } from '@rabbit/design-system/components/dashboard/table/table-checkbox'
+import { useBusiness } from '@rabbit/design-system/hooks/app/use-business'
+import { useLocation } from '@rabbit/design-system/hooks/app/use-location'
 
 export default function ClientsTable() {
+  const business = useBusiness()
+  const location = useLocation()
   const {
     items: clients,
     isFetchingNextPage,
@@ -42,7 +46,8 @@ export default function ClientsTable() {
     isLoading,
   } = useInfiniteQueryWithAtom({
     queryKey: QUERY_KEYS.CLIENTS,
-    fetchFn: fetchClients,
+    fetchFn: (page, search) =>
+      fetchClients(page, business!.id, search, location?.id),
     atom: clientsAtoms,
     searchAtom: clientsSearchAtom,
     filterFn: (client, search) =>

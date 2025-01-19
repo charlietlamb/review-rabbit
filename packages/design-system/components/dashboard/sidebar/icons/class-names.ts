@@ -3,4 +3,4 @@ export const iconWrapClassName =
 
 export const iconClassName = 'h-4 w-4 min-h-4 min-w-4'
 
-export const iconTextClassName = 'text-base'
+export const iconTextClassName = 'text-base font-heading'

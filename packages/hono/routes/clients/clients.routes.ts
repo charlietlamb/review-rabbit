@@ -22,6 +22,8 @@ export const getClients = createRoute({
             offset: z.number(),
             limit: z.number(),
             search: z.string().optional(),
+            businessId: z.string(),
+            locationId: z.string().optional(),
           }),
         },
       },
@@ -248,7 +250,12 @@ export const getClientsByDateRange = createRoute({
       description: 'Date range',
       content: {
         'application/json': {
-          schema: z.object({ from: z.date(), to: z.date() }),
+          schema: z.object({
+            from: z.date(),
+            to: z.date(),
+            businessId: z.string(),
+            locationId: z.string().optional(),
+          }),
         },
       },
     },

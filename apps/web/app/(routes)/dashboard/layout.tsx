@@ -7,6 +7,7 @@ import useIsUser from '@rabbit/design-system/hooks/use-is-user'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
 import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
+import AppProvider from '@rabbit/design-system/components/providers/app-provider'
 
 export default async function layout({
   children,
@@ -22,20 +23,22 @@ export default async function layout({
       account={account}
       stripeDetails={stripeDetails}
     >
-      <SidebarProvider className="flex w-full flex-grow">
-        <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
-          {user && !user.onboardingCompleted && false && (
-            <Onboarding user={user} />
-          )}
-          <DashboardHeader />
-          <div className="w-full flex-grow flex overflow-hidden divide-x relative">
-            <DashboardSidebar />
-            <div className="flex flex-col flex-grow overflow-y-auto bg-background">
-              {children}
+      <AppProvider>
+        <SidebarProvider className="flex w-full flex-grow">
+          <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
+            {user && !user.onboardingCompleted && false && (
+              <Onboarding user={user} />
+            )}
+            <DashboardHeader />
+            <div className="w-full flex-grow flex overflow-hidden divide-x relative">
+              <DashboardSidebar />
+              <div className="flex flex-col flex-grow overflow-y-auto bg-background">
+                {children}
+              </div>
             </div>
           </div>
-        </div>
-      </SidebarProvider>
+        </SidebarProvider>
+      </AppProvider>
     </SessionProvider>
   )
 }

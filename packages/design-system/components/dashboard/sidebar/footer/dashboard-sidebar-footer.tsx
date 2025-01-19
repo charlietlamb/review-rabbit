@@ -27,7 +27,7 @@ export default function DashboardSidebarFooter() {
   return (
     <SidebarFooter
       className={cn(
-        'border-t bg-gradient-to-b from-background via-background to-muted/20 h-16',
+        'bg-gradient-to-b from-background via-background to-muted/20 h-16',
         !open && 'h-auto'
       )}
     >

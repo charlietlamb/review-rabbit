@@ -8,6 +8,8 @@ import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import OnboardingTheme from '../settings/theme/theme'
 import { RiGoogleFill } from '@remixicon/react'
+import { Logo } from '@rabbit/design-system/components/site/header/logo'
+import { Separator } from '@rabbit/design-system/components/ui/separator'
 
 const steps = [
   {
@@ -15,6 +17,8 @@ const steps = [
     description: "Let's get you set up with everything you need",
     content: () => (
       <div className="flex flex-col items-center gap-4">
+        <Logo />
+        <Separator className="w-full" />
         <p className="text-muted-foreground text-sm">
           We'll guide you through the setup process to get your account ready.
         </p>
@@ -25,9 +29,11 @@ const steps = [
     title: 'Choose Your Theme',
     description: 'Select a color theme for your dashboard',
     content: () => (
-      <div className="flex flex-col gap-4 w-full">
-        <OnboardingTheme showLabel={false} className="w-full" />
-        <p className="text-muted-foreground text-sm">
+      <div className="flex flex-col items-center gap-6 w-full max-w-md mx-auto">
+        <div className="bg-muted/20 border rounded-xl p-6 w-full">
+          <OnboardingTheme showLabel={false} className="w-full items-center" />
+        </div>
+        <p className="text-muted-foreground text-sm text-center">
           You can always change this later in your settings.
         </p>
       </div>

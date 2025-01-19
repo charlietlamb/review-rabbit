@@ -80,4 +80,10 @@ export const dashboardSidebarItemsBottom = [
   },
 ]
 
-export type DashboardSidebarItem = (typeof dashboardSidebarItems)[number]
+export type DashboardSidebarItem = {
+  title: string
+  icon: React.ReactNode
+  href: string
+  key: string
+  match: (string | undefined)[]
+}

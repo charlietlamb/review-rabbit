@@ -1,5 +1,6 @@
 export const QUERY_KEYS = {
   BUSINESS: ['business'] as const,
+  LOCATIONS: ['locations'] as const,
   CLIENTS: ['clients'] as const,
   CLIENT_SELECT: ['client-select'] as const,
   CLIENTS_SELECT: ['clients-select'] as const,

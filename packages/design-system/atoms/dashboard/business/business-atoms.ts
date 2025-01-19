@@ -5,6 +5,5 @@ import { atomWithLocalStorage } from '@rabbit/design-system/atoms/utility/atom-w
 export const businessSearchAtom = atom('')
 export const businessesAtom = atom<BusinessWithLocations[]>([])
 
-export const selectedBusinessAtom = atomWithLocalStorage<
-  BusinessWithLocations | undefined
->('selected-business', undefined)
+export const selectedBusinessAtom =
+  atomWithLocalStorage<BusinessWithLocations | null>('selected-business', null)

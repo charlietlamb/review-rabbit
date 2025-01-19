@@ -19,7 +19,7 @@ export default function DashboardWrap({
   return (
     <div
       className={cn(
-        'flex flex-col divide-y h-full flex-grow relative overflow-hidden bg-muted/50',
+        'flex flex-col divide-y h-full flex-grow relative overflow-hidden bg-muted/50 md:rounded-tl-lg md:border-l border-t',
         className
       )}
     >

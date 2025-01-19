@@ -30,7 +30,7 @@ export default async function layout({
               <Onboarding user={user} />
             )}
             <DashboardHeader />
-            <div className="w-full flex-grow flex overflow-hidden divide-x relative">
+            <div className="w-full flex-grow flex overflow-hidden relative">
               <DashboardSidebar />
               <div className="flex flex-col flex-grow overflow-y-auto bg-background">
                 {children}

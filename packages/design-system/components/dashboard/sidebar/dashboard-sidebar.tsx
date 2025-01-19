@@ -17,12 +17,16 @@ import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 import { cn } from '@rabbit/design-system/lib/utils'
+import { Separator } from '@rabbit/design-system/components/ui/separator'
 
 export default function DashboardSidebar() {
   const { open } = useSidebar()
   return (
-    <Sidebar collapsible="icon" className="border-none">
-      <SidebarContent className={cn('py-2', open && 'px-4')}>
+    <Sidebar collapsible="icon" className="border-none border-t">
+      <div className="p-4 pt-2 hidden md:block">
+        <Separator />
+      </div>
+      <SidebarContent className={cn('py-2 md:py-0', open && 'px-4')}>
         <SidebarMenu>
           <SidebarGroupLabel className={cn(!open && 'hidden')}>
             Home

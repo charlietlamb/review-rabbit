@@ -1,9 +1,7 @@
 import { pgTable, timestamp, text } from 'drizzle-orm/pg-core'
 import { users } from '../auth/users'
 import { relations } from 'drizzle-orm'
-import { createSelectSchema } from 'drizzle-zod'
 import { sql } from 'drizzle-orm'
-import { z } from 'zod'
 import { businesses } from './businesses'
 
 export const locations = pgTable('locations', {
@@ -34,22 +32,3 @@ export const locationsRelations = relations(locations, ({ one }) => ({
     references: [businesses.id],
   }),
 }))
-
-export const locationSelectSchema = createSelectSchema(locations)
-
-export type Location = z.infer<typeof locationSelectSchema>
-
-export const locationFormSchema = locationSelectSchema.pick({
-  name: true,
-  url: true,
-  phone: true,
-  image: true,
-})
-
-export type LocationForm = z.infer<typeof locationFormSchema>
-
-export const locationFormWithIdSchema = locationFormSchema.extend({
-  id: z.string(),
-})
-
-export type LocationFormWithId = z.infer<typeof locationFormWithIdSchema>

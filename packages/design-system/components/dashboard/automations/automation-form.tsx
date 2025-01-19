@@ -16,17 +16,17 @@ import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
-import { Client } from '@rabbit/database/schema/app/clients'
+import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationForm({
   onSuccess,
   selectedClientsInitial = [],
 }: {
   onSuccess?: () => void
-  selectedClientsInitial?: Client[]
+  selectedClientsInitial?: ClientWithReviewMatches[]
 }) {
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
-  const businessId = useAtomValue(selectedBusinessAtom)
+  const business = useAtomValue(selectedBusinessAtom)
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null)
   const [date, setDate] = useState<Date | null>(null)
   const [title, setTitle] = useState<string>('')
@@ -58,7 +58,7 @@ export default function AutomationForm({
       })
       return false
     }
-    if (!businessId) {
+    if (!business) {
       toast.error('You must select a business', {
         description: 'You can do this in the header.',
       })
@@ -75,7 +75,7 @@ export default function AutomationForm({
     })
     const { status } = await createAutomation({
       title,
-      businessId: businessId!,
+      businessId: business!.id,
       clientIds: selectedClients.map((client) => client.id),
       workflowId: selectedWorkflow!,
     })

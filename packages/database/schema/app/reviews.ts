@@ -2,9 +2,13 @@ import { relations, sql } from 'drizzle-orm'
 import { pgTable, text, timestamp, integer } from 'drizzle-orm/pg-core'
 import { createSelectSchema, createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
-import { businesses, businessSelectSchema } from './businesses'
+import { businesses } from './businesses'
 import { users } from '../auth/users'
-import { locations, locationSelectSchema } from './locations'
+import { locations } from './locations'
+import {
+  businessSelectSchema,
+  locationSelectSchema,
+} from '../../types/business-location-types'
 
 export const reviews = pgTable('reviews', {
   id: text('id')

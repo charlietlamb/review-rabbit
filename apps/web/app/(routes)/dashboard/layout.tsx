@@ -7,7 +7,6 @@ import useIsUser from '@rabbit/design-system/hooks/use-is-user'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
 import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
-import configureCors from '@rabbit/hono/lib/configure-cors'
 
 export default async function layout({
   children,

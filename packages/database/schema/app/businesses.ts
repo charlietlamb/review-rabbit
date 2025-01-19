@@ -1,9 +1,8 @@
 import { pgTable, timestamp, text } from 'drizzle-orm/pg-core'
 import { users } from '../auth/users'
 import { relations } from 'drizzle-orm'
-import { createSelectSchema } from 'drizzle-zod'
 import { sql } from 'drizzle-orm'
-import { z } from 'zod'
+import { locations } from './locations'
 
 export const businesses = pgTable('businesses', {
   id: text('id')
@@ -21,29 +20,10 @@ export const businesses = pgTable('businesses', {
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
-export const businessesRelations = relations(businesses, ({ one }) => ({
+export const businessesRelations = relations(businesses, ({ one, many }) => ({
   user: one(users, {
     fields: [businesses.userId],
     references: [users.id],
   }),
+  locations: many(locations),
 }))
-
-export const businessSelectSchema = createSelectSchema(businesses)
-
-export type Business = z.infer<typeof businessSelectSchema>
-
-export const businessFormSchema = businessSelectSchema.pick({
-  name: true,
-  email: true,
-  url: true,
-  phone: true,
-  image: true,
-})
-
-export type BusinessForm = z.infer<typeof businessFormSchema>
-
-export const businessFormWithIdSchema = businessFormSchema.extend({
-  id: z.string(),
-})
-
-export type BusinessFormWithId = z.infer<typeof businessFormWithIdSchema>

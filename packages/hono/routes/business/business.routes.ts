@@ -1,7 +1,8 @@
 import {
   businessFormSchema,
   businessFormWithIdSchema,
-} from '@rabbit/database/schema/app/businesses'
+  businessWithLocationsSchema,
+} from '@rabbit/database/types/business-location-types'
 import { createRoute, z } from '@hono/zod-openapi'
 import { HttpStatusCodes } from '@rabbit/http'
 import { jsonContent } from 'stoker/openapi/helpers'
@@ -10,7 +11,7 @@ import {
   idRequestSchema,
   paginationRequestSchema,
 } from '@rabbit/hono/types/request'
-import { businessSelectSchema } from '@rabbit/database/schema/app/businesses'
+
 const tags = ['Businesses']
 
 export const create = createRoute({
@@ -50,7 +51,7 @@ export const get = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.array(businessSelectSchema),
+      z.array(businessWithLocationsSchema),
       'Businesses retrieved.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
@@ -75,7 +76,7 @@ export const getById = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      businessSelectSchema,
+      businessWithLocationsSchema,
       'Business retrieved.'
     ),
     [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(

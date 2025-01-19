@@ -5,7 +5,7 @@ import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { businesses } from './businesses'
 import { automationItems } from './automation-items'
-import { businessSelectSchema } from './businesses'
+import { businessSelectSchema } from '../../types/business-location-types'
 import { automationItem } from '@rabbit/database/types/automation-types'
 
 export const clicks = pgTable('clicks', {

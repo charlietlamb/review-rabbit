@@ -5,12 +5,15 @@ import {
   Review,
 } from '@rabbit/database'
 import { addDays, startOfDay, endOfDay } from 'date-fns'
-import { atom } from 'jotai'
+import { atom, Getter } from 'jotai'
 import { DateRange } from 'react-day-picker'
+import { selectedBusinessAtom } from '../business/business-atoms'
+import { atomWithQuery } from 'jotai-tanstack-query'
+import { getClientsByDateRange } from '@rabbit/design-system/actions/clients/get-clients-by-date-range'
 
 export const overviewDateRange = atom<DateRange | undefined>({
-  from: addDays(new Date(), -30),
-  to: new Date(),
+  from: startOfDay(addDays(new Date(), -30)),
+  to: endOfDay(new Date()),
 })
 
 export const overviewCompareDateRange = atom<DateRange | undefined>((get) => {
@@ -28,11 +31,27 @@ export const overviewCompareDateRange = atom<DateRange | undefined>((get) => {
 })
 
 // Clients
-export const overviewClientsAtom = atom<ClientWithReviewMatches[]>([])
+export const overviewClientsAtom = atomWithQuery<ClientWithReviewMatches[]>(
+  (get: Getter) => ({
+    queryKey: [
+      'overview-clients',
+      get(selectedBusinessAtom),
+      get(overviewDateRange),
+    ],
+    queryFn: async () => {
+      const business = get(selectedBusinessAtom)
+      const dateRange = get(overviewDateRange)
+      if (!business || !dateRange) return []
+      if (!dateRange.from || !dateRange.to) return []
+      const clients = await getClientsByDateRange(dateRange.from, dateRange.to)
+      return clients
+    },
+  })
+)
 export const overviewClientsPrevAtom = atom<ClientWithReviewMatches[]>([])
 
 export const overviewClientsQuantityAtom = atom<number>(
-  (get) => get(overviewClientsAtom).length
+  (get) => get(overviewClientsAtom).data?.length ?? 0
 )
 export const overviewClientsQuantityPrevAtom = atom<number>(
   (get) => get(overviewClientsPrevAtom).length

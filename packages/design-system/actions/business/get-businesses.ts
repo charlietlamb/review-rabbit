@@ -1,11 +1,13 @@
 'use server'
 
-import { Business } from '@rabbit/database/schema/app/businesses'
+import { BusinessWithLocations } from '@rabbit/database/types/business-location-types'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 import { PAGE_SIZE } from '@rabbit/design-system/data/page-size'
 
-export async function getBusinesses(page: number): Promise<Business[]> {
+export async function getBusinesses(
+  page: number
+): Promise<BusinessWithLocations[]> {
   const response = await client.business.get.$post(
     {
       json: { offset: page * PAGE_SIZE, limit: PAGE_SIZE },

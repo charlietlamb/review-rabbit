@@ -47,6 +47,9 @@ export const get: AppRouteHandler<GetBusinessRoute> = async (c) => {
       where: eq(businesses.userId, user.id),
       offset,
       limit,
+      with: {
+        locations: true,
+      },
     })
     return c.json(businessesFromDatabase, HttpStatusCodes.OK)
   } catch (error) {
@@ -66,6 +69,9 @@ export const getById: AppRouteHandler<GetBusinessByIdRoute> = async (c) => {
   try {
     const businessFromDatabase = await db.query.businesses.findFirst({
       where: and(eq(businesses.id, id), eq(businesses.userId, user.id)),
+      with: {
+        locations: true,
+      },
     })
     return c.json(businessFromDatabase, HttpStatusCodes.OK)
   } catch (error) {

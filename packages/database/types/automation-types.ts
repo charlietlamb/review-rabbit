@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { createSelectSchema } from 'drizzle-zod'
 import { automations } from '../schema/app/automations'
 import { automationItems } from '../schema/app/automation-items'
-import { businessSelectSchema } from '../schema/app/businesses'
+import { businessSelectSchema } from './business-location-types'
 import { clientSchema } from '../schema/app/clients'
 import { workflowItem } from '../types/workflow-types'
 

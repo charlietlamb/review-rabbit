@@ -20,17 +20,17 @@ import { getBusinesses } from '@rabbit/design-system/actions/business/get-busine
 import BusinessAvatar from '../../business/business-avatar'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { useAtom } from 'jotai'
-import { selectedBusinessAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
+import { selectedBusinessAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atoms'
 import { Plus, ChevronDown, Home } from 'lucide-react'
 import BusinessFormDialog from '../../business/business-form-dialog'
 import { Skeleton } from '@rabbit/design-system/components/ui/skeleton'
-import { Business } from '@rabbit/database/schema/app/businesses'
+import { BusinessWithLocations } from '@rabbit/database/types/business-location-types'
 
 export default function DashboardSidebarHeader() {
   const { open } = useSidebar()
   const [selectedBusiness, setSelectedBusiness] = useAtom(selectedBusinessAtom)
 
-  const { data: businesses, isLoading } = useQuery<Business[]>({
+  const { data: businesses, isLoading } = useQuery<BusinessWithLocations[]>({
     queryKey: QUERY_KEYS.BUSINESS,
     queryFn: async () => {
       const result = await getBusinesses(0)
@@ -51,7 +51,7 @@ export default function DashboardSidebarHeader() {
     )
   }
 
-  const currentBusiness = businesses?.find((b) => b.id === selectedBusiness)
+  const currentBusiness = businesses?.find((b) => b.id === selectedBusiness?.id)
 
   return (
     <SidebarHeader
@@ -61,7 +61,13 @@ export default function DashboardSidebarHeader() {
       )}
     >
       {open ? (
-        <Select value={selectedBusiness} onValueChange={setSelectedBusiness}>
+        <Select
+          value={selectedBusiness?.id}
+          onValueChange={(value) => {
+            const business = businesses?.find((b) => b.id === value)
+            if (business) setSelectedBusiness(business)
+          }}
+        >
           <SelectTrigger
             className={cn(
               'w-full h-full border-0 rounded-none bg-gradient-to-l from-background via-background to-primary/5',

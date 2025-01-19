@@ -17,7 +17,6 @@ import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 import { cn } from '@rabbit/design-system/lib/utils'
-import { Separator } from '@rabbit/design-system/components/ui/separator'
 
 export default function DashboardSidebar() {
   const { open } = useSidebar()

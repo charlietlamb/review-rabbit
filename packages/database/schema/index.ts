@@ -14,9 +14,4 @@ export * from './app/workflows'
 export * from './app/workflow-items'
 export * from './app/review-matches'
 export * from './app/reviews'
-
-// Stripe
-export * from './stripe/events'
-export * from './stripe/payments'
-export * from './stripe/subscriptions'
-export * from './stripe/customers'
+export * from './app/locations'

@@ -4,46 +4,52 @@ import { relations } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-zod'
 import { sql } from 'drizzle-orm'
 import { z } from 'zod'
+import { businesses } from './businesses'
 
-export const businesses = pgTable('businesses', {
+export const locations = pgTable('locations', {
   id: text('id')
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   userId: text('user_id')
     .references(() => users.id)
     .notNull(),
+  businessId: text('business_id')
+    .references(() => businesses.id)
+    .notNull(),
   name: text('name').notNull(),
   image: text('image'),
-  email: text('email').notNull(),
   url: text('url').notNull(),
   phone: text('phone'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
 
-export const businessesRelations = relations(businesses, ({ one }) => ({
+export const locationsRelations = relations(locations, ({ one }) => ({
   user: one(users, {
-    fields: [businesses.userId],
+    fields: [locations.userId],
     references: [users.id],
+  }),
+  business: one(businesses, {
+    fields: [locations.businessId],
+    references: [businesses.id],
   }),
 }))
 
-export const businessSelectSchema = createSelectSchema(businesses)
+export const locationSelectSchema = createSelectSchema(locations)
 
-export type Business = z.infer<typeof businessSelectSchema>
+export type Location = z.infer<typeof locationSelectSchema>
 
-export const businessFormSchema = businessSelectSchema.pick({
+export const locationFormSchema = locationSelectSchema.pick({
   name: true,
-  email: true,
   url: true,
   phone: true,
   image: true,
 })
 
-export type BusinessForm = z.infer<typeof businessFormSchema>
+export type LocationForm = z.infer<typeof locationFormSchema>
 
-export const businessFormWithIdSchema = businessFormSchema.extend({
+export const locationFormWithIdSchema = locationFormSchema.extend({
   id: z.string(),
 })
 
-export type BusinessFormWithId = z.infer<typeof businessFormWithIdSchema>
+export type LocationFormWithId = z.infer<typeof locationFormWithIdSchema>

@@ -14,16 +14,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@rabbit/design-system/components/ui/sidebar'
 import useUser from '@rabbit/design-system/hooks/use-user'
 import { ChevronsUpDown } from 'lucide-react'
 import DashboardSidebarFooterMenu from './dashboard-sidebar-footer-menu'
-
+import { cn } from '@rabbit/design-system/lib/utils'
 export default function DashboardSidebarFooter() {
   const user = useUser()
+  const { open } = useSidebar()
   if (!user) return null
   return (
-    <SidebarFooter className="border-t bg-gradient-to-b from-background via-background to-muted/20 h-16">
+    <SidebarFooter
+      className={cn(
+        'border-t bg-gradient-to-b from-background via-background to-muted/20 h-16',
+        !open && 'h-auto'
+      )}
+    >
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>

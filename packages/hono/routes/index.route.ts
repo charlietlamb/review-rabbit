@@ -19,7 +19,7 @@ const router = createRouter().openapi(
     },
   }),
   (c) => {
-    return c.json({ message: 'ff API index!' }, HttpStatusCodes.OK)
+    return c.json({ message: 'Review Rabbit API index!' }, HttpStatusCodes.OK)
   }
 )
 

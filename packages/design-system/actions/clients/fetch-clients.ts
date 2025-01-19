@@ -1,6 +1,6 @@
 'use server'
 
-import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
+import { ClientWithData } from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { PAGE_SIZE } from '@rabbit/design-system/data/page-size'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
@@ -8,7 +8,7 @@ import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookie
 export async function fetchClients(
   page: number,
   search?: string
-): Promise<ClientWithReviewMatches[]> {
+): Promise<ClientWithData[]> {
   const response = await client.clients.$post(
     {
       json: {

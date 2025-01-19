@@ -1,13 +1,13 @@
 'use server'
 
-import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
+import { ClientWithData } from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
 
 export async function getClientsByDateRange(
   from: Date,
   to: Date
-): Promise<ClientWithReviewMatches[]> {
+): Promise<ClientWithData[]> {
   const response = await client.clients['get-by-date-range'].$post(
     {
       json: {

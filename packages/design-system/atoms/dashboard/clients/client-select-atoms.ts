@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
+import { ClientWithData } from '@rabbit/database/schema/app/clients'
 
-export const clientsSelectAtom = atom<ClientWithReviewMatches[]>([])
+export const clientsSelectAtom = atom<ClientWithData[]>([])
 export const clientsSelectSearchAtom = atom<string>('')

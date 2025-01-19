@@ -1,9 +1,4 @@
-import {
-  Automation,
-  Click,
-  ClientWithReviewMatches,
-  Review,
-} from '@rabbit/database'
+import { Automation, Click, ClientWithData, Review } from '@rabbit/database'
 import { addDays, startOfDay, endOfDay } from 'date-fns'
 import { atom, Getter } from 'jotai'
 import { DateRange } from 'react-day-picker'
@@ -31,7 +26,7 @@ export const overviewCompareDateRange = atom<DateRange | undefined>((get) => {
 })
 
 // Clients
-export const overviewClientsAtom = atomWithQuery<ClientWithReviewMatches[]>(
+export const overviewClientsAtom = atomWithQuery<ClientWithData[]>(
   (get: Getter) => ({
     queryKey: [
       'overview-clients',
@@ -48,7 +43,7 @@ export const overviewClientsAtom = atomWithQuery<ClientWithReviewMatches[]>(
     },
   })
 )
-export const overviewClientsPrevAtom = atom<ClientWithReviewMatches[]>([])
+export const overviewClientsPrevAtom = atom<ClientWithData[]>([])
 
 export const overviewClientsQuantityAtom = atom<number>(
   (get) => get(overviewClientsAtom).data?.length ?? 0

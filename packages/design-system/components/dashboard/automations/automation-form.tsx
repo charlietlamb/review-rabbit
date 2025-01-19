@@ -16,14 +16,14 @@ import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
-import { ClientWithReviewMatches } from '@rabbit/database/schema/app/clients'
+import { ClientWithData } from '@rabbit/database/schema/app/clients'
 
 export default function AutomationForm({
   onSuccess,
   selectedClientsInitial = [],
 }: {
   onSuccess?: () => void
-  selectedClientsInitial?: ClientWithReviewMatches[]
+  selectedClientsInitial?: ClientWithData[]
 }) {
   const [selectedClients, setSelectedClients] = useAtom(selectedClientsAtom)
   const business = useAtomValue(selectedBusinessAtom)

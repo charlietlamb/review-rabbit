@@ -1,4 +1,4 @@
-import { ClientWithReviewMatches } from '@rabbit/database'
+import { ClientWithData } from '@rabbit/database'
 import { Check, ChevronDown } from 'lucide-react'
 import { cn } from '@rabbit/design-system/lib/utils'
 import { Button } from '@rabbit/design-system/components/ui/button'
@@ -35,8 +35,8 @@ export default function ClientSelect({
   required = true,
   className,
 }: {
-  selectedClient: ClientWithReviewMatches | null
-  setSelectedClient: (client: ClientWithReviewMatches | null) => void
+  selectedClient: ClientWithData | null
+  setSelectedClient: (client: ClientWithData | null) => void
   required?: boolean
   className?: string
 }) {

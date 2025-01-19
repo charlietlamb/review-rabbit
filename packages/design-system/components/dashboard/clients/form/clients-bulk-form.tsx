@@ -15,13 +15,13 @@ import { addBulkClients } from '@rabbit/design-system/actions/clients/bulk-add-c
 import { HttpStatusCodes } from '@rabbit/http'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+import { useBusiness } from '@rabbit/design-system/hooks/app/use-business'
+import { useLocation } from '@rabbit/design-system/hooks/app/use-location'
 
 export default function ClientsBulkForm({
   onSuccess,
-  className,
 }: {
   onSuccess?: () => void
-  className?: string
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
@@ -33,6 +33,8 @@ export default function ClientsBulkForm({
   const [lastNameHeader, setLastNameHeader] = useState<string | undefined>()
   const [twoNames, setTwoNames] = useState<boolean>(false)
   const queryClient = useQueryClient()
+  const business = useBusiness()
+  const location = useLocation()
 
   useEffect(() => {
     if (!clientBulkHeaders) return
@@ -65,6 +67,12 @@ export default function ClientsBulkForm({
   }, [clientBulkHeaders])
 
   function validateForm() {
+    if (!business) {
+      toast.error('No business selected.', {
+        description: 'Please select a business to continue.',
+      })
+      return false
+    }
     if (!nameHeader) {
       toast.error('Name column header is required')
       return false
@@ -98,7 +106,11 @@ export default function ClientsBulkForm({
         phoneHeader!,
         twoNames
       )
-      const status = await addBulkClients(bulkClientData)
+      const status = await addBulkClients(
+        bulkClientData,
+        business!.id,
+        location?.id
+      )
       if (status === HttpStatusCodes.OK) {
         toast.success('Clients added', {
           description: 'You can run some automations on these clients.',

@@ -21,8 +21,7 @@ export const clients = pgTable('clients', {
     .references(() => businesses.id)
     .notNull(),
   locationId: text('location_id')
-    .references(() => locations.id)
-    .notNull(),
+    .references(() => locations.id),
   name: text('name').notNull(),
   email: text('email').notNull(),
   color: text('color').notNull(),

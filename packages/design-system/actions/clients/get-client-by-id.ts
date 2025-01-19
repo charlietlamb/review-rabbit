@@ -3,6 +3,7 @@
 import { ClientWithData } from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
+import { transformClient } from '@rabbit/design-system/lib/transforms/client-transform'
 
 export async function getClientById(id: string): Promise<ClientWithData> {
   const response = await client.clients['get-by-id'].$post(
@@ -18,14 +19,5 @@ export async function getClientById(id: string): Promise<ClientWithData> {
   }
   const clientResponse = await response.json()
 
-  return {
-    ...clientResponse,
-    createdAt: new Date(clientResponse.createdAt),
-    updatedAt: new Date(clientResponse.updatedAt),
-    reviewMatches: clientResponse.reviewMatches.map((match) => ({
-      ...match,
-      createdAt: new Date(match.createdAt),
-      updatedAt: new Date(match.updatedAt),
-    })),
-  }
+  return transformClient(clientResponse)
 }

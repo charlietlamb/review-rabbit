@@ -20,6 +20,8 @@ import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
 import ColorPicker from '@rabbit/design-system/components/form/color/color-picker'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
+import { useBusiness } from '@rabbit/design-system/hooks/app/use-business'
+import { useLocation } from '@rabbit/design-system/hooks/app/use-location'
 
 export default function ClientsForm({
   client,
@@ -37,6 +39,8 @@ export default function ClientsForm({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState<boolean>(false)
+  const business = useBusiness()
+  const location = useLocation()
   const router = useRouter()
   const queryClient = useQueryClient()
   const form = useForm({
@@ -49,9 +53,14 @@ export default function ClientsForm({
     onSubmit: async ({ value }) => {
       setIsLoading(true)
       setAttemptSubmitted(true)
+      if (!business) {
+        return toast.error('No business selected.', {
+          description: 'Please select a business to continue.',
+        })
+      }
       const success = client
-        ? await updateClient(value, client.id)
-        : await addClient(value)
+        ? await updateClient(value, client.id, business.id, location?.id)
+        : await addClient(value, business.id, location?.id)
       if (!success) {
         toast.error('Something went wrong.', {
           description: 'Please try again later.',

@@ -94,7 +94,7 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const newClient = await c.req.json()
+  const { businessId, locationId, ...newClient } = await c.req.json()
   const reviewData = await db.query.reviews.findMany({
     where: eq(reviews.userId, user.id),
   })
@@ -117,7 +117,12 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
       })
   }
   try {
-    await db.insert(clients).values({ ...newClient, userId: user.id })
+    await db.insert(clients).values({
+      ...newClient,
+      userId: user.id,
+      businessId,
+      locationId,
+    })
     return c.json(true, HttpStatusCodes.OK)
   } catch (error) {
     console.error('Error adding client:', error)
@@ -136,7 +141,7 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
 
   try {
     const data = await c.req.valid('json')
-    const { id, ...clientData } = data
+    const { id, businessId, locationId, ...clientData } = data
 
     const reviewData = await db.query.reviews.findMany({
       where: eq(reviews.userId, user.id),
@@ -162,7 +167,7 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
 
     await db
       .update(clients)
-      .set(clientData)
+      .set({ ...clientData, businessId, locationId })
       .where(and(eq(clients.id, id), eq(clients.userId, user.id)))
 
     return c.json(true, HttpStatusCodes.OK)
@@ -220,13 +225,19 @@ export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-  const bulkClientData = await c.req.json()
+  const {
+    businessId,
+    locationId,
+    clients: bulkClientData,
+  } = await c.req.valid('json')
   try {
     const insertedClients = await db
       .insert(clients)
       .values(
         bulkClientData.map((client: ClientFormData) => ({
           ...client,
+          businessId,
+          locationId,
           userId: user.id,
         }))
       )

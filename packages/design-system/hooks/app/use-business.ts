@@ -5,4 +5,3 @@ export function useBusiness() {
   const business = useAtomValue(selectedBusinessAtom)
   return business
 }
-

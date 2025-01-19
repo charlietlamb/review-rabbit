@@ -5,10 +5,12 @@ import { ClientFormData } from '@rabbit/design-system/components/dashboard/clien
 import client from '@rabbit/design-system/lib/client'
 
 export async function addBulkClients(
-  bulkClientData: ClientFormData[]
+  bulkClientData: ClientFormData[],
+  businessId: string,
+  locationId?: string
 ): Promise<number> {
   const response = await client.clients['add-bulk'].$post(
-    { json: bulkClientData },
+    { json: { clients: bulkClientData, businessId, locationId } },
     await headersWithCookies()
   )
   if (!response.ok) {

@@ -46,6 +46,8 @@ CREATE TABLE IF NOT EXISTS "clicks" (
 CREATE TABLE IF NOT EXISTS "clients" (
 	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" text NOT NULL,
+	"business_id" text NOT NULL,
+	"location_id" text,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
 	"color" text NOT NULL,
@@ -219,6 +221,18 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "clicks" ADD CONSTRAINT "clicks_automation_item_id_automation_items_id_fk" FOREIGN KEY ("automation_item_id") REFERENCES "public"."automation_items"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "clients" ADD CONSTRAINT "clients_business_id_businesses_id_fk" FOREIGN KEY ("business_id") REFERENCES "public"."businesses"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "clients" ADD CONSTRAINT "clients_location_id_locations_id_fk" FOREIGN KEY ("location_id") REFERENCES "public"."locations"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

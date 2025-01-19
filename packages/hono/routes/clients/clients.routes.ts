@@ -92,7 +92,10 @@ export const addClient = createRoute({
       description: 'Client data',
       content: {
         'application/json': {
-          schema: clientValidationSchema,
+          schema: clientValidationSchema.extend({
+            businessId: z.string(),
+            locationId: z.string().optional(),
+          }),
         },
       },
     },
@@ -123,6 +126,8 @@ export const updateClient = createRoute({
         'application/json': {
           schema: clientValidationSchema.extend({
             id: z.string(),
+            businessId: z.string(),
+            locationId: z.string().optional(),
           }),
         },
       },
@@ -210,7 +215,11 @@ export const addBulkClients = createRoute({
       description: 'Client data',
       content: {
         'application/json': {
-          schema: z.array(clientValidationSchema),
+          schema: z.object({
+            clients: z.array(clientValidationSchema),
+            businessId: z.string(),
+            locationId: z.string().optional(),
+          }),
         },
       },
     },

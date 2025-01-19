@@ -4,6 +4,7 @@ import { ClientWithData } from '@rabbit/database/schema/app/clients'
 import client from '@rabbit/design-system/lib/client'
 import { PAGE_SIZE } from '@rabbit/design-system/data/page-size'
 import { headersWithCookies } from '@rabbit/design-system/lib/header-with-cookies'
+import { transformClient } from '@rabbit/design-system/lib/transforms/client-transform'
 
 export async function fetchClients(
   page: number,
@@ -24,14 +25,5 @@ export async function fetchClients(
   }
   const clientsResults = await response.json()
 
-  return clientsResults.map((client) => ({
-    ...client,
-    createdAt: new Date(client.createdAt),
-    updatedAt: new Date(client.updatedAt),
-    reviewMatches: client.reviewMatches.map((match) => ({
-      ...match,
-      createdAt: new Date(match.createdAt),
-      updatedAt: new Date(match.updatedAt),
-    })),
-  }))
+  return clientsResults.map((client) => transformClient(client))
 }

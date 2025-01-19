@@ -2,7 +2,6 @@ import { HttpStatusCodes } from '@rabbit/http'
 import {
   db,
   workflows,
-  workflowItems,
   automations,
   automationItems,
   clients,
@@ -324,6 +323,8 @@ export const triggerDemoAutomation: AppRouteHandler<
           {
             client: {
               name: 'Demo User',
+              businessId: '1',
+              locationId: '1',
               email,
               id: '1',
               createdAt: new Date(),

@@ -6,10 +6,12 @@ import client from '@rabbit/design-system/lib/client'
 
 export async function updateClient(
   newClient: ClientFormData,
-  id: string
+  id: string,
+  businessId: string,
+  locationId?: string
 ): Promise<boolean> {
   const response = await client.clients.update.$post(
-    { json: { ...newClient, id } },
+    { json: { ...newClient, id, businessId, locationId } },
     await headersWithCookies()
   )
   if (!response.ok) {

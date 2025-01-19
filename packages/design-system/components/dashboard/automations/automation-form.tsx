@@ -10,7 +10,7 @@ import { selectedClientsAtom } from '@rabbit/design-system/atoms/dashboard/clien
 import RequiredLabel from '@rabbit/design-system/components/misc/required-label'
 import DangerDialog from '@rabbit/design-system/components/misc/danger-dialog'
 import { createAutomation } from '@rabbit/design-system/actions/automations/create-automation'
-import { selectedBusinessAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
+import { selectedBusinessAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atoms'
 import InputWithIconState from '@rabbit/design-system/components/form/input/input-with-icon-state'
 import { Type } from 'lucide-react'
 import { HttpStatusCodes } from '@rabbit/http'

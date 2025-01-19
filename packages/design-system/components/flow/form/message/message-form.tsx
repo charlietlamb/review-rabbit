@@ -181,9 +181,15 @@ export default function MessageForm({
         textAreaClassName="min-h-60"
       />
       <div className="flex items-center gap-4">
-        <Button variant="destructive" className="w-full" onClick={handleDelete}>
-          Delete Message
-        </Button>
+        {node && (
+          <Button
+            variant="destructive"
+            className="w-full"
+            onClick={handleDelete}
+          >
+            Delete Message
+          </Button>
+        )}
         <Button variant="shine" className="w-full" onClick={handleSubmit}>
           {isCreateMode ? 'Add Message' : 'Update Message'}
         </Button>

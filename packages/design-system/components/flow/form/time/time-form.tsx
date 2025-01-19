@@ -177,9 +177,15 @@ export default function TimeForm({
         required
       />
       <div className="flex items-center gap-4">
-        <Button variant="destructive" className="w-full" onClick={handleDelete}>
-          Delete Time Delay
-        </Button>
+        {node && (
+          <Button
+            variant="destructive"
+            className="w-full"
+            onClick={handleDelete}
+          >
+            Delete Time Delay
+          </Button>
+        )}
         <Button variant="shine" className="w-full" onClick={handleSubmit}>
           {node ? 'Update Time Delay' : 'Add Time Delay'}
         </Button>

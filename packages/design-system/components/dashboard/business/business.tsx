@@ -4,7 +4,7 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import BusinessFormDialog from './business-form-dialog'
 import TableSearch from '../table/table-search'
 import { useAtom } from 'jotai'
-import { businessSearchAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
+import { businessSearchAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atoms'
 import BusinessTable from './business-table'
 import DashboardWrap from '@rabbit/design-system/components/dashboard/dashboard/dashboard-wrap'
 

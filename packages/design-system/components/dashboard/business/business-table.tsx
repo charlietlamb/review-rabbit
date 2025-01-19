@@ -21,9 +21,9 @@ import { Button } from '@rabbit/design-system/components/ui/button'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import { useRouter } from 'next/navigation'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
-import { businessSearchAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
-import { businessesAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atom'
-import { Business } from '@rabbit/database/schema/app/businesses'
+import { businessSearchAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atoms'
+import { businessesAtom } from '@rabbit/design-system/atoms/dashboard/business/business-atoms'
+import { BusinessWithLocations } from '@rabbit/database/types/business-location-types'
 import BusinessTableDropdown from './business-table-dropdown'
 import BusinessAvatar from './business-avatar'
 import { getBusinesses } from '@rabbit/design-system/actions/business/get-businesses'
@@ -54,7 +54,7 @@ export default function BusinessTable() {
     )
   }
 
-  const columns: ColumnDef<Business>[] = [
+  const columns: ColumnDef<BusinessWithLocations>[] = [
     {
       accessorKey: 'details',
       header: ({ column }) => (
@@ -133,7 +133,7 @@ export default function BusinessTable() {
                   className="cursor-pointer"
                   onClick={() => {
                     router.push(
-                      `/dashboard/business/${(row.original as Business).id}`
+                      `/dashboard/business/${(row.original as BusinessWithLocations).id}`
                     )
                   }}
                 >

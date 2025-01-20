@@ -31,6 +31,31 @@ function syncEnvFiles() {
       console.error(`❌ Failed to sync .env to ${dir}:`, error)
     }
   })
+
+  // Write .env to .dev.vars files
+  const devVarsTargets = [
+    {
+      path: join(rootDir, 'apps/worker-api/.dev.vars'),
+      name: 'apps/worker-api',
+    },
+  ]
+
+  devVarsTargets.forEach(({ path, name }) => {
+    const dir = dirname(path)
+
+    // Ensure directory exists
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true })
+    }
+
+    // Copy .env as .dev.vars
+    try {
+      copyFileSync(sourceEnvPath, path)
+      console.log(`✅ Synced .env to ${name}/.dev.vars`)
+    } catch (error) {
+      console.error(`❌ Failed to sync .env to ${name}/.dev.vars:`, error)
+    }
+  })
 }
 
 syncEnvFiles()

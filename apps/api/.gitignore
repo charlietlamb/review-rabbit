@@ -1,7 +1,0 @@
-# deps
-node_modules/
-.env
-.env.local
-
-.trigger
-.vercel

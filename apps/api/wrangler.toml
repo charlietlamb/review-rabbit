@@ -1,0 +1,30 @@
+name = "webhooks"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+BETTER_AUTH_BASE_PATH = "/api/auth"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+# The following secrets should be set using `wrangler secret put`:
+# - DATABASE_URL
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY
+# - AWS_REGION
+# - AWS_S3_BUCKET_NAME
+# - BETTER_AUTH_SECRET
+# - STRIPE_SECRET_KEY
+# - STRIPE_TEST_SECRET_KEY
+# - STRIPE_WEBHOOK_SECRET
+# - STRIPE_CLIENT_ID
+# - GOOGLE_CLIENT_SECRET
+# - RESEND_API_KEY
+# - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+# - NEXT_PUBLIC_POSTHOG_KEY
+# - NEXT_PUBLIC_GOOGLE_CLIENT_ID

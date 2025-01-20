@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { env } from '@rabbit/env'
-import { getAuthClient } from '@rabbit/design-system/lib/auth-client'
+import { authClient } from '@rabbit/design-system/lib/auth-client'
 
 export default function OneTapProvider({
   children,
@@ -10,7 +10,6 @@ export default function OneTapProvider({
   children: React.ReactNode
 }) {
   if (env.NEXT_PUBLIC_DOMAIN === 'localhost') return <>{children}</>
-  const authClient = getAuthClient(env)
   const router = useRouter()
   const session = authClient.useSession()
   if (!session.data && !session.isPending) {

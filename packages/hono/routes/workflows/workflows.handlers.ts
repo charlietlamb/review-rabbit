@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@rabbit/http'
-import { db, workflows, workflowItems } from '@rabbit/database'
+import { getDb, workflows, workflowItems } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetWorkflowsRoute,
@@ -17,6 +17,7 @@ export const getWorkflows: AppRouteHandler<GetWorkflowsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { offset, limit, search } = await c.req.json()
 
   try {
@@ -49,6 +50,7 @@ export const getWorkflowById: AppRouteHandler<GetWorkflowByIdRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.json()
   try {
     const workflow = await db.query.workflows.findFirst({
@@ -79,7 +81,7 @@ export const createWorkflow: AppRouteHandler<CreateWorkflowRoute> = async (
   }
   const { items, ...workflowData } = await c.req.valid('json')
   const workflowId = uuidv4()
-
+  const db = getDb(c.env)
   try {
     await db.transaction(async (tx) => {
       await tx.insert(workflows).values({
@@ -127,7 +129,7 @@ export const updateWorkflow: AppRouteHandler<UpdateWorkflowRoute> = async (
   try {
     const data = await c.req.valid('json')
     const { id, items, ...workflowData } = data as WorkflowForm & { id: string }
-
+    const db = getDb(c.env)
     await db.transaction(async (tx) => {
       // Update workflow with correct title field and updatedAt
       await tx
@@ -235,6 +237,7 @@ export const deleteWorkflow: AppRouteHandler<DeleteWorkflowRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.json()
   try {
     await db

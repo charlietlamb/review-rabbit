@@ -1,6 +1,6 @@
 import { HttpStatusCodes } from '@rabbit/http'
 import {
-  db,
+  getDb,
   workflows,
   automations,
   automationItems,
@@ -24,7 +24,6 @@ import { eq, sql, and, or, gte, lte, inArray, between } from 'drizzle-orm'
 import type { WorkflowWithItems } from '@rabbit/database/types/workflow-types'
 import { v4 as uuidv4 } from 'uuid'
 import { triggerWorkflow } from '@rabbit/trigger'
-import { getEnv } from '@rabbit/env'
 
 export const getAutomations: AppRouteHandler<GetAutomationsRoute> = async (
   c
@@ -34,7 +33,7 @@ export const getAutomations: AppRouteHandler<GetAutomationsRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const { offset, limit, search } = await c.req.json()
-
+  const db = getDb(c.env)
   try {
     const results = await db.query.automations.findMany({
       where: and(
@@ -68,6 +67,7 @@ export const getAutomationById: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.json()
   try {
     const automation = await db.query.automations.findFirst({
@@ -97,6 +97,7 @@ export const getAutomationItemsByDate: AppRouteHandler<
   GetAutomationItemsByDateRoute
 > = async (c) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
@@ -134,6 +135,7 @@ export const createAutomation: AppRouteHandler<CreateAutomationRoute> = async (
   c
 ) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
@@ -227,6 +229,7 @@ export const deleteAutomation: AppRouteHandler<DeleteAutomationRoute> = async (
   c
 ) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
@@ -249,6 +252,7 @@ export const deleteBulkAutomations: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { ids } = await c.req.json()
   try {
     await db.delete(automations).where(inArray(automations.id, ids))
@@ -265,6 +269,7 @@ export const updateAutomationItem: AppRouteHandler<
   UpdateAutomationItemRoute
 > = async (c) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
@@ -286,7 +291,8 @@ export const updateAutomationItemStatus: AppRouteHandler<
   UpdateAutomationItemStatusRoute
 > = async (c) => {
   const { id, status, secretKey } = await c.req.json()
-  if (secretKey !== getEnv().TRIGGER_SECRET_KEY) {
+  const db = getDb(c.env)
+  if (secretKey !== c.env.TRIGGER_SECRET_KEY) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   try {
@@ -356,6 +362,7 @@ export const getAutomationsByDateRange: AppRouteHandler<
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const { from, to } = await c.req.json()
+  const db = getDb(c.env)
   try {
     const automationData = await db.query.automations.findMany({
       where: and(

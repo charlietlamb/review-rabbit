@@ -10,9 +10,8 @@ import {
   GetUploadPresignedUrlRoute,
   UploadProfileImageRoute,
 } from '@rabbit/hono/routes/s3/s3.routes'
-import { getEnv } from '@rabbit/env'
 import { HttpStatusCodes } from '@rabbit/http'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { users } from '@rabbit/database/schema'
 import {
@@ -33,6 +32,7 @@ export const uploadProfileImage: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
 
   await db
     .update(users)
@@ -66,15 +66,15 @@ export const getPresignedUrl: AppRouteHandler<GetPresignedUrlRoute> = async (
   const body = await c.req.json()
   const key = body.key
   const client = new S3Client({
-    region: getEnv().AWS_REGION,
+    region: c.env.AWS_REGION,
     credentials: {
-      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
-      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
+      accessKeyId: c.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: c.env.AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: getEnv().AWS_S3_BUCKET_NAME,
+    Bucket: c.env.AWS_S3_BUCKET_NAME,
     Key: key,
   })
 
@@ -95,6 +95,7 @@ export const getProfileImagePresignedUrl: AppRouteHandler<
 > = async (c) => {
   // Verify user ID
   const userId = c.req.param('userId')
+  const db = getDb(c.env)
 
   // Get current user
   const user = await db.query.users.findFirst({
@@ -122,21 +123,22 @@ export const getUploadPresignedUrl: AppRouteHandler<
   GetUploadPresignedUrlRoute
 > = async (c) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const body = await c.req.json()
   const key = body.key
   const client = new S3Client({
-    region: getEnv().AWS_REGION,
+    region: c.env.AWS_REGION,
     credentials: {
-      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
-      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
+      accessKeyId: c.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: c.env.AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new PutObjectCommand({
-    Bucket: getEnv().AWS_S3_BUCKET_NAME,
+    Bucket: c.env.AWS_S3_BUCKET_NAME,
     Key: key,
   })
 

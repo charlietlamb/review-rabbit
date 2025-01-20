@@ -1,4 +1,5 @@
 import { migrate } from 'drizzle-orm/neon-http/migrator'
-import { db } from './postgres'
+import { getDb } from './postgres'
+import { env } from '@rabbit/env'
 
-migrate(db, { migrationsFolder: './migrations' }).then(async () => {})
+migrate(getDb(env), { migrationsFolder: './migrations' }).then(async () => {})

@@ -1,6 +1,6 @@
 import * as schema from '@rabbit/database/schema'
 import { Pool } from '@neondatabase/serverless'
-import { getEnv } from '@rabbit/env'
+import { type EnvType } from '@rabbit/env'
 import { drizzle } from 'drizzle-orm/neon-serverless'
 import { type NeonDatabase } from 'drizzle-orm/neon-serverless'
 
@@ -9,22 +9,20 @@ type Database = NeonDatabase<typeof schema>
 let pool: Pool | null = null
 let dbInstance: Database | null = null
 
-function getPool() {
+function getPool(env: EnvType) {
   if (!pool) {
-    pool = new Pool({ connectionString: getEnv().DATABASE_URL })
+    pool = new Pool({ connectionString: env.DATABASE_URL })
   }
   return pool
 }
 
-function getDrizzle(): Database {
+function getDrizzle(env: EnvType): Database {
   if (!dbInstance) {
-    dbInstance = drizzle(getPool(), { schema })
+    dbInstance = drizzle(getPool(env), { schema })
   }
   return dbInstance
 }
 
-export const db = new Proxy({} as Database, {
-  get: (_target, prop: keyof Database) => {
-    return getDrizzle()[prop]
-  },
-})
+export function getDb(env: EnvType): Database {
+  return getDrizzle(env)
+}

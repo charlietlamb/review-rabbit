@@ -12,7 +12,7 @@ import {
   reviews,
   ReviewWithData,
 } from '@rabbit/database/schema'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { transformReview } from '@rabbit/design-system/lib/transforms/review-transform'
 
 export const review: AppRouteHandler<ReviewRoute> = async (c) => {
@@ -27,7 +27,7 @@ export const review: AppRouteHandler<ReviewRoute> = async (c) => {
   if (!method) {
     return c.json({ error: 'Method is required' }, HttpStatusCodes.BAD_REQUEST)
   }
-
+  const db = getDb(c.env)
   const business = await db.query.businesses.findFirst({
     where: eq(businesses.id, businessId),
   })
@@ -49,6 +49,7 @@ export const getReviews: AppRouteHandler<GetReviewsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { offset, limit, locationId, businessId } = await c.req.valid('json')
 
   try {
@@ -83,6 +84,7 @@ export const getReviewsByDateRange: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { from, to, businessId, locationId } = await c.req.valid('json')
   try {
     const reviewData = await db.query.reviews.findMany({

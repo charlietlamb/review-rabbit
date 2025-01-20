@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@rabbit/http'
-import { db, reviewMatches, reviews } from '@rabbit/database'
+import { getDb, reviewMatches, reviews } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import {
   GetClientsRoute,
@@ -32,6 +32,7 @@ export const getClients: AppRouteHandler<GetClientsRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { offset, limit, search, businessId, locationId } =
     await c.req.valid('json')
 
@@ -71,6 +72,7 @@ export const getClientById: AppRouteHandler<GetClientByIdRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.json()
   try {
     const client = await db.query.clients.findFirst({
@@ -97,6 +99,7 @@ export const addClient: AppRouteHandler<AddClientRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { businessId, locationId, ...newClient } = await c.req.json()
   const reviewData = await db.query.reviews.findMany({
     where: eq(reviews.userId, user.id),
@@ -141,6 +144,7 @@ export const updateClient: AppRouteHandler<UpdateClientRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
 
   try {
     const data = await c.req.valid('json')
@@ -188,6 +192,7 @@ export const deleteClient: AppRouteHandler<DeleteClientRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.json()
   try {
     await db.delete(clients).where(eq(clients.id, id))
@@ -208,6 +213,7 @@ export const deleteBulkClients: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { ids } = await c.req.json()
   try {
     await db.delete(clients).where(inArray(clients.id, ids))
@@ -228,6 +234,7 @@ export const addBulkClients: AppRouteHandler<AddBulkClientsRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const {
     businessId,
     locationId,
@@ -290,6 +297,7 @@ export const getClientsByDateRange: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { from, to, businessId, locationId } = await c.req.json()
   try {
     const clientData = await db.query.clients.findMany({

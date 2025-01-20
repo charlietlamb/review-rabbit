@@ -1,5 +1,5 @@
 import { HttpStatusCodes } from '@rabbit/http'
-import { clicks, ClickWithData, db } from '@rabbit/database'
+import { clicks, ClickWithData, getDb } from '@rabbit/database'
 import { AppRouteHandler } from '../../lib/types'
 import { eq, and, between, sql } from 'drizzle-orm'
 import { GetClicksByDateRangeRoute, GetClicksRoute } from './clicks.routes'
@@ -22,6 +22,7 @@ function transformClick(click: ClickWithData) {
 
 export const getClicks: AppRouteHandler<GetClicksRoute> = async (c) => {
   const user = c.get('user')
+  const db = getDb(c.env)
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
@@ -62,6 +63,7 @@ export const getClicksByDateRange: AppRouteHandler<
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { from, to, businessId, automationItemId } = await c.req.valid('json')
   try {
     const clickData = await db.query.clicks.findMany({

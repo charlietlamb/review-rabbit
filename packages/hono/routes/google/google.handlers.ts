@@ -1,6 +1,6 @@
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
 import { HttpStatusCodes } from '@rabbit/http'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { accounts, clients, reviewMatches } from '@rabbit/database/schema'
 import { GetReviewsRoute } from '@rabbit/hono/routes/google/google.routes'
@@ -164,9 +164,9 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
-
   // Commented out original implementation for now
   const kv = getKv(c.env as EnvType)
+  const db = getDb(c.env)
   try {
     let updatedAt: string | null = await kv.get(`review:updatedAt:${user.id}`)
     if (!updatedAt) {

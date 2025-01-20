@@ -7,7 +7,7 @@ import { HttpStatusCodes } from '@rabbit/http'
 import { getEnv } from '@rabbit/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 
@@ -63,6 +63,8 @@ export async function generatePresignedUrlUserImage(
       status: HttpStatusCodes.INTERNAL_SERVER_ERROR,
     }
   }
+
+  const db = getDb(c.env)
 
   // Save new presigned URL
   await db

@@ -1,4 +1,4 @@
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@rabbit/email'
@@ -16,6 +16,7 @@ export const authSession:
 
 export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
   if (!auth) {
+    const db = getDb(env)
     auth = betterAuth({
       database: drizzleAdapter(db, {
         provider: 'pg',

@@ -1,2 +1,2 @@
 export * from '@rabbit/database/schema/index'
-export { db } from '@rabbit/database/postgres'
+export { getDb } from '@rabbit/database/postgres'

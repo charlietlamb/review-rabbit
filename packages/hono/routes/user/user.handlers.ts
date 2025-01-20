@@ -5,7 +5,7 @@ import {
   UpdateUserRoute,
 } from '@rabbit/hono/routes/user/user.routes'
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { and, eq } from 'drizzle-orm'
 import { users } from '@rabbit/database/schema/auth/users'
 import { updateUserSchema } from '@rabbit/hono/routes/user/user.schema'
@@ -19,6 +19,7 @@ export const get: AppRouteHandler<GetUserRoute> = async (c) => {
   if (!userId) {
     return c.json({ error: 'User ID is required' }, HttpStatusCodes.BAD_REQUEST)
   }
+  const db = getDb(c.env)
   const user = await db.query.users.findFirst({
     where: eq(users.id, userId),
   })
@@ -35,6 +36,7 @@ export const update: AppRouteHandler<UpdateUserRoute> = async (c) => {
   if (!authUser) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const body = await c.req.json()
   const data = updateUserSchema.parse(body)
   if (!data) {
@@ -61,6 +63,7 @@ export const resetPassword: AppRouteHandler<ResetPasswordRoute> = async (c) => {
   if (!token) {
     return c.json({ error: 'Token is required' }, HttpStatusCodes.BAD_REQUEST)
   }
+  const db = getDb(c.env)
   const verification = await db.query.verifications.findFirst({
     where: eq(verifications.identifier, `reset-password:${token}`),
   })
@@ -91,6 +94,7 @@ export const getAccount: AppRouteHandler<GetAccountRoute> = async (c) => {
   if (!authUser) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const account = await db.query.accounts.findFirst({
     where: and(
       eq(accounts.userId, authUser.id),

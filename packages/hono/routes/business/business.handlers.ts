@@ -8,18 +8,19 @@ import {
   CallbackRoute,
 } from '@rabbit/hono/routes/business/business.routes'
 import { AppRouteHandler } from '@rabbit/hono/lib/types'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { businesses, accounts } from '@rabbit/database/schema'
 import { and, eq } from 'drizzle-orm'
-import { getEnv } from '@rabbit/env'
 import { OAuth2Client } from 'google-auth-library'
 import { GOOGLE_BUSINESS_SCOPE } from '@rabbit/google/lib/data'
+
 export const create: AppRouteHandler<CreateBusinessRoute> = async (c) => {
   const user = await c.get('user')
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const body = await c.req.valid('json')
+  const db = getDb(c.env)
   try {
     await db.insert(businesses).values({
       ...body,
@@ -41,6 +42,7 @@ export const get: AppRouteHandler<GetBusinessRoute> = async (c) => {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const { offset, limit } = await c.req.valid('json')
+  const db = getDb(c.env)
 
   try {
     const businessesFromDatabase = await db.query.businesses.findMany({
@@ -65,6 +67,7 @@ export const getById: AppRouteHandler<GetBusinessByIdRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id } = await c.req.valid('json')
   try {
     const businessFromDatabase = await db.query.businesses.findFirst({
@@ -87,6 +90,7 @@ export const update: AppRouteHandler<UpdateBusinessRoute> = async (c) => {
   if (!user) {
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
+  const db = getDb(c.env)
   const { id, ...body } = await c.req.valid('json')
   try {
     await db
@@ -111,6 +115,7 @@ export const deleteBusiness: AppRouteHandler<DeleteBusinessRoute> = async (
     return c.json({ error: 'Unauthorized' }, HttpStatusCodes.UNAUTHORIZED)
   }
   const { id } = await c.req.valid('json')
+  const db = getDb(c.env)
   try {
     await db
       .delete(businesses)
@@ -127,7 +132,7 @@ export const deleteBusiness: AppRouteHandler<DeleteBusinessRoute> = async (
 
 export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
   const { code, state } = c.req.query()
-
+  const db = getDb(c.env)
   if (!code || !state) {
     return c.json(
       { error: 'Missing required parameters' },
@@ -137,15 +142,15 @@ export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
 
   try {
     const oauth2Client = new OAuth2Client(
-      getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      getEnv().GOOGLE_CLIENT_SECRET,
-      `${getEnv().NEXT_PUBLIC_API}/business/callback/success`
+      c.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      c.env.GOOGLE_CLIENT_SECRET,
+      `${c.env.NEXT_PUBLIC_API}/business/callback/success`
     )
 
     const { tokens } = await oauth2Client.getToken(code)
 
     if (!tokens.access_token) {
-      return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/dashboard`)
+      return c.redirect(`${c.env.NEXT_PUBLIC_WEB}/dashboard`)
     }
 
     // Get existing account to check current scopes
@@ -172,7 +177,7 @@ export const callback: AppRouteHandler<CallbackRoute> = async (c) => {
       })
       .where(eq(accounts.id, state))
 
-    return c.redirect(`${getEnv().NEXT_PUBLIC_WEB}/dashboard/reviews`)
+    return c.redirect(`${c.env.NEXT_PUBLIC_WEB}/dashboard/reviews`)
   } catch (error) {
     console.error('Error in callback:', error)
     return c.json(

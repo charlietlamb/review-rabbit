@@ -1,6 +1,6 @@
 import { OAuth2Client } from 'google-auth-library'
 import { Account } from '@rabbit/database'
-import { db } from '@rabbit/database'
+import { getDb } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { accounts } from '@rabbit/database/schema/auth/accounts'
 import { EnvType } from '@rabbit/env'
@@ -9,6 +9,7 @@ export async function refreshAccessToken(
   account: Account,
   env: EnvType
 ): Promise<Account> {
+  const db = getDb(env)
   if (!account.refreshToken) {
     throw new Error('No refresh token available')
   }

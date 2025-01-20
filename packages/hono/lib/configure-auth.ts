@@ -1,11 +1,12 @@
 import { AppBindings, AppOpenAPI } from '@rabbit/hono/lib/types'
 import { createMiddleware } from 'hono/factory'
-import { auth } from '@rabbit/auth'
+import { getAuth } from '@rabbit/auth'
 import { HttpStatusCodes } from '@rabbit/http'
 import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 
 export const authMiddleware = createMiddleware<AppBindings>(async (c, next) => {
+  const auth = getAuth(c.env)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
   if (!session) {
     c.set('user', null)

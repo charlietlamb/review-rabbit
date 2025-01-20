@@ -1,5 +1,5 @@
 import { getProfilePicUrl } from '@rabbit/design-system/actions/auth/user/get-profile-pic-url'
-import type { User } from '@rabbit/database/schema/users'
+import type { User } from '@rabbit/database/schema/auth/users'
 
 export default async function getUserImage(user: User) {
   if (!user.imageUploaded || !user.imageExpiresAt) return user.image

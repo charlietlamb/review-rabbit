@@ -1,14 +1,22 @@
-import { getEnv } from '@rabbit/env'
 import { createAuthClient } from 'better-auth/react'
 import { inferAdditionalFields, oneTapClient } from 'better-auth/client/plugins'
-import { auth } from '@rabbit/auth'
+import { getAuth } from '@rabbit/auth'
+import { env } from '@rabbit/env'
 
-export const authClient = createAuthClient({
-  baseURL: getEnv().NEXT_PUBLIC_API,
-  plugins: [
-    inferAdditionalFields<typeof auth>(),
-    oneTapClient({
-      clientId: getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    }),
-  ],
-})
+let authClient: ReturnType<typeof createAuthClient> | null = null
+
+export function getAuthClient() {
+  const auth = getAuth(env)
+  if (!authClient) {
+    authClient = createAuthClient({
+      baseURL: env.NEXT_PUBLIC_API,
+      plugins: [
+        inferAdditionalFields<typeof auth>(),
+        oneTapClient({
+          clientId: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+        }),
+      ],
+    })
+  }
+  return authClient
+}

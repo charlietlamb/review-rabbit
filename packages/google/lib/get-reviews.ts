@@ -85,7 +85,7 @@ export async function getReviews(
               if (retryCount >= MAX_RETRIES) {
                 throw new Error('Authentication failed after max retries')
               }
-              currentAccount = await refreshAccessToken(currentAccount)
+              currentAccount = await refreshAccessToken(currentAccount, env)
               retryCount++
               break // Break do-while loop to retry with new token
             } else {

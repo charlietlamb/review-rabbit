@@ -1,10 +1,12 @@
 import Auth from '@rabbit/design-system/components/auth/auth'
 import AuthLayout from '@rabbit/design-system/components/auth/auth-layout'
-import { auth } from '@rabbit/auth'
+import { getAuth } from '@rabbit/auth'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
+import { env } from '@rabbit/env'
 
 export default async function LoginPage() {
+  const auth = getAuth(env)
   const session = await auth.api.getSession({
     headers: await headers(),
   })

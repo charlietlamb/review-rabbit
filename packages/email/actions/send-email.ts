@@ -1,14 +1,14 @@
-import { getEnv } from '@rabbit/env'
-import { Resend } from 'resend'
+import { EnvType } from '@rabbit/env'
+import { getResend } from '@rabbit/email'
 import { HttpStatusCodes } from '@rabbit/http'
-
-const resend = new Resend(getEnv().RESEND_API_KEY)
 
 export async function sendEmail(
   to: string[],
   subject: string,
-  component: React.ReactElement
+  component: React.ReactElement,
+  env: EnvType
 ) {
+  const resend = getResend(env)
   const { data, error } = await resend.emails.send({
     from: `no-reply@reviewrabbit.uk`,
     to: to,

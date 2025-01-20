@@ -7,14 +7,14 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import { getEnv } from '@rabbit/env'
+import { EnvType } from '@rabbit/env'
 
-export function EmailHeader({ image }: { image?: string }) {
+export function EmailHeader({ image, env }: { image?: string; env: EnvType }) {
   return (
     <Img
       src={
         image ||
-        `${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/review-rabbit/logo.svg`
+        `${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/review-rabbit/logo.svg`
       }
       width="48"
       height="48"
@@ -65,13 +65,15 @@ export function EmailFooter() {
 export function EmailLayout({
   children,
   image,
+  env,
 }: {
   children: React.ReactNode
   image?: string
+  env: EnvType
 }) {
   return (
     <Container className="mx-auto py-5 px-5 max-w-xl">
-      <EmailHeader image={image} />
+      <EmailHeader image={image} env={env} />
       {children}
       <EmailFooter />
     </Container>

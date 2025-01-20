@@ -10,7 +10,7 @@ export const sendEmailTask = task({
   run: async (payload: EmailTaskType & { demo: boolean }, { ctx }) => {
     const { to, subject, content, demo } = payload
 
-    const success = await sendEmailString(to, subject, content)
+    const success = await sendEmailString(to, subject, content, env)
 
     if (!demo) {
       const response = await fetch(

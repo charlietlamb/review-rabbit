@@ -11,19 +11,27 @@ import {
   EmailHeader,
   EmailHeading,
   EmailButton,
-  EmailFooter,
   EmailMessage,
   EmailLayout,
 } from './shared'
+import { EnvType } from '@rabbit/env'
 
-function VerifyEmail({ name, url }: { name: string; url: string }) {
+function VerifyEmail({
+  name,
+  url,
+  env,
+}: {
+  name: string
+  url: string
+  env: EnvType
+}) {
   return (
     <TailwindProvider>
       <Html>
         <Head />
         <Preview>Verify your email address</Preview>
         <Body className="bg-white font-sans">
-          <EmailLayout>
+          <EmailLayout env={env}>
             <EmailHeading>Verify Your Email Address</EmailHeading>
             <EmailMessage>Hello {name},</EmailMessage>
             <EmailMessage>
@@ -42,6 +50,6 @@ function VerifyEmail({ name, url }: { name: string; url: string }) {
   )
 }
 
-export function getVerifyEmail(name: string, url: string) {
-  return <VerifyEmail name={name} url={url} />
+export function getVerifyEmail(name: string, url: string, env: EnvType) {
+  return <VerifyEmail name={name} url={url} env={env} />
 }

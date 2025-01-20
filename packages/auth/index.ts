@@ -65,7 +65,7 @@ export const auth = betterAuth({
       await sendEmail(
         [user.email],
         'Verify your email address',
-        getVerifyEmail(user.name, url)
+        getVerifyEmail(user.name, url, getEnv())
       )
     },
     sendOnSignUp: false,

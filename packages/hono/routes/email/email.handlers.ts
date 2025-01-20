@@ -5,9 +5,11 @@ import { db } from '@rabbit/database'
 import { verifications } from '@rabbit/database/schema'
 import { sendEmail } from '@rabbit/email'
 import { getVerifyEmail } from '@rabbit/email'
+import { AppBindings } from '@rabbit/hono/lib/types'
+import { Context } from 'hono'
 
 export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
-  c
+  c: Context<AppBindings>
 ) => {
   const user = c.get('user')
   if (!user) {
@@ -24,7 +26,8 @@ export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
   const status = await sendEmail(
     [user.email],
     'Verify your email',
-    getVerifyEmail(user.name, token)
+    getVerifyEmail(user.name, token, c.env),
+    c.env
   )
   if (status !== HttpStatusCodes.OK) {
     return c.json(

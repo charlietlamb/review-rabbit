@@ -3,7 +3,7 @@ import { syncStripeDataToKV } from '@rabbit/stripe/lib/sync-stripe-data-to-kv'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { auth } from '@rabbit/auth'
-import { kv } from '@rabbit/kv'
+import { getKv } from '@rabbit/kv'
 
 export const dynamic = 'force-dynamic'
 

@@ -1,7 +1,9 @@
 import { Redis } from '@upstash/redis'
-import { getEnv } from '@rabbit/env'
+import { EnvType } from '@rabbit/env'
 
-export const kv = new Redis({
-  url: getEnv().UPSTASH_REDIS_REST_URL,
-  token: getEnv().UPSTASH_REDIS_REST_TOKEN,
-})
+export function getKv(env: EnvType) {
+  return new Redis({
+    url: env.UPSTASH_REDIS_REST_URL,
+    token: env.UPSTASH_REDIS_REST_TOKEN,
+  })
+}

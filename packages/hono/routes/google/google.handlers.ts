@@ -181,7 +181,7 @@ export const getReviewsHandler: AppRouteHandler<GetReviewsRoute> = async (
       return c.json({ error: 'Account not found' }, HttpStatusCodes.NOT_FOUND)
     }
 
-    // const reivews = await getReviews(page, account)
+    // const reivews = await getReviews(page, account, c.env)
     const reivews = mockReviews
     const updatedReviews = reivews.filter(
       (review) => new Date(review.updateTime) > new Date(updatedAt)

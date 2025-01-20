@@ -5,6 +5,7 @@ import { hasBusinessScope } from './business/has-business-scope'
 import { refreshAccessToken } from './auth/refresh-access-token'
 import { isTokenExpired } from './auth/is-token-expired'
 import { listBusinessAccounts } from './business/list-accounts'
+import { EnvType } from '@rabbit/env'
 
 const PAGE_SIZE = 100
 const MAX_RETRIES = 2
@@ -16,7 +17,8 @@ async function delay(ms: number): Promise<void> {
 
 export async function getReviews(
   page: number = 1,
-  account: Account
+  account: Account,
+  env: EnvType
 ): Promise<Review[]> {
   try {
     if (page < 1) {
@@ -26,7 +28,7 @@ export async function getReviews(
       throw new Error('No access token available')
     }
     if (!hasBusinessScope(account)) {
-      await addBusinessScope(account)
+      await addBusinessScope(account, env)
       throw new Error('No business scope')
     }
 
@@ -35,7 +37,7 @@ export async function getReviews(
 
     // Check if token is expired before making the request
     if (isTokenExpired(currentAccount)) {
-      currentAccount = await refreshAccessToken(currentAccount)
+      currentAccount = await refreshAccessToken(currentAccount, env)
     }
 
     // Get list of business accounts

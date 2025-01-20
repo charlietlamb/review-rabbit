@@ -3,17 +3,20 @@ import { Account } from '@rabbit/database'
 import { db } from '@rabbit/database'
 import { eq } from 'drizzle-orm'
 import { accounts } from '@rabbit/database/schema/auth/accounts'
-import { getEnv } from '@rabbit/env'
+import { EnvType } from '@rabbit/env'
 
-export async function refreshAccessToken(account: Account): Promise<Account> {
+export async function refreshAccessToken(
+  account: Account,
+  env: EnvType
+): Promise<Account> {
   if (!account.refreshToken) {
     throw new Error('No refresh token available')
   }
 
   const oauth2Client = new OAuth2Client(
-    getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    getEnv().GOOGLE_CLIENT_SECRET,
-    `${getEnv().NEXT_PUBLIC_API}/business/callback/success`
+    env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    env.GOOGLE_CLIENT_SECRET,
+    `${env.NEXT_PUBLIC_API}/business/callback/success`
   )
 
   oauth2Client.setCredentials({

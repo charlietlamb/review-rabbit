@@ -1,11 +1,14 @@
-import { getEnv } from '@rabbit/env'
 import { Account } from '@rabbit/database'
 import { GOOGLE_BUSINESS_SCOPE } from '../data'
+import { EnvType } from '@rabbit/env'
 
-export async function addBusinessScope(account: Account): Promise<Account> {
+export async function addBusinessScope(
+  account: Account,
+  env: EnvType
+): Promise<Account> {
   const params = new URLSearchParams({
-    client_id: getEnv().NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    redirect_uri: `${getEnv().NEXT_PUBLIC_API}/business/callback/success`,
+    client_id: env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    redirect_uri: `${env.NEXT_PUBLIC_API}/business/callback/success`,
     response_type: 'code',
     scope: GOOGLE_BUSINESS_SCOPE,
     access_type: 'offline',

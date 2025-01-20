@@ -1,11 +1,12 @@
 import { Subscription } from '@rabbit/stripe/lib/subscription'
 import { StripeSubscription } from '@rabbit/stripe/lib/stripe-subscription'
-import { kv } from '@rabbit/kv'
-import { getEnv } from '@rabbit/env'
+import { getKv } from '@rabbit/kv'
+import { env } from '@rabbit/env'
 
 export async function getStripeDetails(
   userId: string
 ): Promise<Subscription | null> {
+  const kv = getKv(env)
   const customerId: string | null = await kv.get(`stripe:user:${userId}`)
   if (!customerId) {
     return null
@@ -17,8 +18,6 @@ export async function getStripeDetails(
   if (!stripeSubscription) {
     return null
   }
-  console.log('stripeSubscription', stripeSubscription)
-  const env = getEnv()
   const plusPriceIds = [
     env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID,
     env.NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY,

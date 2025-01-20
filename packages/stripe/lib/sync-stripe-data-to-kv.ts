@@ -1,9 +1,13 @@
 'use server'
 
-import { kv } from '@rabbit/kv'
-import { stripe } from '@rabbit/stripe'
+import { Redis } from '@upstash/redis'
+import Stripe from 'stripe'
 
-export async function syncStripeDataToKV(customerId: string) {
+export async function syncStripeDataToKV(
+  customerId: string,
+  kv: Redis,
+  stripe: Stripe
+) {
   const subscriptions = await stripe.subscriptions.list({
     customer: customerId,
     limit: 1,

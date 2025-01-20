@@ -1,10 +1,10 @@
 'use server'
 
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { redirect } from 'next/navigation'
 import { Plan } from '@rabbit/hono/lib/types'
-import { stripe } from '@rabbit/stripe'
-import { kv } from '@rabbit/kv'
+import { getStripe } from '@rabbit/stripe'
+import { getKv } from '@rabbit/kv'
 import { User } from '@rabbit/database'
 
 export const postStripeSession = async ({
@@ -16,8 +16,11 @@ export const postStripeSession = async ({
   priceId: string
   plan: Plan
 }) => {
-  const successUrl = `${getEnv().NEXT_PUBLIC_WEB}/success?plan=${plan}`
-  const cancelUrl = `${getEnv().NEXT_PUBLIC_WEB}/failed`
+  const successUrl = `${env.NEXT_PUBLIC_WEB}/success?plan=${plan}`
+  const cancelUrl = `${env.NEXT_PUBLIC_WEB}/failed`
+
+  const kv = getKv(env)
+  const stripe = getStripe(env)
 
   let stripeCustomerId = (await kv.get(`stripe:user:${user.id}`)) as
     | string

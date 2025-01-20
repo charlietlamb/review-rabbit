@@ -11,29 +11,28 @@ import automations from '@rabbit/hono/routes/automations/automations.index'
 import google from '@rabbit/hono/routes/google/google.index'
 import clicks from '@rabbit/hono/routes/clicks/clicks.index'
 
-console.log('/*configure*/')
 const app = createApp()
 configure(app)
 
-// const routes = [
-//   index,
-//   users,
-//   s3,
-//   business,
-//   review,
-//   clients,
-//   workflows,
-//   automations,
-//   google,
-//   clicks,
-// ] as const
+const routes = [
+  index,
+  users,
+  s3,
+  business,
+  review,
+  clients,
+  workflows,
+  automations,
+  google,
+  clicks,
+] as const
 
-// routes.forEach((route) => {
-//   app.route('/', route)
-// })
+routes.forEach((route) => {
+  app.route('/', route)
+})
 
 export default app
 
-// export type AppType = (typeof routes)[number]
+export type AppType = (typeof routes)[number]
 export type TestType = { test: string }
 export type App = typeof app

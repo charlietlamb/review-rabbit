@@ -1,9 +1,16 @@
 import Stripe from 'stripe'
-import { getEnv } from '@rabbit/env'
+import { EnvType } from '@rabbit/env'
 
-export const stripe = new Stripe(getEnv().STRIPE_SECRET_KEY, {
-  typescript: true,
-})
+let stripeInstance: Stripe | null = null
+
+export function getStripe(env: EnvType) {
+  if (!stripeInstance) {
+    stripeInstance = new Stripe(env.STRIPE_SECRET_KEY, {
+      typescript: true,
+    })
+  }
+  return stripeInstance
+}
 
 export { handleStripeEvent } from './lib/handle-stripe-event'
 export { syncStripeDataToKV } from './lib/sync-stripe-data-to-kv'

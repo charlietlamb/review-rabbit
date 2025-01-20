@@ -1,6 +1,5 @@
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import type { ReactNode } from 'react'
-import { GoogleAnalytics } from './google'
 import { PostHogProvider } from './posthog/client'
 import { VercelAnalytics } from './vercel'
 
@@ -12,8 +11,8 @@ export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => (
   <PostHogProvider>
     {children}
     <VercelAnalytics />
-    {/* {getEnv().NODE_ENV !== 'development' && (
-      <GoogleAnalytics gaId={getEnv().NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+    {/* {env.NODE_ENV !== 'development' && (
+      <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
     )} */}
   </PostHogProvider>
 )

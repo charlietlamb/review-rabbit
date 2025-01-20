@@ -1,5 +1,5 @@
 import { Button } from '@rabbit/design-system/components/ui/button'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { XCircle } from 'lucide-react'
 import Link from 'next/link'
 import Balancer from 'react-wrap-balancer'
@@ -58,7 +58,7 @@ export function Failed({ message = 'Payment failed' }: FailureProps) {
             asChild
             className="hover:bg-destructive hover:text-destructive-foreground transition-colors"
           >
-            <Link href={`mailto:help@${getEnv().NEXT_PUBLIC_DOMAIN}`}>
+            <Link href={`mailto:help@${env.NEXT_PUBLIC_DOMAIN}`}>
               Contact Support
             </Link>
           </Button>

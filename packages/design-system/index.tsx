@@ -1,5 +1,5 @@
 import { AnalyticsProvider } from '@rabbit/analytics'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { VercelToolbar } from '@vercel/toolbar/next'
 import { Toaster } from '@rabbit/design-system/components/ui/sonner'
 import { TooltipProvider } from '@rabbit/design-system/components/ui/tooltip'
@@ -17,7 +17,7 @@ export const DesignSystemProvider = ({
         <OneTapProvider>{children}</OneTapProvider>
       </TooltipProvider>
       <Toaster />
-      {getEnv().NODE_ENV === 'development' && <VercelToolbar />}
+      {env.NODE_ENV === 'development' && <VercelToolbar />}
     </AnalyticsProvider>
   </Providers>
 )

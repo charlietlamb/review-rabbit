@@ -1,6 +1,6 @@
 import { Button } from '@rabbit/design-system/components/ui/button'
 import { Logo } from '@rabbit/design-system/components/site/header/logo'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
@@ -40,7 +40,7 @@ export function Success({ plan }: { plan: string }) {
             </Button>
 
             <Button variant="ghost" asChild className="text-sm">
-              <Link href={`mailto:support@${getEnv().NEXT_PUBLIC_DOMAIN}`}>
+              <Link href={`mailto:support@${env.NEXT_PUBLIC_DOMAIN}`}>
                 Need help?
               </Link>
             </Button>

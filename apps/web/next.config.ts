@@ -1,10 +1,10 @@
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { config, withAnalyzer } from '@rabbit/next-config'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = config
 
-if (process.env.NODE_ENV === 'production') {
+if (env.NODE_ENV === 'production') {
   const redirects: NextConfig['redirects'] = async () => [
     {
       source: '/legal',
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   nextConfig.redirects = redirects
 }
 
-if (getEnv().ANALYZE === 'true') {
+if (env.ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig)
 }
 

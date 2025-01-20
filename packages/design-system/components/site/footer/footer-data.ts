@@ -1,4 +1,5 @@
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
+
 export type FooterLink = {
   label: string
   href: string
@@ -16,7 +17,7 @@ export const footerSections: FooterSection[] = [
       { label: 'Pricing', href: '/pricing' },
       {
         label: 'Contact',
-        href: `mailto:help@${getEnv().NEXT_PUBLIC_DOMAIN}`,
+        href: `mailto:help@${env.NEXT_PUBLIC_DOMAIN}`,
       },
     ],
   },

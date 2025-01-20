@@ -1,4 +1,4 @@
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import { Plan } from '@rabbit/hono/lib/types'
 
 export type PricingTier = {
@@ -22,8 +22,6 @@ export type PlanAvailability = {
 export type FeatureAvailability = {
   [key: string]: PlanAvailability
 }
-
-const env = getEnv()
 
 // Features are ordered by availability (most widely available first)
 export const features: FeatureAvailability = {

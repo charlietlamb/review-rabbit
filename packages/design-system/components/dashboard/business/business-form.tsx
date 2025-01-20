@@ -16,7 +16,7 @@ import { HttpStatusCodes } from '@rabbit/http'
 import Spinner from '@rabbit/design-system/components/misc/spinner'
 import { useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEYS } from '@rabbit/design-system/data/query-keys'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 
 export default function BusinessForm({
   business,
@@ -144,7 +144,7 @@ export default function BusinessForm({
         <ImageState
           previewUrl={
             business?.image
-              ? `${getEnv().NEXT_PUBLIC_AWS_S3_URL}${business.image}`
+              ? `${env.NEXT_PUBLIC_AWS_S3_URL}${business.image}`
               : undefined
           }
           value={image ?? undefined}

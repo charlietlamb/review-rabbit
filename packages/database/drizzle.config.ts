@@ -1,11 +1,11 @@
 import { defineConfig } from 'drizzle-kit'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 
 export default defineConfig({
   dialect: 'postgresql',
   schema: './schema/*',
   out: './migrations',
   dbCredentials: {
-    url: getEnv().DATABASE_URL ?? 'invalid-db-url',
+    url: env.DATABASE_URL ?? 'invalid-db-url',
   },
 })

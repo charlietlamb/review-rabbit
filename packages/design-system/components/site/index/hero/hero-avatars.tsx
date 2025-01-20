@@ -1,4 +1,4 @@
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 import Image from 'next/image'
 
 export default function HeroAvatars() {
@@ -7,28 +7,28 @@ export default function HeroAvatars() {
       <div className="flex -space-x-1.5">
         <Image
           className="rounded-full ring-1 ring-background"
-          src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar1.jpg`}
+          src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar1.jpg`}
           width={20}
           height={20}
           alt="Avatar 01"
         />
         <Image
           className="rounded-full ring-1 ring-background"
-          src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar2.jpg`}
+          src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar2.jpg`}
           width={20}
           height={20}
           alt="Avatar 02"
         />
         <Image
           className="rounded-full ring-1 ring-background"
-          src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar3.jpg`}
+          src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar3.jpg`}
           width={20}
           height={20}
           alt="Avatar 03"
         />
         <Image
           className="rounded-full ring-1 ring-background"
-          src={`${getEnv().NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar4.jpg`}
+          src={`${env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}/public/rabbit/avatar4.jpg`}
           width={20}
           height={20}
           alt="Avatar 04"

@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@rabbit/design-system/components/ui/button'
-import { getEnv } from '@rabbit/env'
+import { env } from '@rabbit/env'
 
 export default function PricingCta() {
   return (
@@ -16,7 +16,7 @@ export default function PricingCta() {
         variant="shine"
         className="cursor-pointer border-border"
         onClick={() =>
-          window.open(`mailto:contact@${getEnv().NEXT_PUBLIC_DOMAIN}`, '_blank')
+          window.open(`mailto:contact@${env.NEXT_PUBLIC_DOMAIN}`, '_blank')
         }
       >
         Contact Sales

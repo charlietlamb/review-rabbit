@@ -1,11 +1,10 @@
 import { AppOpenAPI } from '@rabbit/hono/lib/types'
 import { cors } from 'hono/cors'
-import { getEnv } from '@rabbit/env'
 
 export default function configureCors(app: AppOpenAPI) {
   app.use('*', async (c, next) => {
     const corsMiddlewareHandler = cors({
-      origin: [getEnv().NEXT_PUBLIC_WEB, getEnv().NEXT_PUBLIC_API],
+      origin: [c.env.NEXT_PUBLIC_WEB, c.env.NEXT_PUBLIC_API],
       allowHeaders: [
         'Access-Control-Allow-Origin',
         'Content-Type',

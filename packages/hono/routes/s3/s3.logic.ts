@@ -4,7 +4,7 @@ import {
   type PresignedUrlResponseOk,
 } from '@rabbit/hono/routes/s3/s3.types'
 import { HttpStatusCodes } from '@rabbit/http'
-import { getEnv } from '@rabbit/env'
+import { EnvType } from '@rabbit/env'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { getDb } from '@rabbit/database'
@@ -12,7 +12,8 @@ import { eq } from 'drizzle-orm'
 import { User } from 'better-auth/types'
 
 export async function generatePresignedUrlUserImage(
-  user: User | undefined
+  user: User | undefined,
+  env: EnvType
 ): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
   if (!user) {
     return {
@@ -41,15 +42,15 @@ export async function generatePresignedUrlUserImage(
 
   // Generate new presigned URL
   const client = new S3Client({
-    region: getEnv().AWS_REGION,
+    region: env.AWS_REGION,
     credentials: {
-      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
-      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
+      accessKeyId: env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: getEnv().AWS_S3_BUCKET_NAME,
+    Bucket: env.AWS_S3_BUCKET_NAME,
     Key: `users/pp/${user.id}/pp.jpg`,
   })
 
@@ -64,7 +65,7 @@ export async function generatePresignedUrlUserImage(
     }
   }
 
-  const db = getDb(c.env)
+  const db = getDb(env)
 
   // Save new presigned URL
   await db
@@ -95,15 +96,15 @@ export async function generatePresignedUrlFromPath(
 ): Promise<PresignedUrlResponseOk | PresignedUrlResponseError> {
   // Generate new presigned URL
   const client = new S3Client({
-    region: getEnv().AWS_REGION,
+    region: env.AWS_REGION,
     credentials: {
-      accessKeyId: getEnv().AWS_ACCESS_KEY_ID,
-      secretAccessKey: getEnv().AWS_SECRET_ACCESS_KEY,
+      accessKeyId: env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
     },
   })
 
   const command = new GetObjectCommand({
-    Bucket: getEnv().AWS_S3_BUCKET_NAME,
+    Bucket: env.AWS_S3_BUCKET_NAME,
     Key: path,
   })
 

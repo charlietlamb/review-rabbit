@@ -3,8 +3,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@rabbit/design-system/components/ui/avatar'
-import { Business } from '@rabbit/database/schema/app/businesses'
-import { getEnv } from '@rabbit/env'
+import { Business } from '@rabbit/database/types/business-location-types'
+import { env } from '@rabbit/env'
 import { cn } from '@rabbit/design-system/lib/utils'
 
 export default function BusinessAvatar({
@@ -19,7 +19,7 @@ export default function BusinessAvatar({
       <AvatarImage
         src={
           business.image
-            ? `${getEnv().NEXT_PUBLIC_AWS_S3_URL}${business.image}`
+            ? `${env.NEXT_PUBLIC_AWS_S3_URL}${business.image}`
             : undefined
         }
       />

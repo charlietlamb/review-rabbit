@@ -5,12 +5,13 @@ import { EnvType } from '@rabbit/env'
 
 type Session = typeof auth.$Infer.Session.session
 type User = typeof auth.$Infer.Session.user
+
 export interface AppBindings {
+  Bindings: EnvType
   Variables: {
     logger: PinoLogger
     user: User | null
     session: Session | null
-    env: EnvType
   }
 }
 
@@ -23,8 +24,3 @@ export type AppRouteHandler<R extends RouteConfig> = RouteHandler<
 
 export const plans = ['free', 'plus', 'pro', 'enterprise'] as const
 export type Plan = (typeof plans)[number]
-
-export const stripeMetaDataSchema = z.object({
-  session: z.string(),
-  plan: z.enum(plans),
-})

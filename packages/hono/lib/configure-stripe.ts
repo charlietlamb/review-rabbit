@@ -1,12 +1,14 @@
-import Stripe from 'stripe'
-import { getEnv } from '@rabbit/env'
 import { AppOpenAPI } from './types'
 import { handleStripeEvent } from '@rabbit/stripe'
+import { getStripe } from '@rabbit/stripe'
+import { getKv } from '@rabbit/kv'
+import { Context } from 'hono'
+import { AppBindings } from './types'
 
 export default async function configureStripe(app: AppOpenAPI) {
-  app.post('/webhook', async (context) => {
-    const { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = getEnv()
-    const stripe = new Stripe(STRIPE_SECRET_KEY)
+  app.post('/webhook', async (context: Context<AppBindings>) => {
+    const stripe = getStripe(context.env)
+    const kv = getKv(context.env)
     const signature = context.req.header('stripe-signature')
     try {
       if (!signature) {
@@ -16,10 +18,10 @@ export default async function configureStripe(app: AppOpenAPI) {
       const event = await stripe.webhooks.constructEventAsync(
         body,
         signature,
-        STRIPE_WEBHOOK_SECRET
+        context.env.STRIPE_WEBHOOK_SECRET
       )
 
-      await handleStripeEvent(event)
+      await handleStripeEvent(event, kv, stripe)
       return context.text('', 200)
     } catch (err) {
       const errorMessage = `⚠️  Webhook signature verification failed. ${

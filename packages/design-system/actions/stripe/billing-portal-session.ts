@@ -1,12 +1,11 @@
 'use server'
 
-import { getEnv } from '@rabbit/env'
-import { redirect } from 'next/navigation'
-import { stripe } from '@rabbit/stripe'
 import Stripe from 'stripe'
+import { getStripe } from '@rabbit/stripe'
+import { env } from '@rabbit/env'
 
 export async function postBillingPortalSession(customerId: string) {
-  const env = getEnv()
+  const stripe = getStripe(env)
   const returnUrl = `${env.NEXT_PUBLIC_WEB}/dashboard/settings/billing`
 
   // Get or create a portal configuration

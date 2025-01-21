@@ -28,7 +28,7 @@ export const sendVerifyEmail: AppRouteHandler<SendVerifyEmailRoute> = async (
     [user.email],
     'Verify your email',
     getVerifyEmail(user.name, token, c.env),
-    c.env
+    c.env.RESEND_API_KEY
   )
   if (status !== HttpStatusCodes.OK) {
     return c.json(

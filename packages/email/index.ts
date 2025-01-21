@@ -1,14 +1,14 @@
 export { sendEmail } from './actions/send-email'
+export { sendEmailString } from './actions/send-email-string'
 export { getResetPasswordEmail } from './components/reset-password-email'
 export { getVerifyEmail } from './components/verify-email'
 import { Resend } from 'resend'
-import { EnvType } from '@rabbit/env'
 
 let resend: Resend | null = null
 
-export function getResend(env: EnvType) {
+export function getResend(resendApiKey: string) {
   if (!resend) {
-    resend = new Resend(env.RESEND_API_KEY)
+    resend = new Resend(resendApiKey)
   }
   return resend
 }

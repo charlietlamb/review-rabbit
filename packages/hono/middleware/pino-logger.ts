@@ -1,5 +1,5 @@
-import { Context, MiddlewareHandler } from 'hono'
-import { logger } from 'hono-pino'
+import { MiddlewareHandler } from 'hono'
+import { pinoLogger as logger } from 'hono-pino'
 import pino from 'pino'
 import pretty from 'pino-pretty'
 

@@ -1,13 +1,12 @@
 import { getResend } from '@rabbit/email'
-import { EnvType } from '@rabbit/env'
 
 export async function sendEmailString(
   to: string[],
   subject: string,
   content: string,
-  env: EnvType
+  resendApiKey: string
 ) {
-  const resend = getResend(env)
+  const resend = getResend(resendApiKey)
   const { data, error } = await resend.emails.send({
     from: `no-reply@reviewrabbit.uk`,
     to: to,

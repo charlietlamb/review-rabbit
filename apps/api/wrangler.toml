@@ -1,4 +1,4 @@
-name = "webhooks"
+name = "api"
 main = "src/index.ts"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
@@ -11,6 +11,9 @@ BETTER_AUTH_BASE_PATH = "/api/auth"
 [observability]
 enabled = true
 head_sampling_rate = 1
+
+[dev]
+port = 8000
 
 # The following secrets should be set using `wrangler secret put`:
 # - DATABASE_URL

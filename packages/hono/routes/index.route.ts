@@ -14,7 +14,7 @@ const router = createRouter().openapi(
         z.object({
           message: z.string(),
         }),
-        'ff API index!'
+        'Review Rabbit API index!'
       ),
     },
   }),

@@ -32,7 +32,7 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
             [user.email],
             'Reset your password',
             getResetPasswordEmail(user.name, url),
-            env
+            env.RESEND_API_KEY
           )
         },
       },
@@ -78,7 +78,7 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
             [user.email],
             'Verify your email address',
             getVerifyEmail(user.name, url, env),
-            env
+            env.RESEND_API_KEY
           )
         },
         sendOnSignUp: false,

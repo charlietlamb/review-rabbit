@@ -1,7 +1,7 @@
 import { server } from './server'
 import { client } from './client'
 import { createEnv } from '@t3-oss/env-nextjs'
-
+import { z } from 'zod'
 export const env = createEnv({
   server,
   client,
@@ -69,4 +69,9 @@ export const env = createEnv({
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
   },
+})
+
+export const mainEnvSchema = z.object({
+  ...server,
+  ...client,
 })

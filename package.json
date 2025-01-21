@@ -15,7 +15,7 @@
     "lint": "turbo lint",
     "clean": "turbo clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "deploy:webhooks": "cd apps/webhooks && bun run deploy"
+    "deploy:api": "cd apps/api && bun run deploy"
   },
   "devDependencies": {
     "@types/bun": "latest",

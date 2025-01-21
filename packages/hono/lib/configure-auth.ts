@@ -7,6 +7,8 @@ import { z } from 'zod'
 
 export const authMiddleware = createMiddleware<AppBindings>(async (c, next) => {
   const auth = getAuth(c.env)
+  console.log('--HEADERS--')
+  console.log(c.req.raw.headers)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
   console.log('session', session)
   if (!session) {

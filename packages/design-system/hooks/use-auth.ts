@@ -1,5 +1,5 @@
 import { getAuth } from '@rabbit/auth'
-import { User } from '@rabbit/database/schema/users'
+import { User } from '@rabbit/database/schema/auth/users'
 import getUserImage from '@rabbit/design-system/lib/misc/get-user-image'
 import { headers } from 'next/headers'
 import { env } from '@rabbit/env'

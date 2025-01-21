@@ -4,11 +4,15 @@ export { getResetPasswordEmail } from './components/reset-password-email'
 export { getVerifyEmail } from './components/verify-email'
 import { Resend } from 'resend'
 
-let resend: Resend | null = null
+// let resend: Resend | null = null
+
+// export function getResend(resendApiKey: string) {
+//   if (!resend) {
+//     resend = new Resend(resendApiKey)
+//   }
+//   return resend
+// }
 
 export function getResend(resendApiKey: string) {
-  if (!resend) {
-    resend = new Resend(resendApiKey)
-  }
-  return resend
+  return new Resend(resendApiKey)
 }

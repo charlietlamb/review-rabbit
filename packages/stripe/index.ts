@@ -1,14 +1,21 @@
 import Stripe from 'stripe'
 import { EnvType } from '@rabbit/env'
 
-let stripeInstance: Stripe | null = null
+// let stripeInstance: Stripe | null = null
+
+// export function getStripe(env: EnvType) {
+//   if (!stripeInstance) {
+//     stripeInstance = new Stripe(env.STRIPE_SECRET_KEY, {
+//       typescript: true,
+//     })
+//   }
+//   return stripeInstance
+// }
 
 export function getStripe(env: EnvType) {
-  if (!stripeInstance) {
-    stripeInstance = new Stripe(env.STRIPE_SECRET_KEY, {
-      typescript: true,
-    })
-  }
+  const stripeInstance = new Stripe(env.STRIPE_SECRET_KEY, {
+    typescript: true,
+  })
   return stripeInstance
 }
 

@@ -70,8 +70,3 @@ export const env = createEnv({
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
   },
 })
-
-export const mainEnvSchema = z.object({
-  ...server,
-  ...client,
-})

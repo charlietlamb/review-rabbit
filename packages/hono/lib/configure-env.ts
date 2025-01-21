@@ -1,16 +1,24 @@
 import { AppOpenAPI } from '@rabbit/hono/lib/types'
-import { mainEnvSchema } from '@rabbit/env/get-main-env'
+import { mainEnvSchema } from '@rabbit/env/main-env-schema'
 
-export default function configureCors(app: AppOpenAPI) {
+export function parseEnv(data: any) {
+  const { data: env, error } = mainEnvSchema.safeParse(data)
+
+  if (error) {
+    const errorMessage = `❌ Invalid env - ${Object.entries(
+      error.flatten().fieldErrors
+    )
+      .map(([key, errors]) => `${key}: ${errors.join(',')}`)
+      .join(' | ')}`
+    throw new Error(errorMessage)
+  }
+
+  return env
+}
+
+export default function configureEnv(app: AppOpenAPI) {
   app.use('*', async (c, next) => {
-    try {
-      mainEnvSchema.parse(c.env)
-      return next()
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Invalid environment variables: ${error.message}`)
-      }
-      throw new Error('Invalid environment variables: Unknown error')
-    }
+    parseEnv(c.env)
+    return next()
   })
 }

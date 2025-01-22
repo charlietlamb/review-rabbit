@@ -15,9 +15,8 @@ export const authSession:
   | null = null
 
 export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
-  const db = getDb(env)
-  const auth = betterAuth({
-    database: drizzleAdapter(db, {
+  return betterAuth({
+    database: drizzleAdapter(getDb(env), {
       provider: 'pg',
       usePlural: true,
       schema,
@@ -98,5 +97,4 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
       },
     },
   })
-  return auth!
 }

@@ -12,8 +12,70 @@ const kanit = Kanit({
 })
 
 export const metadata: Metadata = {
-  title: 'review-rabbit',
-  description: 'review-rabbit',
+  title: {
+    default: 'Review Rabbit - Automated Review Generation Platform',
+    template: '%s | Review Rabbit',
+  },
+  description:
+    "Automatically identify clients who haven't left reviews and engage them with personalized outreach. Get more genuine reviews, build trust, and grow your business.",
+  keywords: [
+    'customer reviews',
+    'review generation',
+    'business reviews',
+    'review automation',
+    'customer feedback',
+    'review management',
+    'reputation management',
+  ],
+  authors: [{ name: 'Review Rabbit Team' }],
+  creator: 'Review Rabbit',
+  publisher: 'Review Rabbit',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://reviewrabbit.ai',
+    siteName: 'Review Rabbit',
+    title: 'Review Rabbit - Get More Genuine Customer Reviews',
+    description:
+      "Turn happy customers into glowing reviews. Automatically identify clients who haven't reviewed your business and engage them with personalized outreach campaigns.",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Review Rabbit - Automated Review Generation',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Review Rabbit - Get More Genuine Customer Reviews',
+    description:
+      'Turn happy customers into glowing reviews with automated, personalized outreach campaigns.',
+    images: ['/og-image.png'],
+    creator: '@reviewrabbit',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  themeColor: '#ffffff',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Review Rabbit',
+  },
 }
 
 export default async function RootLayout({

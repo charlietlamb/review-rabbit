@@ -70,7 +70,6 @@ export function Billing() {
     try {
       setIsRedirecting(true)
       const url = await postBillingPortalSession(subscription.customerId)
-      console.log(url)
       router.push(url)
     } catch (error) {
       toast.error('Failed to open billing portal')

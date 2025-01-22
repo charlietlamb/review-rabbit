@@ -42,6 +42,10 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
         enabled: env.NODE_ENV === 'production' ? true : false,
         domain: env.NEXT_PUBLIC_DOMAIN,
       },
+      defaultCookieAttributes: {
+        sameSite: 'none',
+        secure: true,
+      },
     },
     user: {
       additionalFields: {

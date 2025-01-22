@@ -3,7 +3,6 @@ import DashboardSidebar from '@rabbit/design-system/components/dashboard/sidebar
 import SessionProvider from '@rabbit/design-system/components/providers/session-provider'
 import { SidebarProvider } from '@rabbit/design-system/components/ui/sidebar'
 import useAuth from '@rabbit/design-system/hooks/use-auth'
-import useIsUser from '@rabbit/design-system/hooks/use-is-user'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
 import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
@@ -15,7 +14,9 @@ export default async function layout({
   children: React.ReactNode
 }) {
   const [user, account] = await Promise.all([useAuth(), getGoogleAccount()])
-  useIsUser(user)
+  if (!user) {
+    return redirect('/login')
+  }
   const stripeDetails = await getStripeDetails(user.id)
   return (
     <SessionProvider

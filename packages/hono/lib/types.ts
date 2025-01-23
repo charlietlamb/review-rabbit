@@ -1,9 +1,9 @@
 import { OpenAPIHono, RouteConfig, RouteHandler, z } from '@hono/zod-openapi'
 import { PinoLogger } from 'hono-pino'
-import { authSession } from '@rabbit/auth'
+import { authSession, authUser } from '@rabbit/auth'
 import { EnvType } from '@rabbit/env'
-import { User } from '@rabbit/database'
 
+type User = typeof authUser
 type Session = typeof authSession
 
 export interface AppBindings {

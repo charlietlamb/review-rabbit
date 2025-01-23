@@ -7,6 +7,7 @@ import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/on
 import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
 import AppProvider from '@rabbit/design-system/components/providers/app-provider'
+import { redirect } from 'next/navigation'
 
 export default async function layout({
   children,

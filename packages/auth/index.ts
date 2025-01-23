@@ -8,14 +8,14 @@ import { EnvType } from '@rabbit/env'
 
 // let auth: ReturnType<typeof betterAuth> | null = null
 export const authUser:
-  | ReturnType<typeof betterAuth>['$Infer']['Session']['user']
+  | ReturnType<typeof getAuth>['$Infer']['Session']['user']
   | null = null
 export const authSession:
-  | ReturnType<typeof betterAuth>['$Infer']['Session']['session']
+  | ReturnType<typeof getAuth>['$Infer']['Session']['session']
   | null = null
 
-export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
-  return betterAuth({
+export function getAuth(env: EnvType) {
+  const auth = betterAuth({
     database: drizzleAdapter(getDb(env), {
       provider: 'pg',
       usePlural: true,
@@ -49,11 +49,6 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
     },
     user: {
       additionalFields: {
-        name: {
-          type: 'string',
-          required: false,
-          defaultValue: '',
-        },
         imageUploaded: {
           type: 'boolean',
           required: true,
@@ -106,4 +101,5 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
       },
     },
   })
+  return auth
 }

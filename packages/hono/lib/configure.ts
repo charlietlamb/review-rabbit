@@ -8,11 +8,11 @@ import configureStripe from '@rabbit/hono/lib/configure-stripe'
 import configureEnv from '@rabbit/hono/lib/configure-env'
 
 export default function configure(app: AppOpenAPI) {
-  configureEnv(app)
   configureCors(app)
+  configureEnv(app)
   configureAuth(app)
   configureBetterAuth(app)
-  configureOpenAPI(app)
   configureRedirects(app)
   configureStripe(app)
+  configureOpenAPI(app)
 }

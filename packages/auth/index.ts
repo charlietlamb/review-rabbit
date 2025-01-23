@@ -49,6 +49,11 @@ export function getAuth(env: EnvType): ReturnType<typeof betterAuth> {
     },
     user: {
       additionalFields: {
+        name: {
+          type: 'string',
+          required: false,
+          defaultValue: '',
+        },
         imageUploaded: {
           type: 'boolean',
           required: true,

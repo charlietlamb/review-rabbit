@@ -4,9 +4,23 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-NODE_ENV = "production"
-LOG_LEVEL = "info"
+NEXT_PUBLIC_DOMAIN = "localhost"
+NEXT_PUBLIC_WEB = "http://localhost:3000"
+NEXT_PUBLIC_API = "http://localhost:8000"
+NEXT_PUBLIC_AWS_S3_URL = "https://charlie-lamb-dev-bucket.s3.eu-west-2.amazonaws.com/"
+NEXT_PUBLIC_AWS_CLOUDFRONT_URL = "https://d1xwrryt2q5y73.cloudfront.net"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_51QhzlIK6adjUUMqWK2qQNsxnmPKCTmxg3gAHmNUAcOaOqdaVsXd6JPyXaRQY0n1zh8l9WmEKjnpymY2ZXbf7xAyK00IaFYdpQK"
+NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID = "price_1QhzscK6adjUUMqWlGHvfZLi"
+NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_YEARLY = "price_1QiK4kK6adjUUMqWwuzKFO9q"
+NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO = "price_1Qi051K6adjUUMqWulcHcY5i"
+NEXT_PUBLIC_STRIPE_PLAN_PRICE_ID_PRO_YEARLY = "price_1QiK5jK6adjUUMqWVKK1U1Nk"
+NEXT_PUBLIC_GOOGLE_CLIENT_ID = "464321869076-rn7h05ekv0li0u46c2vqh9j5l27kkgsi.apps.googleusercontent.com"
+NEXT_PUBLIC_POSTHOG_KEY = "phc_uK289zVu2xrBQ8HCWgEjwEthKXcxSptIC3pOxiIIlFT"
+NEXT_PUBLIC_POSTHOG_HOST = "https://us.i.posthog.com"
+AWS_REGION = "eu-west-2"
 BETTER_AUTH_BASE_PATH = "/api/auth"
+LOG_LEVEL = "info"
+NODE_ENV = "production"
 
 [observability]
 enabled = true
@@ -14,20 +28,3 @@ head_sampling_rate = 1
 
 [dev]
 port = 8000
-
-# The following secrets should be set using `wrangler secret put`:
-# - DATABASE_URL
-# - AWS_ACCESS_KEY_ID
-# - AWS_SECRET_ACCESS_KEY
-# - AWS_REGION
-# - AWS_S3_BUCKET_NAME
-# - BETTER_AUTH_SECRET
-# - STRIPE_SECRET_KEY
-# - STRIPE_TEST_SECRET_KEY
-# - STRIPE_WEBHOOK_SECRET
-# - STRIPE_CLIENT_ID
-# - GOOGLE_CLIENT_SECRET
-# - RESEND_API_KEY
-# - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-# - NEXT_PUBLIC_POSTHOG_KEY
-# - NEXT_PUBLIC_GOOGLE_CLIENT_ID

@@ -6,12 +6,9 @@ import { env } from '@rabbit/env'
 
 export default async function useAuth(): Promise<User | null> {
   const auth = getAuth(env)
-  const headersList = await headers()
-  console.log('headersList', headersList)
   const session = await auth.api.getSession({
-    headers: headersList,
+    headers: await headers(),
   })
-  console.log('session', session)
   if (!session) return null
   session.user.image = await getUserImage(session.user as User)
   return session.user as User

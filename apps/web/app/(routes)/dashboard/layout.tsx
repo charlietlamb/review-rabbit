@@ -7,15 +7,12 @@ import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/on
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
 import AppProvider from '@rabbit/design-system/components/providers/app-provider'
 import { redirect } from 'next/navigation'
-import { headers } from 'next/headers'
 
 export default async function layout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const headersList = await headers()
-  console.log('headersList', headersList)
   const user = await useAuth()
   if (!user) {
     return redirect('/login')

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { DesignSystemProvider } from '@rabbit/design-system'
 import '@rabbit/design-system/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
@@ -10,6 +10,13 @@ const kanit = Kanit({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-kanit',
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#ffffff',
+}
 
 export const metadata: Metadata = {
   title: {
@@ -59,18 +66,12 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
     creator: '@reviewrabbit',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
-  themeColor: '#ffffff',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

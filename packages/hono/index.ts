@@ -13,6 +13,7 @@ import clicks from '@rabbit/hono/routes/clicks/clicks.index'
 
 const app = createApp()
 
+configure(app)
 // Add routes before configuration
 const routes = [
   index,
@@ -30,8 +31,6 @@ const routes = [
 routes.forEach((route) => {
   app.route('/', route)
 })
-
-configure(app)
 
 export default app
 

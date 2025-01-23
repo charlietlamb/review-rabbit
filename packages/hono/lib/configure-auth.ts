@@ -6,6 +6,7 @@ import { jsonContent } from 'stoker/openapi/helpers'
 import { z } from 'zod'
 
 export const authMiddleware = createMiddleware<AppBindings>(async (c, next) => {
+  console.log('---authMiddleware---')
   const auth = getAuth(c.env)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
   if (!session) {

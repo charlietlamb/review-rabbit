@@ -5,18 +5,16 @@ import { sendEmail, getVerifyEmail, getResetPasswordEmail } from '@rabbit/email'
 import * as schema from '@rabbit/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 import { EnvType } from '@rabbit/env'
+import { Database } from '@rabbit/database'
 
-// let auth: ReturnType<typeof betterAuth> | null = null
-export const authUser:
-  | ReturnType<typeof getAuth>['$Infer']['Session']['user']
-  | null = null
-export const authSession:
-  | ReturnType<typeof getAuth>['$Infer']['Session']['session']
-  | null = null
+export type AuthUser = ReturnType<typeof getAuth>['$Infer']['Session']['user']
+export type AuthSession = ReturnType<
+  typeof getAuth
+>['$Infer']['Session']['session']
 
-export function getAuth(env: EnvType) {
+export function getAuth(env: EnvType, db?: Database) {
   const auth = betterAuth({
-    database: drizzleAdapter(getDb(env), {
+    database: drizzleAdapter(db || getDb(env), {
       provider: 'pg',
       usePlural: true,
       schema,
@@ -41,10 +39,6 @@ export function getAuth(env: EnvType) {
       crossSubDomainCookies: {
         enabled: env.NODE_ENV === 'production' ? true : false,
         domain: env.NEXT_PUBLIC_DOMAIN,
-      },
-      defaultCookieAttributes: {
-        sameSite: 'none',
-        secure: true,
       },
     },
     user: {

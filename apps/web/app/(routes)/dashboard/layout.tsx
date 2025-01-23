@@ -4,27 +4,25 @@ import SessionProvider from '@rabbit/design-system/components/providers/session-
 import { SidebarProvider } from '@rabbit/design-system/components/ui/sidebar'
 import useAuth from '@rabbit/design-system/hooks/use-auth'
 import Onboarding from '@rabbit/design-system/components/dashboard/onboarding/onboarding'
-import { getGoogleAccount } from '@rabbit/design-system/actions/auth/user/get-google-account'
 import { getStripeDetails } from '@rabbit/stripe/lib/get-stripe-details'
 import AppProvider from '@rabbit/design-system/components/providers/app-provider'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
 export default async function layout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const [user, account] = await Promise.all([useAuth(), getGoogleAccount()])
+  const headersList = await headers()
+  console.log('headersList', headersList)
+  const user = await useAuth()
   if (!user) {
     return redirect('/login')
   }
   const stripeDetails = await getStripeDetails(user.id)
   return (
-    <SessionProvider
-      user={user}
-      account={account}
-      stripeDetails={stripeDetails}
-    >
+    <SessionProvider user={user} account={null} stripeDetails={stripeDetails}>
       <AppProvider>
         <SidebarProvider className="flex w-full flex-grow">
           <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">

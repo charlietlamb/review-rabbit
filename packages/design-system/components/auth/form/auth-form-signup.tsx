@@ -42,6 +42,8 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         email,
         password,
       })
+      console.log('data', data)
+      console.log('error', error)
       if (error) {
         toast.error('Something went wrong', {
           description: 'Make sure you email is correct and try again.',
@@ -53,7 +55,6 @@ export default function AuthFormSignup({ className }: { className?: string }) {
         })
         router.push('/dashboard')
       }
-      router.push('/dashboard')
       setIsLoading(false)
     },
     validatorAdapter: zodValidator(),

@@ -6,6 +6,7 @@ import * as schema from '@rabbit/database/schema'
 import { oneTap, openAPI } from 'better-auth/plugins'
 import { EnvType } from '@rabbit/env'
 
+export type Auth = ReturnType<typeof getAuth>
 export type AuthUser = ReturnType<typeof getAuth>['$Infer']['Session']['user']
 export type AuthSession = ReturnType<
   typeof getAuth
@@ -44,7 +45,7 @@ export function getAuth(env: EnvType) {
       additionalFields: {
         imageUploaded: {
           type: 'boolean',
-          required: true,
+          required: false,
           defaultValue: false,
           input: false,
         },
@@ -57,12 +58,12 @@ export function getAuth(env: EnvType) {
         plan: {
           type: 'string',
           defaultValue: 'free',
-          required: true,
+          required: false,
         },
         onboardingCompleted: {
           type: 'boolean',
           defaultValue: false,
-          required: true,
+          required: false,
           input: false,
         },
       },

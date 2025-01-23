@@ -4,6 +4,7 @@ import '@rabbit/design-system/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Kanit } from 'next/font/google'
+import { env } from '@rabbit/env'
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -19,9 +20,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? 'https://reviewrabbit.ai'
-  ),
+  metadataBase: new URL(env.NEXT_PUBLIC_WEB),
   title: {
     default: 'Review Rabbit - Automated Review Generation Platform',
     template: '%s | Review Rabbit',

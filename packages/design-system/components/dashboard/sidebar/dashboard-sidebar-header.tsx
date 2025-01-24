@@ -7,7 +7,7 @@ export default function DashboardSidebarHeader() {
   return (
     <Link
       href="/dashboard"
-      className="justify-center w-full h-16 flex items-center gap-2 p-4 group"
+      className="group w-full h-16 flex items-center gap-2 p-4 justify-center"
     >
       <LogoSvg className="min-w-8 min-h-8 fill-muted-foreground text-muted-foreground group-hover:text-foreground group-hover:fill-foreground transition-all duration-300" />
       {open && (

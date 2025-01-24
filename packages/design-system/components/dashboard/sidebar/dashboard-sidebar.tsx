@@ -17,11 +17,13 @@ import DashboardSidebarMenuItem from './dashboard-sidebar-menu'
 import DashboardSidebarFooter from './footer/dashboard-sidebar-footer'
 import { useSidebar } from '@rabbit/design-system/components/ui/sidebar'
 import { cn } from '@rabbit/design-system/lib/utils'
+import DashboardSidebarHeader from './dashboard-sidebar-header'
 
 export default function DashboardSidebar() {
   const { open } = useSidebar()
   return (
     <Sidebar collapsible="icon" className="border-none border-t">
+      <DashboardSidebarHeader />
       <SidebarContent className={cn('py-2 md:py-0', open && 'px-4')}>
         <SidebarMenu>
           <SidebarGroupLabel className={cn(!open && 'hidden')}>

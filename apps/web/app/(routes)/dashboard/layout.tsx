@@ -35,13 +35,13 @@ export default async function layout({
     <SessionProvider user={user} account={null} stripeDetails={stripeDetails}>
       <AppProvider>
         <SidebarProvider className="flex w-full flex-grow">
-          <div className="w-full h-screen flex flex-col overflow-hidden bg-background relative">
+          <div className="w-full h-screen flex overflow-hidden bg-background relative">
             {user && !user.onboardingCompleted && false && (
               <Onboarding user={user} />
             )}
-            <DashboardHeader />
-            <div className="w-full flex-grow flex overflow-hidden relative">
-              <DashboardSidebar />
+            <DashboardSidebar />
+            <div className="w-full flex-grow flex flex-col overflow-hidden relative">
+              <DashboardHeader />
               <div className="flex flex-col flex-grow overflow-y-auto bg-background">
                 {children}
               </div>
